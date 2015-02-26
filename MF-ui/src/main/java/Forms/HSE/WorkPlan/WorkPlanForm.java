@@ -105,6 +105,18 @@ public class WorkPlanForm extends FormLayout {
                 tf.setNullRepresentation("");
             }
         }
+
+        startDate.setRequired(true);
+        startDate.setRequiredError("Mora se uneti vrednost !");
+
+        fuelStation.setRequired(true);
+        fuelStation.setRequiredError("Mora se uneti vrednost !");
+
+        contractor.setRequired(true);
+        contractor.setRequiredError("Mora se uneti vrednost !");
+
+        worktype.setRequired(true);
+        worktype.setRequiredError("Mora se uneti vrednost !");
     }
 
     public WorkPlanForm(final CrudOperations crudOperation, final IRefreshVisualContainer visualContainer) {
@@ -131,7 +143,7 @@ public class WorkPlanForm extends FormLayout {
                         n.setDelayMsec(500);
                         n.show(getUI().getPage());
                     } catch (Exception ex) {
-                        Notification.show("Error", "Description: " + ex.toString(), Notification.Type.ERROR_MESSAGE);
+                        Notification.show("Greška.", "MORATE UNETI POLJA OZNAČENA ZVEZDICOM !", Notification.Type.ERROR_MESSAGE);
                     }
                 }
             };

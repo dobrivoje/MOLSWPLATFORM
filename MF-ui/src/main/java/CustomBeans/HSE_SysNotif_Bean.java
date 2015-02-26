@@ -26,8 +26,8 @@ public class HSE_SysNotif_Bean {
     private FuelStation fs;
     @Column(name = "sumFinishedWorkPlans")
     private int sumFinishedWorkPlans;
-    @Column(name = "sumUnfinishedWorkPlans")
-    private int sumUnfinishedWorkPlans;
+    @Column(name = "total")
+    private int total;
 
     public HSE_SysNotif_Bean() {
     }
@@ -60,12 +60,12 @@ public class HSE_SysNotif_Bean {
         this.sumFinishedWorkPlans = sumFinishedWorkPlans;
     }
 
-    public int getSumUnfinishedWorkPlans() {
-        return sumUnfinishedWorkPlans;
+    public int getTotal() {
+        return total;
     }
 
-    public void setSumUnfinishedWorkPlans(int sumUnfinishedWorkPlans) {
-        this.sumUnfinishedWorkPlans = sumUnfinishedWorkPlans;
+    public void setTotal(int total) {
+        this.total = total;
     }
 
     @Override

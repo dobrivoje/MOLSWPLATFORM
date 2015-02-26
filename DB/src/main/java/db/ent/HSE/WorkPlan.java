@@ -50,6 +50,7 @@ public class WorkPlan implements Serializable {
     @Basic(optional = false)
     @Column(name = "IDWP")
     private Long idwp;
+    @Basic(optional = false)
     @Column(name = "StartDate")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date startDate;
@@ -57,18 +58,21 @@ public class WorkPlan implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date endDate;
     @Size(max = 50)
+    @Basic(optional = false)
     @Column(name = "Contractor")
     private String contractor;
     @Size(max = 50)
     @Column(name = "SubContractor")
     private String subContractor;
     @Size(max = 50)
+    @Basic(optional = false)
     @Column(name = "Worktype")
     private String worktype;
     @Size(max = 50)
     @Column(name = "Termin")
     private String termin;
     @Size(max = 10)
+    @Basic(optional = false)
     @Column(name = "Duration")
     private String duration;
     @Column(name = "Comment")

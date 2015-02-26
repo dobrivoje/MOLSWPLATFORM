@@ -11,9 +11,9 @@ import com.vaadin.data.util.filter.Or;
 import com.vaadin.data.util.filter.SimpleStringFilter;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.CheckBox;
-import db.controllers.HSE.Controller;
 import db.controllers.HSE.WPController;
 import db.ent.HSE.WorkPlan;
+import java.util.List;
 
 /**
  *
@@ -22,11 +22,11 @@ import db.ent.HSE.WorkPlan;
 public class WorkPlanTable extends GENTable<WorkPlan> {
 
     public WorkPlanTable() {
-        this(new BeanItemContainer<>(WorkPlan.class), new WPController());
+        this(new BeanItemContainer<>(WorkPlan.class), new WPController().getAll());
     }
 
-    public WorkPlanTable(BeanItemContainer<WorkPlan> beanContainer, Controller controller) {
-        super(beanContainer, controller);
+    public WorkPlanTable(BeanItemContainer<WorkPlan> beanContainer, List list) {
+        super(beanContainer, list);
 
         addGeneratedColumn("finished1", new Table.ColumnGenerator() {
             @Override

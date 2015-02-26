@@ -41,7 +41,7 @@ public class HSE_SysNotifController {
             }
 
             hse.setSumFinishedWorkPlans(sumFinishedWorkPlans);
-            hse.setSumUnfinishedWorkPlans(wpc.getFSWorkPlans(fs).size() - sumFinishedWorkPlans);
+            hse.setTotal(wpc.getFSWorkPlans(fs).size());
 
             L.add(hse);
         }

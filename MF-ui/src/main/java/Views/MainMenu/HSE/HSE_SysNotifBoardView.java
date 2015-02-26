@@ -5,6 +5,7 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 
 public class HSE_SysNotifBoardView extends VerticalLayout implements View {
@@ -14,25 +15,29 @@ public class HSE_SysNotifBoardView extends VerticalLayout implements View {
     private final VerticalLayout VL = new VerticalLayout();
     private final GridLayout GL = new GridLayout();
 
-    private final HSE_SysNotifTable hseSysNotiftable = new HSE_SysNotifTable();
+    private final Panel p = new Panel();
+
+    private final HSE_SysNotifTable hseSysNotifTable = new HSE_SysNotifTable();
 
     public HSE_SysNotifBoardView() {
         //<editor-fold defaultstate="collapsed" desc="UI setup">
         setSizeFull();
         addStyleName("crud-view");
-        VL.setSizeFull();
-        VL.setMargin(true);
-        VL.setSpacing(true);
-
-        HorizontalLayout topLayout = createTopBar();
 
         GL.setRows(3);
         GL.setColumns(3);
-        
-        hseSysNotiftable.setWidth(70, Unit.PERCENTAGE);
-        hseSysNotiftable.setHeight(50, Unit.PERCENTAGE);
-        
-        GL.addComponent(hseSysNotiftable, 0, 0);
+
+        VL.setSizeFull();
+        VL.setMargin(true);
+
+        HorizontalLayout topLayout = createTopBar();
+
+        hseSysNotifTable.setSizeFull();
+        p.setWidth(35, Unit.PERCENTAGE);
+        p.setHeight(350, Unit.PIXELS);
+        p.setCaption("Workplans Report");
+        p.setContent(hseSysNotifTable);
+        GL.addComponent(p, 0, 0);
 
         VL.addComponent(topLayout);
         VL.addComponent(GL);

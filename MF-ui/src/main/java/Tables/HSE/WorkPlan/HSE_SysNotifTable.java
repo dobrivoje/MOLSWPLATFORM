@@ -5,12 +5,13 @@
  */
 package Tables.HSE.WorkPlan;
 
-import CustomBeans.HSE_GENTable;
 import CustomBeans.HSE_SysNotifController;
 import CustomBeans.HSE_SysNotif_Bean;
+import Tables.GENTable;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.Align;
+import java.util.List;
 import org.superb.apps.utilities.Enums.WorkingPlansStatuses;
 import org.superb.apps.utilities.vaadin.FancyLabels.WPSLabel;
 
@@ -18,14 +19,14 @@ import org.superb.apps.utilities.vaadin.FancyLabels.WPSLabel;
  *
  * @author root
  */
-public class HSE_SysNotifTable extends HSE_GENTable<HSE_SysNotif_Bean> {
+public class HSE_SysNotifTable extends GENTable<HSE_SysNotif_Bean> {
 
     public HSE_SysNotifTable() {
-        this(new BeanItemContainer<>(HSE_SysNotif_Bean.class), new HSE_SysNotifController());
+        this(new BeanItemContainer<>(HSE_SysNotif_Bean.class), new HSE_SysNotifController().getSysNotifBoard_Report1());
     }
 
-    public HSE_SysNotifTable(BeanItemContainer<HSE_SysNotif_Bean> beanContainer, HSE_SysNotifController hseController) {
-        super(beanContainer, hseController);
+    public HSE_SysNotifTable(BeanItemContainer<HSE_SysNotif_Bean> beanContainer, List list) {
+        super(beanContainer, list);
 
         addGeneratedColumn("finished", new Table.ColumnGenerator() {
             @Override
@@ -33,30 +34,33 @@ public class HSE_SysNotifTable extends HSE_GENTable<HSE_SysNotif_Bean> {
                 HSE_SysNotif_Bean hse = (HSE_SysNotif_Bean) row;
                 WPSLabel label;
 
-                switch (hse.getSumFinishedWorkPlans()) {
+                switch (hse.getTotal() - hse.getSumFinishedWorkPlans()) {
                     case 0:
-                        label = new WPSLabel(WorkingPlansStatuses.IN_PROGRESS, WorkingPlansStatuses.IN_PROGRESS.toString());
+                        label = new WPSLabel(WorkingPlansStatuses.FINISHED, "OK");
                         break;
                     default:
-                        label = new WPSLabel(WorkingPlansStatuses.UNKNOWN, WorkingPlansStatuses.UNKNOWN.toString());
+                        label = new WPSLabel(WorkingPlansStatuses.IN_PROGRESS, WorkingPlansStatuses.IN_PROGRESS.toString());
                 }
 
                 return label;
             }
         });
-        addGeneratedColumn("total", new Table.ColumnGenerator() {
+        addGeneratedColumn("fs1", new Table.ColumnGenerator() {
             @Override
             public Object generateCell(final Table source, final Object row, Object column) {
-                return "---";
+                return ((HSE_SysNotif_Bean) row).getFs().getName();
             }
         });
 
-        setVisibleColumns("fs", "finished", "total");
-        setColumnHeaders("Fuel Station", "Finished ? ", "Total");
+        setVisibleColumns("fs1", "finished", "total");
+        setColumnCollapsible("fs1", true);
+        setColumnCollapsible("finished", true);
+        setColumnHeaders("Fuel Station", "Finished ? ", "Total plans");
+        
 
         //setColumnWidth("finished", 82);
         //setColumnWidth("total", 82);
-        setColumnAlignment("fs", Align.CENTER);
+        setColumnAlignment("fs1", Align.CENTER);
         setColumnAlignment("finished", Align.CENTER);
         setColumnAlignment("total", Align.CENTER);
     }
