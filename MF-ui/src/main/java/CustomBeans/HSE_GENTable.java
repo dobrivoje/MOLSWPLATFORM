@@ -3,32 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Tables;
+package CustomBeans;
 
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Table;
-import db.controllers.HSE.Controller;
 import java.util.List;
 import org.superb.apps.utilities.vaadin.Tables.IRefreshVisualContainer;
 
 /**
  *
  * @author root
+ * @param <T>
  */
-public class GENTable<T> extends Table implements IRefreshVisualContainer {
+public class HSE_GENTable<T> extends Table implements IRefreshVisualContainer {
 
     protected final BeanItemContainer<T> beanContainer;
-    protected final Controller controller;
+    protected final HSE_SysNotifController controller;
 
-    public GENTable(BeanItemContainer<T> beanContainer, Controller controller) {
+    public HSE_GENTable(BeanItemContainer<T> beanContainer, HSE_SysNotifController controller) {
         this.beanContainer = beanContainer;
         this.controller = controller;
 
         setContainerDataSource(beanContainer);
-        updateBeanItemContainer(controller.getAll());
+        updateBeanItemContainer(controller.getSysNotifBoard_Report1());
 
         setSizeFull();
-        
+
         setPageLength(20);
         setCacheRate(4);
         setSelectable(true);
@@ -43,7 +43,7 @@ public class GENTable<T> extends Table implements IRefreshVisualContainer {
 
     @Override
     public void refreshVisualContainer() {
-        updateBeanItemContainer(controller.getAll());
+        updateBeanItemContainer(controller.getSysNotifBoard_Report1());
         markAsDirtyRecursive();
     }
 }

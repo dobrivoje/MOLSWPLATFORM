@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "WorkPlan.findAll", query = "SELECT w FROM WorkPlan w"),
     @NamedQuery(name = "WorkPlan.findAllSortByDateDesc", query = "SELECT w FROM WorkPlan w ORDER BY w.startDate DESC"),
+    @NamedQuery(name = "WorkPlan.getByFS", query = "SELECT w FROM WorkPlan w WHERE w.FK_FuelStation = :FSID"),
     @NamedQuery(name = "WorkPlan.findAllFinishedSortByDateAsc", query = "SELECT w FROM WorkPlan w WHERE w.finished = :finished ORDER BY w.startDate ASC"),
     @NamedQuery(name = "WorkPlan.findByIdwp", query = "SELECT w FROM WorkPlan w WHERE w.idwp = :idwp"),
     @NamedQuery(name = "WorkPlan.findByDate", query = "SELECT w FROM WorkPlan w WHERE w.startDate = :date"),

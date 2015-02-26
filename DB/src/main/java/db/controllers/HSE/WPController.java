@@ -5,6 +5,7 @@
  */
 package db.controllers.HSE;
 
+import db.ent.HSE.FuelStation;
 import db.ent.HSE.WorkPlan;
 import java.util.List;
 
@@ -18,6 +19,10 @@ public class WPController extends Controller<WorkPlan> {
     @Override
     public List<WorkPlan> getAll() {
         return DBH.getAllWorkPlans();
+    }
+    
+    public List<WorkPlan> getFSWorkPlans(FuelStation fuelStation) {
+        return DBH.getFSWorkPlans(fuelStation);
     }
 
     @Override
