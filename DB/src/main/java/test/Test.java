@@ -5,7 +5,9 @@
  */
 package test;
 
+import db.controllers.HSE.FSController;
 import db.controllers.HSE.WPController;
+import db.ent.HSE.FuelStation;
 import db.ent.HSE.WorkPlan;
 
 /**
@@ -18,8 +20,9 @@ public class Test {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        WPController wpc = new WPController();
         int i = 0;
-        for (WorkPlan fs : new WPController().getNewestWorkPlans()) {
+        for (WorkPlan fs : wpc.getNewestWorkPlans()) {
             System.err.println(
                     ++i + ". "
                     + fs.getStartDate() + ", "
@@ -28,6 +31,12 @@ public class Test {
                     + fs.getWorktype() + ", "
                     + fs.getFK_FuelStation().toString()
             );
+        }
+
+        System.err.println("How meny finished WPs ?");
+        for (FuelStation fs : new FSController().getAll()) {
+            System.err.println(fs.getName()+" - "+ wpc.getWorkPlansCountByStation(fs, true));
+            System.err.println(fs.getName()+" - "+ wpc.getWorkPlansCountByStation(fs, false));
         }
 
     }

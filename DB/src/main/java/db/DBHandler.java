@@ -23,14 +23,14 @@ public class DBHandler {
     private static final String PERSISTENCE_UNIT_ID = "org.superb.apps.ws.FSOfficeCom_PU";
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_ID);
     private static final EntityManager em = emf.createEntityManager();
-    
+
     public static synchronized EntityManager getEm() throws NullPointerException, Exception, java.net.UnknownHostException, java.sql.SQLException {
         return em;
     }
-    
+
     private DBHandler() {
     }
-    
+
     public static DBHandler getDefault() {
         return instance == null ? instance = new DBHandler() : instance;
     }
@@ -45,7 +45,7 @@ public class DBHandler {
             return null;
         }
     }
-    
+
     public FuelStation getFuelStationByID(Long fsID) {
         try {
             return (FuelStation) getEm().createNamedQuery("FuelStation.findById")
@@ -55,7 +55,7 @@ public class DBHandler {
             return null;
         }
     }
-    
+
     public List<FuelStation> getFuelStation(String partialName) {
         try {
             return getEm().createNamedQuery("FuelStation.findByName")
@@ -77,7 +77,7 @@ public class DBHandler {
             return null;
         }
     }
-    
+
     public List<WorkPlan> getFSWorkPlans(FuelStation fs) {
         try {
             return (List<WorkPlan>) getEm().createNamedQuery("WorkPlan.getByFS")
@@ -87,7 +87,18 @@ public class DBHandler {
             return null;
         }
     }
-    
+
+    public int getWorkPlansCountByStation(FuelStation fs, boolean finished) {
+        try {
+            return (int) getEm().createNamedQuery("WorkPlan.getFinishedWPByFS")
+                    .setParameter("FSID", fs)
+                    .setParameter("finished", finished)
+                    .getSingleResult();
+        } catch (Exception ex) {
+            return 0;
+        }
+    }
+
     public List<WorkPlan> getNewestWorkPlans() {
         try {
             return (List<WorkPlan>) getEm().createNamedQuery("WorkPlan.findAllSortByDateDesc").getResultList();
@@ -95,7 +106,7 @@ public class DBHandler {
             return null;
         }
     }
-    
+
     public List<WorkPlan> getAllWorkPlansFinished(boolean finished) {
         try {
             return getEm().createNamedQuery("WorkPlan.findAllFinishedSortByDateAsc")
@@ -105,7 +116,7 @@ public class DBHandler {
             return null;
         }
     }
-    
+
     public FuelStation getWorkPlanByID(Long wpID) {
         try {
             return (FuelStation) getEm().createNamedQuery("WorkPlan.findByIdwp")
@@ -123,7 +134,7 @@ public class DBHandler {
         em.persist(workPlan);
         getEm().getTransaction().commit();
     }
-    
+
     public void updateWorkPlan(WorkPlan workPlan) throws Exception {
         getEm().getTransaction().begin();
         em.merge(workPlan);

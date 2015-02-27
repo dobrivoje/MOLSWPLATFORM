@@ -20,7 +20,7 @@ public class WPController extends Controller<WorkPlan> {
     public List<WorkPlan> getAll() {
         return DBH.getAllWorkPlans();
     }
-    
+
     public List<WorkPlan> getFSWorkPlans(FuelStation fuelStation) {
         return DBH.getFSWorkPlans(fuelStation);
     }
@@ -36,6 +36,10 @@ public class WPController extends Controller<WorkPlan> {
 
     public List<WorkPlan> getAllWorkPlansFinished(boolean finished) {
         return DBH.getAllWorkPlansFinished(finished);
+    }
+
+    public int getWorkPlansCountByStation(FuelStation fs, boolean finished) {
+        return DBH.getWorkPlansCountByStation(fs, finished);
     }
     //</editor-fold>
 
