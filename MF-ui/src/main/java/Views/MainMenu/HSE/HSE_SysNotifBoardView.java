@@ -1,7 +1,7 @@
 package Views.MainMenu.HSE;
 
-import CustomBeans.HSE_SysNotifController;
-import CustomBeans.HSE_SysNotif_Bean;
+import Custom.HSE.HSE_SysNotifController;
+import Custom.HSE.HSE_SysNotif_Bean;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.HorizontalLayout;

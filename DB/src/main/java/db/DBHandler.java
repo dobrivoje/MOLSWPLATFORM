@@ -116,6 +116,15 @@ public class DBHandler {
             return null;
         }
     }
+    
+    public int getFinished() {
+        try {
+            return (int) getEm().createNamedQuery("WorkPlan.getFinished")
+                    .getSingleResult();
+        } catch (Exception ex) {
+            return 0;
+        }
+    }
 
     public FuelStation getWorkPlanByID(Long wpID) {
         try {

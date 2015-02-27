@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CustomBeans;
+package Custom.HSE;
 
 import db.ent.HSE.FuelStation;
 import javax.persistence.Column;
