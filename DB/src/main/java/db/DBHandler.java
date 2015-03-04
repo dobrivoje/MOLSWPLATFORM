@@ -88,14 +88,14 @@ public class DBHandler {
         }
     }
 
-    public int getWorkPlansCountByStation(FuelStation fs, boolean finished) {
+    public Long getWorkPlansCountByStation(FuelStation fs, boolean finished) {
         try {
-            return (int) getEm().createNamedQuery("WorkPlan.getFinishedWPByFS")
+            return (Long) getEm().createNamedQuery("WorkPlan.getFinishedWPByFS")
                     .setParameter("FSID", fs)
                     .setParameter("finished", finished)
                     .getSingleResult();
         } catch (Exception ex) {
-            return 0;
+            return 0L;
         }
     }
 
@@ -114,15 +114,6 @@ public class DBHandler {
                     .getResultList();
         } catch (Exception ex) {
             return null;
-        }
-    }
-    
-    public int getFinished() {
-        try {
-            return (int) getEm().createNamedQuery("WorkPlan.getFinished")
-                    .getSingleResult();
-        } catch (Exception ex) {
-            return 0;
         }
     }
 

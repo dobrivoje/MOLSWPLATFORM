@@ -11,9 +11,9 @@ import com.vaadin.data.util.filter.Or;
 import com.vaadin.data.util.filter.SimpleStringFilter;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.CheckBox;
-import db.controllers.HSE.WPController;
 import db.ent.HSE.WorkPlan;
 import java.util.List;
+import static ws.MyUI.DS;
 
 /**
  *
@@ -22,7 +22,7 @@ import java.util.List;
 public class WorkPlanTable extends GENTable<WorkPlan> {
 
     public WorkPlanTable() {
-        this(new BeanItemContainer<>(WorkPlan.class), new WPController().getAll());
+        this(new BeanItemContainer<>(WorkPlan.class), DS.getWPController().getAll());
     }
 
     public WorkPlanTable(BeanItemContainer<WorkPlan> beanContainer, List list) {

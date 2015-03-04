@@ -5,6 +5,7 @@
  */
 package db.controllers.HSE;
 
+import db.DBHandler;
 import db.ent.HSE.FuelStation;
 import java.util.List;
 
@@ -13,6 +14,10 @@ import java.util.List;
  * @author dprtenjak
  */
 public class FSController extends Controller<FuelStation> {
+
+    public FSController(DBHandler DBH) {
+        super(DBH);
+    }
 
     public List<FuelStation> getFuelStation(String partialName) {
         return DBH.getFuelStation(partialName);

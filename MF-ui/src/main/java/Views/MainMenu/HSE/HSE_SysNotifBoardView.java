@@ -1,7 +1,6 @@
 package Views.MainMenu.HSE;
 
-import Custom.HSE.HSE_SysNotifController;
-import Custom.HSE.HSE_SysNotif_Bean;
+import reports.ent.HSE.HSE_SysNotif_Bean;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.HorizontalLayout;
@@ -19,6 +18,7 @@ import org.dussan.vaadin.dcharts.options.Legend;
 import org.dussan.vaadin.dcharts.options.Options;
 import org.dussan.vaadin.dcharts.options.SeriesDefaults;
 import org.dussan.vaadin.dcharts.renderers.series.PieRenderer;
+import static ws.MyUI.DS;
 
 public class HSE_SysNotifBoardView extends VerticalLayout implements View {
 
@@ -86,7 +86,7 @@ public class HSE_SysNotifBoardView extends VerticalLayout implements View {
 
     private DCharts generatePie() {
 
-        for (HSE_SysNotif_Bean r1 : new HSE_SysNotifController().getSysNotifBoard_Report1()) {
+        for (HSE_SysNotif_Bean r1 : DS.getHSESysNotifController().getSysNotifBoard_Report1()) {
             if (r1.getTotal() > 3) {
                 dataSeries.newSeries().add(r1.getFs().getName(), r1.getTotal());
             }
@@ -123,7 +123,7 @@ public class HSE_SysNotifBoardView extends VerticalLayout implements View {
         Axes axes = new Axes();
         SeriesDefaults seriesDefaults = new SeriesDefaults().setRenderer(SeriesRenderers.BAR);
 
-        for (HSE_SysNotif_Bean r1 : new HSE_SysNotifController().getSysNotifBoard_Report1()) {
+        for (HSE_SysNotif_Bean r1 : DS.getHSESysNotifController().getSysNotifBoard_Report1()) {
             ds2.add(r1.getTotal());
 
             axes.addAxis(new XYaxis()

@@ -15,37 +15,6 @@
         <vaadin.resource.directory>${project.build.directory}/${project.build.finalName}</vaadin.resource.directory>
     </properties>
 
-    <dependencies>
-        <!--
-            Include the WAR-module as an overlay.
-          -->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>WS-ui</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-            <scope>runtime</scope>
-        </dependency>
-        <!--
-            Also include the compiled classes as a provided dependency so that the GWT compiler can pick up
-            all the GWT modules.
-          -->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>WS-ui</artifactId>
-            <version>${project.version}</version>
-            <classifier>classes</classifier>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>WS-widgetset</artifactId>
-            <version>${project.version}</version>
-            <classifier>sources</classifier>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
-
     <profiles>
         <profile>
             <id>production</id>
@@ -255,5 +224,31 @@
         	</plugins>
         </pluginManagement>
     </build>
-
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>AUTH</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>MF-ui</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>UTILITIES</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>DB</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>MF-widgetset</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>

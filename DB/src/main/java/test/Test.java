@@ -5,11 +5,8 @@
  */
 package test;
 
-import db.DBHandler;
-import db.controllers.HSE.FSController;
-import db.controllers.HSE.WPController;
+import dataservice.DataService;
 import db.ent.HSE.FuelStation;
-import db.ent.HSE.WorkPlan;
 
 /**
  *
@@ -21,25 +18,11 @@ public class Test {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        WPController wpc = new WPController();
-
-        /*
-         int i = 0;
-         for (WorkPlan fs : wpc.getNewestWorkPlans()) {
-         System.err.println(
-         ++i + ". "
-         + fs.getStartDate() + ", "
-         + fs.getContractor() + ", "
-         + fs.getSubContractor() + ", "
-         + fs.getWorktype() + ", "
-         + fs.getFK_FuelStation().toString()
-         );
-         }
-         */
-        for (WorkPlan r: DBHandler.getDefault().getAllWorkPlansFinished(true)) {
-            System.err.println(r.getStartDate()+" " +r.getWorktype() +" " +r.getFK_FuelStation().getName());
+        DataService DS = DataService.getDefault();
+        for (FuelStation r : DS.getFSController().getAll()) {
+            System.err.println(r.getName() + ", how meny finished WPs : "
+                    + DS.getWPController().getWorkPlansCountByStation(r, true)
+            );
         }
-        System.err.println("How meny finished WPs : "+ DBHandler.getDefault().getFinished());
     }
-
 }

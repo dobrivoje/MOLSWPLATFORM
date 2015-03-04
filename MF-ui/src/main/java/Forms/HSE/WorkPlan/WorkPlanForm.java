@@ -17,19 +17,15 @@ import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.themes.ValoTheme;
 import date.formats.DateFormat;
-import db.controllers.HSE.FSController;
-import db.controllers.HSE.WPController;
 import db.ent.HSE.FuelStation;
 import db.ent.HSE.WorkPlan;
 import org.superb.apps.utilities.Enums.CrudOperations;
 import static org.superb.apps.utilities.Enums.CrudOperations.BUTTON_CAPTION_NEW;
 import static org.superb.apps.utilities.Enums.CrudOperations.BUTTON_CAPTION_UPDATE;
 import org.superb.apps.utilities.vaadin.Tables.IRefreshVisualContainer;
+import static ws.MyUI.DS;
 
 public class WorkPlanForm extends FormLayout {
-
-    private final WPController wpController = new WPController();
-    private final FSController fsController = new FSController();
 
     private final FieldGroup fieldGroup = new BeanFieldGroup(WorkPlan.class);
     private Button crudButton;
@@ -68,7 +64,8 @@ public class WorkPlanForm extends FormLayout {
 
     @PropertyId("FK_FuelStation")
     private final ComboBox fuelStation = new ComboBox(
-            "Fuel Station", new BeanItemContainer(FuelStation.class, fsController.getAll()));
+            "Fuel Station", new BeanItemContainer(FuelStation.class,
+                    DS.getFSController().getAll()));
     //</editor-fold>
 
     public WorkPlanForm() {
@@ -133,7 +130,7 @@ public class WorkPlanForm extends FormLayout {
                     bindFieldsToBean(beanItem.getBean());
 
                     try {
-                        wpController.addNew(beanItem.getBean());
+                        DS.getWPController().addNew(beanItem.getBean());
 
                         if (visualContainer != null) {
                             visualContainer.refreshVisualContainer();
@@ -175,7 +172,7 @@ public class WorkPlanForm extends FormLayout {
                 bindFieldsToBean(wpToUpdate);
 
                 try {
-                    wpController.updateExisting(wpToUpdate);
+                    DS.getWPController().updateExisting(wpToUpdate);
 
                     if (visualContainer != null) {
                         visualContainer.refreshVisualContainer();

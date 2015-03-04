@@ -5,8 +5,7 @@
  */
 package Tables.HSE.WorkPlan;
 
-import Custom.HSE.HSE_SysNotifController;
-import Custom.HSE.HSE_SysNotif_Bean;
+import reports.ent.HSE.HSE_SysNotif_Bean;
 import Tables.GENTable;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Table;
@@ -14,6 +13,7 @@ import com.vaadin.ui.Table.Align;
 import java.util.List;
 import org.superb.apps.utilities.Enums.WorkingPlansStatuses;
 import org.superb.apps.utilities.vaadin.FancyLabels.WPSLabel;
+import static ws.MyUI.DS;
 
 /**
  *
@@ -22,7 +22,8 @@ import org.superb.apps.utilities.vaadin.FancyLabels.WPSLabel;
 public class HSE_SysNotifTable extends GENTable<HSE_SysNotif_Bean> {
 
     public HSE_SysNotifTable() {
-        this(new BeanItemContainer<>(HSE_SysNotif_Bean.class), new HSE_SysNotifController().getSysNotifBoard_Report1());
+        this(new BeanItemContainer<>(HSE_SysNotif_Bean.class),
+                DS.getHSESysNotifController().getSysNotifBoard_Report1());
     }
 
     public HSE_SysNotifTable(BeanItemContainer<HSE_SysNotif_Bean> beanContainer, List list) {
@@ -56,7 +57,6 @@ public class HSE_SysNotifTable extends GENTable<HSE_SysNotif_Bean> {
         setColumnCollapsible("fs1", true);
         setColumnCollapsible("finished", true);
         setColumnHeaders("Fuel Station", "Finished ? ", "Total plans");
-        
 
         //setColumnWidth("finished", 82);
         //setColumnWidth("total", 82);

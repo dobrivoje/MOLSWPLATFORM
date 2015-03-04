@@ -11,10 +11,11 @@ import java.util.List;
 /**
  *
  * @author dprtenjak
+ * @param <T>
  */
 public abstract class Controller<T> {
 
-    protected static final DBHandler DBH = DBHandler.getDefault();
+    protected static DBHandler DBH;
 
     public abstract List<T> getAll();
 
@@ -25,5 +26,9 @@ public abstract class Controller<T> {
     public abstract void updateExisting(T t) throws Exception;
 
     public abstract void delete(T t);
+
+    public Controller(DBHandler DBH) {
+        Controller.DBH = DBH;
+    }
 
 }

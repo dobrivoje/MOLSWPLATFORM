@@ -33,12 +33,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "WorkPlan.findAll", query = "SELECT w FROM WorkPlan w"),
     @NamedQuery(name = "WorkPlan.findAllSortByDateDesc", query = "SELECT w FROM WorkPlan w ORDER BY w.startDate DESC"),
     @NamedQuery(name = "WorkPlan.getByFS", query = "SELECT w FROM WorkPlan w WHERE w.FK_FuelStation = :FSID"),
-    
+
     @NamedQuery(name = "WorkPlan.getFinishedWPByFS", 
             query = "SELECT COUNT(w) FROM WorkPlan w WHERE w.FK_FuelStation = :FSID AND w.finished = :finished"),
-    
-    @NamedQuery(name = "WorkPlan.getFinished", 
-            query = "SELECT COUNT(w.FK_FuelStation.id) FROM WorkPlan w"),
     
     @NamedQuery(name = "WorkPlan.findAllFinishedSortByDateAsc", query = "SELECT w FROM WorkPlan w WHERE w.finished = :finished ORDER BY w.startDate ASC"),
     @NamedQuery(name = "WorkPlan.findByIdwp", query = "SELECT w FROM WorkPlan w WHERE w.idwp = :idwp"),

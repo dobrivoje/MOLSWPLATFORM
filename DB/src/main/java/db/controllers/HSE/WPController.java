@@ -5,6 +5,7 @@
  */
 package db.controllers.HSE;
 
+import db.DBHandler;
 import db.ent.HSE.FuelStation;
 import db.ent.HSE.WorkPlan;
 import java.util.List;
@@ -14,6 +15,10 @@ import java.util.List;
  * @author dprtenjak
  */
 public class WPController extends Controller<WorkPlan> {
+
+    public WPController(DBHandler DBH) {
+        super(DBH);
+    }
 
     //<editor-fold defaultstate="collapsed" desc="Read">
     @Override
@@ -38,7 +43,7 @@ public class WPController extends Controller<WorkPlan> {
         return DBH.getAllWorkPlansFinished(finished);
     }
 
-    public int getWorkPlansCountByStation(FuelStation fs, boolean finished) {
+    public Long getWorkPlansCountByStation(FuelStation fs, boolean finished) {
         return DBH.getWorkPlansCountByStation(fs, finished);
     }
     //</editor-fold>
