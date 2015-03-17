@@ -16,6 +16,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
 import dataservice.DataService;
+import org.dobrivoje.utils.date.formats.DateFormat;
 
 /**
  *
@@ -26,6 +27,7 @@ public class MyUI extends UI {
 
     private final AccessControl accessControl = new BasicAccessControl();
     public static final DataService DS = DataService.getDefault();
+    public static final String DATE_FORMAT = DateFormat.DATETIME_FORMAT_SRB.toString();
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {

@@ -16,13 +16,13 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.themes.ValoTheme;
-import date.formats.DateFormat;
 import db.ent.HSE.FuelStation;
 import db.ent.HSE.WorkPlan;
 import org.superb.apps.utilities.Enums.CrudOperations;
 import static org.superb.apps.utilities.Enums.CrudOperations.BUTTON_CAPTION_NEW;
 import static org.superb.apps.utilities.Enums.CrudOperations.BUTTON_CAPTION_UPDATE;
 import org.superb.apps.utilities.vaadin.Tables.IRefreshVisualContainer;
+import static ws.MyUI.DATE_FORMAT;
 import static ws.MyUI.DS;
 
 public class WorkPlanForm extends FormLayout {
@@ -89,8 +89,8 @@ public class WorkPlanForm extends FormLayout {
 
         fuelStation.setNullSelectionAllowed(false);
 
-        startDate.setDateFormat(DateFormat.DATE_FORMAT_SRB.toString());
-        endDate.setDateFormat(DateFormat.DATE_FORMAT_SRB.toString());
+        startDate.setDateFormat(DATE_FORMAT);
+        endDate.setDateFormat(DATE_FORMAT);
 
         for (Component f : fieldGroup.getFields()) {
             if (f instanceof TextField) {
@@ -149,8 +149,8 @@ public class WorkPlanForm extends FormLayout {
             crudButton.setWidth(150, Unit.PIXELS);
             crudButton.setStyleName(ValoTheme.BUTTON_FRIENDLY);
 
-            startDate.setDateFormat(DateFormat.DATE_FORMAT_SRB.toString());
-            endDate.setDateFormat(DateFormat.DATE_FORMAT_SRB.toString());
+            startDate.setDateFormat(DATE_FORMAT);
+            endDate.setDateFormat(DATE_FORMAT);
 
             addComponents(startDate, fuelStation, contractor, subContractor, worktype, termin, duration, endDate, finished, comment, crudButton);
 

@@ -6,6 +6,7 @@
 package db.ent.HSE;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -21,6 +22,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.dobrivoje.utils.date.formats.DateFormat;
 
 /**
  *
@@ -104,6 +106,10 @@ public class WorkPlan implements Serializable {
 
     public Date getStartDate() {
         return startDate;
+    }
+
+    public String getStartDate1() {
+        return new SimpleDateFormat(DateFormat.DATE_FORMAT_SRB.toString()).format(startDate);
     }
 
     public void setStartDate(Date startDate) {

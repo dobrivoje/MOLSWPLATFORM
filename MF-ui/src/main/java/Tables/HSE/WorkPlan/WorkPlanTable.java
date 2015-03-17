@@ -37,13 +37,14 @@ public class WorkPlanTable extends GENTable<WorkPlan> {
                 return cb;
             }
         });
-        setVisibleColumns("startDate", "FK_FuelStation", "contractor", /*"subContractor", */
+        setVisibleColumns("startDate1", "FK_FuelStation", "contractor", /*"subContractor", */
                 /* "worktype", "termin", "duration", */ "finished1", "endDate" /* ",comment" */);
         setColumnHeaders("Start date", "Fuel Station", "Contractor", /* "Subcontractor", */
                 /* "Worktype", "Termin", "Duration", */ "Finished ?", "End Date" /*, "Comment" */);
 
-        setColumnWidth("finished1", 82);
+        setColumnWidth("finished1", 80);
         setColumnAlignment("finished1", Align.CENTER);
+        setColumnWidth("startDate1", 110);
     }
 
     public void setFilter(String filterString) {
@@ -55,7 +56,7 @@ public class WorkPlanTable extends GENTable<WorkPlan> {
             SimpleStringFilter contractorFilter = new SimpleStringFilter(
                     "contractor", filterString, true, false);
             SimpleStringFilter startDateFilter = new SimpleStringFilter(
-                    "startDate", filterString, true, false);
+                    "startDate1", filterString, true, false);
             SimpleStringFilter endDateFilter = new SimpleStringFilter(
                     "endDate", filterString, true, false);
 
