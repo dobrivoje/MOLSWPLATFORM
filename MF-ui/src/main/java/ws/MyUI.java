@@ -1,7 +1,5 @@
 package ws;
 
-import authentication.AccessControl;
-import authentication.BasicAccessControl;
 import Views.General.LoginScreen;
 import Views.General.LoginScreen.LoginListener;
 import Views.General.MainScreen;
@@ -16,6 +14,8 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
 import dataservice.DataService;
+import org.dobrivoje.auth.IAccessAuthControl;
+import org.dobrivoje.auth.ShiroAccessControl;
 import org.dobrivoje.utils.date.formats.DateFormat;
 
 /**
@@ -25,7 +25,7 @@ import org.dobrivoje.utils.date.formats.DateFormat;
 @Widgetset("ws.MyAppWidgetset")
 public class MyUI extends UI {
 
-    private final AccessControl accessControl = new BasicAccessControl();
+    private final IAccessAuthControl accessControl = new ShiroAccessControl();
     public static final DataService DS = DataService.getDefault();
     public static final String DATE_FORMAT = DateFormat.DATETIME_FORMAT_SRB.toString();
 
@@ -35,15 +35,13 @@ public class MyUI extends UI {
         setLocale(vaadinRequest.getLocale());
         getPage().setTitle("MOL Serbia SW Platform");
 
-        if (!accessControl.isUserSignedIn()) {
+        if (!accessControl.authenticated()) {
             setContent(new LoginScreen(accessControl, new LoginListener() {
                 @Override
                 public void loginSuccessful() {
                     showMainView();
                 }
             }));
-        } else {
-            showMainView();
         }
     }
 
@@ -56,7 +54,7 @@ public class MyUI extends UI {
         return (MyUI) UI.getCurrent();
     }
 
-    public AccessControl getAccessControl() {
+    public IAccessAuthControl getAccessControl() {
         return accessControl;
     }
 

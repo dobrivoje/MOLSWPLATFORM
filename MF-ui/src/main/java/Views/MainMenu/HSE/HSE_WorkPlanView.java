@@ -115,7 +115,7 @@ public class HSE_WorkPlanView extends VerticalLayout implements View {
 
     private void openProperties(WorkPlan wp) {
         if (wp != null) {
-            HL.setSplitPosition(60, Unit.PERCENTAGE);
+            HL.setSplitPosition(40, Unit.PERCENTAGE);
 
             if (propVL.getComponentCount() > 0) {
                 propVL.removeAllComponents();

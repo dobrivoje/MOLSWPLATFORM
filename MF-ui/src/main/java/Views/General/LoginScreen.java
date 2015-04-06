@@ -1,6 +1,5 @@
 package Views.General;
 
-import authentication.AccessControl;
 import java.io.Serializable;
 
 import com.vaadin.event.ShortcutAction;
@@ -17,6 +16,7 @@ import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
+import org.dobrivoje.auth.IAccessAuthControl;
 
 /**
  * UI content when the user is not logged in yet.
@@ -28,9 +28,9 @@ public class LoginScreen extends CssLayout {
     private Button login;
     private Button forgotPassword;
     private final LoginListener loginListener;
-    private final AccessControl accessControl;
+    private final IAccessAuthControl accessControl;
 
-    public LoginScreen(AccessControl accessControl, LoginListener loginListener) {
+    public LoginScreen(IAccessAuthControl accessControl, LoginListener loginListener) {
         this.loginListener = loginListener;
         this.accessControl = accessControl;
         buildUI();
@@ -113,7 +113,7 @@ public class LoginScreen extends CssLayout {
     }
 
     private void login() {
-        if (accessControl.signIn(username.getValue(), password.getValue())) {
+        if (accessControl.login(username.getValue(), password.getValue())) {
             loginListener.loginSuccessful();
         } else {
             showNotification(new Notification("Login failed",

@@ -34,6 +34,13 @@ public class DBHandler {
     public static DBHandler getDefault() {
         return instance == null ? instance = new DBHandler() : instance;
     }
+
+    private void rollBackTransaction(String message) throws Exception {
+        if (getEm().getTransaction().isActive()) {
+            getEm().getTransaction().rollback();
+        }
+        throw new Exception(message);
+    }
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="FuelStation">
@@ -130,15 +137,23 @@ public class DBHandler {
 
     //<editor-fold defaultstate="collapsed" desc="Write Data">
     public void addNewWorkPlan(WorkPlan workPlan) throws Exception {
-        getEm().getTransaction().begin();
-        em.persist(workPlan);
-        getEm().getTransaction().commit();
+        try {
+            getEm().getTransaction().begin();
+            em.persist(workPlan);
+            getEm().getTransaction().commit();
+        } catch (Exception e) {
+            rollBackTransaction("New Workplan Addition Failed.");
+        }
     }
 
     public void updateWorkPlan(WorkPlan workPlan) throws Exception {
-        getEm().getTransaction().begin();
-        em.merge(workPlan);
-        getEm().getTransaction().commit();
+        try {
+            getEm().getTransaction().begin();
+            em.merge(workPlan);
+            getEm().getTransaction().commit();
+        } catch (Exception e) {
+            rollBackTransaction("Existing Workplan Update Failed.");
+        }
     }
     //</editor-fold>
     //</editor-fold>
