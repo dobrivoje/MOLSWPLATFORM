@@ -15,7 +15,7 @@ import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
 import dataservice.DataService;
 import org.dobrivoje.auth.IAccessAuthControl;
-import org.dobrivoje.auth.ShiroAccessControl;
+import org.dobrivoje.auth.IntermolADAccessControl;
 import org.dobrivoje.utils.date.formats.DateFormat;
 
 /**
@@ -25,9 +25,9 @@ import org.dobrivoje.utils.date.formats.DateFormat;
 @Widgetset("ws.MyAppWidgetset")
 public class MyUI extends UI {
 
-    private final IAccessAuthControl accessControl = new ShiroAccessControl();
+    private final IAccessAuthControl accessControl = new IntermolADAccessControl();
     public static final DataService DS = DataService.getDefault();
-    public static final String DATE_FORMAT = DateFormat.DATETIME_FORMAT_SRB.toString();
+    public static final String SYSTEM_DATE_FORMAT = DateFormat.DATETIME_FORMAT_SRB.toString();
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -38,7 +38,7 @@ public class MyUI extends UI {
         if (!accessControl.authenticated()) {
             setContent(new LoginScreen(accessControl, new LoginListener() {
                 @Override
-                public void loginSuccessful() {
+                public void doAfterLogin() {
                     showMainView();
                 }
             }));

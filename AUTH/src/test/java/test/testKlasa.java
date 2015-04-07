@@ -5,13 +5,16 @@
  */
 package test;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.config.IniSecurityManagerFactory;
+import org.apache.shiro.authc.ExcessiveAttemptsException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
-import org.apache.shiro.util.Factory;
-import org.apache.shiro.mgt.SecurityManager;
+import org.dobrivoje.auth.IntermolADAccessControl;
+import org.dobrivoje.auth.IAccessAuthControl;
+import org.dobrivoje.auth.roles.Roles;
 
 /**
  *
@@ -19,24 +22,60 @@ import org.apache.shiro.mgt.SecurityManager;
  */
 public class testKlasa {
 
+    @RequiresAuthentication()
+    private static void testAutentifikacije(Subject subject) {
+        System.err.println("testAutentifikacije, Subjekat " + subject.getPrincipal() + ", autentifikovan !");
+    }
+
+    @RequiresPermissions(Roles.ROOT_PRIVILEGES)
+    private static void testDozovle1(Subject subject) {
+        System.err.println("testDozovle1 Subjekat " + subject.getPrincipal() + ", ima dozovlu za pravo : " + Roles.ROOT_PRIVILEGES);
+    }
+
+    @RequiresRoles(value = Roles.ROOT_PRIVILEGES)
+    private static void testDozovle2(Subject subject) {
+        System.err.println("testDozovle2 Subjekat " + subject.getPrincipal() + ", ima ROLE : " + Roles.ROOT_PRIVILEGES);
+    }
+
     public static void main(String[] args) {
-        Factory<SecurityManager> factory = new IniSecurityManagerFactory("classpath:shiroAD.ini");
-        SecurityManager securityManager = factory.getInstance();
-        SecurityUtils.setSecurityManager(securityManager);
+        IAccessAuthControl intermolAD = new IntermolADAccessControl();
 
         try {
-            SecurityUtils.getSubject().login(new UsernamePasswordToken("intermol\\dprtenjak", ""));
+            intermolAD.login("intermol\\dprtenjak", "dedaMocika2002");
 
-            Subject subject = SecurityUtils.getSubject();
+            System.err.println(intermolAD.getSubject().getPrincipal() + " isAuthenticated ? " + intermolAD.authenticated());
 
-            System.err.println(subject.getPrincipal());
-            System.err.println("isAuthenticated :" + subject.isAuthenticated());
-            System.err.println("isPermitted IS :" + subject.isPermitted("IS"));
-            System.err.println("isPermitted Localadmin :" + subject.isPermitted("Localadmin"));
-        } catch (AuthenticationException ae) {
-            System.err.println(ae.getMessage());
-        } catch(NullPointerException npe) {
-            System.err.println("nullllsssss");
+            for (String r : Roles.getAllRoles()) {
+                try {
+                    intermolAD.getSubject().checkRoles(r);
+                    System.err.println(intermolAD.getSubject().getPrincipal() + " is permitted : " + r);
+                } catch (Exception ae) {
+                    System.err.println(intermolAD.getSubject().getPrincipal() + " is NOT permitted : " + r);
+                }
+            }
+
+            for (String p : Roles.getAllPermissions()) {
+                try {
+                    intermolAD.getSubject().checkPermission(p);
+                    System.err.println(intermolAD.getSubject().getPrincipal() + " is permitted : " + p);
+                } catch (Exception ae) {
+                    System.err.println(intermolAD.getSubject().getPrincipal() + " is NOT permitted : " + p);
+                }
+            }
+
+            testAutentifikacije(intermolAD.getSubject());
+            testDozovle1(intermolAD.getSubject());
+            testDozovle2(intermolAD.getSubject());
+
+        } catch (UnknownAccountException e) {
+            System.err.println("Nepoznati nalog !");
+        } catch (IncorrectCredentialsException e) {
+            System.err.println("IncorrectCredentials !");
+        } catch (ExcessiveAttemptsException e) {
+            System.err.println("ExcessiveAttempts !");
         }
+
+        System.err.println(intermolAD.getPrincipal() + " IS PERMITTED for " + Roles.APP_OFFICE_MANAGER + " ? "
+                + intermolAD.getSubject().hasRole(Roles.APP_OFFICE_MANAGER));
     }
 }

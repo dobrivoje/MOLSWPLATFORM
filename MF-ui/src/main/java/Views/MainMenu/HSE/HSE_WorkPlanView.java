@@ -17,7 +17,9 @@ import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.HorizontalSplitPanel;
 import db.ent.HSE.WorkPlan;
+import org.dobrivoje.auth.roles.Roles;
 import org.superb.apps.utilities.vaadin.Tables.IRefreshVisualContainer;
+import ws.MyUI;
 
 public class HSE_WorkPlanView extends VerticalLayout implements View {
 
@@ -127,6 +129,11 @@ public class HSE_WorkPlanView extends VerticalLayout implements View {
                     wpTable.refreshVisualContainer();
                 }
             });
+
+            wpForm.setEnabled(MyUI.get().getAccessControl().hasRole(Roles.APP_OFFICE_MANAGER));
+
+            System.err.println(MyUI.get().getAccessControl().getPrincipal() + " IS PERMITTED ? "
+                    + MyUI.get().getAccessControl().hasRole(Roles.APP_OFFICE_MANAGER));
 
             propVL.addComponent(wpForm);
 

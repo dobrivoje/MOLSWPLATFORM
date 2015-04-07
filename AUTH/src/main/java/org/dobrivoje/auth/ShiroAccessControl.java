@@ -14,17 +14,19 @@ public class ShiroAccessControl implements IAccessAuthControl {
     private final SecurityManager securityManager;
     private final Subject subject;
 
-    public ShiroAccessControl() {
-        factory = new IniSecurityManagerFactory("classpath:shiro.ini");
+    public ShiroAccessControl(String initFile) {
+        factory = new IniSecurityManagerFactory(initFile);
         securityManager = factory.getInstance();
         SecurityUtils.setSecurityManager(securityManager);
         subject = SecurityUtils.getSubject();
     }
 
+    @Override
     public SecurityManager getSecurityManager() {
         return securityManager;
     }
 
+    @Override
     public Subject getSubject() {
         return subject;
     }
@@ -48,12 +50,18 @@ public class ShiroAccessControl implements IAccessAuthControl {
 
     @Override
     public boolean hasRole(String role) {
-        return subject.hasRole(role);
+        boolean o = false;
+        try {
+            o = subject.hasRole(role);
+        } catch (Exception e) {
+        }
+        return o;
     }
 
     @Override
     public String getPrincipal() {
-        return (String) subject.getPrincipal();
+        String s = (String) subject.getPrincipal();
+        return s == null ? "n/a" : s;
     }
 
 }

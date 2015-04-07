@@ -22,7 +22,7 @@ import org.superb.apps.utilities.Enums.CrudOperations;
 import static org.superb.apps.utilities.Enums.CrudOperations.BUTTON_CAPTION_NEW;
 import static org.superb.apps.utilities.Enums.CrudOperations.BUTTON_CAPTION_UPDATE;
 import org.superb.apps.utilities.vaadin.Tables.IRefreshVisualContainer;
-import static ws.MyUI.DATE_FORMAT;
+import static ws.MyUI.SYSTEM_DATE_FORMAT;
 import static ws.MyUI.DS;
 
 public class WorkPlanForm extends FormLayout {
@@ -89,8 +89,8 @@ public class WorkPlanForm extends FormLayout {
 
         fuelStation.setNullSelectionAllowed(false);
 
-        startDate.setDateFormat(DATE_FORMAT);
-        endDate.setDateFormat(DATE_FORMAT);
+        startDate.setDateFormat(SYSTEM_DATE_FORMAT);
+        endDate.setDateFormat(SYSTEM_DATE_FORMAT);
 
         for (Component f : fieldGroup.getFields()) {
             if (f instanceof TextField) {
@@ -131,7 +131,7 @@ public class WorkPlanForm extends FormLayout {
 
                     try {
                         fieldGroup.commit();
-                        
+
                         DS.getWPController().addNew(beanItem.getBean());
 
                         if (visualContainer != null) {
@@ -151,8 +151,8 @@ public class WorkPlanForm extends FormLayout {
             crudButton.setWidth(150, Unit.PIXELS);
             crudButton.setStyleName(ValoTheme.BUTTON_FRIENDLY);
 
-            startDate.setDateFormat(DATE_FORMAT);
-            endDate.setDateFormat(DATE_FORMAT);
+            startDate.setDateFormat(SYSTEM_DATE_FORMAT);
+            endDate.setDateFormat(SYSTEM_DATE_FORMAT);
 
             addComponents(startDate, fuelStation, contractor, subContractor, worktype, termin, duration, endDate, finished, comment, crudButton);
 
@@ -175,7 +175,7 @@ public class WorkPlanForm extends FormLayout {
 
                 try {
                     fieldGroup.commit();
-                    
+
                     DS.getWPController().updateExisting(wpToUpdate);
 
                     if (visualContainer != null) {
