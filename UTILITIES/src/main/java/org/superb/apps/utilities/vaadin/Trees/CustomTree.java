@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class CustomTree<T> extends Tree {
     
-    private String caption;
+    private final String caption;
     private List<T> treeItems;
     
     public CustomTree() {

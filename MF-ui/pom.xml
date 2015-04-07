@@ -54,11 +54,6 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>DB</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
             <artifactId>UTILITIES</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -70,6 +65,11 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>MF-widgetset</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>DB</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

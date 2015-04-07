@@ -130,6 +130,8 @@ public class WorkPlanForm extends FormLayout {
                     bindFieldsToBean(beanItem.getBean());
 
                     try {
+                        fieldGroup.commit();
+                        
                         DS.getWPController().addNew(beanItem.getBean());
 
                         if (visualContainer != null) {
@@ -172,6 +174,8 @@ public class WorkPlanForm extends FormLayout {
                 bindFieldsToBean(wpToUpdate);
 
                 try {
+                    fieldGroup.commit();
+                    
                     DS.getWPController().updateExisting(wpToUpdate);
 
                     if (visualContainer != null) {
