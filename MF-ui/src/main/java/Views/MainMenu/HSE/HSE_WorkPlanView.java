@@ -130,10 +130,7 @@ public class HSE_WorkPlanView extends VerticalLayout implements View {
                 }
             });
 
-            wpForm.setEnabled(MyUI.get().getAccessControl().hasRole(Roles.APP_OFFICE_MANAGER));
-
-            System.err.println(MyUI.get().getAccessControl().getPrincipal() + " IS PERMITTED ? "
-                    + MyUI.get().getAccessControl().hasRole(Roles.APP_OFFICE_MANAGER));
+            wpForm.setEnabled(MyUI.get().getAccessControl().isPermitted(Roles.PERMISSION_APP_FS_USER_EDIT_OWN_WORKPLANS));
 
             propVL.addComponent(wpForm);
 

@@ -42,6 +42,7 @@ public class testKlasa {
 
         try {
             intermolAD.login("intermol\\dprtenjak", "dedaMocika2002");
+            //intermolAD.login("ws", "");
 
             System.err.println(intermolAD.getSubject().getPrincipal() + " isAuthenticated ? " + intermolAD.authenticated());
 
@@ -75,7 +76,11 @@ public class testKlasa {
             System.err.println("ExcessiveAttempts !");
         }
 
-        System.err.println(intermolAD.getPrincipal() + " IS PERMITTED for " + Roles.APP_OFFICE_MANAGER + " ? "
-                + intermolAD.getSubject().hasRole(Roles.APP_OFFICE_MANAGER));
+        for (String s : Roles.getAllPermissions()) {
+            System.err.println(intermolAD.getPrincipal() + ", " + s + " -> " + intermolAD.isPermitted(s));
+        }
+        for (String s : Roles.getAllRoles()) {
+            System.err.println(intermolAD.getPrincipal() + ", " + s + " -> " + intermolAD.hasRole(s));
+        }
     }
 }

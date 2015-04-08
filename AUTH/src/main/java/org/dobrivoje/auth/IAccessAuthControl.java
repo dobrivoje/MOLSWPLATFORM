@@ -18,5 +18,7 @@ public interface IAccessAuthControl {
 
     public boolean hasRole(String role);
 
+    public boolean isPermitted(String permission);
+
     public String getPrincipal();
 }

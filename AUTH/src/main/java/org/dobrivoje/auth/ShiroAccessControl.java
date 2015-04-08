@@ -59,6 +59,16 @@ public class ShiroAccessControl implements IAccessAuthControl {
     }
 
     @Override
+    public boolean isPermitted(String permission) {
+        boolean o = false;
+        try {
+            o = subject.isPermitted(permission);
+        } catch (Exception e) {
+        }
+        return o;
+    }
+
+    @Override
     public String getPrincipal() {
         String s = (String) subject.getPrincipal();
         return s == null ? "n/a" : s;
