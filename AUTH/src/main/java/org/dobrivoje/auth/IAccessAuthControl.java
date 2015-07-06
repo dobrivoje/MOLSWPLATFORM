@@ -1,24 +1,36 @@
 package org.dobrivoje.auth;
 
-import org.apache.shiro.subject.Subject;
-import org.apache.shiro.mgt.SecurityManager;
+import java.io.Serializable;
+import org.apache.shiro.session.Session;
 
 /**
  * Simple interface for authentication and authorization checks.
  */
 public interface IAccessAuthControl {
 
-    public SecurityManager getSecurityManager();
+    // SecurityManager getSecurityManager();
+    boolean login(String username, String password);
 
-    public Subject getSubject();
+    void logout();
 
-    public boolean login(String username, String password);
+    boolean authenticated();
 
-    public boolean authenticated();
+    boolean hasRole(String role);
 
-    public boolean hasRole(String role);
+    boolean isPermitted(String permission);
 
-    public boolean isPermitted(String permission);
+    String getPrincipal();
 
-    public String getPrincipal();
+    String getInfSysUserSession();
+
+    int getLoggedUsers();
+
+    void incLoggedUsers();
+
+    void decLoggedUsers();
+
+    Session getSubjectSession();
+
+    Serializable getSubjectSessionID();
+
 }

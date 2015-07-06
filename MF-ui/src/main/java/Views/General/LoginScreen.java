@@ -29,7 +29,7 @@ public class LoginScreen extends CssLayout {
 
     private static final String PASSWORD_HINT = "Enter a password for your account";
     private static final String DOMAIN_HINT = "Select the Domain";
-    
+
     public static final String[] DOMAINS = new String[]{"INTERMOL", "RIS", "LOCAL"};
     private TextField username;
     private PasswordField password;
@@ -129,10 +129,11 @@ public class LoginScreen extends CssLayout {
         CssLayout loginInformation = new CssLayout();
         loginInformation.setStyleName("login-information");
         Label loginInfoText = new Label(
-                "<h1>MOL Serbia SW<br>Platform</br></h1>"
-                + "<h2>Wholesale App</h2>"
-                + "Log in as &quot;ws&quot; to have full access."
-                + "<br>No password is needed now.</br>",
+                "<h1>MOL Serbia<br>SW Platform</br></h1>"
+                + "<h2>HSE App</h2>"
+                + "Please, use your existing "
+                + "corporate Windows account,"
+                + "to use the application.",
                 ContentMode.HTML);
         loginInformation.addComponent(loginInfoText);
         return loginInformation;
@@ -141,20 +142,20 @@ public class LoginScreen extends CssLayout {
     private void login() {
         String un;
 
-        switch ((String) domain.getValue()) {
-            case "INTERMOL":
-                un = "INTERMOL\\";
+        switch (((String) domain.getValue()).toLowerCase()) {
+            case "intermol":
+                un = "intermol\\";
                 break;
-            case "RIS":
-                un = "YU.RIS.CORP\\";
+            case "ris":
+                un = "yu.ris.corp\\";
                 break;
-            case "LOCAL":
+            case "local":
             default:
                 un = "";
                 break;
         }
 
-        un += username.getValue();
+        un += (username.getValue()).toLowerCase();
 
         if (accessControl.login(un, password.getValue())) {
             loginListener.doAfterLogin();

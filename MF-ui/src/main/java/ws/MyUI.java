@@ -1,7 +1,6 @@
 package ws;
 
 import Views.General.LoginScreen;
-import Views.General.LoginScreen.LoginListener;
 import Views.General.MainScreen;
 import Views.MainMenu.HSE.HSE_WorkPlanView;
 import javax.servlet.annotation.WebServlet;
@@ -36,12 +35,7 @@ public class MyUI extends UI {
         getPage().setTitle("MOL Serbia SW Platform");
 
         if (!accessControl.authenticated()) {
-            setContent(new LoginScreen(accessControl, new LoginListener() {
-                @Override
-                public void doAfterLogin() {
-                    showMainView();
-                }
-            }));
+            setContent(new LoginScreen(accessControl, this::showMainView));
         }
     }
 
@@ -54,12 +48,18 @@ public class MyUI extends UI {
         return (MyUI) UI.getCurrent();
     }
 
+    //<editor-fold defaultstate="collapsed" desc="Interfaces">
     public IAccessAuthControl getAccessControl() {
         return accessControl;
     }
 
+    public boolean isPermitted(String permission) {
+        return accessControl.isPermitted(permission);
+    }
+    //</editor-fold>
+
     @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
-    @VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
+    @VaadinServletConfiguration(ui = MyUI.class, productionMode = true)
     public static class MyUIServlet extends VaadinServlet {
     }
 }

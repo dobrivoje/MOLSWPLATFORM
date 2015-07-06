@@ -23,8 +23,6 @@ import ws.MyUI;
 
 public class HSE_WorkPlanView extends VerticalLayout implements View {
 
-    public static final String VIEW_NAME = "WorkPlan View";
-
     private final VerticalLayout VL = new VerticalLayout();
 
     private final HorizontalSplitPanel HL = new HorizontalSplitPanel();
@@ -130,7 +128,8 @@ public class HSE_WorkPlanView extends VerticalLayout implements View {
                 }
             });
 
-            wpForm.setEnabled(MyUI.get().getAccessControl().isPermitted(Roles.PERMISSION_APP_FS_USER_EDIT_OWN_WORKPLANS));
+            wpForm.setEnabled(MyUI.get().isPermitted(Roles.PERMISSION_APP_FS_USER_EDIT_OWN_WORKPLANS));
+            System.err.println();
 
             propVL.addComponent(wpForm);
 

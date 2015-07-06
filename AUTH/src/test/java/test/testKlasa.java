@@ -27,46 +27,44 @@ public class testKlasa {
         System.err.println("testAutentifikacije, Subjekat " + subject.getPrincipal() + ", autentifikovan !");
     }
 
-    @RequiresPermissions(Roles.ROOT_PRIVILEGES)
+    @RequiresPermissions(Roles.ROLE_ROOT_PRIVILEGES)
     private static void testDozovle1(Subject subject) {
-        System.err.println("testDozovle1 Subjekat " + subject.getPrincipal() + ", ima dozovlu za pravo : " + Roles.ROOT_PRIVILEGES);
+        System.err.println("testDozovle1 Subjekat " + subject.getPrincipal() + ", ima dozovlu za pravo : " + Roles.ROLE_ROOT_PRIVILEGES);
     }
 
-    @RequiresRoles(value = Roles.ROOT_PRIVILEGES)
+    @RequiresRoles(value = Roles.ROLE_ROOT_PRIVILEGES)
     private static void testDozovle2(Subject subject) {
-        System.err.println("testDozovle2 Subjekat " + subject.getPrincipal() + ", ima ROLE : " + Roles.ROOT_PRIVILEGES);
+        System.err.println("testDozovle2 Subjekat " + subject.getPrincipal() + ", ima ROLE : " + Roles.ROLE_ROOT_PRIVILEGES);
     }
 
     public static void main(String[] args) {
         IAccessAuthControl intermolAD = new IntermolADAccessControl();
 
         try {
-            intermolAD.login("intermol\\dprtenjak", "dedaMocika2002");
+            intermolAD.login("intermol\\dprtenjak", "dedaMocika2000");
             //intermolAD.login("ws", "");
 
-            System.err.println(intermolAD.getSubject().getPrincipal() + " isAuthenticated ? " + intermolAD.authenticated());
+            System.err.println(intermolAD.getPrincipal() + " isAuthenticated ? " + intermolAD.authenticated());
+
+            System.err.println("-----------------Roles--------------------------");
 
             for (String r : Roles.getAllRoles()) {
-                try {
-                    intermolAD.getSubject().checkRoles(r);
-                    System.err.println(intermolAD.getSubject().getPrincipal() + " is permitted : " + r);
-                } catch (Exception ae) {
-                    System.err.println(intermolAD.getSubject().getPrincipal() + " is NOT permitted : " + r);
+                if (intermolAD.hasRole(r)) {
+                    System.err.println(intermolAD.getPrincipal() + " HAS ROLE : " + r);
+                } else {
+                    System.err.println(intermolAD.getPrincipal() + " HAS NOT ROLE : " + r);
                 }
             }
+
+            System.err.println("--------------Permissions------------------------");
 
             for (String p : Roles.getAllPermissions()) {
-                try {
-                    intermolAD.getSubject().checkPermission(p);
-                    System.err.println(intermolAD.getSubject().getPrincipal() + " is permitted : " + p);
-                } catch (Exception ae) {
-                    System.err.println(intermolAD.getSubject().getPrincipal() + " is NOT permitted : " + p);
+                if (intermolAD.isPermitted(p)) {
+                    System.err.println(intermolAD.getPrincipal() + " IS permitted : " + p);
+                } else {
+                    System.err.println(intermolAD.getPrincipal() + " is NOT permitted : " + p);
                 }
             }
-
-            testAutentifikacije(intermolAD.getSubject());
-            testDozovle1(intermolAD.getSubject());
-            testDozovle2(intermolAD.getSubject());
 
         } catch (UnknownAccountException e) {
             System.err.println("Nepoznati nalog !");
@@ -76,11 +74,10 @@ public class testKlasa {
             System.err.println("ExcessiveAttempts !");
         }
 
+        System.err.println("--------------Permissions------------------------");
+
         for (String s : Roles.getAllPermissions()) {
             System.err.println(intermolAD.getPrincipal() + ", " + s + " -> " + intermolAD.isPermitted(s));
-        }
-        for (String s : Roles.getAllRoles()) {
-            System.err.println(intermolAD.getPrincipal() + ", " + s + " -> " + intermolAD.hasRole(s));
         }
     }
 }
