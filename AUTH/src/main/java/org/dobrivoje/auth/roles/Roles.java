@@ -29,10 +29,10 @@ public class Roles implements Serializable {
 
     public static String[] getAllPermissions() {
         return new String[]{
-            PERMISSION_APP_FS_USER_LOGIN, 
-            PERMISSION_APP_FS_USER_SEARCH_ALL_WORKPLANS, 
+            PERMISSION_APP_FS_USER_LOGIN,
+            PERMISSION_APP_FS_USER_SEARCH_ALL_WORKPLANS,
             PERMISSION_APP_FS_USER_SEARCH_OWN_WORKPLAN,
-            PERMISSION_APP_FS_USER_EDIT_ALL_WORKPLANS, 
+            PERMISSION_APP_FS_USER_EDIT_ALL_WORKPLANS,
             PERMISSION_APP_FS_USER_EDIT_OWN_WORKPLANS
         };
     }

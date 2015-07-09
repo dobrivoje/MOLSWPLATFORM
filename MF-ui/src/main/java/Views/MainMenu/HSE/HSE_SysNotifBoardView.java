@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.dobrivoje.highcharts.HighChartGen;
-import org.dobrivoje.highcharts.types.ChartType;
+import org.vaadin.highcharts.HighChartGen;
+import org.vaadin.highcharts.ChartType;
 
 public class HSE_SysNotifBoardView extends VerticalLayout implements View {
 
     private final VerticalLayout VL = new VerticalLayout();
-    private final Map<String, List<Integer>> M = new HashMap<>();
+    private final Map<String, List<Float>> M = new HashMap<>();
     private final HighChartGen hcg;
 
     // private final HSE_SysNotifTable hseSysNotifTable = new HSE_SysNotifTable();
@@ -33,12 +33,9 @@ public class HSE_SysNotifBoardView extends VerticalLayout implements View {
         initData();
         Component c1 = hcg.generateHighChart(ChartType.LINE, "Upoređenje1", M);
         VL.addComponent(c1);
-        initData();
-        Component c2 = hcg.generateHighChart(ChartType.SPLINE, "Upoređenje2", M);
-        VL.addComponent(c2);
-
+        VL.addComponent(hcg.generateTEST222());
+        
         VL.setExpandRatio(c1, 1);
-        VL.setExpandRatio(c2, 1);
 
         addComponent(VL);
         setExpandRatio(VL, 1);
@@ -61,13 +58,13 @@ public class HSE_SysNotifBoardView extends VerticalLayout implements View {
     //</editor-fold>
 
     private void initData() {
-        List<Integer> tmpRandomList;
+        List<Float> tmpRandomList;
 
         for (int i = 0; i < 5; i++) {
             tmpRandomList = new ArrayList<>();
 
             for (int j = 0; j < 5; j++) {
-                tmpRandomList.add((int) (10 + 100 * Math.random()));
+                tmpRandomList.add((float) (10 + 100 * Math.random()));
             }
             M.put("serija-" + i, tmpRandomList);
         }

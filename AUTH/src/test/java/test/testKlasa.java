@@ -22,6 +22,7 @@ import org.dobrivoje.auth.roles.Roles;
  */
 public class testKlasa {
 
+    //<editor-fold defaultstate="collapsed" desc="decorated">
     @RequiresAuthentication()
     private static void testAutentifikacije(Subject subject) {
         System.err.println("testAutentifikacije, Subjekat " + subject.getPrincipal() + ", autentifikovan !");
@@ -36,6 +37,7 @@ public class testKlasa {
     private static void testDozovle2(Subject subject) {
         System.err.println("testDozovle2 Subjekat " + subject.getPrincipal() + ", ima ROLE : " + Roles.ROLE_ROOT_PRIVILEGES);
     }
+    //</editor-fold>
 
     public static void main(String[] args) {
         IAccessAuthControl intermolAD = new IntermolADAccessControl();
@@ -79,5 +81,7 @@ public class testKlasa {
         for (String s : Roles.getAllPermissions()) {
             System.err.println(intermolAD.getPrincipal() + ", " + s + " -> " + intermolAD.isPermitted(s));
         }
+
+        System.err.println(" *** " + intermolAD.getPrincipal() + " -> " + intermolAD.hasRole("R_appFSUser"));
     }
 }
