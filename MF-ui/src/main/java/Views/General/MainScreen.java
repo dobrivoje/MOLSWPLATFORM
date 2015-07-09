@@ -31,7 +31,7 @@ public class MainScreen extends HorizontalLayout {
         navigator.setErrorView(ErrorView.class);
         menu = new MainMenu(navigator);
         menu.addViewTree(new HSE_WorkPlanView(), HSE_WorkPlanView.class.getSimpleName(), HSE_WorkPlanView.class.getSimpleName());
-        menu.addViewButton(new AboutView(), AboutView.class.getSimpleName(), AboutView.VIEW_NAME, FontAwesome.INFO_CIRCLE);
+        menu.addViewButton(new AboutView(), AboutView.class.getSimpleName(), AboutView.class.getSimpleName(), FontAwesome.INFO_CIRCLE);
 
         // DODAVANJE VIEW-ova NOVIH AKCIJA GL. MENIJA :
         navigator.addView(EmptyView.class.getSimpleName(), EmptyView.class);

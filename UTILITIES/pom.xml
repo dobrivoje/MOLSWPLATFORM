@@ -10,13 +10,21 @@
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
+            <groupId>org.vaadin.highcharts</groupId>
+            <artifactId>highcharts</artifactId>
+            <version>1.1</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-server</artifactId>
-            <type>jar</type>
+            <version>7.5.0</version>
         </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <groupId>mf</groupId>
+    <name>UTILITIES</name>
+    <description>WS - WS-parent</description>
 </project>

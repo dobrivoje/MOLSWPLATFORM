@@ -9,31 +9,32 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.vaadin.highcharts.HighChart;
+import org.dobrivoje.highcharts.HighChartGen;
+import org.dobrivoje.highcharts.types.ChartType;
 
 public class HSE_SysNotifBoardView extends VerticalLayout implements View {
 
-    public static final String VIEW_NAME = "HSE System Notifications";
     private final VerticalLayout VL = new VerticalLayout();
-    private Map<String, List<Integer>> M = new HashMap<>();
+    private final Map<String, List<Integer>> M = new HashMap<>();
+    private final HighChartGen hcg;
 
     // private final HSE_SysNotifTable hseSysNotifTable = new HSE_SysNotifTable();
     public HSE_SysNotifBoardView() {
-        initData();
+        hcg = new HighChartGen();
 
         addStyleName("crud-view");
 
-        VL.setWidth(66, Unit.PERCENTAGE);
-        VL.setHeight(66, Unit.PERCENTAGE);
+        VL.setSizeUndefined();
         VL.setMargin(true);
         VL.setSpacing(true);
         VL.setStyleName("crud-main-layout");
 
         VL.addComponent(createTopBar());
-        Component c1 = generateHighChart("Upoređenje1", M);
+        initData();
+        Component c1 = hcg.generateHighChart(ChartType.LINE, "Upoređenje1", M);
         VL.addComponent(c1);
         initData();
-        Component c2 = generateHighChart("Upoređenje2", M);
+        Component c2 = hcg.generateHighChart(ChartType.SPLINE, "Upoređenje2", M);
         VL.addComponent(c2);
 
         VL.setExpandRatio(c1, 1);
@@ -70,43 +71,6 @@ public class HSE_SysNotifBoardView extends VerticalLayout implements View {
             }
             M.put("serija-" + i, tmpRandomList);
         }
-    }
-
-    private Component generateHighChart(String title, Map<String, List<Integer>> series) {
-        HighChart chart = new HighChart();
-        String serija = new String();
-
-        /*
-         chart.setHcjs("var options = { "
-         + "title: {text: '" + title + "' }, "
-         + "series: "
-         + "[ "
-         + " { name: '" + "s1" + "', data: " + Arrays.asList(1, 3, 2, 4, 3, 7) + "} , "
-         + " { name: '" + "ss2" + "', data: " + Arrays.asList(4, 3, 7, 2, 5, 8) + "} , "
-         + " { name: '" + "ss3" + "', data: " + Arrays.asList(2, 5, 8, 1, 3, 2) + "} , "
-         + " ]};"
-         );
-         */
-        String header = "var options = { "
-                + "title: {text: '" + title + "' }, "
-                + "chart: {type: 'spline'}, "
-                + "tooltip: { headerFormat: '<b>{series.name}</b><br>', "
-                + "pointFormat: '{point.x:%e. %b}: {point.y:.2f} m'}, "
-                + "plotOptions: { spline: { marker: { enabled: true } } }, "
-                + "series: "
-                + "[ ";
-
-        for (Map.Entry<String, List<Integer>> es : series.entrySet()) {
-            String key = es.getKey();
-            List<Integer> value = es.getValue();
-
-            serija += " { name: '" + key + "', data: " + value + "} , ";
-        }
-
-        String tail = " ]};";
-
-        chart.setHcjs(header + serija + tail);
-        return chart;
     }
 
 }
