@@ -6,6 +6,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +16,6 @@ import org.vaadin.highcharts.ChartType;
 public class HSE_SysNotifBoardView extends VerticalLayout implements View {
 
     private final VerticalLayout VL = new VerticalLayout();
-    private final Map<String, List<Float>> M = new HashMap<>();
     private final HighChartGen hcg;
 
     // private final HSE_SysNotifTable hseSysNotifTable = new HSE_SysNotifTable();
@@ -30,12 +30,16 @@ public class HSE_SysNotifBoardView extends VerticalLayout implements View {
         VL.setStyleName("crud-main-layout");
 
         VL.addComponent(createTopBar());
-        initData();
-        Component c1 = hcg.generateHighChart(ChartType.LINE, "Upoređenje1", M);
-        VL.addComponent(c1);
-        VL.addComponent(hcg.generateTEST222());
+
+        List<String> k = Arrays.asList("Markovac", "Požega", "Niš");
         
-        VL.setExpandRatio(c1, 1);
+        Component c1 = hcg.generateHighChart(
+                ChartType.STACKED_BAR,
+                "Total Fuelsale Consumption",
+                initData(k),
+                k
+        );
+        VL.addComponent(c1);
 
         addComponent(VL);
         setExpandRatio(VL, 1);
@@ -57,17 +61,21 @@ public class HSE_SysNotifBoardView extends VerticalLayout implements View {
     }
     //</editor-fold>
 
-    private void initData() {
+    private Map<String, List<Float>> initData(List<String> categories) {
+        Map<String, List<Float>> M = new HashMap<>();
+
         List<Float> tmpRandomList;
 
-        for (int i = 0; i < 5; i++) {
+        for (String G : Arrays.asList("BMB95", "BMB95 EVO", "ED", "EVOD","LPG")) {
             tmpRandomList = new ArrayList<>();
 
-            for (int j = 0; j < 5; j++) {
-                tmpRandomList.add((float) (10 + 100 * Math.random()));
+            for (int j = 0; j < categories.size(); j++) {
+                tmpRandomList.add((float) (10 + 10000 * Math.random()));
             }
-            M.put("serija-" + i, tmpRandomList);
+            M.put(G, tmpRandomList);
         }
+
+        return M;
     }
 
 }

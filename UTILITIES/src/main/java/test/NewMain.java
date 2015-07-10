@@ -38,6 +38,8 @@ public class NewMain {
         }
 
         System.err.println(header + s + footer);
+
+        System.err.println("----------------------------------------");
     }
 
 }
