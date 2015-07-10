@@ -29,9 +29,12 @@ import Menu.MenuDefinitions;
 import static Menu.MenuDefinitions.HSE_SYS_NOTIF_BOARD;
 import static Menu.MenuDefinitions.HSE_WORKPLAN;
 import static Menu.MenuDefinitions.MOL_SECTOR_HSE;
-import Views.General.EmptyView;
+import static Menu.MenuDefinitions.MOL_SECTOR_RETAIL;
+import static Menu.MenuDefinitions.RETAIL_COCACALC;
+import static Menu.MenuDefinitions.RETAIL_SYS_NOTIF_BOARD;
 import Views.MainMenu.HSE.HSE_SysNotifBoardView;
 import Views.MainMenu.HSE.HSE_WorkPlanView;
+import Views.MainMenu.RETAIL.RETAIL_SysNotifBoardView;
 
 /**
  * Responsive navigation menu presenting a list of available views to the user.
@@ -126,16 +129,20 @@ public class MainMenu extends CssLayout {
         mainMenuTree.addItems(Menu.getDefault().getAllMenuItems());
 
         mainMenuTree.expandItemsRecursively(MOL_SECTOR_HSE);
-        mainMenuTree.expandItemsRecursively(HSE_SYS_NOTIF_BOARD);
+        mainMenuTree.expandItemsRecursively(MOL_SECTOR_RETAIL);
 
-        mainMenuTree.setChildrenAllowed(HSE_SYS_NOTIF_BOARD, true);
-
+        // mainMenuTree.setChildrenAllowed(HSE_SYS_NOTIF_BOARD, true);
         mainMenuTree.setParent(HSE_SYS_NOTIF_BOARD, MOL_SECTOR_HSE);
         mainMenuTree.setParent(HSE_WORKPLAN, MOL_SECTOR_HSE);
         mainMenuTree.setChildrenAllowed(HSE_SYS_NOTIF_BOARD, false);
         mainMenuTree.setChildrenAllowed(HSE_WORKPLAN, false);
-        //</editor-fold>
 
+        mainMenuTree.setParent(RETAIL_SYS_NOTIF_BOARD, MOL_SECTOR_RETAIL);
+        mainMenuTree.setParent(RETAIL_COCACALC, MOL_SECTOR_RETAIL);
+        mainMenuTree.setChildrenAllowed(RETAIL_SYS_NOTIF_BOARD, false);
+        mainMenuTree.setChildrenAllowed(RETAIL_COCACALC, false);
+
+        //</editor-fold>
         mainMenuTree.addItemClickListener(new ItemClickEvent.ItemClickListener() {
             @Override
             public void itemClick(ItemClickEvent event) {
@@ -146,6 +153,11 @@ public class MainMenu extends CssLayout {
                         break;
                     case HSE_WORKPLAN:
                         navigator.navigateTo(HSE_WorkPlanView.class.getSimpleName());
+                        break;
+
+                    case MOL_SECTOR_RETAIL:
+                    case RETAIL_SYS_NOTIF_BOARD:
+                        navigator.navigateTo(RETAIL_SysNotifBoardView.class.getSimpleName());
                         break;
                 }
             }

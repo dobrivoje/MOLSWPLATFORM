@@ -45,8 +45,12 @@ public class Menu {
         mainMenuSubOptions.put(MenuDefinitions.HSE_SYS_NOTIF_BOARD, MenuDefinitions.get_HSE_SubItems());
         mainMenuSubOptions.put(MenuDefinitions.HSE_WORKPLAN, MenuDefinitions.get_HSE_SubItems());
 
+        mainMenuSubOptions.put(MenuDefinitions.RETAIL_SYS_NOTIF_BOARD, MenuDefinitions.get_HSE_SubItems());
+        mainMenuSubOptions.put(MenuDefinitions.RETAIL_COCACALC, MenuDefinitions.get_HSE_SubItems());
+
         allMenuItems.addAll(mainMenuItems);
         allMenuItems.addAll(MenuDefinitions.get_HSE_SubItems());
+        allMenuItems.addAll(MenuDefinitions.get_RETAIL_SubItems());
         //</editor-fold>
     }
 

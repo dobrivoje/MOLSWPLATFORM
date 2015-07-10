@@ -8,6 +8,7 @@ import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
 import Views.MainMenu.HSE.HSE_WorkPlanView;
 import Views.MainMenu.MainMenu;
+import Views.MainMenu.RETAIL.RETAIL_SysNotifBoardView;
 import ws.MyUI;
 
 /**
@@ -37,6 +38,7 @@ public class MainScreen extends HorizontalLayout {
         navigator.addView(EmptyView.class.getSimpleName(), EmptyView.class);
         navigator.addView(HSE_WorkPlanView.class.getSimpleName(), HSE_WorkPlanView.class);
         navigator.addView(HSE_SysNotifBoardView.class.getSimpleName(), HSE_SysNotifBoardView.class);
+        navigator.addView(RETAIL_SysNotifBoardView.class.getSimpleName(), RETAIL_SysNotifBoardView.class);
 
         navigator.addViewChangeListener(viewChangeListener);
 

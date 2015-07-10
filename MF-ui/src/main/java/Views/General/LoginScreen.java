@@ -130,7 +130,7 @@ public class LoginScreen extends CssLayout {
         loginInformation.setStyleName("login-information");
         Label loginInfoText = new Label(
                 "<h1>MOL Serbia<br>SW Platform</br></h1>"
-                + "<h2>HSE App</h2>"
+                + "<h2>RETAIL, HSE App</h2>"
                 + "Please, use your existing "
                 + "corporate Windows account,"
                 + "to use the application.",
