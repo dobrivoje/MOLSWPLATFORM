@@ -13,12 +13,6 @@
             <groupId>org.vaadin.highcharts</groupId>
             <artifactId>highcharts</artifactId>
             <version>1.1</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-server</artifactId>
-            <version>7.5.0</version>
         </dependency>
     </dependencies>
     <properties>
@@ -27,4 +21,5 @@
     <groupId>mf</groupId>
     <name>UTILITIES</name>
     <description>WS - WS-parent</description>
+    <version>1.1</version>
 </project>

@@ -4,7 +4,6 @@ import Views.DashboardView;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import java.util.ArrayList;
@@ -21,11 +20,15 @@ public class HSE_SysNotifBoardView extends DashboardView {
     public HSE_SysNotifBoardView() {
         super("HSE Notifications Board");
 
-        // createTopBar();
+        createTopBar();
         buildContentWithComponents(
-                createReport1(),
-                createReport2()
-        // new VerticalLayout(new Label("werwerwer"))
+                createReport(ChartType.LINE, "Report", "Preševo", "Horgoš 1", "Požega"),
+                createReport(ChartType.SPLINE, "Report", "Preševo", "Horgoš 1", "Požega"),
+                createReport(ChartType.BAR, "Report", "Preševo", "Horgoš 1", "Požega"),
+                createReport(ChartType.SPLINE, "Report", "Preševo", "Horgoš 1", "Požega"),
+                createReport(ChartType.PIE_GRADIENT, "Report", "Preševo", "Horgoš 1", "Požega"),
+                createReport(ChartType.AREA, "Report", "Preševo", "Horgoš 1", "Požega"),
+                createReport(ChartType.AREA_SPLINE, "Report", "Preševo", "Horgoš 1", "Požega")
         );
     }
 
@@ -45,12 +48,12 @@ public class HSE_SysNotifBoardView extends DashboardView {
     }
     //</editor-fold>
 
-    private Map<String, List<Object>> initData(List<String> categories) {
-        Map<String, List<Object>> M = new HashMap<>();
+    private Map<Object, List<Object>> initData(List<Object> categories) {
+        Map<Object, List<Object>> M = new HashMap<>();
 
         List<Object> tmpRandomList;
 
-        for (String G : Arrays.asList("BMB95", "BMB95 EVO", "ED", "EVOD", "LPG")) {
+        for (Object G : Arrays.asList("BMB95", "BMB95 EVO", "ED", "EVOD", "LPG")) {
             tmpRandomList = new ArrayList<>();
 
             for (int j = 0; j < categories.size(); j++) {
@@ -62,20 +65,19 @@ public class HSE_SysNotifBoardView extends DashboardView {
         return M;
     }
 
-    private Component createReport1() {
-        HighChartGen hcg = new HighChartGen();
-        List<String> k = Arrays.asList("Preševo", "Horgoš 1", "Požega");
-        Component c1 = hcg.generateHighChart3(
-                ChartType.STACKED_BAR,
-                "Total Consumption",
+    private Component createReport(ChartType chartType, String title, Object... procurators) {
+        List<Object> k = Arrays.asList(procurators);
+        Component c1 = new HighChartGen().generateHighChart(
+                chartType,
+                title,
                 initData(k),
                 k
         );
 
-        subPanels.add(new Panel("Stats", c1));
+        subPanels.add(new Panel(title, c1));
 
         VerticalLayout VL = new VerticalLayout();
-        VL.setSizeFull();
+        VL.setSizeUndefined();
         VL.setMargin(true);
         VL.setSpacing(true);
 
@@ -84,10 +86,6 @@ public class HSE_SysNotifBoardView extends DashboardView {
         }
 
         return VL;
-    }
-
-    private Component createReport2() {
-        return new Label();
     }
 
 }

@@ -13,15 +13,26 @@ import java.util.List;
 import java.util.Map;
 import org.vaadin.highcharts.HighChartGen;
 import org.vaadin.highcharts.ChartType;
+import static java.lang.Math.sin;
+import static java.lang.Math.PI;
+import static java.lang.Math.exp;
 
 public class RETAIL_SysNotifBoardView extends DashboardView {
 
     public RETAIL_SysNotifBoardView() {
-        super("Retail Notifications Board");
+        super("Retail Dashboard");
 
+        List<Object> L = new ArrayList<>();
+        int K = 1000;
+        for (int i = 0; i < K; i++) {
+            L.add(i);
+        }
         buildContentWithComponents(
-                createReport1(),
-                createReport2()
+                createReport(ChartType.BAR, "t1", Arrays.asList("Stanko", "Dobri", "Nenad")),
+                createReport(ChartType.AREA, "t3", Arrays.asList("Stanko", "Dobri", "Nenad")),
+                createReport(ChartType.AREA_RANGE, "xxx", Arrays.asList("Stanko", "Dobri", "Nenad", "Stanko", "Dobri", "Nenad", "Stanko", "Dobri", "Nenad", "Stanko", "Dobri", "Nenad", "Stanko", "Dobri", "Nenad", "Stanko", "Dobri", "Nenad", "Stanko", "Dobri", "Nenad", "Stanko", "Dobri", "Nenad", "Stanko", "Dobri", "Nenad", "Stanko", "Dobri", "Nenad", "Stanko", "Dobri", "Nenad", "Stanko", "Dobri", "Nenad", "Stanko", "Dobri", "Nenad", "Stanko", "Dobri", "Nenad", "Stanko", "Dobri", "Nenad", "Stanko", "Dobri", "Nenad", "Stanko", "Dobri", "Nenad", "Stanko", "Dobri", "Nenad", "Stanko", "Dobri", "Nenad", "Stanko", "Dobri", "Nenad", "Stanko", "Dobri", "Nenad", "Stanko", "Dobri", "Nenad", "Stanko", "Dobri", "Nenad", "Stanko", "Dobri", "Nenad", "Stanko", "Dobri", "Nenad", "Stanko", "Dobri", "Nenad", "Stanko", "Dobri", "Nenad", "Stanko", "Dobri", "Nenad", "Stanko", "Dobri", "Nenad")),
+                createZoomableReport(ChartType.LINE_TIMESERIES_ZUMABLE, "", L),
+                createReport(ChartType.STACKED_BAR, "AJTI", Arrays.asList("Иштван", "Арпад", "Добривоје"))
         );
     }
 
@@ -41,12 +52,12 @@ public class RETAIL_SysNotifBoardView extends DashboardView {
     }
     //</editor-fold>
 
-    private Map<String, List<Object>> initData(List<String> categories) {
-        Map<String, List<Object>> M = new HashMap<>();
+    private Map<Object, List<Object>> initData(List<Object> categories) {
+        Map<Object, List<Object>> M = new HashMap<>();
 
         List<Object> tmpRandomList;
 
-        for (String G : Arrays.asList("Радица", "Violeta", "Живка", "Стамена", "Nikolina")) {
+        for (Object G : Arrays.asList("Радица", "Violeta", "Живка", "Стамена", "Nikolina")) {
             tmpRandomList = new ArrayList<>();
 
             for (int j = 0; j < categories.size(); j++) {
@@ -59,20 +70,38 @@ public class RETAIL_SysNotifBoardView extends DashboardView {
         return M;
     }
 
-    private Component createReport1() {
-        HighChartGen hcg = new HighChartGen();
-        List<String> k = Arrays.asList("Radiša", "Ljubo", "Иштван");
-        Component c1 = hcg.generateHighChart3(
-                ChartType.STACKED_BAR,
-                "Ukupan broj akcija u selu",
-                initData(k),
-                k
+    private Map<Object, List<Object>> initZoomableData(List<Object> categories) {
+        Map<Object, List<Object>> M = new HashMap<>();
+
+        List<Object> tmpRandomList;
+        int K = 1000;
+
+        for (Object G : Arrays.asList("BMB95", "BMB EVO", "LPG", "DSL", "DSL EVO")) {
+            tmpRandomList = new ArrayList<>();
+
+            for (int j = 0; j < categories.size(); j++) {
+                double D = (10000 * (j * sin(2 * (1000 - j) * PI) * exp((5 * j) / (j + 1) / K)) * Math.random());
+                tmpRandomList.add(D);
+            }
+
+            M.put(G, tmpRandomList);
+        }
+
+        return M;
+    }
+
+    private Component createReport(ChartType chartType, String title, List<Object> procurators) {
+        Component c1 = new HighChartGen().generateHighChart(
+                chartType,
+                title,
+                initData(procurators),
+                procurators
         );
 
-        subPanels.add(new Panel("Total F..k Village Actions", c1));
+        subPanels.add(new Panel(title, c1));
 
         VerticalLayout VL = new VerticalLayout();
-        VL.setSizeFull();
+        VL.setSizeUndefined();
         VL.setMargin(true);
         VL.setSpacing(true);
 
@@ -83,20 +112,17 @@ public class RETAIL_SysNotifBoardView extends DashboardView {
         return VL;
     }
 
-    private Component createReport2() {
-        HighChartGen hcg = new HighChartGen();
-        List<String> k = Arrays.asList("Stanko", "Dobri", "Nenad");
-        Component c1 = hcg.generateHighChart3(
-                ChartType.STACKED_BAR,
-                "Ukupan broj akcija u selu",
-                initData(k),
-                k
+    private Component createZoomableReport(ChartType chartType, String title, List<Object> data) {
+        Component c1 = new HighChartGen().generateHighChart(
+                chartType,
+                title,
+                initZoomableData(data),
+                data
         );
 
-        subPanels.add(new Panel("Total F..k Village Actions", c1));
+        subPanels.add(new Panel(title, c1));
 
         VerticalLayout VL = new VerticalLayout();
-        VL.setSizeFull();
         VL.setMargin(true);
         VL.setSpacing(true);
 

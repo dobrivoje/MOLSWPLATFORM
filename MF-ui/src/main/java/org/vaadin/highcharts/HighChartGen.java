@@ -1,22 +1,38 @@
 package org.vaadin.highcharts;
 
 import com.vaadin.ui.Component;
+import java.awt.Color;
 import java.util.List;
 import java.util.Map;
+import org.dobrivoje.utils.colors.PleasingColorGenerator;
 
 public class HighChartGen extends AbstractHighChart {
 
     public HighChartGen() {
     }
 
-    public Component generateHighChart3(ChartType chartType, String title, Map<String, List<Object>> series, List<String> categories) {
+    public Component generateHighChart(ChartType chartType, String title, Map<Object, List<Object>> series, List<Object> categories) {
         HighChart hc = new HighChart();
 
         String out = generateHeader(title)
-                + generateChartType(chartType)
+                + chartType.toString()
                 + generateChartCategories(categories)
                 + generateSeriesBegin()
-                + generateSeries3(series)
+                + generateSeries(series)
+                + generateSeriesEnd();
+
+        hc.setHcjs(out);
+        return hc;
+    }
+
+    public Component generatePleasingHighChart(ChartType chartType, String title, Map<Object, List<Object>> series, List<Object> categories) {
+        HighChart hc = new HighChart();
+
+        String out = generateHeader(title)
+                + chartType.toString()
+                + generateChartCategories(categories)
+                + generateSeriesBegin()
+                + generateSeriesWithPleasingColors(series)
                 + generateSeriesEnd();
 
         hc.setHcjs(out);
@@ -24,38 +40,28 @@ public class HighChartGen extends AbstractHighChart {
     }
 
     //<editor-fold defaultstate="collapsed" desc="highchart generating methods">
-    private String generateSeries(Map<String, List<Float>> series) {
+    private String generateSeries(Map<Object, List<Object>> series) {
         String s = new String();
 
-        for (Map.Entry<String, List<Float>> es : series.entrySet()) {
-            String key = es.getKey();
-            List<Float> value = es.getValue();
-
-            s += " { name: '" + key + "', data: " + value + "} , ";
-        }
-        return s;
-    }
-
-    private String generateSeries2(Map<String, List<Integer>> series) {
-        String s = new String();
-
-        for (Map.Entry<String, List<Integer>> es : series.entrySet()) {
-            String key = es.getKey();
-            List<Integer> value = es.getValue();
-
-            s += " { name: '" + key + "', data: " + value + "} , ";
-        }
-        return s;
-    }
-
-    private String generateSeries3(Map<String, List<Object>> series) {
-        String s = new String();
-
-        for (Map.Entry<String, List<Object>> es : series.entrySet()) {
-            String key = es.getKey();
+        for (Map.Entry<Object, List<Object>> es : series.entrySet()) {
+            Object key = es.getKey();
             List<Object> value = es.getValue();
 
             s += " { name: '" + key + "', data: " + value + "} , ";
+        }
+        return s;
+    }
+
+    private String generateSeriesWithPleasingColors(Map<Object, List<Object>> series) {
+        String s = new String();
+        String pleasingColor;
+
+        for (Map.Entry<Object, List<Object>> es : series.entrySet()) {
+            Object key = es.getKey();
+            List<Object> values = es.getValue();
+            pleasingColor = PleasingColorGenerator.generateRandomColor(Color.RED);
+
+            s += " { name: '" + key + "', data: " + values + "} , color: '" + pleasingColor + "', ";
         }
         return s;
     }
@@ -65,15 +71,11 @@ public class HighChartGen extends AbstractHighChart {
                 + "title: {text: '" + title + "' }, ";
     }
 
-    private String generateChartType(ChartType chartType) {
-        return chartType.toString();
-    }
-
     private String generateSeriesBegin() {
         return "series: [ ";
     }
 
-    private String generateChartCategories(List<String> categories) {
+    private String generateChartCategories(List<Object> categories) {
         if (categories == null) {
             return "";
         } else {

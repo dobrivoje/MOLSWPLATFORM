@@ -5,8 +5,10 @@
  */
 package test;
 
+import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
+import org.dobrivoje.utils.colors.PleasingColorGenerator;
 
 /**
  *
@@ -40,6 +42,13 @@ public class NewMain {
         System.err.println(header + s + footer);
 
         System.err.println("----------------------------------------");
+        
+        Color c = new Color(12,44,200);
+        System.err.println("color : " + c.toString());
+        System.err.println("hexa : " + Integer.toHexString(c.getRGB()).substring(0, 6));
+        
+        System.err.println("pleasing color : " + 
+                PleasingColorGenerator.generateRandomColor(c, 10));
     }
 
 }
