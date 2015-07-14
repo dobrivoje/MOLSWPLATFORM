@@ -41,11 +41,6 @@
             <version>1.10</version>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>DB</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-jdk14</artifactId>
             <version>1.7.12</version>
@@ -69,6 +64,11 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
+            <artifactId>MF-widgetset</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
             <artifactId>AUTH</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -79,7 +79,7 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>MF-widgetset</artifactId>
+            <artifactId>DB</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
