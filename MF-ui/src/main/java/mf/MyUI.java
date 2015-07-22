@@ -1,8 +1,9 @@
-package ws;
+package mf;
 
 import Views.General.LoginScreen;
 import Views.General.MainScreen;
 import Views.MainMenu.HSE.HSE_WorkPlanView;
+import com.vaadin.annotations.PreserveOnRefresh;
 import javax.servlet.annotation.WebServlet;
 
 import com.vaadin.annotations.Theme;
@@ -17,11 +18,9 @@ import org.dobrivoje.auth.IAccessAuthControl;
 import org.dobrivoje.auth.IntermolADAccessControl;
 import org.dobrivoje.utils.date.formats.DateFormat;
 
-/**
- *
- */
 @Theme("mytheme")
 @Widgetset("ws.MyAppWidgetset")
+@PreserveOnRefresh
 public class MyUI extends UI {
 
     private final IAccessAuthControl accessControl = new IntermolADAccessControl();

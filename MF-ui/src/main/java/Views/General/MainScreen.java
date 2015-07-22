@@ -9,7 +9,7 @@ import com.vaadin.ui.HorizontalLayout;
 import Views.MainMenu.HSE.HSE_WorkPlanView;
 import Views.MainMenu.MainMenu;
 import Views.MainMenu.RETAIL.RETAIL_SysNotifBoardView;
-import ws.MyUI;
+import mf.MyUI;
 
 /**
  * Content of the UI when the user is logged in.

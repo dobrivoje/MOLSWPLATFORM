@@ -13,7 +13,7 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.CheckBox;
 import db.ent.HSE.WorkPlan;
 import java.util.List;
-import static ws.MyUI.DS;
+import static mf.MyUI.DS;
 
 /**
  *

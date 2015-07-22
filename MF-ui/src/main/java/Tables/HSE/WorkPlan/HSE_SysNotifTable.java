@@ -13,7 +13,7 @@ import com.vaadin.ui.Table.Align;
 import java.util.List;
 import org.superb.apps.utilities.Enums.WorkingPlansStatuses;
 import org.superb.apps.utilities.vaadin.FancyLabels.WPSLabel;
-import static ws.MyUI.DS;
+import static mf.MyUI.DS;
 
 /**
  *

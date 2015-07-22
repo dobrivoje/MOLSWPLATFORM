@@ -22,8 +22,8 @@ import org.superb.apps.utilities.Enums.CrudOperations;
 import static org.superb.apps.utilities.Enums.CrudOperations.BUTTON_CAPTION_NEW;
 import static org.superb.apps.utilities.Enums.CrudOperations.BUTTON_CAPTION_UPDATE;
 import org.superb.apps.utilities.vaadin.Tables.IRefreshVisualContainer;
-import static ws.MyUI.SYSTEM_DATE_FORMAT;
-import static ws.MyUI.DS;
+import static mf.MyUI.SYSTEM_DATE_FORMAT;
+import static mf.MyUI.DS;
 
 public class WorkPlanForm extends FormLayout {
 

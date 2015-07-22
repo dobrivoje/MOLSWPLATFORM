@@ -19,7 +19,7 @@ import com.vaadin.ui.HorizontalSplitPanel;
 import db.ent.HSE.WorkPlan;
 import org.dobrivoje.auth.roles.Roles;
 import org.superb.apps.utilities.vaadin.Tables.IRefreshVisualContainer;
-import ws.MyUI;
+import mf.MyUI;
 
 public class HSE_WorkPlanView extends VerticalLayout implements View {
 
