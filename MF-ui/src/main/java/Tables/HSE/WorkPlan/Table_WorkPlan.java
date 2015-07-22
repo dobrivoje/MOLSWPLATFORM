@@ -5,7 +5,7 @@
  */
 package Tables.HSE.WorkPlan;
 
-import Tables.GENTable;
+import Tables.Table_GEN;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.data.util.filter.Or;
 import com.vaadin.data.util.filter.SimpleStringFilter;
@@ -19,13 +19,13 @@ import static mf.MyUI.DS;
  *
  * @author root
  */
-public class WorkPlanTable extends GENTable<WorkPlan> {
+public class Table_WorkPlan extends Table_GEN<WorkPlan> {
 
-    public WorkPlanTable() {
+    public Table_WorkPlan() {
         this(new BeanItemContainer<>(WorkPlan.class), DS.getWPController().getAll());
     }
 
-    public WorkPlanTable(BeanItemContainer<WorkPlan> beanContainer, List list) {
+    public Table_WorkPlan(BeanItemContainer<WorkPlan> beanContainer, List list) {
         super(beanContainer, list);
 
         addGeneratedColumn("finished1", new Table.ColumnGenerator() {

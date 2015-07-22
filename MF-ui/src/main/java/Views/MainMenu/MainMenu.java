@@ -32,9 +32,9 @@ import static Menu.MenuDefinitions.MOL_SECTOR_HSE;
 import static Menu.MenuDefinitions.MOL_SECTOR_RETAIL;
 import static Menu.MenuDefinitions.RETAIL_COCACALC;
 import static Menu.MenuDefinitions.RETAIL_SYS_NOTIF_BOARD;
-import Views.MainMenu.HSE.HSE_SysNotifBoardView;
-import Views.MainMenu.HSE.HSE_WorkPlanView;
-import Views.MainMenu.RETAIL.RETAIL_SysNotifBoardView;
+import Views.MainMenu.HSE.View_HSE_SysNotifBoard;
+import Views.MainMenu.HSE.View_HSE_WorkPlan;
+import Views.MainMenu.RETAIL.View_RETAIL_SysNotifBoard;
 
 /**
  * Responsive navigation menu presenting a list of available views to the user.
@@ -125,6 +125,7 @@ public class MainMenu extends CssLayout {
 
     private void createViewTree(final String name) {
         Tree mainMenuTree = new Tree();
+
         //<editor-fold defaultstate="collapsed" desc="Menu UI Defs">
         mainMenuTree.addItems(Menu.getDefault().getAllMenuItems());
 
@@ -141,23 +142,23 @@ public class MainMenu extends CssLayout {
         mainMenuTree.setParent(RETAIL_COCACALC, MOL_SECTOR_RETAIL);
         mainMenuTree.setChildrenAllowed(RETAIL_SYS_NOTIF_BOARD, false);
         mainMenuTree.setChildrenAllowed(RETAIL_COCACALC, false);
-
         //</editor-fold>
+
         mainMenuTree.addItemClickListener(new ItemClickEvent.ItemClickListener() {
             @Override
             public void itemClick(ItemClickEvent event) {
                 switch ((MenuDefinitions) (event.getItemId())) {
                     case MOL_SECTOR_HSE:
                     case HSE_SYS_NOTIF_BOARD:
-                        navigator.navigateTo(HSE_SysNotifBoardView.class.getSimpleName());
+                        navigator.navigateTo(View_HSE_SysNotifBoard.class.getSimpleName());
                         break;
                     case HSE_WORKPLAN:
-                        navigator.navigateTo(HSE_WorkPlanView.class.getSimpleName());
+                        navigator.navigateTo(View_HSE_WorkPlan.class.getSimpleName());
                         break;
 
                     case MOL_SECTOR_RETAIL:
                     case RETAIL_SYS_NOTIF_BOARD:
-                        navigator.navigateTo(RETAIL_SysNotifBoardView.class.getSimpleName());
+                        navigator.navigateTo(View_RETAIL_SysNotifBoard.class.getSimpleName());
                         break;
                 }
             }

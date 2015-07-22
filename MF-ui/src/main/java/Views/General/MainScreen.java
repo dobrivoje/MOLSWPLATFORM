@@ -1,14 +1,14 @@
 package Views.General;
 
-import Views.MainMenu.HSE.HSE_SysNotifBoardView;
+import Views.MainMenu.HSE.View_HSE_SysNotifBoard;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
-import Views.MainMenu.HSE.HSE_WorkPlanView;
+import Views.MainMenu.HSE.View_HSE_WorkPlan;
 import Views.MainMenu.MainMenu;
-import Views.MainMenu.RETAIL.RETAIL_SysNotifBoardView;
+import Views.MainMenu.RETAIL.View_RETAIL_SysNotifBoard;
 import mf.MyUI;
 
 /**
@@ -31,14 +31,14 @@ public class MainScreen extends HorizontalLayout {
         final Navigator navigator = new Navigator(ui, viewContainer);
         navigator.setErrorView(ErrorView.class);
         menu = new MainMenu(navigator);
-        menu.addViewTree(new HSE_WorkPlanView(), HSE_WorkPlanView.class.getSimpleName(), HSE_WorkPlanView.class.getSimpleName());
+        menu.addViewTree(new View_HSE_WorkPlan(), View_HSE_WorkPlan.class.getSimpleName(), View_HSE_WorkPlan.class.getSimpleName());
         menu.addViewButton(new AboutView(), AboutView.class.getSimpleName(), AboutView.class.getSimpleName(), FontAwesome.INFO_CIRCLE);
 
         // DODAVANJE VIEW-ova NOVIH AKCIJA GL. MENIJA :
         navigator.addView(EmptyView.class.getSimpleName(), EmptyView.class);
-        navigator.addView(HSE_WorkPlanView.class.getSimpleName(), HSE_WorkPlanView.class);
-        navigator.addView(HSE_SysNotifBoardView.class.getSimpleName(), HSE_SysNotifBoardView.class);
-        navigator.addView(RETAIL_SysNotifBoardView.class.getSimpleName(), RETAIL_SysNotifBoardView.class);
+        navigator.addView(View_HSE_WorkPlan.class.getSimpleName(), View_HSE_WorkPlan.class);
+        navigator.addView(View_HSE_SysNotifBoard.class.getSimpleName(), View_HSE_SysNotifBoard.class);
+        navigator.addView(View_RETAIL_SysNotifBoard.class.getSimpleName(), View_RETAIL_SysNotifBoard.class);
 
         navigator.addViewChangeListener(viewChangeListener);
 

@@ -9,21 +9,15 @@ package org.superb.apps.utilities.Enums;
  *
  * @author root
  */
-public enum CrudOperations {
+public enum ViewModes {
 
-    CREATE("Create"),
-    READ("Read"),
-    UPDATE("Update"),
-    DELETE("Delete"),
-    //
-    BUTTON_CAPTION_SAVE("Save"),
-    BUTTON_CAPTION_UPDATE("Update"),
-    BUTTON_CAPTION_NEW("Insert New Data"),
-    BUTTON_CAPTION_CANCEL("Cancel");
+    SIMPLE("Simple mode"),
+    LICENCE("Licence mode!"),
+    FULL("Full mode");
 
     private final String name;
 
-    private CrudOperations(String name) {
+    private ViewModes(String name) {
         this.name = name;
     }
 

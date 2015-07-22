@@ -9,21 +9,19 @@ package org.superb.apps.utilities.Enums;
  *
  * @author root
  */
-public enum CrudOperations {
+public enum LOGS {
 
-    CREATE("Create"),
-    READ("Read"),
-    UPDATE("Update"),
-    DELETE("Delete"),
-    //
-    BUTTON_CAPTION_SAVE("Save"),
-    BUTTON_CAPTION_UPDATE("Update"),
-    BUTTON_CAPTION_NEW("Insert New Data"),
-    BUTTON_CAPTION_CANCEL("Cancel");
+    LOGIN("app login"),
+    LOGIN_WRONG("app login wrong"),
+    LOGOUT("app logout"),
+    DATA_SEARCH("data search"),
+    DB_INSERT("db table insert"),
+    DB_UPDATE("db table update"),
+    ACTION("action");
 
     private final String name;
 
-    private CrudOperations(String name) {
+    private LOGS(String name) {
         this.name = name;
     }
 

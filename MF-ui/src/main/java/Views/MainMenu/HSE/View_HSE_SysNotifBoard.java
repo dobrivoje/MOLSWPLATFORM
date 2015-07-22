@@ -1,6 +1,6 @@
 package Views.MainMenu.HSE;
 
-import Views.DashboardView;
+import Views.View_Dashboard;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
@@ -14,10 +14,10 @@ import java.util.Map;
 import org.vaadin.highcharts.HighChartGen;
 import org.vaadin.highcharts.ChartType;
 
-public class HSE_SysNotifBoardView extends DashboardView {
+public class View_HSE_SysNotifBoard extends View_Dashboard {
 
     // private final HSE_SysNotifTable hseSysNotifTable = new HSE_SysNotifTable();
-    public HSE_SysNotifBoardView() {
+    public View_HSE_SysNotifBoard() {
         super("HSE Notifications Board");
 
         createTopBar();

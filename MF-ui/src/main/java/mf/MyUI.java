@@ -2,7 +2,7 @@ package mf;
 
 import Views.General.LoginScreen;
 import Views.General.MainScreen;
-import Views.MainMenu.HSE.HSE_WorkPlanView;
+import Views.MainMenu.HSE.View_HSE_WorkPlan;
 import com.vaadin.annotations.PreserveOnRefresh;
 import javax.servlet.annotation.WebServlet;
 
@@ -40,7 +40,7 @@ public class MyUI extends UI {
 
     protected void showMainView() {
         setContent(new MainScreen(MyUI.this));
-        getNavigator().navigateTo(HSE_WorkPlanView.class.getSimpleName());
+        getNavigator().navigateTo(View_HSE_WorkPlan.class.getSimpleName());
     }
 
     public static MyUI get() {

@@ -5,6 +5,7 @@
  */
 package Trees;
 
+import db.Exceptions.CustomTreeNodesEmptyException;
 import db.ent.HSE.WorkPlan;
 import java.util.List;
 import org.superb.apps.utilities.vaadin.Trees.CustomTree;
@@ -13,9 +14,9 @@ import org.superb.apps.utilities.vaadin.Trees.CustomTree;
  *
  * @author root
  */
-public class WorkPlanTree extends CustomTree<WorkPlan> {
+public class Tree_WorkPlan extends CustomTree<WorkPlan> {
 
-    public WorkPlanTree(String caption, List treeItems) {
+    public Tree_WorkPlan(String caption, List treeItems) throws CustomTreeNodesEmptyException {
         super(caption, treeItems);
     }
 

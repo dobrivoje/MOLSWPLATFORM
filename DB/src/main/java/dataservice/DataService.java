@@ -8,6 +8,7 @@ package dataservice;
 import db.DBHandler;
 import db.controllers.HSE.FSController;
 import db.controllers.HSE.WPController;
+import javax.persistence.EntityManager;
 import reports.ent.HSE.HSE_SysNotifController;
 
 /**
@@ -26,6 +27,10 @@ public class DataService {
 
     public static synchronized DataService getDefault() {
         return instance == null ? instance = new DataService() : instance;
+    }
+    
+    public static synchronized EntityManager getEM() throws Exception {
+        return DBHandler.getEm();
     }
     //</editor-fold>
 

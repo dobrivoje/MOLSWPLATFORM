@@ -6,7 +6,7 @@
 package Tables.HSE.WorkPlan;
 
 import reports.ent.HSE.HSE_SysNotif_Bean;
-import Tables.GENTable;
+import Tables.Table_GEN;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.Align;
@@ -19,14 +19,14 @@ import static mf.MyUI.DS;
  *
  * @author root
  */
-public class HSE_SysNotifTable extends GENTable<HSE_SysNotif_Bean> {
+public class Table_HSE_SysNotif extends Table_GEN<HSE_SysNotif_Bean> {
 
-    public HSE_SysNotifTable() {
+    public Table_HSE_SysNotif() {
         this(new BeanItemContainer<>(HSE_SysNotif_Bean.class),
                 DS.getHSESysNotifController().getSysNotifBoard_Report1());
     }
 
-    public HSE_SysNotifTable(BeanItemContainer<HSE_SysNotif_Bean> beanContainer, List list) {
+    public Table_HSE_SysNotif(BeanItemContainer<HSE_SysNotif_Bean> beanContainer, List list) {
         super(beanContainer, list);
 
         addGeneratedColumn("finished", new Table.ColumnGenerator() {

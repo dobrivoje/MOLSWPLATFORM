@@ -11,7 +11,7 @@ import static org.superb.apps.utilities.Enums.CrudOperations.BUTTON_CAPTION_NEW;
 import static org.superb.apps.utilities.Enums.CrudOperations.BUTTON_CAPTION_UPDATE;
 import org.superb.apps.utilities.vaadin.Tables.IRefreshVisualContainer;
 
-public abstract class CRUDForm<T> extends FormLayout {
+public abstract class Form_CRUD<T> extends FormLayout {
 
     protected FieldGroup fieldGroup;
     protected BeanItem<T> beanItem;
@@ -20,13 +20,13 @@ public abstract class CRUDForm<T> extends FormLayout {
     protected String formButtonCaption;
     protected Button.ClickListener clickListener;
 
-    protected CRUDForm() {
+    protected Form_CRUD() {
         setSizeFull();
         setMargin(true);
         setStyleName(Reindeer.LAYOUT_BLACK);
     }
 
-    public CRUDForm(final T bean, final IFormNotification notification) {
+    public Form_CRUD(final T bean, final IFormNotification notification) {
         this();
 
         // PAZI : OBAVEZNO INICIJALOIZOVATI U IZVEDENOJ KLASI !!!
@@ -54,7 +54,7 @@ public abstract class CRUDForm<T> extends FormLayout {
         // addComponents(field0, field1,...,fieldN, formButton);
     }
 
-    public CRUDForm(final T bean, final IRefreshVisualContainer visualContainer) {
+    public Form_CRUD(final T bean, final IRefreshVisualContainer visualContainer) {
         this();
 
         // PAZI : OBAVEZNO INICIJALOIZOVATI U IZVEDENOJ KLASI !!!

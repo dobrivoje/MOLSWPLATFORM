@@ -9,26 +9,23 @@ package org.superb.apps.utilities.Enums;
  *
  * @author root
  */
-public enum CrudOperations {
+public enum GalleryIdentifications {
 
-    CREATE("Create"),
-    READ("Read"),
-    UPDATE("Update"),
-    DELETE("Delete"),
-    //
-    BUTTON_CAPTION_SAVE("Save"),
-    BUTTON_CAPTION_UPDATE("Update"),
-    BUTTON_CAPTION_NEW("Insert New Data"),
-    BUTTON_CAPTION_CANCEL("Cancel");
+    FS_IMAGE_GALLERY("1L"),
+    FS_DOC_GALLERY("2L");
 
     private final String name;
 
-    private CrudOperations(String name) {
+    private GalleryIdentifications(String name) {
         this.name = name;
     }
 
     @Override
     public String toString() {
         return name;
+    }
+
+    public long getGalleryID(GalleryIdentifications GI) {
+        return Long.getLong(GI.toString());
     }
 }

@@ -1,6 +1,6 @@
 package Views.MainMenu.RETAIL;
 
-import Views.DashboardView;
+import Views.View_Dashboard;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
@@ -17,9 +17,9 @@ import static java.lang.Math.sin;
 import static java.lang.Math.PI;
 import static java.lang.Math.exp;
 
-public class RETAIL_SysNotifBoardView extends DashboardView {
+public class View_RETAIL_SysNotifBoard extends View_Dashboard {
 
-    public RETAIL_SysNotifBoardView() {
+    public View_RETAIL_SysNotifBoard() {
         super("Retail Dashboard");
 
         List<Object> L = new ArrayList<>();

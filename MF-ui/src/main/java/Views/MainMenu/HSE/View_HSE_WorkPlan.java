@@ -1,37 +1,34 @@
 package Views.MainMenu.HSE;
 
-import Forms.HSE.WorkPlan.WorkPlanForm;
+import Forms.HSE.WorkPlan.Form_WorkPlan;
 import com.vaadin.event.FieldEvents;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
-import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.themes.ValoTheme;
-import Tables.HSE.WorkPlan.WorkPlanTable;
+import Tables.HSE.WorkPlan.Table_WorkPlan;
 import Views.ResetButtonForTextField;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.HorizontalSplitPanel;
 import db.ent.HSE.WorkPlan;
 import org.dobrivoje.auth.roles.Roles;
-import org.superb.apps.utilities.vaadin.Tables.IRefreshVisualContainer;
 import mf.MyUI;
 
-public class HSE_WorkPlanView extends VerticalLayout implements View {
+public class View_HSE_WorkPlan extends VerticalLayout implements View {
 
     private final VerticalLayout VL = new VerticalLayout();
 
     private final HorizontalSplitPanel HL = new HorizontalSplitPanel();
-    private final WorkPlanTable wpTable = new WorkPlanTable();
+    private final Table_WorkPlan wpTable = new Table_WorkPlan();
     private final VerticalLayout propVL = new VerticalLayout();
 
     private Button newBtn;
 
-    public HSE_WorkPlanView() {
+    public View_HSE_WorkPlan() {
         //<editor-fold defaultstate="collapsed" desc="UI setup">
         setSizeFull();
         addStyleName("crud-view");
@@ -92,13 +89,11 @@ public class HSE_WorkPlanView extends VerticalLayout implements View {
         });
 
         newBtn = new Button("New WorkPlan");
-        newBtn.addStyleName(ValoTheme.BUTTON_PRIMARY);
-        newBtn.setIcon(FontAwesome.YOUTUBE_PLAY);
+        newBtn.setWidth(200, Unit.PIXELS);
         newBtn.addClickListener(new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent event) {
-                WorkPlan wp = new WorkPlan();
-                openProperties(wp);
+                openProperties(new WorkPlan());
             }
         });
 
@@ -109,6 +104,7 @@ public class HSE_WorkPlanView extends VerticalLayout implements View {
         topLayout.setComponentAlignment(filter, Alignment.MIDDLE_LEFT);
         topLayout.setExpandRatio(filter, 1);
         topLayout.setStyleName("top-bar");
+        
         return topLayout;
     }
     //</editor-fold>
@@ -121,16 +117,11 @@ public class HSE_WorkPlanView extends VerticalLayout implements View {
                 propVL.removeAllComponents();
             }
 
-            WorkPlanForm wpForm = new WorkPlanForm(new BeanItem(wp), new IRefreshVisualContainer() {
-                @Override
-                public void refreshVisualContainer() {
-                    wpTable.refreshVisualContainer();
-                }
+            Form_WorkPlan wpForm = new Form_WorkPlan(new BeanItem(wp), true, () -> {
+                wpTable.refreshVisualContainer();
             });
 
             wpForm.setEnabled(MyUI.get().isPermitted(Roles.PERMISSION_APP_FS_USER_EDIT_OWN_WORKPLANS));
-            System.err.println();
-
             propVL.addComponent(wpForm);
 
         } else {

@@ -14,12 +14,12 @@ import org.superb.apps.utilities.vaadin.Tables.IRefreshVisualContainer;
  *
  * @author root
  */
-public class GENTable<T> extends Table implements IRefreshVisualContainer {
+public class Table_GEN<T> extends Table implements IRefreshVisualContainer {
 
     protected final BeanItemContainer<T> beanContainer;
     protected List list;
 
-    public GENTable(BeanItemContainer<T> beanContainer, List list) {
+    public Table_GEN(BeanItemContainer<T> beanContainer, List list) {
         this.beanContainer = beanContainer;
         this.list = list;
 
