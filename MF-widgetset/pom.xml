@@ -14,18 +14,6 @@
     <dependencies>
         <!-- Versions for these are configured in the parent POM -->
         <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-client</artifactId>
-            <!-- TODO this should have scope provided once http://dev.vaadin.com/ticket/14788 is resolved -->
-            <!-- <scope>provided</scope> -->
-        </dependency>
-        <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-client-compiler</artifactId>
-            <!-- TODO this should have scope provided once http://dev.vaadin.com/ticket/14788 is resolved -->
-            <!-- <scope>provided</scope> -->
-        </dependency>
-        <dependency>
             <groupId>org.vaadin.highcharts</groupId>
             <artifactId>highcharts</artifactId>
             <version>1.1</version>
@@ -44,15 +32,6 @@
             <groupId>org.vaadin.addons</groupId>
             <artifactId>imagestrip</artifactId>
             <version>3.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-shared</artifactId>
-            <version>7.5.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-server</artifactId>
         </dependency>
     </dependencies>
 
