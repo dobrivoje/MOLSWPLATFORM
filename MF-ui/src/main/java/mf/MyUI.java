@@ -25,7 +25,7 @@ public class MyUI extends UI {
 
     private final IAccessAuthControl accessControl = new IntermolADAccessControl();
     public static final DataService DS = DataService.getDefault();
-    public static final String SYSTEM_DATE_FORMAT = DateFormat.DATETIME_FORMAT_SRB.toString();
+    public static final String SYSTEM_DATE_FORMAT = DateFormat.DATE_FORMAT_SRB.toString();
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {

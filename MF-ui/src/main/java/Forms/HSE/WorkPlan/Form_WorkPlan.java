@@ -152,8 +152,56 @@ public class Form_WorkPlan extends Form_CRUD2<WorkPlan> {
     }
 
     @Override
-    public void setFieldsFromBean(Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setFieldsFromBean(WorkPlan workPlan) {
+        try {
+            workPlan.setStartDate(startDate.getValue());
+        } catch (Exception e) {
+        }
+
+        try {
+            workPlan.setEndDate(endDate.getValue());
+        } catch (Exception e) {
+        }
+
+        try {
+            workPlan.setFK_FuelStation((FuelStation) fuelStation.getValue());
+        } catch (Exception e) {
+        }
+
+        try {
+            workPlan.setContractor(contractor.getValue());
+        } catch (Exception e) {
+        }
+
+        try {
+            workPlan.setSubContractor(subContractor.getValue());
+        } catch (Exception e) {
+        }
+
+        try {
+            workPlan.setWorktype(worktype.getValue());
+        } catch (Exception e) {
+        }
+
+        try {
+            workPlan.setTermin(termin.getValue());
+        } catch (Exception e) {
+        }
+
+        try {
+            workPlan.setDuration(duration.getValue());
+        } catch (Exception e) {
+        }
+
+        try {
+            workPlan.setFinished(finished.getValue());
+        } catch (Exception e) {
+        }
+
+        try {
+            workPlan.setComment(comment.getValue());
+        } catch (Exception e) {
+        }
     }
     //</editor-fold>
 
