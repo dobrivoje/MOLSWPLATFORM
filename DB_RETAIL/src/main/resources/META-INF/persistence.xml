@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="mf_DB_RETAIL_jar_1.0PU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>db.retail.CompositeSellReport</class>
+    <class>db.retail.ReportDetails</class>
+    <class>db.retail.Kategorija</class>
+    <class>db.retail.GrupniNaziv</class>
+    <class>db.retail.FS</class>
+    <class>db.retail.KljucRaspodele</class>
+    <class>db.retail.Klasifikacija</class>
+    <class>db.retail.Ugovor</class>
+    <class>db.retail.Mapping</class>
+    <class>db.retail.Report</class>
+    <class>db.retail.GrupaKoef</class>
+    <class>db.retail.Koef</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:jtds:sqlserver://IMLBELGNAV02T.intermol.sys.corp:1433/coca"/>
+      <property name="javax.persistence.jdbc.user" value="coca_sql_account"/>
+      <property name="javax.persistence.jdbc.driver" value="net.sourceforge.jtds.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="821!!!"/>
+    </properties>
+  </persistence-unit>
+</persistence>

@@ -13,13 +13,13 @@ import com.vaadin.server.Responsive;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
-import dataservice.DataService;
+import db.HSE.dataservice.DataService;
 import org.dobrivoje.auth.IAccessAuthControl;
 import org.dobrivoje.auth.IntermolADAccessControl;
 import org.dobrivoje.utils.date.formats.DateFormat;
 
 @Theme("mytheme")
-@Widgetset("ws.MyAppWidgetset")
+@Widgetset("mf.MyAppWidgetset")
 @PreserveOnRefresh
 public class MyUI extends UI {
 

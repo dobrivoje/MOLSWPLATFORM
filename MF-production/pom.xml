@@ -36,7 +36,7 @@
                                     <artifactItems>
                                         <artifactItem>
                                             <groupId>${project.groupId}</groupId>
-                                            <artifactId>WS-ui</artifactId>
+                                            <artifactId>MF-ui</artifactId>
                                             <version>${project.version}</version>
                                             <type>war</type>
                                             <includes>VAADIN/themes/**/*</includes>
@@ -46,10 +46,10 @@
                                         </artifactItem>
                                         <artifactItem>
                                             <groupId>${project.groupId}</groupId>
-                                            <artifactId>WS-widgetset</artifactId>
+                                            <artifactId>MF-widgetset</artifactId>
                                             <version>${project.version}</version>
                                             <type>jar</type>
-                                            <includes>ws/**</includes>
+                                            <includes>mf/**</includes>
                                             <!-- Vaadin/GWT plug-in expects .gwt.xml to be in its warSourceDirectory -->
                                             <outputDirectory>${vaadin.resource.directory}/WEB-INF/classes</outputDirectory>
                                         </artifactItem>
@@ -79,7 +79,7 @@
                         <groupId>com.vaadin</groupId>
                         <artifactId>vaadin-maven-plugin</artifactId>
                         <configuration>
-                            <module>ws.MyAppWidgetset</module>
+                            <module>mf.MyAppWidgetset</module>
                             <extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
                             <warSourceDirectory>${vaadin.resource.directory}</warSourceDirectory>
                             <webappDirectory>${vaadin.resource.directory}/VAADIN/widgetsets</webappDirectory>
@@ -111,11 +111,11 @@
                             <overlays>
                                 <overlay>
                                     <groupId>${project.groupId}</groupId>
-                                    <artifactId>WS-ui</artifactId>
+                                    <artifactId>MF-ui</artifactId>
                                     <excludes>
                                         <!-- Exclude larger development time widgetset. -->
                                         <!-- The relevant classes are copied to the WAR above. -->
-                                        <exclude>WEB-INF/lib/WS-widgetset-*.jar</exclude>
+                                        <exclude>WEB-INF/lib/MF-widgetset-*.jar</exclude>
                                         <!-- Exclude the Sass compiler and its dependencies. -->
                                         <!-- The production WAR includes a precompiled theme. -->
                                         <exclude>WEB-INF/lib/vaadin-sass-compiler-*.jar</exclude>

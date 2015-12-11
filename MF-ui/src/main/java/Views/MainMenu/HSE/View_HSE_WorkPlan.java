@@ -14,7 +14,7 @@ import Views.ResetButtonForTextField;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.HorizontalSplitPanel;
-import db.ent.HSE.WorkPlan;
+import db.HSE.ent.WorkPlan;
 import org.dobrivoje.auth.roles.Roles;
 import mf.MyUI;
 

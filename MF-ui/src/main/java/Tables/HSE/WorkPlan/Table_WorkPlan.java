@@ -11,7 +11,7 @@ import com.vaadin.data.util.filter.Or;
 import com.vaadin.data.util.filter.SimpleStringFilter;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.CheckBox;
-import db.ent.HSE.WorkPlan;
+import db.HSE.ent.WorkPlan;
 import java.util.List;
 import static mf.MyUI.DS;
 

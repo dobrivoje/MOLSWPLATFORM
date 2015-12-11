@@ -6,7 +6,7 @@
 package Trees;
 
 import db.Exceptions.CustomTreeNodesEmptyException;
-import db.ent.HSE.WorkPlan;
+import db.HSE.ent.WorkPlan;
 import java.util.List;
 import org.superb.apps.utilities.vaadin.Trees.CustomTree;
 

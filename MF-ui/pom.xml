@@ -52,7 +52,7 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>DB</artifactId>
+            <artifactId>DB_HSE</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
@@ -86,7 +86,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.18.1</version>
+                <version>2.19</version>
                 <executions>
                     <execution>
                         <id>default</id>

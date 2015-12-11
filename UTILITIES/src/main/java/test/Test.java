@@ -5,7 +5,9 @@
  */
 package test;
 
-import org.superb.apps.utilities.Enums.ImageTypes;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import org.superb.apps.utilities.datum.Dates;
 
 /**
  *
@@ -34,16 +36,55 @@ public class Test {
          */
         //</editor-fold>
 
-        for (ImageTypes it : ImageTypes.values()) {
-            System.err.println(it);
-            System.err.println(it.name());
-        }
+        //<editor-fold defaultstate="collapsed" desc="imagetypes - test ok">
+        /*
+         for (ImageTypes it : ImageTypes.values()) {
+         System.err.println(it);
+         System.err.println(it.name());
+         }
+        
+         String hh = "\\\\imlbelgfile01.INTERMOL.SYS.CORP\\is\\Gallery\\FS\\BoskoPetrolDOO\\img\\werwe.jpg";
+         System.err.println(ImageTypes.contains(hh) ? "sadrži jpeg !" : "ne sadrži.");
+         System.err.println(hh.toLowerCase().endsWith("jpg"));
+         */
+        //</editor-fold>
 
-        String hh = "\\\\imlbelgfile01.INTERMOL.SYS.CORP\\is\\Gallery\\FS\\BoskoPetrolDOO\\img\\werwe.jpg";
+        Dates d = new Dates();
+        System.err.println("Test1 : toString() : ");
+        System.err.println(d.toString());
 
-        System.err.println(ImageTypes.contains(hh) ? "sadrži jpeg !" : "ne sadrži.");
+        d.setFrom(7, 9, 1975);
+        System.err.println("moj rođendan : " + d.getFrom());
 
-        System.err.println(hh.toLowerCase().endsWith("jpg"));
+        d.setFrom(18, 4, 1953);
+        System.err.println("majkin rođendan : " + d.getFrom());
 
+        d.setFrom(15, 4, 1979);
+        System.err.println("krmetov rođendan : " + d.getFrom());
+
+        d.setFrom(3, 10, 1948);
+        System.err.println("kurjakov rođendan : " + d.getFrom());
+
+        Dates d1 = new Dates(1);
+        System.err.println("test : Dates(1)");
+        System.err.println("od : " + d1.getFrom());
+        System.err.println("do : " + d1.getTo());
+
+        Dates d2 = new Dates(-10);
+        System.err.println("test : Dates(-10)");
+        System.err.println("od : " + d2.getFrom());
+        System.err.println("do : " + d2.getTo());
+
+        Dates d3 = new Dates();
+        d3.setMonthsBackForth(2);
+        System.err.println("test : setMonthsBackForth(2)");
+        System.err.println("od : " + d3.getFrom());
+        System.err.println("do : " + d3.getTo());
+
+        Dates d4 = new Dates();
+        d4.setMonthsBackForth(4);
+        System.err.println("test : setMonthsBackForth(4)");
+        System.err.println("od : " + d4.getFrom());
+        System.err.println("do : " + d4.getTo());
     }
 }

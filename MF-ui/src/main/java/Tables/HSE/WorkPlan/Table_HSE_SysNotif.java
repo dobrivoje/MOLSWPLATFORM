@@ -5,7 +5,7 @@
  */
 package Tables.HSE.WorkPlan;
 
-import reports.ent.HSE.HSE_SysNotif_Bean;
+import db.HSE.ent.reportbeans.HSE_SysNotif_Bean;
 import Tables.Table_GEN;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Table;

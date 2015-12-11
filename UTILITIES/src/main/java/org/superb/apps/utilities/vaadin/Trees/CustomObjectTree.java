@@ -1,58 +1,129 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.superb.apps.utilities.vaadin.Trees;
 
 import db.Exceptions.CustomTreeNodesEmptyException;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import org.superb.apps.utilities.vaadin.Forms.Form_CRUD2;
 import org.superb.apps.utilities.vaadin.Tables.IRefreshVisualContainer;
 
 /**
  * <p>
- * CustomDateTree klasa kao čvorove ima objekte tipa T.</p>
- * Za svaki čvor, postoji lista.
+ * <b>CustomObjectTree</b> class has root nodes of the type T.</p>
+ * For every root node, there is a list with it's own sub-nodes.
  *
  * @param <T>
  */
 public abstract class CustomObjectTree<T> extends CustomTree<T> implements IRefreshVisualContainer {
 
-    public CustomObjectTree(String caption, List treeItems) throws CustomTreeNodesEmptyException, NullPointerException {
-        super(caption, treeItems);
+    protected Date dateFrom;
+    protected Date dateTo;
+
+    protected List rootNodeSubList;
+
+    protected Form_CRUD2 crudForm;
+
+    public CustomObjectTree(String caption, List rootNodes) throws CustomTreeNodesEmptyException, NullPointerException {
+        super(caption, rootNodes);
+        init();
+    }
+
+    /**
+     * Create a tree with root node and list of its sub-nodes.
+     *
+     * @param caption
+     * @param rootNode
+     * @param rootNodeSubList
+     * @throws CustomTreeNodesEmptyException
+     * @throws NullPointerException
+     */
+    public CustomObjectTree(String caption, T rootNode, List rootNodeSubList) throws CustomTreeNodesEmptyException, NullPointerException {
+        super(caption, Arrays.asList(rootNode));
+        this.rootNodeSubList = rootNodeSubList;
+
+        super.setNodeItems(rootNode, rootNodeSubList);
+    }
+
+    /**
+     *
+     * @param caption
+     * @param customTree This is a Map<T, List> for which we create custom tree.
+     * @throws CustomTreeNodesEmptyException
+     * @throws NullPointerException
+     */
+    public CustomObjectTree(String caption, Map<T, List<? extends Object>> customTree) throws CustomTreeNodesEmptyException, NullPointerException {
+        super(caption);
+        init();
+        createCustomTree(customTree);
+    }
+
+    /**
+     * Create a tree with list of the root nodes and date interval.
+     *
+     * @param caption
+     * @param rootNodes
+     * @param dateFrom
+     * @param dateTo
+     * @throws CustomTreeNodesEmptyException
+     * @throws NullPointerException
+     */
+    public CustomObjectTree(String caption, List rootNodes, Date dateFrom, Date dateTo) throws CustomTreeNodesEmptyException, NullPointerException {
+        super(caption, rootNodes);
+
+        this.dateFrom = dateFrom;
+        this.dateTo = dateTo;
+
         init();
     }
 
     //<editor-fold defaultstate="collapsed" desc="init">
     private void init() {
-        for (T e : elements) {
-            createSubNodes(e);
+        /*
+         if (super.getItemIds() != null || !super.getItemIds().isEmpty()) {
+         super.getItemIds().stream().forEach((e) -> {
+         createSubNodes((T) e);
+         });
+         }
+         */
+
+        if (!elements.isEmpty()) {
+            elements.stream().forEach((e) -> {
+                createSubNodes((T) e);
+            });
         }
+
     }
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="createSubNodes">
     /**
-     * <p>
- createSubNodes metod, se koristi u init metodu </p>
-     * kako bi se ispitao svaki čvor "t"
+     * For all defined root nodes, dynamically create<br>
+     * all child nodes for each root node !<br>
+     * How sub-nodes list is generated, is defined in the extended class<br>
      *
-     *
-     * @param t
+     * @param t This is the one of the list of root nodes,<br>
+     * for which we want to create it's own list of sub-nodes.
      */
     protected abstract void createSubNodes(T t);
     //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc="createNodeItems">
+    //<editor-fold defaultstate="collapsed" desc="createSingleRootChildNodes">
     /**
-     * <p>
-     * Kreiraj stablo sa podčvorovima za čvor "t" tipa T</p>
+     * Create this tree with <b>single</b> type T root node,<br>
+     * with it's sub-nodes list "subList".
      *
-     * @param t Čvor
-     * @param subList Lista podčvorova čvora "t"
+     * @param root root node.
+     * @param rootChildListNodes root's nodes sub-list.
      */
-    protected void createNodeItems(T t, List subList) {
-        super.setNodeItems(t, subList);
+    protected void createSingleRootChildNodes(T root, List rootChildListNodes) {
+        super.setNodeItems(root, rootChildListNodes);
+    }
+
+    private void createCustomTree(Map<T, List<? extends Object>> customTree) {
+        customTree.entrySet().stream().forEach((ES) -> {
+            super.setNodeItems(ES.getKey(), ES.getValue());
+        });
     }
     //</editor-fold>
 

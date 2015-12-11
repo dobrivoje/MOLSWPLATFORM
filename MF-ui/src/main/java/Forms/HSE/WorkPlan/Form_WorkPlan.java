@@ -14,12 +14,12 @@ import com.vaadin.ui.DateField;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
-import db.ent.HSE.FuelStation;
-import db.ent.HSE.WorkPlan;
-import static org.superb.apps.utilities.Enums.CrudOperations.BUTTON_CAPTION_UPDATE;
+import db.HSE.ent.FuelStation;
+import db.HSE.ent.WorkPlan;
 import org.superb.apps.utilities.vaadin.Tables.IRefreshVisualContainer;
 import static mf.MyUI.SYSTEM_DATE_FORMAT;
 import static mf.MyUI.DS;
+import static org.superb.apps.utilities.Enums.CrudOperations.BUTTON_CAPTION_UPDATE;
 
 public class Form_WorkPlan extends Form_CRUD2<WorkPlan> {
 
