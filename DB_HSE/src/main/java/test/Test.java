@@ -5,7 +5,7 @@
  */
 package test;
 
-import db.HSE.dataservice.DataService;
+import db.HSE.dataservice.DataService_HSE;
 import db.HSE.ent.FuelStation;
 
 /**
@@ -18,7 +18,7 @@ public class Test {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        DataService DS = DataService.getDefault();
+        DataService_HSE DS = DataService_HSE.getDefault();
         for (FuelStation r : DS.getFSController().getAll()) {
             System.err.println(r.getName() + ", how meny finished WPs : "
                     + DS.getWPController().getWorkPlansCountByStation(r, true)

@@ -5,7 +5,7 @@
  */
 package db.HSE.ent.reportbeans;
 
-import db.HSE.DBHandler;
+import db.HSE.DBHandler_HSE;
 import db.HSE.ent.FuelStation;
 import db.HSE.ent.WorkPlan;
 import java.util.ArrayList;
@@ -17,9 +17,9 @@ import java.util.List;
  */
 public class HSE_SysNotifController {
 
-    private static DBHandler DBH;
+    private static DBHandler_HSE DBH;
 
-    public HSE_SysNotifController(DBHandler DBH) {
+    public HSE_SysNotifController(DBHandler_HSE DBH) {
         HSE_SysNotifController.DBH = DBH;
     }
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package db.retail;
+package db.retail.ent;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -28,48 +28,48 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author root
  */
 @Entity
-@Table(name = "REPORT")
+@Table(name = "GRUPA_KOEF")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Report.findAll", query = "SELECT r FROM Report r"),
-    @NamedQuery(name = "Report.findByIdr", query = "SELECT r FROM Report r WHERE r.idr = :idr"),
-    @NamedQuery(name = "Report.findByNaziv", query = "SELECT r FROM Report r WHERE r.naziv = :naziv"),
-    @NamedQuery(name = "Report.findByActive", query = "SELECT r FROM Report r WHERE r.active = :active"),
-    @NamedQuery(name = "Report.findByDatumOD", query = "SELECT r FROM Report r WHERE r.datumOD = :datumOD"),
-    @NamedQuery(name = "Report.findByDatumDO", query = "SELECT r FROM Report r WHERE r.datumDO = :datumDO")})
-public class Report implements Serializable {
+    @NamedQuery(name = "GrupaKoef.findAll", query = "SELECT g FROM GrupaKoef g"),
+    @NamedQuery(name = "GrupaKoef.findByIdgk", query = "SELECT g FROM GrupaKoef g WHERE g.idgk = :idgk"),
+    @NamedQuery(name = "GrupaKoef.findByNaziv", query = "SELECT g FROM GrupaKoef g WHERE g.naziv = :naziv"),
+    @NamedQuery(name = "GrupaKoef.findByDatumOD", query = "SELECT g FROM GrupaKoef g WHERE g.datumOD = :datumOD"),
+    @NamedQuery(name = "GrupaKoef.findByDatumDO", query = "SELECT g FROM GrupaKoef g WHERE g.datumDO = :datumDO"),
+    @NamedQuery(name = "GrupaKoef.findByRbr", query = "SELECT g FROM GrupaKoef g WHERE g.rbr = :rbr")})
+public class GrupaKoef implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "IDR")
-    private Integer idr;
+    @Column(name = "IDGK")
+    private Integer idgk;
     @Column(name = "Naziv")
     private String naziv;
-    @Column(name = "Active")
-    private Boolean active;
     @Column(name = "DatumOD")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datumOD;
     @Column(name = "DatumDO")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datumDO;
-    @OneToMany(mappedBy = "fkIdr")
-    private List<ReportDetails> reportDetailsList;
+    @Column(name = "RBR")
+    private Short rbr;
+    @OneToMany(mappedBy = "fkIdgk")
+    private List<Koef> koefList;
 
-    public Report() {
+    public GrupaKoef() {
     }
 
-    public Report(Integer idr) {
-        this.idr = idr;
+    public GrupaKoef(Integer idgk) {
+        this.idgk = idgk;
     }
 
-    public Integer getIdr() {
-        return idr;
+    public Integer getIdgk() {
+        return idgk;
     }
 
-    public void setIdr(Integer idr) {
-        this.idr = idr;
+    public void setIdgk(Integer idgk) {
+        this.idgk = idgk;
     }
 
     public String getNaziv() {
@@ -78,14 +78,6 @@ public class Report implements Serializable {
 
     public void setNaziv(String naziv) {
         this.naziv = naziv;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
     }
 
     public Date getDatumOD() {
@@ -104,30 +96,38 @@ public class Report implements Serializable {
         this.datumDO = datumDO;
     }
 
-    @XmlTransient
-    public List<ReportDetails> getReportDetailsList() {
-        return reportDetailsList;
+    public Short getRbr() {
+        return rbr;
     }
 
-    public void setReportDetailsList(List<ReportDetails> reportDetailsList) {
-        this.reportDetailsList = reportDetailsList;
+    public void setRbr(Short rbr) {
+        this.rbr = rbr;
+    }
+
+    @XmlTransient
+    public List<Koef> getKoefList() {
+        return koefList;
+    }
+
+    public void setKoefList(List<Koef> koefList) {
+        this.koefList = koefList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idr != null ? idr.hashCode() : 0);
+        hash += (idgk != null ? idgk.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Report)) {
+        if (!(object instanceof GrupaKoef)) {
             return false;
         }
-        Report other = (Report) object;
-        if ((this.idr == null && other.idr != null) || (this.idr != null && !this.idr.equals(other.idr))) {
+        GrupaKoef other = (GrupaKoef) object;
+        if ((this.idgk == null && other.idgk != null) || (this.idgk != null && !this.idgk.equals(other.idgk))) {
             return false;
         }
         return true;
@@ -135,7 +135,7 @@ public class Report implements Serializable {
 
     @Override
     public String toString() {
-        return "db.retail.Report[ idr=" + idr + " ]";
+        return "db.retail.GrupaKoef[ idgk=" + idgk + " ]";
     }
     
 }

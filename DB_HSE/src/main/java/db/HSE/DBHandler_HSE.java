@@ -16,10 +16,10 @@ import db.HSE.ent.WorkPlan;
  *
  * @author root
  */
-public class DBHandler {
+public class DBHandler_HSE {
 
     //<editor-fold defaultstate="collapsed" desc="System definitions">
-    private static DBHandler instance;
+    private static DBHandler_HSE instance;
     private static final String PERSISTENCE_UNIT_ID = "org.superb.apps.ws.FSOfficeCom_PU";
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_ID);
     private static final EntityManager em = emf.createEntityManager();
@@ -28,11 +28,11 @@ public class DBHandler {
         return em;
     }
 
-    private DBHandler() {
+    private DBHandler_HSE() {
     }
 
-    public static DBHandler getDefault() {
-        return instance == null ? instance = new DBHandler() : instance;
+    public static DBHandler_HSE getDefault() {
+        return instance == null ? instance = new DBHandler_HSE() : instance;
     }
 
     private void rollBackTransaction(String message) throws Exception {

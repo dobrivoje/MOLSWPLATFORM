@@ -13,7 +13,8 @@ import com.vaadin.server.Responsive;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
-import db.HSE.dataservice.DataService;
+import dataservice.DataService;
+import db.HSE.dataservice.DataService_HSE;
 import org.dobrivoje.auth.IAccessAuthControl;
 import org.dobrivoje.auth.IntermolADAccessControl;
 import org.dobrivoje.utils.date.formats.DateFormat;
@@ -24,7 +25,7 @@ import org.dobrivoje.utils.date.formats.DateFormat;
 public class MyUI extends UI {
 
     private final IAccessAuthControl accessControl = new IntermolADAccessControl();
-    public static final DataService DS = DataService.getDefault();
+    public static final DataService_HSE DS = DataService.getDataService_HSE();
     public static final String SYSTEM_DATE_FORMAT = DateFormat.DATE_FORMAT_SRB.toString();
 
     @Override

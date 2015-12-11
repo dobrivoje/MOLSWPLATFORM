@@ -129,5 +129,6 @@
         <module>UTILITIES</module>
         <module>DB_HSE</module>
         <module>DB_RETAIL</module>
+        <module>DATASERVICE</module>
     </modules>
 </project>

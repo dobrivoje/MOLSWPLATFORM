@@ -1,31 +1,28 @@
 package test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import db.retail.beans.criteria.DateIntervalSearch;
+import db.retail.beans.criteria.FSSearch;
+import db.retail.beans.criteria.OS_Search;
+import db.retail.beans.reports.ObracunFinal;
+import db.retail.beans.reports.Specifikacija;
+import db.retail.dataservice.DataService_RETAIL;
+import db.retail.ent.FS;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author root
- */
 public class NewMain {
 
-    public static void main(String[] args) {
-        List<Integer> tmpRandomList = new ArrayList<>();
+    private static final DataService_RETAIL DSR = DataService_RETAIL.getDefault();
 
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 10; j++) {
-                tmpRandomList.add((int) (1 + 100 * Math.random()));
-            }
-            System.err.println(tmpRandomList);
-            tmpRandomList.clear();
+    public static void main(String[] args) {
+
+        System.err.println("Final Obračun");
+        for (ObracunFinal o : DSR.getASC_FinalObracun().get(new OS_Search(new DateIntervalSearch("2015-11-1", "2015-11-30"), null))) {
+            System.err.println(o);
         }
 
+        FS fs = DSR.getASC_FS().getByID(new FSSearch(null, "90431"));
+        System.err.println("Specifikacija za stanicu : " + fs.getNaziv());
+        for (Specifikacija o : DSR.getASC_Specifikacija().get(new OS_Search(new DateIntervalSearch("2015-11-1", "2015-11-30"), fs.getCode()))) {
+            System.err.println(o);
+        }
     }
-
 }

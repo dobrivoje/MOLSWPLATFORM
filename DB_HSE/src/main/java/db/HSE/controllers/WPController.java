@@ -5,7 +5,7 @@
  */
 package db.HSE.controllers;
 
-import db.HSE.DBHandler;
+import db.HSE.DBHandler_HSE;
 import db.HSE.ent.FuelStation;
 import db.HSE.ent.WorkPlan;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class WPController extends Controller<WorkPlan> {
 
-    public WPController(DBHandler DBH) {
+    public WPController(DBHandler_HSE DBH) {
         super(DBH);
     }
 

@@ -5,9 +5,9 @@
  */
 package db.HSE.dataservice;
 
-import db.HSE.DBHandler;
-import db.HSE.DBHandler;
-import db.HSE.DBHandler;
+import db.HSE.DBHandler_HSE;
+import db.HSE.DBHandler_HSE;
+import db.HSE.DBHandler_HSE;
 import db.HSE.controllers.FSController;
 import db.HSE.controllers.WPController;
 import javax.persistence.EntityManager;
@@ -17,22 +17,22 @@ import db.HSE.ent.reportbeans.HSE_SysNotifController;
  *
  * @author root
  */
-public class DataService {
+public class DataService_HSE {
 
     //<editor-fold defaultstate="collapsed" desc="System Defs">
-    private static DataService instance;
+    private static DataService_HSE instance;
 
-    private static final DBHandler DBH = DBHandler.getDefault();
+    private static final DBHandler_HSE DBH = DBHandler_HSE.getDefault();
 
-    private DataService() {
+    private DataService_HSE() {
     }
 
-    public static synchronized DataService getDefault() {
-        return instance == null ? instance = new DataService() : instance;
+    public static synchronized DataService_HSE getDefault() {
+        return instance == null ? instance = new DataService_HSE() : instance;
     }
     
     public static synchronized EntityManager getEM() throws Exception {
-        return DBHandler.getEm();
+        return DBHandler_HSE.getEm();
     }
     //</editor-fold>
 

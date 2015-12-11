@@ -5,7 +5,7 @@
  */
 package db.HSE.controllers;
 
-import db.HSE.DBHandler;
+import db.HSE.DBHandler_HSE;
 import java.util.List;
 
 /**
@@ -15,7 +15,7 @@ import java.util.List;
  */
 public abstract class Controller<T> {
 
-    protected static DBHandler DBH;
+    protected static DBHandler_HSE DBH;
 
     public abstract List<T> getAll();
 
@@ -27,7 +27,7 @@ public abstract class Controller<T> {
 
     public abstract void delete(T t);
 
-    public Controller(DBHandler DBH) {
+    public Controller(DBHandler_HSE DBH) {
         Controller.DBH = DBH;
     }
 

@@ -5,7 +5,7 @@
  */
 package db.HSE.controllers;
 
-import db.HSE.DBHandler;
+import db.HSE.DBHandler_HSE;
 import db.HSE.ent.FuelStation;
 import java.util.List;
 
@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class FSController extends Controller<FuelStation> {
 
-    public FSController(DBHandler DBH) {
+    public FSController(DBHandler_HSE DBH) {
         super(DBH);
     }
 
