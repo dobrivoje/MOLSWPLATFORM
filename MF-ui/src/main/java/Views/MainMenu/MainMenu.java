@@ -9,18 +9,14 @@ import com.vaadin.navigator.View;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
 import com.vaadin.server.Resource;
-import com.vaadin.server.ThemeResource;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.MenuBar;
-import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.themes.ValoTheme;
@@ -31,6 +27,14 @@ import static Menu.MenuDefinitions.HSE_WORKPLAN;
 import static Menu.MenuDefinitions.MOL_SECTOR_HSE;
 import static Menu.MenuDefinitions.MOL_SECTOR_RETAIL;
 import static Menu.MenuDefinitions.RETAIL_COCACALC;
+import static Menu.MenuDefinitions.RETAIL_COCACALC_DATA_MAINTENENCE;
+import static Menu.MenuDefinitions.RETAIL_COCACALC_DATA_MAINTENENCE_CATEGORIES;
+import static Menu.MenuDefinitions.RETAIL_COCACALC_PARTNERS_FS;
+import static Menu.MenuDefinitions.RETAIL_COCACALC_DATA_MAINTENENCE_KEY_DISTRIBUTION;
+import static Menu.MenuDefinitions.RETAIL_COCACALC_DATA_MAINTENENCE_MAPPING;
+import static Menu.MenuDefinitions.RETAIL_COCACALC_PARTNERS;
+import static Menu.MenuDefinitions.RETAIL_COCACALC_PARTNERS_CONTRACTS;
+import static Menu.MenuDefinitions.RETAIL_COCACALC_PARTNERS_DATA;
 import static Menu.MenuDefinitions.RETAIL_SYS_NOTIF_BOARD;
 import Views.MainMenu.HSE.View_HSE_SysNotifBoard;
 import Views.MainMenu.HSE.View_HSE_WorkPlan;
@@ -61,23 +65,20 @@ public class MainMenu extends CssLayout {
         top.setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
         top.addStyleName(ValoTheme.MENU_TITLE);
         top.setSpacing(true);
-        Label title = new Label("MOL Serbia Sectors");
+        Label title = new Label("Company Sectors");
         title.addStyleName(ValoTheme.LABEL_H3);
         title.setSizeUndefined();
-        Image image = new Image(null, new ThemeResource("img/table-logo.png"));
-        image.setStyleName("logo");
-        top.addComponent(image);
+        //Image image = new Image(null, new ThemeResource("img/table-logo.png"));
+        //image.setStyleName("logo");
+        //top.addComponent(image);
         top.addComponent(title);
         menuPart.addComponent(top);
 
         // logout menu item
         MenuBar logoutMenu = new MenuBar();
-        logoutMenu.addItem("Logout", FontAwesome.SIGN_OUT, new Command() {
-            @Override
-            public void menuSelected(MenuItem selectedItem) {
-                VaadinSession.getCurrent().getSession().invalidate();
-                Page.getCurrent().reload();
-            }
+        logoutMenu.addItem("Logout", FontAwesome.SIGN_OUT, (MenuItem selectedItem) -> {
+            VaadinSession.getCurrent().getSession().invalidate();
+            Page.getCurrent().reload();
         });
 
         logoutMenu.addStyleName("user-menu");
@@ -110,11 +111,8 @@ public class MainMenu extends CssLayout {
     }
 
     private void createViewButton(final String name, String caption, Resource icon) {
-        Button button = new Button(caption, new ClickListener() {
-            @Override
-            public void buttonClick(ClickEvent event) {
-                navigator.navigateTo(name);
-            }
+        Button button = new Button(caption, (ClickEvent event) -> {
+            navigator.navigateTo(name);
         });
         button.setPrimaryStyleName(ValoTheme.MENU_ITEM);
         button.setIcon(icon);
@@ -129,38 +127,82 @@ public class MainMenu extends CssLayout {
         //<editor-fold defaultstate="collapsed" desc="Menu UI Defs">
         mainMenuTree.addItems(Menu.getDefault().getAllMenuItems());
 
-        mainMenuTree.expandItemsRecursively(MOL_SECTOR_HSE);
+        // --HSE
+        // --RETAIL
+        // mainMenuTree.expandItemsRecursively(MOL_SECTOR_HSE);
         mainMenuTree.expandItemsRecursively(MOL_SECTOR_RETAIL);
 
-        // mainMenuTree.setChildrenAllowed(HSE_SYS_NOTIF_BOARD, true);
+        // --HSE
+        // --HSE
+        // ------HSE_SYS_NOTIF_BOARD
+        // ------HSE_WORKPLAN
+        //
         mainMenuTree.setParent(HSE_SYS_NOTIF_BOARD, MOL_SECTOR_HSE);
         mainMenuTree.setParent(HSE_WORKPLAN, MOL_SECTOR_HSE);
         mainMenuTree.setChildrenAllowed(HSE_SYS_NOTIF_BOARD, false);
         mainMenuTree.setChildrenAllowed(HSE_WORKPLAN, false);
 
+        // --RETAIL
+        // ------RETAIL_SYS_NOTIF_BOARD
+        // ------RETAIL_COCACALC
+        //
         mainMenuTree.setParent(RETAIL_SYS_NOTIF_BOARD, MOL_SECTOR_RETAIL);
         mainMenuTree.setParent(RETAIL_COCACALC, MOL_SECTOR_RETAIL);
         mainMenuTree.setChildrenAllowed(RETAIL_SYS_NOTIF_BOARD, false);
-        mainMenuTree.setChildrenAllowed(RETAIL_COCACALC, false);
+
+        // --RETAIL
+        // ------RETAIL_SYS_NOTIF_BOARD
+        // ----------RETAIL_COCACALC_PARTNERS
+        // ----------RETAIL_COCACALC_DATA_MAINTENENCE
+        //
+        mainMenuTree.expandItemsRecursively(RETAIL_COCACALC);
+        mainMenuTree.setParent(RETAIL_COCACALC_PARTNERS, RETAIL_COCACALC);
+        mainMenuTree.setParent(RETAIL_COCACALC_DATA_MAINTENENCE, RETAIL_COCACALC);
+        // --RETAIL
+        // ------RETAIL_SYS_NOTIF_BOARD
+        // ----------RETAIL_COCACALC_PARTNERS
+        // --------------RETAIL_COCACALC_PARTNERS_DATA
+        // --------------RETAIL_COCACALC_PARTNERS_FS
+        // --------------RETAIL_COCACALC_PARTNERS_CONTRACTS
+        //
+        //mainMenuTree.expandItemsRecursively(RETAIL_COCACALC_PARTNERS);
+        mainMenuTree.setParent(RETAIL_COCACALC_PARTNERS_DATA, RETAIL_COCACALC_PARTNERS);
+        mainMenuTree.setParent(RETAIL_COCACALC_PARTNERS_FS, RETAIL_COCACALC_PARTNERS);
+        mainMenuTree.setParent(RETAIL_COCACALC_PARTNERS_CONTRACTS, RETAIL_COCACALC_PARTNERS);
+        mainMenuTree.setChildrenAllowed(RETAIL_COCACALC_PARTNERS_DATA, false);
+        mainMenuTree.setChildrenAllowed(RETAIL_COCACALC_PARTNERS_FS, false);
+        mainMenuTree.setChildrenAllowed(RETAIL_COCACALC_PARTNERS_CONTRACTS, false);
+
+        // --RETAIL
+        // ------RETAIL_SYS_NOTIF_BOARD
+        // ----------RETAIL_COCACALC_DATA_MAINTENENCE
+        // --------------RETAIL_COCACALC_DATA_MAINTENENCE_MAPPING
+        // --------------RETAIL_COCACALC_DATA_MAINTENENCE_KEY_DISTRIBUTION
+        // --------------RETAIL_COCACALC_DATA_MAINTENENCE_CATEGORIES
+        //
+        //mainMenuTree.expandItemsRecursively(RETAIL_COCACALC_DATA_MAINTENENCE);
+        mainMenuTree.setParent(RETAIL_COCACALC_DATA_MAINTENENCE_MAPPING, RETAIL_COCACALC_DATA_MAINTENENCE);
+        mainMenuTree.setParent(RETAIL_COCACALC_DATA_MAINTENENCE_KEY_DISTRIBUTION, RETAIL_COCACALC_DATA_MAINTENENCE);
+        mainMenuTree.setParent(RETAIL_COCACALC_DATA_MAINTENENCE_CATEGORIES, RETAIL_COCACALC_DATA_MAINTENENCE);
+        mainMenuTree.setChildrenAllowed(RETAIL_COCACALC_DATA_MAINTENENCE_MAPPING, false);
+        mainMenuTree.setChildrenAllowed(RETAIL_COCACALC_DATA_MAINTENENCE_KEY_DISTRIBUTION, false);
+        mainMenuTree.setChildrenAllowed(RETAIL_COCACALC_DATA_MAINTENENCE_CATEGORIES, false);
         //</editor-fold>
 
-        mainMenuTree.addItemClickListener(new ItemClickEvent.ItemClickListener() {
-            @Override
-            public void itemClick(ItemClickEvent event) {
-                switch ((MenuDefinitions) (event.getItemId())) {
-                    case MOL_SECTOR_HSE:
-                    case HSE_SYS_NOTIF_BOARD:
-                        navigator.navigateTo(View_HSE_SysNotifBoard.class.getSimpleName());
-                        break;
-                    case HSE_WORKPLAN:
-                        navigator.navigateTo(View_HSE_WorkPlan.class.getSimpleName());
-                        break;
+        mainMenuTree.addItemClickListener((ItemClickEvent event) -> {
+            switch ((MenuDefinitions) (event.getItemId())) {
+                case MOL_SECTOR_HSE:
+                case HSE_SYS_NOTIF_BOARD:
+                    navigator.navigateTo(View_HSE_SysNotifBoard.class.getSimpleName());
+                    break;
+                case HSE_WORKPLAN:
+                    navigator.navigateTo(View_HSE_WorkPlan.class.getSimpleName());
+                    break;
 
-                    case MOL_SECTOR_RETAIL:
-                    case RETAIL_SYS_NOTIF_BOARD:
-                        navigator.navigateTo(View_RETAIL_SysNotifBoard.class.getSimpleName());
-                        break;
-                }
+                case MOL_SECTOR_RETAIL:
+                case RETAIL_SYS_NOTIF_BOARD:
+                    navigator.navigateTo(View_RETAIL_SysNotifBoard.class.getSimpleName());
+                    break;
             }
         });
 
