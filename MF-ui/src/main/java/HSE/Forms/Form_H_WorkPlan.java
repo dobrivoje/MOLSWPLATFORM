@@ -1,4 +1,4 @@
-package Forms.HSE.WorkPlan;
+package HSE.Forms;
 
 import Forms.Form_CRUD2;
 import com.vaadin.data.Item;
@@ -18,10 +18,10 @@ import db.HSE.ent.FuelStation;
 import db.HSE.ent.WorkPlan;
 import org.superb.apps.utilities.vaadin.Tables.IRefreshVisualContainer;
 import static mf.MyUI.SYSTEM_DATE_FORMAT;
-import static mf.MyUI.DS;
+import static mf.MyUI.DS_HSE;
 import static org.superb.apps.utilities.Enums.CrudOperations.BUTTON_CAPTION_UPDATE;
 
-public class Form_WorkPlan extends Form_CRUD2<WorkPlan> {
+public class Form_H_WorkPlan extends Form_CRUD2<WorkPlan> {
 
     //<editor-fold defaultstate="collapsed" desc="Form Fields">
     @PropertyId("startDate")
@@ -54,10 +54,10 @@ public class Form_WorkPlan extends Form_CRUD2<WorkPlan> {
     @PropertyId("FK_FuelStation")
     private final ComboBox fuelStation = new ComboBox(
             "Fuel Station", new BeanItemContainer(FuelStation.class,
-                    DS.getFSController().getAll()));
+                    DS_HSE.getFSController().getAll()));
     //</editor-fold>
 
-    public Form_WorkPlan() {
+    public Form_H_WorkPlan() {
         super(new BeanFieldGroup(WorkPlan.class));
 
         fieldGroup.bindMemberFields(this);
@@ -66,7 +66,7 @@ public class Form_WorkPlan extends Form_CRUD2<WorkPlan> {
         initFields();
     }
 
-    public Form_WorkPlan(Item existingWorkPlan, boolean defaultCRUDButtonOnForm, final IRefreshVisualContainer visualContainer) {
+    public Form_H_WorkPlan(Item existingWorkPlan, boolean defaultCRUDButtonOnForm, final IRefreshVisualContainer visualContainer) {
         this();
 
         this.defaultCRUDButtonOnForm = defaultCRUDButtonOnForm;
@@ -84,7 +84,7 @@ public class Form_WorkPlan extends Form_CRUD2<WorkPlan> {
                 try {
                     fieldGroup.commit();
 
-                    DS.getWPController().updateExisting(wpToUpdate);
+                    DS_HSE.getWPController().updateExisting(wpToUpdate);
 
                     if (visualContainer != null) {
                         visualContainer.refreshVisualContainer();

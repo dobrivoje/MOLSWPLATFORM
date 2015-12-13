@@ -22,7 +22,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import org.dobrivoje.utils.date.formats.DateFormat;
 
 /**
  *
@@ -36,9 +35,9 @@ import org.dobrivoje.utils.date.formats.DateFormat;
     @NamedQuery(name = "WorkPlan.findAllSortByDateDesc", query = "SELECT w FROM WorkPlan w ORDER BY w.startDate DESC"),
     @NamedQuery(name = "WorkPlan.getByFS", query = "SELECT w FROM WorkPlan w WHERE w.FK_FuelStation = :FSID"),
 
-    @NamedQuery(name = "WorkPlan.getFinishedWPByFS", 
+    @NamedQuery(name = "WorkPlan.getFinishedWPByFS",
             query = "SELECT COUNT(w) FROM WorkPlan w WHERE w.FK_FuelStation = :FSID AND w.finished = :finished"),
-    
+
     @NamedQuery(name = "WorkPlan.findAllFinishedSortByDateAsc", query = "SELECT w FROM WorkPlan w WHERE w.finished = :finished ORDER BY w.startDate ASC"),
     @NamedQuery(name = "WorkPlan.findByIdwp", query = "SELECT w FROM WorkPlan w WHERE w.idwp = :idwp"),
     @NamedQuery(name = "WorkPlan.findByDate", query = "SELECT w FROM WorkPlan w WHERE w.startDate = :date"),
@@ -109,7 +108,11 @@ public class WorkPlan implements Serializable {
     }
 
     public String getStartDate1() {
-        return new SimpleDateFormat(DateFormat.DATE_FORMAT_SRB.toString()).format(startDate);
+        try {
+            return new SimpleDateFormat("d.M.yyyy").format(startDate);
+        } catch (Exception e) {
+            return "";
+        }
     }
 
     public void setStartDate(Date startDate) {
@@ -122,6 +125,14 @@ public class WorkPlan implements Serializable {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public String getEndDate1() {
+        try {
+            return new SimpleDateFormat("d.M.yyyy").format(endDate);
+        } catch (Exception e) {
+            return "";
+        }
     }
 
     public String getContractor() {

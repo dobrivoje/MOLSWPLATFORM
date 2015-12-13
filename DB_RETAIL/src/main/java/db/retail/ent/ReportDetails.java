@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ReportDetails.findByRBr", query = "SELECT r FROM ReportDetails r WHERE r.rBr = :rBr"),
     @NamedQuery(name = "ReportDetails.findByAktivno", query = "SELECT r FROM ReportDetails r WHERE r.aktivno = :aktivno")})
 public class ReportDetails implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,7 +73,11 @@ public class ReportDetails implements Serializable {
     }
 
     public String getNaziv() {
-        return naziv;
+        try {
+            return naziv;
+        } catch (Exception e) {
+            return "";
+        }
     }
 
     public void setNaziv(String naziv) {
@@ -145,5 +150,5 @@ public class ReportDetails implements Serializable {
     public String toString() {
         return "db.retail.ReportDetails[ idrd=" + idrd + " ]";
     }
-    
+
 }

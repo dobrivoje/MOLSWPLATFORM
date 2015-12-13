@@ -40,6 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Kategorija.findByDatumOD", query = "SELECT k FROM Kategorija k WHERE k.datumOD = :datumOD"),
     @NamedQuery(name = "Kategorija.findByDatumDO", query = "SELECT k FROM Kategorija k WHERE k.datumDO = :datumDO")})
 public class Kategorija implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -79,7 +80,12 @@ public class Kategorija implements Serializable {
     }
 
     public String getNaziv() {
-        return naziv;
+        try {
+            return naziv;
+
+        } catch (Exception e) {
+            return "";
+        }
     }
 
     public void setNaziv(String naziv) {
@@ -144,20 +150,20 @@ public class Kategorija implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Kategorija)) {
             return false;
         }
         Kategorija other = (Kategorija) object;
-        if ((this.idk == null && other.idk != null) || (this.idk != null && !this.idk.equals(other.idk))) {
-            return false;
-        }
-        return true;
+        return !((this.idk == null && other.idk != null) || (this.idk != null && !this.idk.equals(other.idk)));
     }
 
     @Override
     public String toString() {
-        return "db.retail.Kategorija[ idk=" + idk + " ]";
+        try {
+            return getNaziv() + " [" + getVolType() + "]";
+        } catch (Exception e) {
+            return "";
+        }
     }
-    
+
 }

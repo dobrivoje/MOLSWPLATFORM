@@ -6,9 +6,6 @@
 package db.HSE;
 
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import db.HSE.ent.FuelStation;
 import db.HSE.ent.WorkPlan;
 
@@ -16,30 +13,17 @@ import db.HSE.ent.WorkPlan;
  *
  * @author root
  */
-public class DBHandler_HSE {
+public class DBHandler_HSE extends DBHandler {
 
-    //<editor-fold defaultstate="collapsed" desc="System definitions">
+    //<editor-fold defaultstate="collapsed" desc="System defs">
     private static DBHandler_HSE instance;
-    private static final String PERSISTENCE_UNIT_ID = "org.superb.apps.ws.FSOfficeCom_PU";
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_ID);
-    private static final EntityManager em = emf.createEntityManager();
-
-    public static synchronized EntityManager getEm() throws NullPointerException, Exception, java.net.UnknownHostException, java.sql.SQLException {
-        return em;
-    }
 
     private DBHandler_HSE() {
+        super("org.superb.apps.ws.FSOfficeCom_PU");
     }
 
     public static DBHandler_HSE getDefault() {
         return instance == null ? instance = new DBHandler_HSE() : instance;
-    }
-
-    private void rollBackTransaction(String message) throws Exception {
-        if (getEm().getTransaction().isActive()) {
-            getEm().getTransaction().rollback();
-        }
-        throw new Exception(message);
     }
     //</editor-fold>
 

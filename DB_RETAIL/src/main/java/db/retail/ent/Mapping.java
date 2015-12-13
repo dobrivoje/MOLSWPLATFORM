@@ -6,6 +6,7 @@
 package db.retail.ent;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -41,6 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Mapping.findByReport", query = "SELECT m FROM Mapping m WHERE m.report = :report"),
     @NamedQuery(name = "Mapping.findByDatumUnosa", query = "SELECT m FROM Mapping m WHERE m.datumUnosa = :datumUnosa")})
 public class Mapping implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -76,6 +78,19 @@ public class Mapping implements Serializable {
     public Mapping() {
     }
 
+    public Mapping(String naziv, String code, Boolean aktivan, Boolean report, Date datumUnosa, GrupniNaziv fkIdgn, Kategorija fkIdk, Klasifikacija fkIdkl, ReportDetails fkIdr, List<CompositeSellReport> compositeSellReportList) {
+        this.naziv = naziv;
+        this.code = code;
+        this.aktivan = aktivan;
+        this.report = report;
+        this.datumUnosa = datumUnosa;
+        this.fkIdgn = fkIdgn;
+        this.fkIdk = fkIdk;
+        this.fkIdkl = fkIdkl;
+        this.fkIdr = fkIdr;
+        this.compositeSellReportList = compositeSellReportList;
+    }
+
     public Mapping(Integer idm) {
         this.idm = idm;
     }
@@ -97,7 +112,11 @@ public class Mapping implements Serializable {
     }
 
     public String getCode() {
-        return code;
+        try {
+            return code;
+        } catch (Exception e) {
+            return "";
+        }
     }
 
     public void setCode(String code) {
@@ -124,6 +143,14 @@ public class Mapping implements Serializable {
         return datumUnosa;
     }
 
+    public String getDatumUnosa1() {
+        try {
+            return new SimpleDateFormat("d.M.yyyy").format(getDatumUnosa());
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
     public void setDatumUnosa(Date datumUnosa) {
         this.datumUnosa = datumUnosa;
     }
@@ -132,12 +159,28 @@ public class Mapping implements Serializable {
         return fkIdgn;
     }
 
+    public String getIzvSpecif1() {
+        try {
+            return fkIdgn.getGNaziv();
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
     public void setFkIdgn(GrupniNaziv fkIdgn) {
         this.fkIdgn = fkIdgn;
     }
 
     public Kategorija getFkIdk() {
         return fkIdk;
+    }
+
+    public String getKategorija1() {
+        try {
+            return fkIdk.getNaziv();
+        } catch (Exception e) {
+            return "";
+        }
     }
 
     public void setFkIdk(Kategorija fkIdk) {
@@ -154,6 +197,14 @@ public class Mapping implements Serializable {
 
     public ReportDetails getFkIdr() {
         return fkIdr;
+    }
+
+    public String getIzvObracun1() {
+        try {
+            return getFkIdr().getNaziv();
+        } catch (Exception e) {
+            return "";
+        }
     }
 
     public void setFkIdr(ReportDetails fkIdr) {
@@ -193,5 +244,5 @@ public class Mapping implements Serializable {
     public String toString() {
         return "db.retail.Mapping[ idm=" + idm + " ]";
     }
-    
+
 }

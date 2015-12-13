@@ -1,6 +1,5 @@
-package Views;
+package org.superb.apps.utilities.vaadin.Views;
 
-import Layouts.Layout_InlineCSS;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -22,8 +21,11 @@ import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.ValoTheme;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import org.superb.apps.utilities.datum.Dates;
 
 @SuppressWarnings("serial")
 public abstract class View_Dashboard extends Panel implements View {
@@ -33,9 +35,24 @@ public abstract class View_Dashboard extends Panel implements View {
 
     private Label titleLabel;
     private NotificationsButton notificationsButton;
-    private CssLayout dashboardPanels;
+    protected CssLayout dashboardPanels;
     protected final VerticalLayout root = new VerticalLayout();
-    protected List<Panel> subPanels = new ArrayList<>();
+
+    protected boolean viewMaximized;
+
+    /**
+     * <b>subPanels</b> predstavlja listu svih Panel-a sa stablima, npr. paneli
+     * sa prodajama, crm slučajevima, i slično.
+     */
+    protected final List<Panel> subPanels;
+
+    protected final Dates dateInterval = new Dates();
+
+    /**
+     * <b>dynamicPanels</b> Lista komponenti (panela) koje se dinamičko
+     * ažuriraju posle odgovarajuće komande panela.
+     */
+    protected final List<Component> dynamicPanels;
 
     private Window notificationsWindow;
 
@@ -50,6 +67,11 @@ public abstract class View_Dashboard extends Panel implements View {
         root.addStyleName("dashboard-view");
         setContent(root);
         Responsive.makeResponsive(root);
+
+        viewMaximized = false;
+
+        subPanels = new ArrayList<>();
+        dynamicPanels = new ArrayList<>();
 
         root.addComponent(buildHeader(dashBoardTitle));
     }
@@ -79,12 +101,7 @@ public abstract class View_Dashboard extends Panel implements View {
 
     private NotificationsButton buildNotificationsButton() {
         NotificationsButton result = new NotificationsButton();
-        result.addClickListener(new Button.ClickListener() {
-            @Override
-            public void buttonClick(final Button.ClickEvent event) {
-                openNotificationsPopup(event);
-            }
-        });
+        result.addClickListener(this::openNotificationsPopup);
         return result;
     }
 
@@ -95,17 +112,14 @@ public abstract class View_Dashboard extends Panel implements View {
         result.addStyleName("icon-edit");
         result.addStyleName(ValoTheme.BUTTON_ICON_ONLY);
         result.setDescription("Edit Dashboard");
-        result.addClickListener(new Button.ClickListener() {
-            @Override
-            public void buttonClick(final Button.ClickEvent event) {
-            }
+        result.addClickListener((final Button.ClickEvent event) -> {
         });
         return result;
     }
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Wrappers, builders, popups windows">
-    protected Component createContentWrapper(final Component content) {
+    protected Component createContentWrapper(final Component content, Map<String, MenuBar.Command> panelCommands) {
         final CssLayout slot = new CssLayout();
         slot.setWidth(100, Unit.PERCENTAGE);
         slot.addStyleName("dashboard-panel-slot");
@@ -126,34 +140,41 @@ public abstract class View_Dashboard extends Panel implements View {
 
         MenuBar tools = new MenuBar();
         tools.addStyleName(ValoTheme.MENUBAR_BORDERLESS);
-        max = tools.addItem("", FontAwesome.EXPAND, new MenuBar.Command() {
-            @Override
-            public void menuSelected(final MenuBar.MenuItem selectedItem) {
-                if (!slot.getStyleName().contains("max")) {
-                    selectedItem.setIcon(FontAwesome.COMPRESS);
-                    toggleMaximized(slot, true);
-                } else {
-                    slot.removeStyleName("max");
-                    selectedItem.setIcon(FontAwesome.EXPAND);
-                    toggleMaximized(slot, false);
-                }
+        max = tools.addItem("", FontAwesome.EXPAND, (final MenuBar.MenuItem selectedItem) -> {
+            if (!slot.getStyleName().contains("max")) {
+                selectedItem.setIcon(FontAwesome.COMPRESS);
+                toggleMaximized(slot, viewMaximized = true);
+            } else {
+                slot.removeStyleName("max");
+                selectedItem.setIcon(FontAwesome.EXPAND);
+                toggleMaximized(slot, viewMaximized = false);
             }
         });
         max.setStyleName("icon-only");
+
         MenuBar.MenuItem panelOptions = tools.addItem("", FontAwesome.COG, null);
-        panelOptions.addItem("Configure", new MenuBar.Command() {
-            @Override
-            public void menuSelected(final MenuBar.MenuItem selectedItem) {
-                Notification.show("Not implemented.");
+
+        // pomocna varijabla za iscrtavanje separator linije
+        int separatorInd = 0;
+        if (panelCommands == null) {
+            panelCommands = new HashMap<>();
+
+            /*
+             panelCommands.put("Last Two Months Period", (MenuBar.Command) (MenuBar.MenuItem selectedItem) -> {
+             dateInterval.setMonthsBackForth(-1);
+             });
+             */
+            panelCommands.put("Help", (MenuBar.Command) (MenuBar.MenuItem selectedItem) -> {
+                Notification.show("Help", "Click on the button on the left to maximize view.", Notification.Type.ERROR_MESSAGE);
+            });
+        }
+        for (Map.Entry<String, MenuBar.Command> ES : panelCommands.entrySet()) {
+            if (separatorInd++ > 0) {
+                panelOptions.addSeparator();
             }
-        });
-        panelOptions.addSeparator();
-        panelOptions.addItem("Close", new MenuBar.Command() {
-            @Override
-            public void menuSelected(final MenuBar.MenuItem selectedItem) {
-                Notification.show("Not implemented.");
-            }
-        });
+
+            panelOptions.addItem(ES.getKey(), ES.getValue());
+        }
 
         toolbar.addComponents(caption, tools);
         toolbar.setExpandRatio(caption, 1);
@@ -165,11 +186,18 @@ public abstract class View_Dashboard extends Panel implements View {
         return slot;
     }
 
-    protected Component createPanelComponent(String caption, List<Panel> panels, boolean formEditAllowed) {
-        return createPanelComponent(caption, panels, 275, Unit.PIXELS, formEditAllowed);
+    protected Component createContentWrapper(final Component content) {
+        Map<String, MenuBar.Command> PC = new HashMap<>();
+        MenuBar.Command dcl = (MenuBar.MenuItem selectedItem) -> {
+            Notification.show("Info", "Not yet implemented.\nAny suggestions are welcomed.", Notification.Type.ERROR_MESSAGE);
+        };
+        PC.put("Help", dcl);
+        PC.put("Close", dcl);
+
+        return createContentWrapper(content, PC);
     }
 
-    protected Component createPanelComponent(String caption, List<Panel> panels, float width, Sizeable.Unit unit, boolean formEditAllowed) {
+    protected Component createPanelComponent(String caption, List<Panel> panels, boolean formEditAllowed, Map<String, MenuBar.Command> PC) {
         VerticalLayout componentRootVL = new VerticalLayout();
 
         componentRootVL.setCaption(caption);
@@ -177,7 +205,7 @@ public abstract class View_Dashboard extends Panel implements View {
         ICL.setSizeFull();
 
         for (Panel p : panels) {
-            p.setWidth(width, unit);
+            p.setWidth(250, Unit.PIXELS);
 
             HorizontalLayout HL = new HorizontalLayout(p);
             HL.setMargin(true);
@@ -191,7 +219,11 @@ public abstract class View_Dashboard extends Panel implements View {
         } catch (Exception e) {
         }
 
-        return createContentWrapper(componentRootVL);
+        return createContentWrapper(componentRootVL, PC);
+    }
+
+    protected Component createPanelComponent(String caption, List<Panel> panels, boolean formEditAllowed) {
+        return createPanelComponent(caption, panels, formEditAllowed, null);
     }
 
     protected Component createNotesPanel(String notesContent) {
@@ -204,14 +236,6 @@ public abstract class View_Dashboard extends Panel implements View {
 
         return panel;
     }
-    
-    protected Component createNotesPanel2(Component component) {
-        Component panel = createContentWrapper(component);
-        panel.addStyleName("notes");
-
-        return panel;
-    }
-    
 
     protected final void buildContentWithComponents(Component... components) {
         buildContentWithComponents(Arrays.asList(components));
@@ -230,6 +254,41 @@ public abstract class View_Dashboard extends Panel implements View {
         root.setExpandRatio(dashboardPanels, 1);
     }
 
+    /**
+     *
+     * @param panel Panel u kome kreiramo podpanele sa stablima koji
+     * reprezentuju prodaje, slučajeve, i slično.
+     * @param oldComponent Panel pre poziva komande panela
+     * @param newComponent Panel posle poziva komande panela
+     */
+    protected void updateUIPanel(CssLayout panel, Component oldComponent, Component newComponent) {
+        panel.replaceComponent(oldComponent, newComponent);
+
+        toggleMaximized(newComponent, viewMaximized);
+    }
+
+    protected void updateUIPanel(int dynamicCasesPanelIndex, Component newComponent) {
+        dashboardPanels.replaceComponent(dynamicPanels.get(dynamicCasesPanelIndex), newComponent);
+
+        dynamicPanels.set(dynamicCasesPanelIndex, newComponent);
+
+        toggleMaximized(newComponent, viewMaximized);
+    }
+
+    protected MenuBar.Command getCommand(String panelHeader, int panelIndex, List<Panel> panels, boolean formAllowed, Map<String, MenuBar.Command> panelCommands, int monthsBack) {
+        return (MenuBar.MenuItem selectedItem) -> {
+            dateInterval.setMonthsBackForth(monthsBack);
+
+            updateUIPanel(panelIndex,
+                    createPanelComponent(
+                            panelHeader,
+                            panels,
+                            formAllowed,
+                            panelCommands)
+            );
+        };
+    }
+
     protected void openNotificationsPopup(final Button.ClickEvent event) {
         VerticalLayout notificationsLayout = new VerticalLayout();
         notificationsLayout.setMargin(true);
@@ -240,10 +299,10 @@ public abstract class View_Dashboard extends Panel implements View {
         title.addStyleName(ValoTheme.LABEL_NO_MARGIN);
         notificationsLayout.addComponent(title);
 
-        List<String> notifications = new ArrayList(Arrays.asList(
+        List<String> notifications = Arrays.asList(
                 "Poruka1", "Poruka2", "Poruka3", "Poruka4", "Poruka5", "Poruka6",
                 "Poruka7", "Poruka8", "Poruka9", "Poruka10", "Poruka11", "Poruka12"
-        ));
+        );
 
         for (String n : notifications) {
             VerticalLayout notificationLayout = new VerticalLayout();
@@ -266,13 +325,9 @@ public abstract class View_Dashboard extends Panel implements View {
         HorizontalLayout footer = new HorizontalLayout();
         footer.addStyleName(ValoTheme.WINDOW_BOTTOM_TOOLBAR);
         footer.setWidth(100, Unit.PERCENTAGE);
-        Button showAll = new Button("View All Notifications",
-                new Button.ClickListener() {
-                    @Override
-                    public void buttonClick(final Button.ClickEvent event) {
-                        Notification.show("Not implemented in this demo");
-                    }
-                });
+        Button showAll = new Button("View All Notifications", (final Button.ClickEvent event1) -> {
+            Notification.show("Not implemented in this demo");
+        });
         showAll.addStyleName(ValoTheme.BUTTON_BORDERLESS_COLORED);
         showAll.addStyleName(ValoTheme.BUTTON_SMALL);
         footer.addComponent(showAll);

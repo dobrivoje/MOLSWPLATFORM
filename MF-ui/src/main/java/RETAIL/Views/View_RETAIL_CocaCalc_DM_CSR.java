@@ -1,34 +1,32 @@
-package Views.MainMenu.HSE;
+package RETAIL.Views;
 
-import Forms.HSE.WorkPlan.Form_WorkPlan;
+import RETAIL.Tables.Table_R_CSR;
 import com.vaadin.event.FieldEvents;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
-import Tables.HSE.WorkPlan.Table_WorkPlan;
 import Views.ResetButtonForTextField;
 import com.vaadin.data.Property;
-import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.HorizontalSplitPanel;
-import db.HSE.ent.WorkPlan;
-import org.dobrivoje.auth.roles.Roles;
-import mf.MyUI;
+import com.vaadin.ui.Panel;
+import db.retail.ent.CompositeSellReport;
+import java.util.ArrayList;
+import java.util.List;
 
-public class View_HSE_WorkPlan extends VerticalLayout implements View {
+public class View_RETAIL_CocaCalc_DM_CSR extends VerticalLayout implements View {
 
     private final VerticalLayout VL = new VerticalLayout();
 
     private final HorizontalSplitPanel HL = new HorizontalSplitPanel();
-    private final Table_WorkPlan wpTable = new Table_WorkPlan();
+    private final Table_R_CSR table = new Table_R_CSR();
     private final VerticalLayout propVL = new VerticalLayout();
 
-    private Button newBtn;
+    private final List<Panel> propPanels = new ArrayList<>();
 
-    public View_HSE_WorkPlan() {
+    public View_RETAIL_CocaCalc_DM_CSR() {
         //<editor-fold defaultstate="collapsed" desc="UI setup">
         setSizeFull();
         addStyleName("crud-view");
@@ -40,7 +38,7 @@ public class View_HSE_WorkPlan extends VerticalLayout implements View {
         HorizontalLayout topLayout = createTopBar();
 
         // kreiraj panel za tabelu i properies tabele :
-        VerticalLayout vl1 = new VerticalLayout(wpTable);
+        VerticalLayout vl1 = new VerticalLayout(table);
 
         propVL.setMargin(true);
         propVL.setSpacing(true);
@@ -57,14 +55,10 @@ public class View_HSE_WorkPlan extends VerticalLayout implements View {
         addComponent(VL);
         //</editor-fold>
 
-        wpTable.addValueChangeListener(new Property.ValueChangeListener() {
-            @Override
-            public void valueChange(Property.ValueChangeEvent event) {
-                WorkPlan wp = (WorkPlan) wpTable.getValue();
-                openProperties(wp);
-            }
+        table.addValueChangeListener((Property.ValueChangeEvent event) -> {
+            CompositeSellReport csr = (CompositeSellReport) table.getValue();
+            openProperties(csr);
         });
-        //</editor-fold>
 
         addComponent(VL);
     }
@@ -81,49 +75,38 @@ public class View_HSE_WorkPlan extends VerticalLayout implements View {
         filter.setInputPrompt("search data...");
         ResetButtonForTextField.extend(filter);
         filter.setImmediate(false);
-        filter.addTextChangeListener(new FieldEvents.TextChangeListener() {
-            @Override
-            public void textChange(FieldEvents.TextChangeEvent event) {
-                wpTable.setFilter(event.getText());
-            }
-        });
-
-        newBtn = new Button("New WorkPlan");
-        newBtn.setWidth(200, Unit.PIXELS);
-        newBtn.addClickListener(new Button.ClickListener() {
-            @Override
-            public void buttonClick(Button.ClickEvent event) {
-                openProperties(new WorkPlan());
-            }
+        filter.addTextChangeListener((FieldEvents.TextChangeEvent event) -> {
+            table.setFilter(event.getText());
         });
 
         HorizontalLayout topLayout = new HorizontalLayout();
         topLayout.setSpacing(true);
         topLayout.setWidth(100, Unit.PERCENTAGE);
-        topLayout.addComponents(filter, newBtn);
+        topLayout.addComponent(filter);
         topLayout.setComponentAlignment(filter, Alignment.MIDDLE_LEFT);
         topLayout.setExpandRatio(filter, 1);
         topLayout.setStyleName("top-bar");
-        
+
         return topLayout;
     }
     //</editor-fold>
 
-    private void openProperties(WorkPlan wp) {
-        if (wp != null) {
+    private void openProperties(CompositeSellReport csr) {
+        if (csr != null) {
             HL.setSplitPosition(40, Unit.PERCENTAGE);
 
             if (propVL.getComponentCount() > 0) {
                 propVL.removeAllComponents();
             }
 
-            Form_WorkPlan wpForm = new Form_WorkPlan(new BeanItem(wp), true, () -> {
-                wpTable.refreshVisualContainer();
-            });
+            /*            
+             Form_R_FS fsForm = new Form_R_FS(new BeanItem(fs), true, () -> {
+             fsTable.refreshVisualContainer();
+             });
+             fsForm.setEnabled(MyUI.get().isPermitted(Roles.PERMISSION_APP_FS_USER_EDIT_OWN_WORKPLANS));
 
-            wpForm.setEnabled(MyUI.get().isPermitted(Roles.PERMISSION_APP_FS_USER_EDIT_OWN_WORKPLANS));
-            propVL.addComponent(wpForm);
-
+             propVL.addComponent(fsForm);
+             */
         } else {
             HL.setSplitPosition(100, Unit.PERCENTAGE);
         }

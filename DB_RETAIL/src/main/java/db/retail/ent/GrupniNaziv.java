@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "GrupniNaziv.findByIdgn", query = "SELECT g FROM GrupniNaziv g WHERE g.idgn = :idgn"),
     @NamedQuery(name = "GrupniNaziv.findByGNaziv", query = "SELECT g FROM GrupniNaziv g WHERE g.gNaziv = :gNaziv")})
 public class GrupniNaziv implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,7 +60,11 @@ public class GrupniNaziv implements Serializable {
     }
 
     public String getGNaziv() {
-        return gNaziv;
+        try {
+            return gNaziv;
+        } catch (Exception e) {
+            return "";
+        }
     }
 
     public void setGNaziv(String gNaziv) {
@@ -84,20 +89,20 @@ public class GrupniNaziv implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof GrupniNaziv)) {
             return false;
         }
         GrupniNaziv other = (GrupniNaziv) object;
-        if ((this.idgn == null && other.idgn != null) || (this.idgn != null && !this.idgn.equals(other.idgn))) {
-            return false;
-        }
-        return true;
+        return !((this.idgn == null && other.idgn != null) || (this.idgn != null && !this.idgn.equals(other.idgn)));
     }
 
     @Override
     public String toString() {
-        return "db.retail.GrupniNaziv[ idgn=" + idgn + " ]";
+        try {
+            return getGNaziv();
+        } catch (Exception e) {
+            return "";
+        }
     }
-    
+
 }

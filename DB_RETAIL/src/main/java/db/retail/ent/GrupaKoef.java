@@ -38,6 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "GrupaKoef.findByDatumDO", query = "SELECT g FROM GrupaKoef g WHERE g.datumDO = :datumDO"),
     @NamedQuery(name = "GrupaKoef.findByRbr", query = "SELECT g FROM GrupaKoef g WHERE g.rbr = :rbr")})
 public class GrupaKoef implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -122,20 +123,20 @@ public class GrupaKoef implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof GrupaKoef)) {
             return false;
         }
         GrupaKoef other = (GrupaKoef) object;
-        if ((this.idgk == null && other.idgk != null) || (this.idgk != null && !this.idgk.equals(other.idgk))) {
-            return false;
-        }
-        return true;
+        return !((this.idgk == null && other.idgk != null) || (this.idgk != null && !this.idgk.equals(other.idgk)));
     }
 
     @Override
     public String toString() {
-        return "db.retail.GrupaKoef[ idgk=" + idgk + " ]";
+        try {
+            return getNaziv();
+        } catch (Exception e) {
+            return "";
+        }
     }
-    
+
 }

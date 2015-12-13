@@ -5,7 +5,6 @@
  */
 package Menu;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,18 +20,19 @@ public enum MenuDefinitions {
     //
     // Submenus
     //
-    HSE_SYS_NOTIF_BOARD("HSE Notification Board"),
+    HSE_SYS_NOTIF_BOARD("HSE Dashboard"),
     HSE_WORKPLAN("Work Plans"),
     //
     // Retail submenus
     //
-    RETAIL_SYS_NOTIF_BOARD("Retail Notification Board"),
+    RETAIL_SYS_NOTIF_BOARD("Retail Dashboard"),
     RETAIL_COCACALC("Coca Calculus"),
     RETAIL_COCACALC_PARTNERS("Partners"),
     RETAIL_COCACALC_PARTNERS_DATA("Partner Data"),
     RETAIL_COCACALC_PARTNERS_FS("Fuelstations"),
     RETAIL_COCACALC_PARTNERS_CONTRACTS("Contracts"),
     RETAIL_COCACALC_DATA_MAINTENENCE("Data Maintenance"),
+    RETAIL_COCACALC_DATA_MAINTENENCE_CSR("Composite Sell Report"),
     RETAIL_COCACALC_DATA_MAINTENENCE_MAPPING("Mapping"),
     RETAIL_COCACALC_DATA_MAINTENENCE_KEY_DISTRIBUTION("Key Distribution"),
     RETAIL_COCACALC_DATA_MAINTENENCE_CATEGORIES("CATEGORIES");
@@ -63,17 +63,34 @@ public enum MenuDefinitions {
     }
 
     public static List<MenuDefinitions> get_RETAIL_SubItems() {
-        return new ArrayList<>(Arrays.asList(RETAIL_SYS_NOTIF_BOARD,
+        return Arrays.asList(
                 RETAIL_SYS_NOTIF_BOARD,
+                RETAIL_SYS_NOTIF_BOARD,
+                RETAIL_COCACALC,
                 RETAIL_COCACALC,
                 RETAIL_COCACALC_PARTNERS,
                 RETAIL_COCACALC_PARTNERS_DATA,
                 RETAIL_COCACALC_PARTNERS_FS,
                 RETAIL_COCACALC_PARTNERS_CONTRACTS,
                 RETAIL_COCACALC_DATA_MAINTENENCE,
+                RETAIL_COCACALC_DATA_MAINTENENCE_CSR,
                 RETAIL_COCACALC_DATA_MAINTENENCE_MAPPING,
                 RETAIL_COCACALC_DATA_MAINTENENCE_KEY_DISTRIBUTION,
                 RETAIL_COCACALC_DATA_MAINTENENCE_CATEGORIES
-        ));
+        );
+    }
+
+    public static List<MenuDefinitions> get_RETAIL_COCA_SubItems() {
+        return Arrays.asList(
+                RETAIL_COCACALC_PARTNERS,
+                RETAIL_COCACALC_PARTNERS_DATA,
+                RETAIL_COCACALC_PARTNERS_FS,
+                RETAIL_COCACALC_PARTNERS_CONTRACTS,
+                RETAIL_COCACALC_DATA_MAINTENENCE,
+                RETAIL_COCACALC_DATA_MAINTENENCE_CSR,
+                RETAIL_COCACALC_DATA_MAINTENENCE_MAPPING,
+                RETAIL_COCACALC_DATA_MAINTENENCE_KEY_DISTRIBUTION,
+                RETAIL_COCACALC_DATA_MAINTENENCE_CATEGORIES
+        );
     }
 }

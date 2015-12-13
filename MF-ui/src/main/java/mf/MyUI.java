@@ -2,7 +2,7 @@ package mf;
 
 import Views.General.LoginScreen;
 import Views.General.MainScreen;
-import Views.MainMenu.HSE.View_HSE_WorkPlan;
+import HSE.Views.View_HSE_WorkPlan;
 import com.vaadin.annotations.PreserveOnRefresh;
 import javax.servlet.annotation.WebServlet;
 
@@ -15,6 +15,7 @@ import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
 import dataservice.DataService;
 import db.HSE.dataservice.DataService_HSE;
+import db.retail.dataservice.DataService_RETAIL;
 import org.dobrivoje.auth.IAccessAuthControl;
 import org.dobrivoje.auth.IntermolADAccessControl;
 import org.dobrivoje.utils.date.formats.DateFormat;
@@ -25,7 +26,10 @@ import org.dobrivoje.utils.date.formats.DateFormat;
 public class MyUI extends UI {
 
     private final IAccessAuthControl accessControl = new IntermolADAccessControl();
-    public static final DataService_HSE DS = DataService.getDataService_HSE();
+
+    public static final DataService_HSE DS_HSE = DataService.getDataService_HSE();
+    public static final DataService_RETAIL DS_RETAIL = DataService.getDataService_RETAIL();
+
     public static final String SYSTEM_DATE_FORMAT = DateFormat.DATE_FORMAT_SRB.toString();
 
     @Override

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Tables.HSE.WorkPlan;
+package HSE.Tables;
 
 import db.HSE.ent.reportbeans.HSE_SysNotif_Bean;
 import Tables.Table_GEN;
@@ -13,20 +13,20 @@ import com.vaadin.ui.Table.Align;
 import java.util.List;
 import org.superb.apps.utilities.Enums.WorkingPlansStatuses;
 import org.superb.apps.utilities.vaadin.FancyLabels.WPSLabel;
-import static mf.MyUI.DS;
+import static mf.MyUI.DS_HSE;
 
 /**
  *
  * @author root
  */
-public class Table_HSE_SysNotif extends Table_GEN<HSE_SysNotif_Bean> {
+public class Table_H_SysNotif extends Table_GEN<HSE_SysNotif_Bean> {
 
-    public Table_HSE_SysNotif() {
+    public Table_H_SysNotif() {
         this(new BeanItemContainer<>(HSE_SysNotif_Bean.class),
-                DS.getHSESysNotifController().getSysNotifBoard_Report1());
+                DS_HSE.getHSESysNotifController().getSysNotifBoard_Report1());
     }
 
-    public Table_HSE_SysNotif(BeanItemContainer<HSE_SysNotif_Bean> beanContainer, List list) {
+    public Table_H_SysNotif(BeanItemContainer<HSE_SysNotif_Bean> beanContainer, List list) {
         super(beanContainer, list);
 
         addGeneratedColumn("finished", new Table.ColumnGenerator() {

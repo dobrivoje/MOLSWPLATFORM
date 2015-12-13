@@ -1,14 +1,18 @@
 package Views.General;
 
-import Views.MainMenu.HSE.View_HSE_SysNotifBoard;
+import HSE.Views.View_HSE_SysNotifBoard;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
-import Views.MainMenu.HSE.View_HSE_WorkPlan;
+import HSE.Views.View_HSE_WorkPlan;
 import Views.MainMenu.MainMenu;
-import Views.MainMenu.RETAIL.View_RETAIL_SysNotifBoard;
+import RETAIL.Views.View_RETAIL;
+import RETAIL.Views.View_RETAIL_CocaCalc;
+import RETAIL.Views.View_RETAIL_CocaCalc_DM_CSR;
+import RETAIL.Views.View_RETAIL_CocaCalc_DM_MAPPING;
+import RETAIL.Views.View_RETAIL_SysNotifBoard;
 import mf.MyUI;
 
 /**
@@ -39,6 +43,10 @@ public class MainScreen extends HorizontalLayout {
         navigator.addView(View_HSE_WorkPlan.class.getSimpleName(), View_HSE_WorkPlan.class);
         navigator.addView(View_HSE_SysNotifBoard.class.getSimpleName(), View_HSE_SysNotifBoard.class);
         navigator.addView(View_RETAIL_SysNotifBoard.class.getSimpleName(), View_RETAIL_SysNotifBoard.class);
+        navigator.addView(View_RETAIL.class.getSimpleName(), View_RETAIL.class);
+        navigator.addView(View_RETAIL_CocaCalc.class.getSimpleName(), View_RETAIL_CocaCalc.class);
+        navigator.addView(View_RETAIL_CocaCalc_DM_CSR.class.getSimpleName(), View_RETAIL_CocaCalc_DM_CSR.class);
+        navigator.addView(View_RETAIL_CocaCalc_DM_MAPPING.class.getSimpleName(), View_RETAIL_CocaCalc_DM_MAPPING.class);
 
         navigator.addViewChangeListener(viewChangeListener);
 

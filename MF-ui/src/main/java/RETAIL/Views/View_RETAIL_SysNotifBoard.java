@@ -1,7 +1,7 @@
-package Views.MainMenu.RETAIL;
+package RETAIL.Views;
 
-import Views.View_Dashboard;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Panel;
@@ -16,6 +16,7 @@ import org.vaadin.highcharts.ChartType;
 import static java.lang.Math.sin;
 import static java.lang.Math.PI;
 import static java.lang.Math.exp;
+import org.superb.apps.utilities.vaadin.Views.View_Dashboard;
 
 public class View_RETAIL_SysNotifBoard extends View_Dashboard {
 

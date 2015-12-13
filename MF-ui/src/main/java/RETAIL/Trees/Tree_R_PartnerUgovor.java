@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Trees;
+package RETAIL.Trees;
 
 import db.Exceptions.CustomTreeNodesEmptyException;
 import db.HSE.ent.WorkPlan;
@@ -14,9 +14,9 @@ import org.superb.apps.utilities.vaadin.Trees.CustomTree;
  *
  * @author root
  */
-public class Tree_WorkPlan extends CustomTree<WorkPlan> {
+public class Tree_R_PartnerUgovor extends CustomTree<WorkPlan> {
 
-    public Tree_WorkPlan(String caption, List treeItems) throws CustomTreeNodesEmptyException {
+    public Tree_R_PartnerUgovor(String caption, List treeItems) throws CustomTreeNodesEmptyException {
         super(caption, treeItems);
     }
 

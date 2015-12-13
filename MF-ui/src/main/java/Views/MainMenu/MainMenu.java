@@ -29,6 +29,7 @@ import static Menu.MenuDefinitions.MOL_SECTOR_RETAIL;
 import static Menu.MenuDefinitions.RETAIL_COCACALC;
 import static Menu.MenuDefinitions.RETAIL_COCACALC_DATA_MAINTENENCE;
 import static Menu.MenuDefinitions.RETAIL_COCACALC_DATA_MAINTENENCE_CATEGORIES;
+import static Menu.MenuDefinitions.RETAIL_COCACALC_DATA_MAINTENENCE_CSR;
 import static Menu.MenuDefinitions.RETAIL_COCACALC_PARTNERS_FS;
 import static Menu.MenuDefinitions.RETAIL_COCACALC_DATA_MAINTENENCE_KEY_DISTRIBUTION;
 import static Menu.MenuDefinitions.RETAIL_COCACALC_DATA_MAINTENENCE_MAPPING;
@@ -36,9 +37,13 @@ import static Menu.MenuDefinitions.RETAIL_COCACALC_PARTNERS;
 import static Menu.MenuDefinitions.RETAIL_COCACALC_PARTNERS_CONTRACTS;
 import static Menu.MenuDefinitions.RETAIL_COCACALC_PARTNERS_DATA;
 import static Menu.MenuDefinitions.RETAIL_SYS_NOTIF_BOARD;
-import Views.MainMenu.HSE.View_HSE_SysNotifBoard;
-import Views.MainMenu.HSE.View_HSE_WorkPlan;
-import Views.MainMenu.RETAIL.View_RETAIL_SysNotifBoard;
+import HSE.Views.View_HSE_SysNotifBoard;
+import HSE.Views.View_HSE_WorkPlan;
+import RETAIL.Views.View_RETAIL;
+import RETAIL.Views.View_RETAIL_CocaCalc;
+import RETAIL.Views.View_RETAIL_CocaCalc_DM_CSR;
+import RETAIL.Views.View_RETAIL_CocaCalc_DM_MAPPING;
+import RETAIL.Views.View_RETAIL_SysNotifBoard;
 
 /**
  * Responsive navigation menu presenting a list of available views to the user.
@@ -162,13 +167,13 @@ public class MainMenu extends CssLayout {
         // ------RETAIL_SYS_NOTIF_BOARD
         // ----------RETAIL_COCACALC_PARTNERS
         // --------------RETAIL_COCACALC_PARTNERS_DATA
-        // --------------RETAIL_COCACALC_PARTNERS_FS
         // --------------RETAIL_COCACALC_PARTNERS_CONTRACTS
+        // --------------RETAIL_COCACALC_PARTNERS_FS
         //
-        //mainMenuTree.expandItemsRecursively(RETAIL_COCACALC_PARTNERS);
+        mainMenuTree.expandItemsRecursively(RETAIL_COCACALC_PARTNERS);
         mainMenuTree.setParent(RETAIL_COCACALC_PARTNERS_DATA, RETAIL_COCACALC_PARTNERS);
-        mainMenuTree.setParent(RETAIL_COCACALC_PARTNERS_FS, RETAIL_COCACALC_PARTNERS);
         mainMenuTree.setParent(RETAIL_COCACALC_PARTNERS_CONTRACTS, RETAIL_COCACALC_PARTNERS);
+        mainMenuTree.setParent(RETAIL_COCACALC_PARTNERS_FS, RETAIL_COCACALC_PARTNERS);
         mainMenuTree.setChildrenAllowed(RETAIL_COCACALC_PARTNERS_DATA, false);
         mainMenuTree.setChildrenAllowed(RETAIL_COCACALC_PARTNERS_FS, false);
         mainMenuTree.setChildrenAllowed(RETAIL_COCACALC_PARTNERS_CONTRACTS, false);
@@ -180,10 +185,12 @@ public class MainMenu extends CssLayout {
         // --------------RETAIL_COCACALC_DATA_MAINTENENCE_KEY_DISTRIBUTION
         // --------------RETAIL_COCACALC_DATA_MAINTENENCE_CATEGORIES
         //
-        //mainMenuTree.expandItemsRecursively(RETAIL_COCACALC_DATA_MAINTENENCE);
+        mainMenuTree.expandItemsRecursively(RETAIL_COCACALC_DATA_MAINTENENCE);
+        mainMenuTree.setParent(RETAIL_COCACALC_DATA_MAINTENENCE_CSR, RETAIL_COCACALC_DATA_MAINTENENCE);
         mainMenuTree.setParent(RETAIL_COCACALC_DATA_MAINTENENCE_MAPPING, RETAIL_COCACALC_DATA_MAINTENENCE);
         mainMenuTree.setParent(RETAIL_COCACALC_DATA_MAINTENENCE_KEY_DISTRIBUTION, RETAIL_COCACALC_DATA_MAINTENENCE);
         mainMenuTree.setParent(RETAIL_COCACALC_DATA_MAINTENENCE_CATEGORIES, RETAIL_COCACALC_DATA_MAINTENENCE);
+        mainMenuTree.setChildrenAllowed(RETAIL_COCACALC_DATA_MAINTENENCE_CSR, false);
         mainMenuTree.setChildrenAllowed(RETAIL_COCACALC_DATA_MAINTENENCE_MAPPING, false);
         mainMenuTree.setChildrenAllowed(RETAIL_COCACALC_DATA_MAINTENENCE_KEY_DISTRIBUTION, false);
         mainMenuTree.setChildrenAllowed(RETAIL_COCACALC_DATA_MAINTENENCE_CATEGORIES, false);
@@ -203,6 +210,23 @@ public class MainMenu extends CssLayout {
                 case RETAIL_SYS_NOTIF_BOARD:
                     navigator.navigateTo(View_RETAIL_SysNotifBoard.class.getSimpleName());
                     break;
+
+                case RETAIL_COCACALC:
+                    navigator.navigateTo(View_RETAIL.class.getSimpleName());
+                    break;
+
+                case RETAIL_COCACALC_PARTNERS_FS:
+                    navigator.navigateTo(View_RETAIL_CocaCalc.class.getSimpleName());
+                    break;
+
+                case RETAIL_COCACALC_DATA_MAINTENENCE_CSR:
+                    navigator.navigateTo(View_RETAIL_CocaCalc_DM_CSR.class.getSimpleName());
+                    break;
+
+                case RETAIL_COCACALC_DATA_MAINTENENCE_MAPPING:
+                    navigator.navigateTo(View_RETAIL_CocaCalc_DM_MAPPING.class.getSimpleName());
+                    break;
+
             }
         });
 

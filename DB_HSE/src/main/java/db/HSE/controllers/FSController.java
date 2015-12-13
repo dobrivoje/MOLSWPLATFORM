@@ -5,6 +5,7 @@
  */
 package db.HSE.controllers;
 
+import db.HSE.interfaces.Controller;
 import db.HSE.DBHandler_HSE;
 import db.HSE.ent.FuelStation;
 import java.util.List;
@@ -35,16 +36,16 @@ public class FSController extends Controller<FuelStation> {
 
     @Override
     public void delete(FuelStation t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void addNew(FuelStation t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void updateExisting(FuelStation t) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

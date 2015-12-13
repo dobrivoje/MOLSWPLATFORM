@@ -1,7 +1,7 @@
-package Views.MainMenu.HSE;
+package HSE.Views;
 
-import Views.View_Dashboard;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Panel;
@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.superb.apps.utilities.vaadin.Views.View_Dashboard;
 import org.vaadin.highcharts.HighChartGen;
 import org.vaadin.highcharts.ChartType;
 

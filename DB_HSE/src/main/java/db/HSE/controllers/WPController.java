@@ -5,6 +5,7 @@
  */
 package db.HSE.controllers;
 
+import db.HSE.interfaces.Controller;
 import db.HSE.DBHandler_HSE;
 import db.HSE.ent.FuelStation;
 import db.HSE.ent.WorkPlan;

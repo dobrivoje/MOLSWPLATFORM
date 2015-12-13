@@ -6,11 +6,8 @@
 package db.HSE.dataservice;
 
 import db.HSE.DBHandler_HSE;
-import db.HSE.DBHandler_HSE;
-import db.HSE.DBHandler_HSE;
 import db.HSE.controllers.FSController;
 import db.HSE.controllers.WPController;
-import javax.persistence.EntityManager;
 import db.HSE.ent.reportbeans.HSE_SysNotifController;
 
 /**
@@ -30,26 +27,22 @@ public class DataService_HSE {
     public static synchronized DataService_HSE getDefault() {
         return instance == null ? instance = new DataService_HSE() : instance;
     }
-    
-    public static synchronized EntityManager getEM() throws Exception {
-        return DBHandler_HSE.getEm();
-    }
     //</editor-fold>
 
-    private final FSController fsController = new FSController(DBH);
-    private final WPController wpController = new WPController(DBH);
-    private final HSE_SysNotifController hseSysNotifController = new HSE_SysNotifController(DBH);
+    private final FSController FSC = new FSController(DBH);
+    private final WPController WPC = new WPController(DBH);
+    private final HSE_SysNotifController HSNC = new HSE_SysNotifController(DBH);
 
     public FSController getFSController() {
-        return fsController;
+        return FSC;
     }
 
     public WPController getWPController() {
-        return wpController;
+        return WPC;
     }
 
     public HSE_SysNotifController getHSESysNotifController() {
-        return hseSysNotifController;
+        return HSNC;
     }
 
 }

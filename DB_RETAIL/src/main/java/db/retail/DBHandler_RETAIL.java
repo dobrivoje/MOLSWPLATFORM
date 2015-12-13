@@ -4,50 +4,30 @@ import db.retail.ent.FS;
 import db.retail.ent.Mapping;
 import db.retail.beans.reports.ObracunFinal;
 import db.retail.beans.reports.Specifikacija;
+import db.retail.ent.CompositeSellReport;
+import db.retail.ent.GrupniNaziv;
+import db.retail.ent.Kategorija;
+import db.retail.ent.Klasifikacija;
+import db.retail.ent.ReportDetails;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author DPrtenjak
- */
-public class DBHandler_RETAIL {
+public class DBHandler_RETAIL extends DBHandler {
 
     //<editor-fold defaultstate="collapsed" desc="System definitions">
-
     private static DBHandler_RETAIL instance;
-    private static final String PERSISTENCE_UNIT_ID = "retail_DB.PU";
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_ID);
-    private static final EntityManager em = emf.createEntityManager();
-
-    public static synchronized EntityManager getEm() throws NullPointerException, Exception, java.net.UnknownHostException, java.sql.SQLException {
-        return em;
-    }
 
     private DBHandler_RETAIL() {
+        super("retail_DB.PU");
     }
 
     public static DBHandler_RETAIL getDefault() {
         return instance == null ? instance = new DBHandler_RETAIL() : instance;
-    }
-
-    private void rollBackTransaction(String message) throws Exception {
-        if (getEm().getTransaction().isActive()) {
-            getEm().getTransaction().rollback();
-        }
-        throw new Exception(message);
     }
     //</editor-fold>
 
@@ -94,7 +74,7 @@ public class DBHandler_RETAIL {
         addNew_FS(newFS);
     }
 
-    public void updateCustomer(FS fs) throws Exception {
+    public void updateFS(FS fs) throws Exception {
         try {
             getEm().getTransaction().begin();
             em.merge(fs);
@@ -107,9 +87,40 @@ public class DBHandler_RETAIL {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="COMPOSITE SELL REPORT">
-    //<editor-fold defaultstate="collapsed" desc="Add/update data">
+    //<editor-fold defaultstate="collapsed" desc="Read data">
+    public List<CompositeSellReport> getAll_CSR() {
+        try {
+            return (List<CompositeSellReport>) getEm()
+                    .createNamedQuery("CompositeSellReport.findAll")
+                    .getResultList();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    public List<CompositeSellReport> getBy_FSID(FS IDFs) {
+        try {
+            return (List<CompositeSellReport>) getEm().createNamedQuery("CompositeSellReport.findByIDFS")
+                    .setParameter("IDFS", IDFs)
+                    .getResultList();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    public List<CompositeSellReport> getBy_FSID(String FSCode) {
+        try {
+            return (List<CompositeSellReport>) getEm().createNamedQuery("CompositeSellReport.findByFSCode")
+                    .setParameter("FSCode", FSCode)
+                    .getResultList();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+    //public List<CompositeSellReport> getBy_Criteria(String FSCode, Date datumOD, Date datumDO)
     //</editor-fold>
     //</editor-fold>
+
     //<editor-fold defaultstate="collapsed" desc="MAPPING">
     //<editor-fold defaultstate="collapsed" desc="Read Data">
     public List<Mapping> getAll_Mapping() {
@@ -130,7 +141,85 @@ public class DBHandler_RETAIL {
         }
     }
     //</editor-fold>
+
     //<editor-fold defaultstate="collapsed" desc="Add/update data">
+    public void addNew_Mapping(Mapping newMapping) throws Exception {
+        try {
+            getEm().getTransaction().begin();
+            em.persist(newMapping);
+            getEm().getTransaction().commit();
+        } catch (Exception ex) {
+            rollBackTransaction("New FS Addition Failed");
+        }
+    }
+
+    public void addNew_Mapping(String naziv, String code, boolean aktivan, boolean report,
+            Date datumUnosa, GrupniNaziv grupniNaziv, Kategorija kategorija,
+            ReportDetails reportDetails) throws Exception {
+
+        Mapping newmaMapping = new Mapping(naziv, code, aktivan, report, datumUnosa,
+                grupniNaziv, kategorija, null, reportDetails, null);
+
+        addNew_Mapping(newmaMapping);
+    }
+
+    public void update_Mapping(Mapping mapping) throws Exception {
+        try {
+            getEm().getTransaction().begin();
+            em.merge(mapping);
+            getEm().getTransaction().commit();
+        } catch (Exception ex) {
+            rollBackTransaction("Mapping Update Failed");
+        }
+    }
+    //</editor-fold>
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="GRUPNI NAZIV">
+    //<editor-fold defaultstate="collapsed" desc="Read Data">
+    public List<GrupniNaziv> getAll_GN() {
+        try {
+            return (List<GrupniNaziv>) getEm()
+                    .createNamedQuery("GrupniNaziv.findAll")
+                    .getResultList();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    public List<GrupniNaziv> getByName_GN(String GNaziv) {
+        try {
+            return getEm().createNamedQuery("GrupniNaziv.findByGNaziv")
+                    .setParameter("gNaziv", GNaziv)
+                    .getResultList();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+    //</editor-fold>
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="KATEGORIJA">
+    //<editor-fold defaultstate="collapsed" desc="Read Data">
+    public List<Kategorija> getAll_KATEG() {
+        try {
+            return (List<Kategorija>) getEm()
+                    .createNamedQuery("Kategorija.findAll")
+                    .getResultList();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    public List<Kategorija> getByName_KATEG(String naziv) {
+        try {
+            return getEm().createNamedQuery("Kategorija.findByNaziv")
+                    .setParameter("naziv", naziv)
+                    .getResultList();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
     //</editor-fold>
     //</editor-fold>
 

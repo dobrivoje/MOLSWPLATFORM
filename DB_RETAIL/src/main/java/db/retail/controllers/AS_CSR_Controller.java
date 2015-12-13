@@ -25,12 +25,12 @@ public class AS_CSR_Controller implements IAdvancedSearchController<CompositeSel
 
     @Override
     public List<CompositeSellReport> getAll() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return dbh.getAll_CSR();
     }
 
     @Override
     public List<CompositeSellReport> get(CSRSearch criteria) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return dbh.getBy_FSID(criteria.getFs());
     }
 
     @Override

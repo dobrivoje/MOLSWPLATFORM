@@ -6,6 +6,7 @@
 package db.retail.ent;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -39,8 +40,17 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CompositeSellReport.findByVat", query = "SELECT c FROM CompositeSellReport c WHERE c.vat = :vat"),
     @NamedQuery(name = "CompositeSellReport.findByNetto", query = "SELECT c FROM CompositeSellReport c WHERE c.netto = :netto"),
     @NamedQuery(name = "CompositeSellReport.findBySellValue", query = "SELECT c FROM CompositeSellReport c WHERE c.sellValue = :sellValue"),
-    @NamedQuery(name = "CompositeSellReport.findByDatumImporta", query = "SELECT c FROM CompositeSellReport c WHERE c.datumImporta = :datumImporta")})
+    @NamedQuery(name = "CompositeSellReport.findByIDFS",
+            query = "SELECT c FROM CompositeSellReport c WHERE c.fkIdfs = :IDFS"),
+
+    @NamedQuery(name = "CompositeSellReport.findByFSCode",
+            query = "SELECT c FROM CompositeSellReport c WHERE c.fkIdfs.code = :FSCode"),
+    @NamedQuery(name = "CompositeSellReport.findByCriteria",
+            query = "SELECT c FROM CompositeSellReport c WHERE c.fkIdfs.code = :FSCode AND c.timeCode BETWEEN :DatumOD AND :DatumDO")
+
+})
 public class CompositeSellReport implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,7 +58,7 @@ public class CompositeSellReport implements Serializable {
     @Column(name = "ID")
     private Integer id;
     @Column(name = "TIME_CODE")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date timeCode;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "QUANTITY")
@@ -148,6 +158,10 @@ public class CompositeSellReport implements Serializable {
         return datumImporta;
     }
 
+    public String getDatumImporta1() {
+        return new SimpleDateFormat("dd.MM.yyyy").format(datumImporta);
+    }
+
     public void setDatumImporta(Date datumImporta) {
         this.datumImporta = datumImporta;
     }
@@ -192,5 +206,5 @@ public class CompositeSellReport implements Serializable {
     public String toString() {
         return "db.retail.CompositeSellReport[ id=" + id + " ]";
     }
-    
+
 }

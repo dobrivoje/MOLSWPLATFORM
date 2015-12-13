@@ -7989,8 +7989,17 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .mytheme .v-table-row-odd {
-    background-color: #f5f5f5;
+    background-color: #fafafa;
 }
+
+.mytheme .v-table-row:hover {
+    background-color: #e6e6e6;
+}
+
+.mytheme .v-table-row-odd:hover {
+    background-color: #e6e6e6;
+}
+
 
 .mytheme .v-table [class*="-row"].v-selected {
     background-color: #60a0ea;

@@ -5,14 +5,22 @@
  */
 package db.retail.beans.criteria;
 
+import db.retail.ent.Kategorija;
+
 public class MappingSearch {
 
     private String name;
     private String code;
+    private Kategorija kategorija;
 
     public MappingSearch(String name, String code) {
         this.name = name;
         this.code = code;
+    }
+
+    public MappingSearch(String name, String code, Kategorija kategorija) {
+        this(name, code);
+        this.kategorija = kategorija;
     }
 
     public String getName() {
@@ -29,6 +37,14 @@ public class MappingSearch {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public Kategorija getKategorija() {
+        return kategorija;
+    }
+
+    public void setKategorija(Kategorija kategorija) {
+        this.kategorija = kategorija;
     }
 
 }

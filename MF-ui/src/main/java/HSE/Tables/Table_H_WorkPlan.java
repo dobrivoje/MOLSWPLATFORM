@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Tables.HSE.WorkPlan;
+package HSE.Tables;
 
 import Tables.Table_GEN;
 import com.vaadin.data.util.BeanItemContainer;
@@ -13,32 +13,30 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.CheckBox;
 import db.HSE.ent.WorkPlan;
 import java.util.List;
-import static mf.MyUI.DS;
+import static mf.MyUI.DS_HSE;
 
 /**
  *
  * @author root
  */
-public class Table_WorkPlan extends Table_GEN<WorkPlan> {
+public class Table_H_WorkPlan extends Table_GEN<WorkPlan> {
 
-    public Table_WorkPlan() {
-        this(new BeanItemContainer<>(WorkPlan.class), DS.getWPController().getAll());
+    public Table_H_WorkPlan() {
+        this(new BeanItemContainer<>(WorkPlan.class), DS_HSE.getWPController().getAll());
     }
 
-    public Table_WorkPlan(BeanItemContainer<WorkPlan> beanContainer, List list) {
+    public Table_H_WorkPlan(BeanItemContainer<WorkPlan> beanContainer, List list) {
         super(beanContainer, list);
 
-        addGeneratedColumn("finished1", new Table.ColumnGenerator() {
-            @Override
-            public Object generateCell(final Table source, final Object row, Object column) {
-                CheckBox cb = new CheckBox("", ((WorkPlan) row).getFinished());
-                cb.setEnabled(false);
+        addGeneratedColumn("finished1", (final Table source, final Object row, Object column) -> {
+            CheckBox cb = new CheckBox("", ((WorkPlan) row).getFinished());
+            cb.setEnabled(false);
 
-                return cb;
-            }
+            return cb;
         });
+
         setVisibleColumns("startDate1", "FK_FuelStation", "contractor", /*"subContractor", */
-                /* "worktype", "termin", "duration", */ "finished1", "endDate" /* ",comment" */);
+                /* "worktype", "termin", "duration", */ "finished1", "endDate1" /* ",comment" */);
         setColumnHeaders("Start date", "Fuel Station", "Contractor", /* "Subcontractor", */
                 /* "Worktype", "Termin", "Duration", */ "Finished ?", "End Date" /*, "Comment" */);
 
@@ -58,10 +56,11 @@ public class Table_WorkPlan extends Table_GEN<WorkPlan> {
             SimpleStringFilter startDateFilter = new SimpleStringFilter(
                     "startDate1", filterString, true, false);
             SimpleStringFilter endDateFilter = new SimpleStringFilter(
-                    "endDate", filterString, true, false);
+                    "endDate1", filterString, true, false);
 
             beanContainer.addContainerFilter(
-                    new Or(fsFilter, contractorFilter,
+                    new Or(
+                            fsFilter, contractorFilter,
                             startDateFilter, startDateFilter,
                             endDateFilter
                     ));

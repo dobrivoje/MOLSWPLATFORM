@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package db.HSE.controllers;
+package db.HSE.interfaces;
 
 import db.HSE.DBHandler_HSE;
 import java.util.List;
