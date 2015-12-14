@@ -7,7 +7,7 @@ package db.retail.controllers;
 
 import db.retail.DBHandler_RETAIL;
 import db.retail.ent.Mapping;
-import db.retail.beans.criteria.MappingSearch;
+import db.retail.ent.criteria.MappingSearch;
 import db.retail.interfaces.IAdvancedSearchController;
 import java.util.List;
 

@@ -1,8 +1,12 @@
 package test;
 
+import db.retail.ent.criteria.DateIntervalSearch;
+import db.retail.ent.criteria.OS_Search;
+import db.retail.ent.reports.ObracunFinal;
+import db.retail.ent.reports.Specifikacija;
 import db.retail.dataservice.DataService_RETAIL;
-import db.retail.ent.FS;
-import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -37,28 +41,33 @@ public class testCocaDB {
 
          System.err.println("finalni obračun test.");
 
-         int br = 0;
-         String Od = "2015-11-1";
-         String Do = "2015-11-30";
-         // String fsCode = "90431";
-         String fsCode = null;
-
-         for (ObracunFinal o : DS.getASC_FinalObracun_C().get(new OS_Search(new DateIntervalSearch(Od, Do), fsCode))) {
-         System.err.println((++br) + " " + o.toString());
-         }
-
-         System.err.println("finalni obračun test.");
-
-         int br1 = 0;
-
-         for (Specifikacija o : DS.getASC_Specifikacija_C().get(new OS_Search(new DateIntervalSearch(Od, Do), fsCode))) {
-         System.err.println((++br1) + " " + o.toString());
-         }
-
          */
+        int br = 0;
+        String Od = "2015-11-1";
+        String Do = "2015-11-30";
+        String fsCode = "90431";
 
-        for (Field f : FS.class.getDeclaredFields()) {
-            System.err.println("getName: " + f.getName());
+        Date Od1;
+        Date Do1;
+
+        try {
+            Od1 = new SimpleDateFormat("yyyy-MM-dd").parse("2015-11-1");
+            Do1 = new SimpleDateFormat("yyyy-MM-dd").parse("2015-11-30");
+
+            System.err.println("datumi test : od: " + Od1 + ", do: " + Do1);
+        } catch (Exception e) {
+        }
+
+        for (ObracunFinal o : DS.getASC_FinalObracun_C().get(new OS_Search(new DateIntervalSearch(Od, Do), fsCode))) {
+            System.err.println((++br) + " " + o.toString());
+        }
+
+        System.err.println("finalni obračun test.");
+
+        int br1 = 0;
+
+        for (Specifikacija o : DS.getASC_Specifikacija_C().get(new OS_Search(new DateIntervalSearch(Od, Do), fsCode))) {
+            System.err.println((++br1) + " " + o.toString());
         }
 
     }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package db.retail.beans.criteria;
+package db.retail.ent.criteria;
 
 public class OS_Search {
 

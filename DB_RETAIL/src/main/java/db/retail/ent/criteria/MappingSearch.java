@@ -3,25 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package db.retail.beans.criteria;
+package db.retail.ent.criteria;
 
-public class FSSearch {
+import db.retail.ent.Kategorija;
+
+public class MappingSearch {
 
     private String name;
     private String code;
-    private String model;
-    private boolean cocaModel;
+    private Kategorija kategorija;
 
-    public FSSearch(String name, String code) {
+    public MappingSearch(String name, String code) {
         this.name = name;
         this.code = code;
     }
 
-    public FSSearch(String name, String code, String model, boolean cocaModel) {
+    public MappingSearch(String name, String code, Kategorija kategorija) {
         this(name, code);
-
-        this.model = model;
-        this.cocaModel = cocaModel;
+        this.kategorija = kategorija;
     }
 
     public String getName() {
@@ -40,20 +39,12 @@ public class FSSearch {
         this.code = code;
     }
 
-    public String getModel() {
-        return model;
+    public Kategorija getKategorija() {
+        return kategorija;
     }
 
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public boolean isCocaModel() {
-        return cocaModel;
-    }
-
-    public void setCocaModel(boolean cocaModel) {
-        this.cocaModel = cocaModel;
+    public void setKategorija(Kategorija kategorija) {
+        this.kategorija = kategorija;
     }
 
 }

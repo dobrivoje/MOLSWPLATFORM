@@ -1,4 +1,4 @@
-package db.retail.beans.criteria;
+package db.retail.ent.criteria;
 
 import db.retail.ent.FS;
 

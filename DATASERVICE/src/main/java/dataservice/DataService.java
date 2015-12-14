@@ -28,11 +28,11 @@ public class DataService {
     }
     //</editor-fold>
 
-    public static DataService_RETAIL getDataService_RETAIL() {
+    public static DataService_RETAIL getDS_RETAIL() {
         return DS_RETAIL;
     }
 
-    public static DataService_HSE getDataService_HSE() {
+    public static DataService_HSE getDS_HSE() {
         return DBH_HSE;
     }
 }

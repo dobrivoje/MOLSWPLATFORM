@@ -2,8 +2,8 @@ package db.retail;
 
 import db.retail.ent.FS;
 import db.retail.ent.Mapping;
-import db.retail.beans.reports.ObracunFinal;
-import db.retail.beans.reports.Specifikacija;
+import db.retail.ent.reports.ObracunFinal;
+import db.retail.ent.reports.Specifikacija;
 import db.retail.ent.CompositeSellReport;
 import db.retail.ent.GrupniNaziv;
 import db.retail.ent.Kategorija;

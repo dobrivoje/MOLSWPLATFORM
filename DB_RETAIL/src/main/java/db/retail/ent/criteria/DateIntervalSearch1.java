@@ -3,31 +3,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package db.retail.beans.criteria;
+package db.retail.ent.criteria;
 
-public class DateIntervalSearch {
+import java.util.Date;
 
-    private String dateFrom;
-    private String dateTo;
+public class DateIntervalSearch1 {
 
-    public DateIntervalSearch(String dateFrom, String dateTo) {
+    private Date dateFrom;
+    private Date dateTo;
+
+    public DateIntervalSearch1(Date dateFrom, Date dateTo) {
         this.dateFrom = dateFrom;
         this.dateTo = dateTo;
     }
 
-    public String getDateFrom() {
+    public Date getDateFrom() {
         return dateFrom;
     }
 
-    public void setDateFrom(String dateFrom) {
+    public void setDateFrom(Date dateFrom) {
         this.dateFrom = dateFrom;
     }
 
-    public String getDateTo() {
+    public Date getDateTo() {
         return dateTo;
     }
 
-    public void setDateTo(String dateTo) {
+    public void setDateTo(Date dateTo) {
         this.dateTo = dateTo;
     }
 

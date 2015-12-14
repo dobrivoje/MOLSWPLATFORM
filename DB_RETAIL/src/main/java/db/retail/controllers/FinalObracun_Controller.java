@@ -6,8 +6,8 @@
 package db.retail.controllers;
 
 import db.retail.DBHandler_RETAIL;
-import db.retail.beans.criteria.OS_Search;
-import db.retail.beans.reports.ObracunFinal;
+import db.retail.ent.criteria.OS_Search;
+import db.retail.ent.reports.ObracunFinal;
 import db.retail.interfaces.IAdvancedSearchController;
 import java.util.List;
 

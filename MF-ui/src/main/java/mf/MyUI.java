@@ -27,8 +27,8 @@ public class MyUI extends UI {
 
     private final IAccessAuthControl accessControl = new IntermolADAccessControl();
 
-    public static final DataService_HSE DS_HSE = DataService.getDataService_HSE();
-    public static final DataService_RETAIL DS_RETAIL = DataService.getDataService_RETAIL();
+    public static final DataService_HSE DS_HSE = DataService.getDS_HSE();
+    public static final DataService_RETAIL DS_RETAIL = DataService.getDS_RETAIL();
 
     public static final String SYSTEM_DATE_FORMAT = DateFormat.DATE_FORMAT_SRB.toString();
 

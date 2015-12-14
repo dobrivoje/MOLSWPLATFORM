@@ -5,7 +5,7 @@
     <class>db.HSE.ent.FuelStation</class>
     <class>db.HSE.ent.WorkPlan</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:jtds:sqlserver://IMLBELGNAV02T.intermol.sys.corp:1433/OFS"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:jtds:sqlserver://IMLBELGNAV01.intermol.sys.corp:1433/OFS"/>
       <property name="javax.persistence.jdbc.user" value="ofs_sql_account"/>
       <property name="javax.persistence.jdbc.driver" value="net.sourceforge.jtds.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="821!!!"/>

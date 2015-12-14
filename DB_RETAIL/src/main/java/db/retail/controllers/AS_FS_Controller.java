@@ -7,7 +7,7 @@ package db.retail.controllers;
 
 import db.retail.DBHandler_RETAIL;
 import db.retail.ent.FS;
-import db.retail.beans.criteria.FSSearch;
+import db.retail.ent.criteria.FSSearch;
 import db.retail.interfaces.IAdvancedSearchController;
 import java.util.List;
 

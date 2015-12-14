@@ -7,7 +7,7 @@ package db.retail.controllers;
 
 import db.retail.ent.CompositeSellReport;
 import db.retail.DBHandler_RETAIL;
-import db.retail.beans.criteria.CSRSearch;
+import db.retail.ent.criteria.CSRSearch;
 import db.retail.interfaces.IAdvancedSearchController;
 import java.util.List;
 

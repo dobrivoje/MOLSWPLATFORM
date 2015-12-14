@@ -1,12 +1,12 @@
 package db.retail.dataservice;
 
 import db.retail.DBHandler_RETAIL;
-import db.retail.beans.criteria.CSRSearch;
-import db.retail.beans.criteria.FSSearch;
-import db.retail.beans.criteria.MappingSearch;
-import db.retail.beans.criteria.OS_Search;
-import db.retail.beans.reports.ObracunFinal;
-import db.retail.beans.reports.Specifikacija;
+import db.retail.ent.criteria.CSRSearch;
+import db.retail.ent.criteria.FSSearch;
+import db.retail.ent.criteria.MappingSearch;
+import db.retail.ent.criteria.OS_Search;
+import db.retail.ent.reports.ObracunFinal;
+import db.retail.ent.reports.Specifikacija;
 import db.retail.controllers.AS_CSR_Controller;
 import db.retail.controllers.AS_FS_Controller;
 import db.retail.controllers.AS_GN_Controller;
