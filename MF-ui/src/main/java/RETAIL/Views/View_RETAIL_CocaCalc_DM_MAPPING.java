@@ -93,7 +93,7 @@ public class View_RETAIL_CocaCalc_DM_MAPPING extends VerticalLayout implements V
 
     private void openProperties(Mapping mapping) {
         if (mapping != null) {
-            HL.setSplitPosition(40, Unit.PERCENTAGE);
+            HL.setSplitPosition(50, Unit.PERCENTAGE);
 
             if (propVL.getComponentCount() > 0) {
                 propVL.removeAllComponents();

@@ -97,7 +97,7 @@ public class View_RETAIL_CocaCalc extends VerticalLayout implements View {
 
     private void openProperties(FS fs) {
         if (fs != null) {
-            HL.setSplitPosition(40, Unit.PERCENTAGE);
+            HL.setSplitPosition(50, Unit.PERCENTAGE);
 
             if (propVL.getComponentCount() > 0) {
                 propVL.removeAllComponents();

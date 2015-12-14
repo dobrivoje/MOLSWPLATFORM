@@ -16,7 +16,6 @@ import com.vaadin.ui.TextField;
 import db.retail.ent.GrupniNaziv;
 import db.retail.ent.Kategorija;
 import db.retail.ent.Mapping;
-import java.util.Date;
 import static mf.MyUI.DS_RETAIL;
 import org.superb.apps.utilities.vaadin.Tables.IRefreshVisualContainer;
 import static org.superb.apps.utilities.Enums.CrudOperations.BUTTON_CAPTION_UPDATE;
@@ -37,10 +36,10 @@ public class Form_R_Mapping extends Form_CRUD2<Mapping> {
     private final CheckBox report = new CheckBox("Mapping on report ? ");
 
     @PropertyId("datumUnosa")
-    private final DateField datumUnosa = new DateField("Mapping defined");
+    private final DateField datumUnosa = new DateField("Defined on");
 
     @PropertyId("fkIdgn")
-    private final ComboBox grupniNaziv = new ComboBox("Mapping groupa",
+    private final ComboBox grupniNaziv = new ComboBox("Mapping group",
             new BeanItemContainer(GrupniNaziv.class, DS_RETAIL.getASC_GN_C().getAll()));
 
     @PropertyId("fkIdk")
@@ -73,7 +72,6 @@ public class Form_R_Mapping extends Form_CRUD2<Mapping> {
             try {
                 fieldGroup.commit();
 
-                m.setDatumUnosa(new Date());
                 DS_RETAIL.getASC_MAPPING_C().update(m);
 
                 if (visualContainer != null) {
@@ -111,6 +109,8 @@ public class Form_R_Mapping extends Form_CRUD2<Mapping> {
     protected final void initFields() {
         crudButton.setWidth(250, Unit.PIXELS);
         datumUnosa.setEnabled(false);
+
+        setRequiredFields();
     }
 
     @Override
@@ -120,6 +120,12 @@ public class Form_R_Mapping extends Form_CRUD2<Mapping> {
 
         code.setRequired(true);
         code.setRequiredError("Must be entered !");
+
+        grupniNaziv.setRequired(true);
+        grupniNaziv.setRequiredError("Must be entered !");
+
+        kategorija.setRequired(true);
+        kategorija.setRequiredError("Must be entered !");
     }
 
     @Override

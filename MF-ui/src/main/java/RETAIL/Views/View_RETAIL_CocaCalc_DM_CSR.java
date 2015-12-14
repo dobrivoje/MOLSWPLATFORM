@@ -93,7 +93,7 @@ public class View_RETAIL_CocaCalc_DM_CSR extends VerticalLayout implements View 
 
     private void openProperties(CompositeSellReport csr) {
         if (csr != null) {
-            HL.setSplitPosition(40, Unit.PERCENTAGE);
+            HL.setSplitPosition(50, Unit.PERCENTAGE);
 
             if (propVL.getComponentCount() > 0) {
                 propVL.removeAllComponents();

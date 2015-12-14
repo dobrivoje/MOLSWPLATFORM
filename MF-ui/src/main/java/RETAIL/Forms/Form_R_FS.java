@@ -88,15 +88,17 @@ public class Form_R_FS extends Form_CRUD2<FS> {
     @Override
     protected final void initFields() {
         crudButton.setWidth(250, Unit.PIXELS);
+        
+        setRequiredFields();
     }
 
     @Override
     protected void setRequiredFields() {
         naziv.setRequired(true);
-        naziv.setRequiredError("Fuelstation name must be entered !");
+        naziv.setRequiredError("Must be entered !");
 
         code.setRequired(true);
-        code.setRequiredError("Fuelstation code must be entered !");
+        code.setRequiredError("Must be entered !");
     }
 
     @Override

@@ -7,7 +7,6 @@ import db.retail.beans.reports.Specifikacija;
 import db.retail.ent.CompositeSellReport;
 import db.retail.ent.GrupniNaziv;
 import db.retail.ent.Kategorija;
-import db.retail.ent.Klasifikacija;
 import db.retail.ent.ReportDetails;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -31,7 +30,6 @@ public class DBHandler_RETAIL extends DBHandler {
     }
     //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc="RETAIL">
     //<editor-fold defaultstate="collapsed" desc="FS">
     //<editor-fold defaultstate="collapsed" desc="Read Data">
     public List<FS> getAll_FS() {
@@ -157,10 +155,8 @@ public class DBHandler_RETAIL extends DBHandler {
             Date datumUnosa, GrupniNaziv grupniNaziv, Kategorija kategorija,
             ReportDetails reportDetails) throws Exception {
 
-        Mapping newmaMapping = new Mapping(naziv, code, aktivan, report, datumUnosa,
-                grupniNaziv, kategorija, null, reportDetails, null);
-
-        addNew_Mapping(newmaMapping);
+        addNew_Mapping(new Mapping(naziv, code, aktivan, report, datumUnosa,
+                grupniNaziv, kategorija, null, reportDetails, null));
     }
 
     public void update_Mapping(Mapping mapping) throws Exception {
@@ -351,7 +347,6 @@ public class DBHandler_RETAIL extends DBHandler {
             }
         }
     }
-    //</editor-fold>
     //</editor-fold>
 
 }
