@@ -145,7 +145,7 @@ public class Mapping implements Serializable {
 
     public String getDatumUnosa1() {
         try {
-            return new SimpleDateFormat("d.M.yyyy").format(getDatumUnosa());
+            return new SimpleDateFormat("dd.MM.yyyy").format(getDatumUnosa());
         } catch (Exception e) {
             return "";
         }

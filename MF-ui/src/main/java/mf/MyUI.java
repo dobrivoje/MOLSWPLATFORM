@@ -1,7 +1,7 @@
 package mf;
 
-import Views.General.LoginScreen;
-import Views.General.MainScreen;
+import Uni.Views.LoginScreen;
+import Uni.Views.MainScreen;
 import HSE.Views.View_HSE_WorkPlan;
 import com.vaadin.annotations.PreserveOnRefresh;
 import javax.servlet.annotation.WebServlet;

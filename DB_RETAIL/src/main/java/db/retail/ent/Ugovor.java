@@ -6,6 +6,7 @@
 package db.retail.ent;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -41,6 +42,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Ugovor.findByBu2", query = "SELECT u FROM Ugovor u WHERE u.bu2 = :bu2"),
     @NamedQuery(name = "Ugovor.findByBu3", query = "SELECT u FROM Ugovor u WHERE u.bu3 = :bu3")})
 public class Ugovor implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -97,12 +99,28 @@ public class Ugovor implements Serializable {
         return datumPotpisivanja;
     }
 
+    public String getDatumPotpisivanja1() {
+        try {
+            return new SimpleDateFormat("dd.MM.yyyy").format(datumPotpisivanja);
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
     public void setDatumPotpisivanja(Date datumPotpisivanja) {
         this.datumPotpisivanja = datumPotpisivanja;
     }
 
     public Date getDatumPreuzimanja() {
         return datumPreuzimanja;
+    }
+
+    public String getDatumPreuzimanja1() {
+        try {
+            return new SimpleDateFormat("dd.MM.yyyy").format(datumPreuzimanja);
+        } catch (Exception e) {
+            return "";
+        }
     }
 
     public void setDatumPreuzimanja(Date datumPreuzimanja) {
@@ -181,5 +199,5 @@ public class Ugovor implements Serializable {
     public String toString() {
         return "db.retail.Ugovor[ idu=" + idu + " ]";
     }
-    
+
 }

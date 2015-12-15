@@ -6,7 +6,7 @@
 package HSE.Tables;
 
 import db.HSE.ent.reportbeans.HSE_SysNotif_Bean;
-import Tables.Table_GEN;
+import org.superb.apps.utilities.vaadin.Tables.Table_GEN;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.Align;

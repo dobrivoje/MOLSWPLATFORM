@@ -15,7 +15,7 @@
     <class>db.retail.ent.ReportDetails</class>
     <class>db.retail.ent.FS</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:jtds:sqlserver://imlbelgnav01:1433/coca"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:jtds:sqlserver://IMLBELGNAV01.intermol.sys.corp:1433/coca"/>
       <property name="javax.persistence.jdbc.user" value="coca_sql_account"/>
       <property name="javax.persistence.jdbc.driver" value="net.sourceforge.jtds.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="821!!!"/>

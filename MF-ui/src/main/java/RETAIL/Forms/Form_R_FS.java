@@ -1,11 +1,11 @@
 package RETAIL.Forms;
 
-import Forms.Form_CRUD2;
 import com.vaadin.data.Item;
 import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.PropertyId;
 import com.vaadin.data.util.BeanItem;
+import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Notification;
@@ -14,6 +14,7 @@ import db.retail.ent.FS;
 import static mf.MyUI.DS_RETAIL;
 import org.superb.apps.utilities.vaadin.Tables.IRefreshVisualContainer;
 import static org.superb.apps.utilities.Enums.CrudOperations.BUTTON_CAPTION_UPDATE;
+import org.superb.apps.utilities.vaadin.Forms.Form_CRUD2;
 
 public class Form_R_FS extends Form_CRUD2<FS> {
 

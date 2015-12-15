@@ -1,25 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package db.HSE;
 
 import java.util.List;
 import db.HSE.ent.FuelStation;
 import db.HSE.ent.WorkPlan;
 
-/**
- *
- * @author root
- */
 public class DBHandler_HSE extends DBHandler {
 
     //<editor-fold defaultstate="collapsed" desc="System defs">
     private static DBHandler_HSE instance;
 
     private DBHandler_HSE() {
-        super("org.superb.apps.ws.FSOfficeCom_PU");
+        super("FSOfficeCom_PU");
     }
 
     public static DBHandler_HSE getDefault() {

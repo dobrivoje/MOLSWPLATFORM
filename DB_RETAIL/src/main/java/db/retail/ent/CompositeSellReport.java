@@ -182,6 +182,34 @@ public class CompositeSellReport implements Serializable {
         this.fkIdm = fkIdm;
     }
 
+    public String getFsName() {
+        try {
+            return getFkIdfs().getNaziv();
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    public String getFsCode() {
+        try {
+            return getFkIdfs().getCode();
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    public boolean getFsCocaModel() {
+        return getFkIdfs().getCocaModel();
+    }
+
+    public String getTimeCode1() {
+        try {
+            return new SimpleDateFormat("dd.MM.yyyy").format(getTimeCode());
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;

@@ -109,7 +109,7 @@ public class WorkPlan implements Serializable {
 
     public String getStartDate1() {
         try {
-            return new SimpleDateFormat("d.M.yyyy").format(startDate);
+            return new SimpleDateFormat("dd.MM.yyyy").format(startDate);
         } catch (Exception e) {
             return "";
         }

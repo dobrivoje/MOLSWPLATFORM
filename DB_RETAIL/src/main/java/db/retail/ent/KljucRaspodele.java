@@ -6,6 +6,7 @@
 package db.retail.ent;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -37,6 +38,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "KljucRaspodele.findByKoef", query = "SELECT k FROM KljucRaspodele k WHERE k.koef = :koef"),
     @NamedQuery(name = "KljucRaspodele.findByIznos", query = "SELECT k FROM KljucRaspodele k WHERE k.iznos = :iznos")})
 public class KljucRaspodele implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -80,12 +82,28 @@ public class KljucRaspodele implements Serializable {
         return datumOD;
     }
 
+    public String getDatumOD1() {
+        try {
+            return new SimpleDateFormat("dd.MM.yyyy").format(datumOD);
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
     public void setDatumOD(Date datumOD) {
         this.datumOD = datumOD;
     }
 
     public Date getDatumDO() {
         return datumDO;
+    }
+
+    public String getDatumDO1() {
+        try {
+            return new SimpleDateFormat("dd.MM.yyyy").format(datumDO);
+        } catch (Exception e) {
+            return "";
+        }
     }
 
     public void setDatumDO(Date datumDO) {
@@ -148,5 +166,5 @@ public class KljucRaspodele implements Serializable {
     public String toString() {
         return "db.retail.KljucRaspodele[ idkr=" + idkr + " ]";
     }
-    
+
 }

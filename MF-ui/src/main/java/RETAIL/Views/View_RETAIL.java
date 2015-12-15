@@ -1,7 +1,7 @@
 package RETAIL.Views;
 
-import Menu.MenuDefinitions;
-import static Menu.MenuDefinitions.RETAIL_COCACALC;
+import MainMenu.MenuDefinitions;
+import static MainMenu.MenuDefinitions.RETAIL_COCACALC;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;

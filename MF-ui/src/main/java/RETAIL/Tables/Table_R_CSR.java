@@ -5,14 +5,13 @@
  */
 package RETAIL.Tables;
 
-import Tables.Table_GEN;
+import org.superb.apps.utilities.vaadin.Tables.Table_GEN;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.data.util.filter.Or;
 import com.vaadin.data.util.filter.SimpleStringFilter;
-import com.vaadin.ui.Table;
 import com.vaadin.ui.CheckBox;
+import com.vaadin.ui.Table;
 import db.retail.ent.CompositeSellReport;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import static mf.MyUI.DS_RETAIL;
 
@@ -29,30 +28,14 @@ public class Table_R_CSR extends Table_GEN<CompositeSellReport> {
     public Table_R_CSR(BeanItemContainer<CompositeSellReport> beanContainer, List list) {
         super(beanContainer, list);
 
-        addGeneratedColumn("name1", (final Table source, final Object row, Object column) -> {
-            return ((CompositeSellReport) row).getFkIdfs().getNaziv();
-        });
-
-        addGeneratedColumn("code1", (final Table source, final Object row, Object column) -> {
-            return ((CompositeSellReport) row).getFkIdfs().getCode();
-        });
-
-        addGeneratedColumn("cocaModel1", (final Table source, final Object row, Object column) -> {
-            CheckBox cb = new CheckBox("", ((CompositeSellReport) row).getFkIdfs().getCocaModel());
+        addGeneratedColumn("fsCocaModel1", (final Table source, final Object row, Object column) -> {
+            CheckBox cb = new CheckBox("", ((CompositeSellReport) row).getFsCocaModel());
             cb.setEnabled(false);
 
             return cb;
         });
 
-        addGeneratedColumn("timeCode1", (final Table source, final Object row, Object column) -> {
-            try {
-                return new SimpleDateFormat("d.M.yyyy").format(((CompositeSellReport) row).getTimeCode());
-            } catch (Exception e) {
-                return "";
-            }
-        });
-
-        setVisibleColumns("name1", "code1", "cocaModel1", "timeCode1", "quantity",
+        setVisibleColumns("fsName", "fsCode", "fsCocaModel1", "timeCode1", "quantity",
                 "cogs", "revenue", "vat", "netto", "sellValue", "datumImporta1");
         setColumnHeaders("FS", "Code", "FS in COCA Model?", "Transaction Date", "Qty", "Cogs", "Revenue",
                 "VAT", "Netto", "Sell Value", "Report Date Generated");
@@ -66,9 +49,9 @@ public class Table_R_CSR extends Table_GEN<CompositeSellReport> {
 
         if (filterString.length() > 0) {
             SimpleStringFilter name1Filter = new SimpleStringFilter(
-                    "name1", filterString, true, false);
+                    "fsName", filterString, true, false);
             SimpleStringFilter code1Filter = new SimpleStringFilter(
-                    "code1", filterString, true, false);
+                    "fsCode", filterString, true, false);
             SimpleStringFilter timeCode1Filter = new SimpleStringFilter(
                     "timeCode1", filterString, true, false);
 

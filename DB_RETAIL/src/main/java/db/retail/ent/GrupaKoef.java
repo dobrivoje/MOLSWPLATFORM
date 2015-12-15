@@ -6,6 +6,7 @@
 package db.retail.ent;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -85,12 +86,28 @@ public class GrupaKoef implements Serializable {
         return datumOD;
     }
 
+    public String getDatumOD1() {
+        try {
+            return new SimpleDateFormat("dd.MM.yyyy").format(datumOD);
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
     public void setDatumOD(Date datumOD) {
         this.datumOD = datumOD;
     }
 
     public Date getDatumDO() {
         return datumDO;
+    }
+
+    public String getDatumDO1() {
+        try {
+            return new SimpleDateFormat("dd.MM.yyyy").format(datumDO);
+        } catch (Exception e) {
+            return "";
+        }
     }
 
     public void setDatumDO(Date datumDO) {
