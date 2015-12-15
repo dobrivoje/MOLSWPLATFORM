@@ -7,6 +7,7 @@ import db.retail.ent.reports.Specifikacija;
 import db.retail.ent.CompositeSellReport;
 import db.retail.ent.GrupniNaziv;
 import db.retail.ent.Kategorija;
+import db.retail.ent.Partner;
 import db.retail.ent.ReportDetails;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -14,7 +15,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 public class DBHandler_RETAIL extends DBHandler {
 
@@ -214,6 +217,78 @@ public class DBHandler_RETAIL extends DBHandler {
                     .getResultList();
         } catch (Exception ex) {
             return null;
+        }
+    }
+    //</editor-fold>
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="PARTNER - UGOVOR">
+    //<editor-fold defaultstate="collapsed" desc="Read Data">
+    public List<Partner> getAll_Partner() {
+        try {
+            return (List<Partner>) getEm().createNamedQuery("Partner.findAll").getResultList();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    public List<Partner> getByName_Partner(String partnerName) {
+        try {
+            return getEm().createNamedQuery("Partner.findByNaziv")
+                    .setParameter("naziv", "%" + partnerName + "%")
+                    .getResultList();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    public Partner getByID_Partner(int partnerID) {
+        try {
+            return (Partner) getEm().createNamedQuery("Partner.findByIdp")
+                    .setParameter("idp", partnerID)
+                    .getSingleResult();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    public Set<Ugovor> getDetails_Ugovor_Partner(Partner partner) {
+        Set<Ugovor> ugovori = new LinkedHashSet<>();
+
+        try {
+            ugovori.addAll(getEm().createNamedQuery("Ugovor.findByFkIdp")
+                    .setParameter("fkIdp", partner)
+                    .getResultList());
+
+            return ugovori;
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Add/update data">
+    public void addNew_Partner(Partner newPartner) throws Exception {
+        try {
+            getEm().getTransaction().begin();
+            em.persist(newPartner);
+            getEm().getTransaction().commit();
+        } catch (Exception ex) {
+            rollBackTransaction("New Partner Addition Failed");
+        }
+    }
+
+    public void addNew_FS(String naziv, String kompanija) throws Exception {
+        addNew_Partner(new Partner(naziv, kompanija));
+    }
+
+    public void updatePartner(Partner partner) throws Exception {
+        try {
+            getEm().getTransaction().begin();
+            em.merge(partner);
+            getEm().getTransaction().commit();
+        } catch (Exception ex) {
+            rollBackTransaction("Partner Update Failed");
         }
     }
     //</editor-fold>

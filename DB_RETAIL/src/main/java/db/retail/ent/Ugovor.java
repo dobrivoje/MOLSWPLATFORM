@@ -57,9 +57,6 @@ public class Ugovor implements Serializable {
     @Column(name = "DatumPreuzimanja")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datumPreuzimanja;
-    @Column(name = "FK_IDP")
-    private Integer fkIdp;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "Fiksni_Iznos")
     private Double fiksniIznos;
     @Column(name = "BU1")
@@ -71,6 +68,9 @@ public class Ugovor implements Serializable {
     @JoinColumn(name = "FK_IDFS", referencedColumnName = "IDFS")
     @ManyToOne
     private FS fkIdfs;
+    @JoinColumn(name = "FK_IDP", referencedColumnName = "IDP")
+    @ManyToOne
+    private Partner fkIdp;
 
     public Ugovor() {
     }
@@ -127,11 +127,11 @@ public class Ugovor implements Serializable {
         this.datumPreuzimanja = datumPreuzimanja;
     }
 
-    public Integer getFkIdp() {
+    public Partner getFkIdp() {
         return fkIdp;
     }
 
-    public void setFkIdp(Integer fkIdp) {
+    public void setFkIdp(Partner fkIdp) {
         this.fkIdp = fkIdp;
     }
 
