@@ -7,7 +7,7 @@ package db.retail.interfaces;
  */
 /**
  *
- * @author DPrtenjak
+ * @author Dobri
  * @param <Type> POJO class
  */
 public interface ICRUDController<Type> {

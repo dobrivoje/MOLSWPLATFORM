@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
- * @author DPrtenjak
+ * @author Dobri
  * @param <P> Custom class
  * @param <T> POJO class representing search criteria
  */

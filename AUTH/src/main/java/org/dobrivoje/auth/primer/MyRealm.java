@@ -14,7 +14,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 
 /**
  *
- * @author root
+ * @author Dobri
  */
 public class MyRealm extends AuthorizingRealm {
 
@@ -41,13 +41,13 @@ public class MyRealm extends AuthorizingRealm {
          }
         
          SimpleAuthenticationInfo sai = new SimpleAuthenticationInfo(principals, roles);*/
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
 
     }
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken at) throws AuthenticationException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
 }

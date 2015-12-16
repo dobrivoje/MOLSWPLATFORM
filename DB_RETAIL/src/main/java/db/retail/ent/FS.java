@@ -17,12 +17,13 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author root
+ * @author Dobri
  */
 @Entity
 @Table(name = "FS")
@@ -35,14 +36,17 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "FS.findByModel", query = "SELECT f FROM FS f WHERE f.model = :model"),
     @NamedQuery(name = "FS.findByCocaModel", query = "SELECT f FROM FS f WHERE f.cocaModel = :cocaModel")})
 public class FS implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "IDFS")
     private Integer idfs;
+    @NotNull
     @Column(name = "Naziv")
     private String naziv;
+    @NotNull
     @Column(name = "Code")
     private String code;
     @Column(name = "Model")
@@ -152,7 +156,7 @@ public class FS implements Serializable {
 
     @Override
     public String toString() {
-        return "db.retail.FS[ idfs=" + idfs + " ]";
+        return getNaziv() + ", " + getCode();
     }
-    
+
 }

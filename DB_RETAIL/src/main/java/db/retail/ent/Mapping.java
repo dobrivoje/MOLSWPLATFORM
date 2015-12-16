@@ -23,12 +23,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author root
+ * @author Dobri
  */
 @Entity
 @Table(name = "MAPPING")
@@ -49,8 +50,10 @@ public class Mapping implements Serializable {
     @Basic(optional = false)
     @Column(name = "IDM")
     private Integer idm;
+    @NotNull
     @Column(name = "Naziv")
     private String naziv;
+    @NotNull
     @Column(name = "Code")
     private String code;
     @Column(name = "Aktivan")

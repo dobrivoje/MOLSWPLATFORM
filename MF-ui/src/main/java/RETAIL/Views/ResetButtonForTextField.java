@@ -11,7 +11,7 @@ import com.vaadin.ui.TextField;
 
 /**
  *
- * @author dprtenjak
+ * @author Dobri
  */
 public class ResetButtonForTextField extends AbstractExtension {
 

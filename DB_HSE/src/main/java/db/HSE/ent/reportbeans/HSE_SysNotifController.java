@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  *
- * @author dprtenjak
+ * @author Dobri
  */
 public class HSE_SysNotifController {
 

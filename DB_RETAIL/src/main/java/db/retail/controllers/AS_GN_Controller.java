@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  *
- * @author root
+ * @author Dobri
  */
 public class AS_GN_Controller implements IAdvancedSearchController<GrupniNaziv, String> {
 

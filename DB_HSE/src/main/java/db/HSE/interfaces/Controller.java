@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author dprtenjak
+ * @author Dobri
  * @param <T>
  */
 public abstract class Controller<T> {

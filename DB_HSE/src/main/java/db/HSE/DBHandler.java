@@ -11,7 +11,7 @@ import javax.persistence.Persistence;
 
 /**
  *
- * @author root
+ * @author Dobri
  */
 public abstract class DBHandler {
 

@@ -7,7 +7,7 @@ package test;
 
 /**
  *
- * @author root
+ * @author Dobri
  */
 public class DeadLockMain {
 

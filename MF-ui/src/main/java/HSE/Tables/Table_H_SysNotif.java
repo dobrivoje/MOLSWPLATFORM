@@ -17,7 +17,7 @@ import static mf.MyUI.DS_HSE;
 
 /**
  *
- * @author root
+ * @author Dobri
  */
 public class Table_H_SysNotif extends Table_GEN<HSE_SysNotif_Bean> {
 

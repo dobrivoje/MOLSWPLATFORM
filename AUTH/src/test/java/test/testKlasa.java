@@ -18,7 +18,7 @@ import org.dobrivoje.auth.roles.Roles;
 
 /**
  *
- * @author root
+ * @author Dobri
  */
 public class testKlasa {
 

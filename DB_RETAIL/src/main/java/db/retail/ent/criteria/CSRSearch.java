@@ -9,7 +9,7 @@ import db.retail.ent.FS;
  */
 /**
  *
- * @author DPrtenjak
+ * @author Dobri
  */
 public class CSRSearch {
 

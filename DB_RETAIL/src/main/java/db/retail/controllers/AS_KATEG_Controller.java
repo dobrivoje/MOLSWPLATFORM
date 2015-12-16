@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  *
- * @author root
+ * @author Dobri
  */
 public class AS_KATEG_Controller implements IAdvancedSearchController<Kategorija, String> {
 

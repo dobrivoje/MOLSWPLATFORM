@@ -1,6 +1,7 @@
 package db.retail.ent.criteria;
 
 import db.retail.ent.FS;
+import db.retail.ent.Partner;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -9,36 +10,18 @@ import db.retail.ent.FS;
  */
 /**
  *
- * Partner - ugovor kriterijum pretrage
- * 
+ * Partner - Ugovor kriterijum pretrage
+ *
  * @author Dobri
  */
 public class PUSearch {
 
-    private String partner;
-    private String brugovora;
     private FS fs;
+    private Partner partner;
 
-    public PUSearch(String partner, String brugovora, FS fs) {
-        this.partner = partner;
-        this.brugovora = brugovora;
+    public PUSearch(FS fs, Partner partner) {
         this.fs = fs;
-    }
-
-    public String getPartner() {
-        return partner;
-    }
-
-    public void setPartner(String partner) {
         this.partner = partner;
-    }
-
-    public String getBrugovora() {
-        return brugovora;
-    }
-
-    public void setBrugovora(String brugovora) {
-        this.brugovora = brugovora;
     }
 
     public FS getFs() {
@@ -47,6 +30,14 @@ public class PUSearch {
 
     public void setFs(FS fs) {
         this.fs = fs;
+    }
+
+    public Partner getPartner() {
+        return partner;
+    }
+
+    public void setPartner(Partner partner) {
+        this.partner = partner;
     }
 
 }

@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  *
- * @author dprtenjak
+ * @author Dobri
  */
 public class WPController extends Controller<WorkPlan> {
 
@@ -53,12 +53,12 @@ public class WPController extends Controller<WorkPlan> {
     @Override
     public void delete(WorkPlan t) {
         // return DBH.deleteWorkPlan(workPlan);
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     public void update(WorkPlan workPlan) {
         // return DBH.deleteWorkPlan(workPlan);
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     @Override

@@ -17,7 +17,7 @@ import static mf.MyUI.DS_RETAIL;
 
 /**
  *
- * @author root
+ * @author Dobri
  */
 public class Table_R_CSR extends Table_GEN<CompositeSellReport> {
 

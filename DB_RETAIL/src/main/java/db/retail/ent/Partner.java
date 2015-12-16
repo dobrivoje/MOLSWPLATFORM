@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author DPrtenjak
+ * @author Dobri
  */
 @Entity
 @Table(name = "PARTNER")
@@ -130,7 +130,7 @@ public class Partner implements Serializable {
     
     @Override
     public String toString() {
-        return "db.retail.ent.Partner[ idp=" + idp + " ]";
+        return getNaziv();
     }
     
 }

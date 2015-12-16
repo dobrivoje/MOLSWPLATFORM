@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author root
+ * @author Dobri
  */
 public enum MenuDefinitions {
 

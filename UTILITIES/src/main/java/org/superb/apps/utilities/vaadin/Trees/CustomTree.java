@@ -17,7 +17,7 @@ import static org.superb.apps.utilities.vaadin.MyWindows.WindowFormProp.WINDOW_W
 
 /**
  *
- * @author root
+ * @author Dobri
  * @param <T>
  */
 public class CustomTree<T> extends Tree {

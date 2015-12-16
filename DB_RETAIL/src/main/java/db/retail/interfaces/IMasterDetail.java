@@ -1,8 +1,6 @@
 package db.retail.interfaces;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * This interface facilitates solving Master-Detail situations, such as creation
@@ -20,14 +18,13 @@ public interface IMasterDetail<MasterType, Criteria> {
      * @param master
      * @return List
      */
-    public Set getDetails(MasterType master);
+    public List getDetails(MasterType master);
 
     /**
-     * Get the map of the root (master) with its list of details
+     * For all master nodes, create all their lists of details.
      *
-     * @param criteria
      * @return
      */
-    public Map<MasterType, Set> getRootNodes(Criteria criteria);
+    public List<MasterType> getAllDetails();
 
 }

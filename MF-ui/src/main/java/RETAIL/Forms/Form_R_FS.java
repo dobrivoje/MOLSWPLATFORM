@@ -104,7 +104,7 @@ public class Form_R_FS extends Form_CRUD2<FS> {
 
     @Override
     protected void updateDynamicFields() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     @Override

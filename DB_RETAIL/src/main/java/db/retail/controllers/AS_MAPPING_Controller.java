@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  *
- * @author root
+ * @author Dobri
  */
 public class AS_MAPPING_Controller implements IController<Mapping, MappingSearch> {
 
@@ -25,7 +25,7 @@ public class AS_MAPPING_Controller implements IController<Mapping, MappingSearch
 
     @Override
     public Mapping getByID(MappingSearch criteria) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     @Override

@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  *
- * @author root
+ * @author Dobri
  */
 public class AS_CSR_Controller implements IAdvancedSearchController<CompositeSellReport, CSRSearch> {
 

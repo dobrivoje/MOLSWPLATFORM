@@ -10,7 +10,7 @@ import db.HSE.ent.FuelStation;
 
 /**
  *
- * @author dprtenjak
+ * @author Dobri
  */
 public class Test {
 

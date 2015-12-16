@@ -12,7 +12,7 @@ import db.HSE.ent.reportbeans.HSE_SysNotifController;
 
 /**
  *
- * @author root
+ * @author Dobri
  */
 public class DataService_HSE {
 

@@ -14,7 +14,7 @@ import javax.persistence.Id;
 
 /**
  *
- * @author dprtenjak
+ * @author Dobri
  */
 public class HSE_SysNotif_Bean implements Serializable {
 

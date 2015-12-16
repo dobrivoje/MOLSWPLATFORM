@@ -17,7 +17,7 @@ import static mf.MyUI.DS_RETAIL;
 
 /**
  *
- * @author root
+ * @author Dobri
  */
 public class Table_R_FS extends Table_GEN<FS> {
 

@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author root
+ * @author Dobri
  */
 @Entity
 @Table(name = "KLJUC_RASPODELE")

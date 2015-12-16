@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  *
- * @author root
+ * @author Dobri
  */
 public class Loop {
 

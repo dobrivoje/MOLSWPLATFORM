@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  *
- * @author dprtenjak
+ * @author Dobri
  */
 public class FSController extends Controller<FuelStation> {
 

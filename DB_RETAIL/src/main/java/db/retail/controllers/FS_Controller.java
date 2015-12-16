@@ -6,7 +6,7 @@ import db.retail.interfaces.ICRUDController;
 
 /**
  *
- * @author root
+ * @author Dobri
  */
 public class FS_Controller implements ICRUDController<FS> {
 

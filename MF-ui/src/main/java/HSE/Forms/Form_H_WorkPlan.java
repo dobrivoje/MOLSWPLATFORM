@@ -149,7 +149,7 @@ public class Form_H_WorkPlan extends Form_CRUD2<WorkPlan> {
 
     @Override
     protected void updateDynamicFields() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     @Override

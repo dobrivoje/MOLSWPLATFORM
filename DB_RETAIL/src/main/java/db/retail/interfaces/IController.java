@@ -9,7 +9,7 @@ import java.util.List;
  */
 /**
  *
- * @author DPrtenjak
+ * @author Dobri
  * @param <Criteria> Criteria class
  * @param <Type> POJO class we work with
  */

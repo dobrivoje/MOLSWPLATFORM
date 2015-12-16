@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  *
- * @author root
+ * @author Dobri
  */
 public class Consumer implements Runnable {
 

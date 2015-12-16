@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author root
+ * @author Dobri
  */
 @Entity
 @Table(name = "UGOVOR")
@@ -36,7 +36,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Ugovor.findByBrojUgovora", query = "SELECT u FROM Ugovor u WHERE u.brojUgovora = :brojUgovora"),
     @NamedQuery(name = "Ugovor.findByDatumPotpisivanja", query = "SELECT u FROM Ugovor u WHERE u.datumPotpisivanja = :datumPotpisivanja"),
     @NamedQuery(name = "Ugovor.findByDatumPreuzimanja", query = "SELECT u FROM Ugovor u WHERE u.datumPreuzimanja = :datumPreuzimanja"),
-    @NamedQuery(name = "Ugovor.findByFkIdp", query = "SELECT u FROM Ugovor u WHERE u.fkIdp = :fkIdp"),
+    
+    @NamedQuery(name = "Ugovor.findByIDP",
+            query = "SELECT u FROM Ugovor u WHERE u.fkIdp = :IDP"),
+
+    @NamedQuery(name = "Ugovor.findByFS",
+            query = "SELECT u FROM Ugovor u WHERE u.fkIdfs = :IDFS"),
+
     @NamedQuery(name = "Ugovor.findByFiksniIznos", query = "SELECT u FROM Ugovor u WHERE u.fiksniIznos = :fiksniIznos"),
     @NamedQuery(name = "Ugovor.findByBu1", query = "SELECT u FROM Ugovor u WHERE u.bu1 = :bu1"),
     @NamedQuery(name = "Ugovor.findByBu2", query = "SELECT u FROM Ugovor u WHERE u.bu2 = :bu2"),
@@ -73,6 +79,18 @@ public class Ugovor implements Serializable {
     private Partner fkIdp;
 
     public Ugovor() {
+    }
+
+    public Ugovor(String brojUgovora, Date datumPotpisivanja, Date datumPreuzimanja, Double fiksniIznos, String bu1, String bu2, String bu3, FS fkIdfs, Partner fkIdp) {
+        this.brojUgovora = brojUgovora;
+        this.datumPotpisivanja = datumPotpisivanja;
+        this.datumPreuzimanja = datumPreuzimanja;
+        this.fiksniIznos = fiksniIznos;
+        this.bu1 = bu1;
+        this.bu2 = bu2;
+        this.bu3 = bu3;
+        this.fkIdfs = fkIdfs;
+        this.fkIdp = fkIdp;
     }
 
     public Ugovor(Integer idu) {
@@ -184,20 +202,18 @@ public class Ugovor implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Ugovor)) {
             return false;
         }
         Ugovor other = (Ugovor) object;
-        if ((this.idu == null && other.idu != null) || (this.idu != null && !this.idu.equals(other.idu))) {
-            return false;
-        }
-        return true;
+        return !((this.idu == null && other.idu != null) || (this.idu != null && !this.idu.equals(other.idu)));
     }
 
     @Override
     public String toString() {
-        return "db.retail.Ugovor[ idu=" + idu + " ]";
+        return getBrojUgovora() + ", "
+                + getFkIdp() + ", "
+                + getFkIdfs();
     }
 
 }

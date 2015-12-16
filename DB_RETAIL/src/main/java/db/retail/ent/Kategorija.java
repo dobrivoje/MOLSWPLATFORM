@@ -21,12 +21,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author root
+ * @author Dobri
  */
 @Entity
 @Table(name = "KATEGORIJA")
@@ -48,6 +49,7 @@ public class Kategorija implements Serializable {
     @Basic(optional = false)
     @Column(name = "IDK")
     private Integer idk;
+    @NotNull
     @Column(name = "Naziv")
     private String naziv;
     @Column(name = "Vol_Type")

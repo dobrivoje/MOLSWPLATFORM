@@ -10,7 +10,7 @@ import db.retail.dataservice.DataService_RETAIL;
 
 /**
  *
- * @author DPrtenjak
+ * @author Dobri
  */
 public class DataService {
 

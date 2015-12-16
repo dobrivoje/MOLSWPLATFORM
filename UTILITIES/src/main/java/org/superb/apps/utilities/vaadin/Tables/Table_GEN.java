@@ -12,7 +12,7 @@ import org.superb.apps.utilities.vaadin.Tables.IRefreshVisualContainer;
 
 /**
  *
- * @author root
+ * @author Dobri
  */
 public class Table_GEN<T> extends Table implements IRefreshVisualContainer {
 

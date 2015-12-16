@@ -18,7 +18,7 @@ import static mf.MyUI.DS_RETAIL;
 
 /**
  *
- * @author root
+ * @author Dobri
  */
 public class Table_R_MAPPING extends Table_GEN<Mapping> {
 

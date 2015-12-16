@@ -9,6 +9,7 @@ import db.retail.ent.GrupniNaziv;
 import db.retail.ent.Kategorija;
 import db.retail.ent.Partner;
 import db.retail.ent.ReportDetails;
+import db.retail.ent.Ugovor;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -232,35 +233,37 @@ public class DBHandler_RETAIL extends DBHandler {
         }
     }
 
-    public List<Partner> getByName_Partner(String partnerName) {
+    public List<Ugovor> get_FS_Ugovori(FS fs) {
         try {
-            return getEm().createNamedQuery("Partner.findByNaziv")
-                    .setParameter("naziv", "%" + partnerName + "%")
+            return getEm().createNamedQuery("Ugovor.findByFS")
+                    .setParameter("IDFS", fs)
                     .getResultList();
         } catch (Exception ex) {
             return null;
         }
     }
 
-    public Partner getByID_Partner(int partnerID) {
+    public List<Ugovor> get_Partner_Ugovori(Partner partner) {
         try {
-            return (Partner) getEm().createNamedQuery("Partner.findByIdp")
-                    .setParameter("idp", partnerID)
-                    .getSingleResult();
+            return getEm().createNamedQuery("Ugovor.findByIDP")
+                    .setParameter("IDP", partner)
+                    .getResultList();
         } catch (Exception ex) {
             return null;
         }
     }
 
-    public Set<Ugovor> getDetails_Ugovor_Partner(Partner partner) {
+    public Partner getMD_Partner_Ugovori(Partner partner) {
         Set<Ugovor> ugovori = new LinkedHashSet<>();
 
         try {
-            ugovori.addAll(getEm().createNamedQuery("Ugovor.findByFkIdp")
-                    .setParameter("fkIdp", partner)
+            ugovori.addAll(getEm().createNamedQuery("Ugovor.findByIDP")
+                    .setParameter("IDP", partner)
                     .getResultList());
 
-            return ugovori;
+            partner.setUgovorList(new ArrayList<>(ugovori));
+
+            return partner;
         } catch (Exception ex) {
             return null;
         }

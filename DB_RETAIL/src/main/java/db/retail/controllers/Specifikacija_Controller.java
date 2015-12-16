@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  *
- * @author root
+ * @author Dobri
  */
 public class Specifikacija_Controller implements IAdvancedSearchController<Specifikacija, OS_Search> {
 

@@ -12,7 +12,7 @@ import org.superb.apps.utilities.vaadin.Trees.CustomTree;
 
 /**
  *
- * @author root
+ * @author Dobri
  */
 public class Tree_R_PartnerUgovor extends CustomTree<WorkPlan> {
 

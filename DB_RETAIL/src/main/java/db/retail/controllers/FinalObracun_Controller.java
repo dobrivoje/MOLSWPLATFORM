@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  *
- * @author root
+ * @author Dobri
  */
 public class FinalObracun_Controller implements IAdvancedSearchController<ObracunFinal, OS_Search> {
 
@@ -35,7 +35,7 @@ public class FinalObracun_Controller implements IAdvancedSearchController<Obracu
 
     @Override
     public ObracunFinal getByID(OS_Search criteria) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
 }

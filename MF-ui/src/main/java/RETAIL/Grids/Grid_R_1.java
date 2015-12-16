@@ -13,7 +13,7 @@ import static mf.MyUI.DS_RETAIL;
 
 /**
  *
- * @author root
+ * @author Dobri
  */
 public class Grid_R_1 extends Grid {
 

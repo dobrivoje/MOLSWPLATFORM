@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  *
- * @author root
+ * @author Dobri
  */
 public class Mapping_Controller implements IAdvancedSearchController<Mapping, MappingSearch> {
 

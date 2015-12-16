@@ -14,7 +14,7 @@ import org.superb.apps.utilities.Enums.WorkingPlansStatuses;
 
 /**
  *
- * @author root
+ * @author Dobri
  */
 public class WPSLabel extends Label {
 

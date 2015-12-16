@@ -10,7 +10,7 @@ import com.vaadin.ui.CssLayout;
 
 /**
  *
- * @author dprtenjak
+ * @author Dobri
  */
 public class Layout_InlineCSS extends CssLayout {
 
