@@ -42,6 +42,7 @@ import RETAIL.Views.View_RETAIL;
 import RETAIL.Views.View_RETAIL_CocaCalc;
 import RETAIL.Views.View_RETAIL_CocaCalc_DM_CSR;
 import RETAIL.Views.View_RETAIL_CocaCalc_DM_MAPPING;
+import RETAIL.Views.View_RETAIL_CocaCalc_PA_Contracts;
 import RETAIL.Views.View_RETAIL_SysNotifBoard;
 
 /**
@@ -225,7 +226,9 @@ public class MainMenu extends CssLayout {
                 case RETAIL_COCACALC_DATA_MAINTENENCE_MAPPING:
                     navigator.navigateTo(View_RETAIL_CocaCalc_DM_MAPPING.class.getSimpleName());
                     break;
-
+                case RETAIL_COCACALC_PARTNERS_CONTRACTS:
+                    navigator.navigateTo(View_RETAIL_CocaCalc_PA_Contracts.class.getSimpleName());
+                    break;
             }
         });
 

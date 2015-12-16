@@ -19,12 +19,12 @@ public class AS_GN_Controller implements IAdvancedSearchController<GrupniNaziv, 
 
     @Override
     public List<GrupniNaziv> getAll() {
-        return dbh.getAll_GN();
+        return dbh.getAll_GRUPNINAZIV();
     }
 
     @Override
     public List<GrupniNaziv> get(String criteria) {
-        return dbh.getByName_GN(criteria);
+        return dbh.getByName_GRUPNINAZIV(criteria);
     }
 
     @Override

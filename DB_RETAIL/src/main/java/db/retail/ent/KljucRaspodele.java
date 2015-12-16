@@ -33,6 +33,26 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "KljucRaspodele.findAll", query = "SELECT k FROM KljucRaspodele k"),
     @NamedQuery(name = "KljucRaspodele.findByIdkr", query = "SELECT k FROM KljucRaspodele k WHERE k.idkr = :idkr"),
+
+    @NamedQuery(name = "KljucRaspodele.findByFS",
+            query = "SELECT k FROM KljucRaspodele k WHERE k.fkIdfs = :IDFS"),
+
+    @NamedQuery(name = "KljucRaspodele.findByKOEF",
+            query = "SELECT k FROM KljucRaspodele k WHERE k.fkIdkfs = :IDKFS"),
+
+    @NamedQuery(name = "KljucRaspodele.findByGKOEF",
+            query = "SELECT k FROM KljucRaspodele k WHERE k.fkIdkfs.fkIdgk = :IDGKOEF"),
+
+    @NamedQuery(name = "KljucRaspodele.AdaptSelectAll",
+            query = "SELECT new db.retail.ent.reports.KeyDist(k.fkIdfs, k.fkIdkfs.fkIdgk, k.datumOD, k.datumDO, k.koef, k.iznos, "
+            + "FUNCTION('DAY',k.datumOD), FUNCTION('MONTH',k.datumOD), FUNCTION('YEAR',k.datumOD), FUNCTION('DAY',k.datumDO), FUNCTION('MONTH',k.datumDO), FUNCTION('YEAR',k.datumDO) ) "
+            + "FROM KljucRaspodele k"),
+
+    @NamedQuery(name = "KljucRaspodele.AdaptSelectByFS",
+            query = "SELECT new db.retail.ent.reports.KeyDist(k.fkIdfs, k.fkIdkfs.fkIdgk, k.datumOD, k.datumDO, k.koef, k.iznos, "
+            + "FUNCTION('DAY',k.datumOD), FUNCTION('MONTH',k.datumOD), FUNCTION('YEAR',k.datumOD), FUNCTION('DAY',k.datumDO), FUNCTION('MONTH',k.datumDO), FUNCTION('YEAR',k.datumDO) ) "
+            + "FROM KljucRaspodele k WHERE k.fkIdfs = :IDFS"),
+
     @NamedQuery(name = "KljucRaspodele.findByDatumOD", query = "SELECT k FROM KljucRaspodele k WHERE k.datumOD = :datumOD"),
     @NamedQuery(name = "KljucRaspodele.findByDatumDO", query = "SELECT k FROM KljucRaspodele k WHERE k.datumDO = :datumDO"),
     @NamedQuery(name = "KljucRaspodele.findByKoef", query = "SELECT k FROM KljucRaspodele k WHERE k.koef = :koef"),

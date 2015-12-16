@@ -15,6 +15,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -37,7 +39,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Kategorija.findByIdk", query = "SELECT k FROM Kategorija k WHERE k.idk = :idk"),
     @NamedQuery(name = "Kategorija.findByNaziv", query = "SELECT k FROM Kategorija k WHERE k.naziv = :naziv"),
     @NamedQuery(name = "Kategorija.findByVolType", query = "SELECT k FROM Kategorija k WHERE k.volType = :volType"),
-    @NamedQuery(name = "Kategorija.findByFkIdt", query = "SELECT k FROM Kategorija k WHERE k.fkIdt = :fkIdt"),
     @NamedQuery(name = "Kategorija.findByAktivno", query = "SELECT k FROM Kategorija k WHERE k.aktivno = :aktivno"),
     @NamedQuery(name = "Kategorija.findByDatumOD", query = "SELECT k FROM Kategorija k WHERE k.datumOD = :datumOD"),
     @NamedQuery(name = "Kategorija.findByDatumDO", query = "SELECT k FROM Kategorija k WHERE k.datumDO = :datumDO")})
@@ -54,8 +55,6 @@ public class Kategorija implements Serializable {
     private String naziv;
     @Column(name = "Vol_Type")
     private String volType;
-    @Column(name = "FK_IDT")
-    private Integer fkIdt;
     @Column(name = "Aktivno")
     private Boolean aktivno;
     @Column(name = "DatumOD")
@@ -66,6 +65,9 @@ public class Kategorija implements Serializable {
     private Date datumDO;
     @OneToMany(mappedBy = "fkIdk")
     private List<Mapping> mappingList;
+    @JoinColumn(name = "FK_IDPR", referencedColumnName = "IDPR")
+    @ManyToOne
+    private Proizvodi FK_IDPR;
 
     public Kategorija() {
     }
@@ -101,14 +103,6 @@ public class Kategorija implements Serializable {
 
     public void setVolType(String volType) {
         this.volType = volType;
-    }
-
-    public Integer getFkIdt() {
-        return fkIdt;
-    }
-
-    public void setFkIdt(Integer fkIdt) {
-        this.fkIdt = fkIdt;
     }
 
     public Boolean getAktivno() {
@@ -151,6 +145,14 @@ public class Kategorija implements Serializable {
         this.datumDO = datumDO;
     }
 
+    public Proizvodi getFK_IDPR() {
+        return FK_IDPR;
+    }
+
+    public void setFK_IDPR(Proizvodi FK_IDPR) {
+        this.FK_IDPR = FK_IDPR;
+    }
+
     @XmlTransient
     public List<Mapping> getMappingList() {
         return mappingList;
@@ -179,7 +181,7 @@ public class Kategorija implements Serializable {
     @Override
     public String toString() {
         try {
-            return getNaziv() + " [" + getVolType() + "]";
+            return getNaziv();
         } catch (Exception e) {
             return "";
         }

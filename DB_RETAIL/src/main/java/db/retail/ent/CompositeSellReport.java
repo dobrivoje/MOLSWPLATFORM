@@ -210,6 +210,14 @@ public class CompositeSellReport implements Serializable {
         }
     }
 
+    public String getMappingName1() {
+        try {
+            return getFkIdm().getNaziv();
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;

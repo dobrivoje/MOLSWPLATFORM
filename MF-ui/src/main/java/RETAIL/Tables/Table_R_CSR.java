@@ -35,13 +35,16 @@ public class Table_R_CSR extends Table_GEN<CompositeSellReport> {
             return cb;
         });
 
-        setVisibleColumns("fsName", "fsCode", "fsCocaModel1", "timeCode1", "quantity",
+        setVisibleColumns("fsName", "fsCode", "fsCocaModel1", "timeCode1", "mappingName1", "quantity",
                 "cogs", "revenue", "vat", "netto", "sellValue", "datumImporta1");
-        setColumnHeaders("FS", "Code", "FS in COCA Model?", "Transaction Date", "Qty", "Cogs", "Revenue",
+        setColumnHeaders("FS", "Code", "COCA ?", "Transaction Date", "Mapping", "Qty", "Cogs", "Revenue",
                 "VAT", "Netto", "Sell Value", "Report Date Generated");
 
         setColumnAlignment("cocaModel1", Align.CENTER);
         setColumnWidth("cocaModel1", 50);
+
+        setColumnAlignment("mappingName1", Align.CENTER);
+        setColumnWidth("mappingName1", 150);
     }
 
     public void setFilter(String filterString) {
@@ -54,9 +57,11 @@ public class Table_R_CSR extends Table_GEN<CompositeSellReport> {
                     "fsCode", filterString, true, false);
             SimpleStringFilter timeCode1Filter = new SimpleStringFilter(
                     "timeCode1", filterString, true, false);
+            SimpleStringFilter mappingFilter = new SimpleStringFilter(
+                    "mappingName1", filterString, true, false);
 
             beanContainer.addContainerFilter(
-                    new Or(name1Filter, code1Filter, timeCode1Filter)
+                    new Or(name1Filter, code1Filter, timeCode1Filter, mappingFilter)
             );
         }
     }

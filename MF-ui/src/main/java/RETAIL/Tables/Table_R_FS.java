@@ -36,7 +36,7 @@ public class Table_R_FS extends Table_GEN<FS> {
         });
 
         setVisibleColumns("naziv", "code", "model", "cocaModel1");
-        setColumnHeaders("Fuelstation", "Code", "Model", "FS in COCA Model?");
+        setColumnHeaders("Fuelstation", "Code", "Model", "COCA ?");
 
         setColumnWidth("finished1", 80);
         setColumnAlignment("finished1", Align.CENTER);

@@ -13,6 +13,7 @@ import db.retail.controllers.AS_GN_Controller;
 import db.retail.controllers.AS_KATEG_Controller;
 import db.retail.controllers.AS_MAPPING_Controller;
 import db.retail.controllers.AS_PARTN_Controller;
+import db.retail.controllers.AS_UGOVOR_Controller;
 import db.retail.controllers.FS_Controller;
 import db.retail.controllers.FinalObracun_Controller;
 import db.retail.controllers.MD_Partner_Controller;
@@ -24,7 +25,9 @@ import db.retail.ent.GrupniNaziv;
 import db.retail.ent.Kategorija;
 import db.retail.ent.Mapping;
 import db.retail.ent.Partner;
+import db.retail.ent.Ugovor;
 import db.retail.ent.criteria.PUSearch;
+import db.retail.ent.criteria.UgovorSearch;
 import db.retail.interfaces.IAdvancedSearchController;
 import db.retail.interfaces.ICRUDController;
 import db.retail.interfaces.IController;
@@ -65,6 +68,7 @@ public class DataService_RETAIL {
     private final IMasterDetail<Partner, PUSearch> mdp = new MD_Partner_Controller(DBH_RETAIL);
     private final IMasterDetail<FS, PUSearch> mduc = new MD_Ugovor_Controller(DBH_RETAIL);
     private final IAdvancedSearchController<Partner, PUSearch> asp = new AS_PARTN_Controller(DBH_RETAIL);
+    private final IAdvancedSearchController<Ugovor, UgovorSearch> usc = new AS_UGOVOR_Controller(DBH_RETAIL);
 
     /**
      * Advanced Search Controller - Obračun
@@ -158,6 +162,10 @@ public class DataService_RETAIL {
 
     public IAdvancedSearchController<Partner, PUSearch> getASC_Partner_C() {
         return asp;
+    }
+
+    public IAdvancedSearchController<Ugovor, UgovorSearch> getASC_Ugovor_C() {
+        return usc;
     }
 
 }

@@ -164,7 +164,7 @@ public class Mapping implements Serializable {
 
     public String getIzvSpecif1() {
         try {
-            return fkIdgn.getGNaziv();
+            return fkIdgn.getNaziv();
         } catch (Exception e) {
             return "";
         }

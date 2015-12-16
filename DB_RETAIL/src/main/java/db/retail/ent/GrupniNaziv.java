@@ -17,6 +17,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -30,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "GrupniNaziv.findAll", query = "SELECT g FROM GrupniNaziv g"),
     @NamedQuery(name = "GrupniNaziv.findByIdgn", query = "SELECT g FROM GrupniNaziv g WHERE g.idgn = :idgn"),
-    @NamedQuery(name = "GrupniNaziv.findByGNaziv", query = "SELECT g FROM GrupniNaziv g WHERE g.gNaziv = :gNaziv")})
+    @NamedQuery(name = "GrupniNaziv.findByGNaziv", query = "SELECT g FROM GrupniNaziv g WHERE g.naziv LIKE :naziv")})
 public class GrupniNaziv implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,8 +40,9 @@ public class GrupniNaziv implements Serializable {
     @Basic(optional = false)
     @Column(name = "IDGN")
     private Integer idgn;
-    @Column(name = "GNaziv")
-    private String gNaziv;
+    @NotNull
+    @Column(name = "Naziv")
+    private String naziv;
     @OneToMany(mappedBy = "fkIdgn")
     private List<Mapping> mappingList;
 
@@ -59,16 +61,16 @@ public class GrupniNaziv implements Serializable {
         this.idgn = idgn;
     }
 
-    public String getGNaziv() {
+    public String getNaziv() {
         try {
-            return gNaziv;
+            return naziv;
         } catch (Exception e) {
             return "";
         }
     }
 
-    public void setGNaziv(String gNaziv) {
-        this.gNaziv = gNaziv;
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
     }
 
     @XmlTransient
@@ -99,7 +101,7 @@ public class GrupniNaziv implements Serializable {
     @Override
     public String toString() {
         try {
-            return getGNaziv();
+            return getNaziv();
         } catch (Exception e) {
             return "";
         }

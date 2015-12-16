@@ -12,6 +12,7 @@ import RETAIL.Views.View_RETAIL;
 import RETAIL.Views.View_RETAIL_CocaCalc;
 import RETAIL.Views.View_RETAIL_CocaCalc_DM_CSR;
 import RETAIL.Views.View_RETAIL_CocaCalc_DM_MAPPING;
+import RETAIL.Views.View_RETAIL_CocaCalc_PA_Contracts;
 import RETAIL.Views.View_RETAIL_SysNotifBoard;
 import mf.MyUI;
 
@@ -47,6 +48,7 @@ public class MainScreen extends HorizontalLayout {
         navigator.addView(View_RETAIL_CocaCalc.class.getSimpleName(), View_RETAIL_CocaCalc.class);
         navigator.addView(View_RETAIL_CocaCalc_DM_CSR.class.getSimpleName(), View_RETAIL_CocaCalc_DM_CSR.class);
         navigator.addView(View_RETAIL_CocaCalc_DM_MAPPING.class.getSimpleName(), View_RETAIL_CocaCalc_DM_MAPPING.class);
+        navigator.addView(View_RETAIL_CocaCalc_PA_Contracts.class.getSimpleName(), View_RETAIL_CocaCalc_PA_Contracts.class);
 
         navigator.addViewChangeListener(viewChangeListener);
 

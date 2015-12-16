@@ -7,9 +7,11 @@ import db.retail.ent.reports.Specifikacija;
 import db.retail.ent.CompositeSellReport;
 import db.retail.ent.GrupniNaziv;
 import db.retail.ent.Kategorija;
+import db.retail.ent.Koef;
 import db.retail.ent.Partner;
 import db.retail.ent.ReportDetails;
 import db.retail.ent.Ugovor;
+import db.retail.ent.reports.KeyDist;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -175,9 +177,9 @@ public class DBHandler_RETAIL extends DBHandler {
     //</editor-fold>
     //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc="GRUPNI NAZIV">
+    //<editor-fold defaultstate="collapsed" desc="GRUPNI NAZIV, KOEF, KLJUČ RASPODELE">
     //<editor-fold defaultstate="collapsed" desc="Read Data">
-    public List<GrupniNaziv> getAll_GN() {
+    public List<GrupniNaziv> getAll_GRUPNINAZIV() {
         try {
             return (List<GrupniNaziv>) getEm()
                     .createNamedQuery("GrupniNaziv.findAll")
@@ -187,10 +189,57 @@ public class DBHandler_RETAIL extends DBHandler {
         }
     }
 
-    public List<GrupniNaziv> getByName_GN(String GNaziv) {
+    public List<GrupniNaziv> getByName_GRUPNINAZIV(String GNaziv) {
         try {
             return getEm().createNamedQuery("GrupniNaziv.findByGNaziv")
-                    .setParameter("gNaziv", GNaziv)
+                    .setParameter("naziv", "%" + GNaziv + "%")
+                    .getResultList();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    public List<Koef> getALL_GRUPAKOEF() {
+        try {
+            return getEm().createNamedQuery("GrupaKoef.findAll")
+                    .getResultList();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    public List<Koef> getALL_KOEF() {
+        try {
+            return getEm().createNamedQuery("Koef.findAll")
+                    .getResultList();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    public List<Koef> getALL_GRUPAKOEF(Koef k) {
+        try {
+            return getEm().createNamedQuery("Koef.findByIdkfs")
+                    .setParameter("idkfs", k)
+                    .getResultList();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    public List<KeyDist> getALL_KEYDIST() {
+        try {
+            return getEm().createNamedQuery("KljucRaspodele.AdaptSelectAll")
+                    .getResultList();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    public List<KeyDist> getByID_KEYDIST(FS fs) {
+        try {
+            return getEm().createNamedQuery("KljucRaspodele.AdaptSelectByFS")
+                    .setParameter("IDFS", fs)
                     .getResultList();
         } catch (Exception ex) {
             return null;
@@ -264,6 +313,15 @@ public class DBHandler_RETAIL extends DBHandler {
             partner.setUgovorList(new ArrayList<>(ugovori));
 
             return partner;
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    public List<Ugovor> getAll_UGOVOR() {
+        try {
+            return getEm().createNamedQuery("Ugovor.findAll")
+                    .getResultList();
         } catch (Exception ex) {
             return null;
         }
