@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Ugovor.findByBrojUgovora", query = "SELECT u FROM Ugovor u WHERE u.brojUgovora = :brojUgovora"),
     @NamedQuery(name = "Ugovor.findByDatumPotpisivanja", query = "SELECT u FROM Ugovor u WHERE u.datumPotpisivanja = :datumPotpisivanja"),
     @NamedQuery(name = "Ugovor.findByDatumPreuzimanja", query = "SELECT u FROM Ugovor u WHERE u.datumPreuzimanja = :datumPreuzimanja"),
-    
+
     @NamedQuery(name = "Ugovor.findByIDP",
             query = "SELECT u FROM Ugovor u WHERE u.fkIdp = :IDP"),
 
@@ -63,6 +63,11 @@ public class Ugovor implements Serializable {
     @Column(name = "DatumPreuzimanja")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datumPreuzimanja;
+    @Column(name = "DatumPrekidaUgovora")
+    @Temporal(TemporalType.DATE)
+    private Date datumPrekidaUgovora;
+    @Column(name = "UgovorAktivan")
+    private boolean ugovorAktivan;
     @Column(name = "Fiksni_Iznos")
     private Double fiksniIznos;
     @Column(name = "BU1")
@@ -91,6 +96,13 @@ public class Ugovor implements Serializable {
         this.bu3 = bu3;
         this.fkIdfs = fkIdfs;
         this.fkIdp = fkIdp;
+    }
+
+    public Ugovor(String brojUgovora, Date datumPotpisivanja, Date datumPreuzimanja, Date datumPrekidaUgovora, boolean ugovorAktivan, Double fiksniIznos, String bu1, String bu2, String bu3, FS fkIdfs, Partner fkIdp) {
+        this(brojUgovora, datumPotpisivanja, datumPreuzimanja, fiksniIznos, bu1, bu2, bu3, fkIdfs, fkIdp);
+
+        this.datumPrekidaUgovora = datumPrekidaUgovora;
+        this.ugovorAktivan = ugovorAktivan;
     }
 
     public Ugovor(Integer idu) {
@@ -143,6 +155,30 @@ public class Ugovor implements Serializable {
 
     public void setDatumPreuzimanja(Date datumPreuzimanja) {
         this.datumPreuzimanja = datumPreuzimanja;
+    }
+
+    public Date getDatumPrekidaUgovora() {
+        return datumPrekidaUgovora;
+    }
+
+    public String getDatumPrekidaUgovora1() {
+        try {
+            return new SimpleDateFormat("dd.MM.yyyy").format(datumPrekidaUgovora);
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    public void setDatumPrekidaUgovora(Date datumPrekidaUgovora) {
+        this.datumPrekidaUgovora = datumPrekidaUgovora;
+    }
+
+    public boolean isUgovorAktivan() {
+        return ugovorAktivan;
+    }
+
+    public void setUgovorAktivan(boolean ugovorAktivan) {
+        this.ugovorAktivan = ugovorAktivan;
     }
 
     public Partner getFkIdp() {

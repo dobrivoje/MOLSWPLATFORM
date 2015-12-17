@@ -62,7 +62,7 @@ public class Form_R_FS extends Form_CRUD2<FS> {
                     visualContainer.refreshVisualContainer();
                 }
 
-                Notification n = new Notification("FS Updated.", Notification.Type.TRAY_NOTIFICATION);
+                Notification n = new Notification("Item Updated.", Notification.Type.TRAY_NOTIFICATION);
 
                 n.setDelayMsec(500);
                 n.show(getUI().getPage());
@@ -79,11 +79,11 @@ public class Form_R_FS extends Form_CRUD2<FS> {
 
     //<editor-fold defaultstate="collapsed" desc="overided methods,...">
     @Override
-    protected final void setBeanFromFields(FS fs) {
-        fs.setNaziv(naziv.getValue());
-        fs.setCode(code.getValue());
-        fs.setModel(model.getValue());
-        fs.setCocaModel(cocaModel.getValue());
+    protected final void setBeanFromFields(FS item) {
+        item.setNaziv(naziv.getValue());
+        item.setCode(code.getValue());
+        item.setModel(model.getValue());
+        item.setCocaModel(cocaModel.getValue());
     }
 
     @Override
@@ -108,24 +108,24 @@ public class Form_R_FS extends Form_CRUD2<FS> {
     }
 
     @Override
-    public void setFieldsFromBean(FS fs) {
+    public void setFieldsFromBean(FS item) {
         try {
-            fs.setNaziv(naziv.getValue());
+            item.setNaziv(naziv.getValue());
         } catch (Exception e) {
         }
 
         try {
-            fs.setCode(code.getValue());
+            item.setCode(code.getValue());
         } catch (Exception e) {
         }
 
         try {
-            fs.setModel(model.getValue());
+            item.setModel(model.getValue());
         } catch (Exception e) {
         }
 
         try {
-            fs.setCocaModel(cocaModel.getValue());
+            item.setCocaModel(cocaModel.getValue());
         } catch (Exception e) {
         }
     }

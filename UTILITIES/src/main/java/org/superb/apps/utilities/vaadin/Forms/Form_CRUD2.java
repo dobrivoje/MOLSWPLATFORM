@@ -81,11 +81,11 @@ public abstract class Form_CRUD2<T> extends FormLayout implements IUpdateData<T>
     /**
      * Postavi vrednost bean-a "t" sakupljanjem vrednosti iz polja na formi.
      *
-     * @param t
+     * @param item
      */
-    protected abstract void setBeanFromFields(T t);
+    protected abstract void setBeanFromFields(T item);
 
-    protected abstract void setFieldsFromBean(T t);
+    protected abstract void setFieldsFromBean(T item);
 
     protected final void setFormFieldsWidths(float width, Sizeable.Unit unit) {
         for (Component c : fieldGroup.getFields()) {
@@ -140,7 +140,7 @@ public abstract class Form_CRUD2<T> extends FormLayout implements IUpdateData<T>
     protected abstract void updateDynamicFields();
 
     @Override
-    public void update(T t) {
-        setFieldsFromBean(t);
+    public void update(T item) {
+        setFieldsFromBean(item);
     }
 }

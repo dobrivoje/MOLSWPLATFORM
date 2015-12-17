@@ -227,11 +227,6 @@
     <groupId>mf</groupId>
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>DB</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-push</artifactId>
         </dependency>
@@ -241,22 +236,27 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>MF-ui</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
             <artifactId>UTILITIES</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>MF-widgetset</artifactId>
+            <artifactId>DB_HSE</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>AUTH</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>DATASERVICE</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>MF-ui</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

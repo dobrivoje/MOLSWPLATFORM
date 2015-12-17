@@ -7,6 +7,7 @@ import com.vaadin.data.fieldgroup.PropertyId;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.Notification;
@@ -32,13 +33,19 @@ public class Form_R_UGOVOR extends Form_CRUD2<Ugovor> {
     private final ComboBox fs = new ComboBox("FS", DS_RETAIL.getASC_FS_C().getAll());
 
     @PropertyId("datumPotpisivanja")
-    private final DateField datumPotpisivanja = new DateField("Contract sign date");
+    private final DateField datumPotpisivanja = new DateField("Contract Sign Date");
 
     @PropertyId("datumPreuzimanja")
-    private final DateField datumPreuzimanja = new DateField("Teakover date");
+    private final DateField datumPreuzimanja = new DateField("Teakover Date");
+
+    @PropertyId("datumPrekidaUgovora")
+    private final DateField datumPrekidaUgovora = new DateField("Contract Cancel Date");
+
+    @PropertyId("ugovorAktivan")
+    private final CheckBox ugovorAktivan = new CheckBox("Contract Active ?");
 
     @PropertyId("fiksniIznos")
-    private final TextField fiksniIznos = new TextField("Contract No.");
+    private final TextField fiksniIznos = new TextField("Fixed Ammount");
     //</editor-fold>
 
     public Form_R_UGOVOR() {
@@ -71,7 +78,7 @@ public class Form_R_UGOVOR extends Form_CRUD2<Ugovor> {
                     visualContainer.refreshVisualContainer();
                 }
 
-                Notification n = new Notification("FS Updated.", Notification.Type.TRAY_NOTIFICATION);
+                Notification n = new Notification("Item Updated.", Notification.Type.TRAY_NOTIFICATION);
 
                 n.setDelayMsec(500);
                 n.show(getUI().getPage());
@@ -104,8 +111,18 @@ public class Form_R_UGOVOR extends Form_CRUD2<Ugovor> {
         }
 
         try {
+            item.setDatumPrekidaUgovora(datumPrekidaUgovora.getValue());
+        } catch (Exception e) {
+        }
+
+        try {
+            item.setUgovorAktivan(ugovorAktivan.getValue());
+        } catch (Exception e) {
+        }
+
+        try {
             item.setFiksniIznos(Double.parseDouble(fiksniIznos.getValue()));
-        } catch (NumberFormatException numberFormatException) {
+        } catch (NumberFormatException nfe) {
         }
     }
 
@@ -163,6 +180,16 @@ public class Form_R_UGOVOR extends Form_CRUD2<Ugovor> {
 
         try {
             item.setDatumPreuzimanja(datumPreuzimanja.getValue());
+        } catch (Exception e) {
+        }
+
+        try {
+            item.setDatumPrekidaUgovora(datumPrekidaUgovora.getValue());
+        } catch (Exception e) {
+        }
+
+        try {
+            item.setUgovorAktivan(ugovorAktivan.getValue());
         } catch (Exception e) {
         }
 

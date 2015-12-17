@@ -11,12 +11,12 @@
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>DB_RETAIL</artifactId>
+            <artifactId>DB_HSE</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>DB_HSE</artifactId>
+            <artifactId>DB_RETAIL</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

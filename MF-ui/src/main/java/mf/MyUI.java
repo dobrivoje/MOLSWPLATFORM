@@ -5,7 +5,6 @@ import Uni.Views.MainScreen;
 import HSE.Views.View_HSE_WorkPlan;
 import com.vaadin.annotations.PreserveOnRefresh;
 import javax.servlet.annotation.WebServlet;
-
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.annotations.Widgetset;

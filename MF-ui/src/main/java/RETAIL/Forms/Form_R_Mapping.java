@@ -79,7 +79,7 @@ public class Form_R_Mapping extends Form_CRUD2<Mapping> {
                     visualContainer.refreshVisualContainer();
                 }
 
-                Notification n = new Notification("Mapping Updated.", Notification.Type.TRAY_NOTIFICATION);
+                Notification n = new Notification("Item Updated.", Notification.Type.TRAY_NOTIFICATION);
 
                 n.setDelayMsec(500);
                 n.show(getUI().getPage());
@@ -96,21 +96,19 @@ public class Form_R_Mapping extends Form_CRUD2<Mapping> {
 
     //<editor-fold defaultstate="collapsed" desc="overided methods,...">
     @Override
-    protected final void setBeanFromFields(Mapping m) {
-        m.setNaziv(naziv.getValue());
-        m.setCode(code.getValue());
-        m.setAktivan(active.getValue());
-        m.setReport(report.getValue());
-        m.setDatumUnosa(datumUnosa.getValue());
-        m.setFkIdgn((GrupniNaziv) grupniNaziv.getValue());
-        m.setFkIdk((Kategorija) kategorija.getValue());
+    protected final void setBeanFromFields(Mapping item) {
+        item.setNaziv(naziv.getValue());
+        item.setCode(code.getValue());
+        item.setAktivan(active.getValue());
+        item.setReport(report.getValue());
+        item.setDatumUnosa(datumUnosa.getValue());
+        item.setFkIdgn((GrupniNaziv) grupniNaziv.getValue());
+        item.setFkIdk((Kategorija) kategorija.getValue());
     }
 
     @Override
     protected final void initFields() {
         crudButton.setWidth(250, Unit.PIXELS);
-        datumUnosa.setEnabled(false);
-
         setRequiredFields();
     }
 
@@ -134,44 +132,44 @@ public class Form_R_Mapping extends Form_CRUD2<Mapping> {
     }
 
     @Override
-    public void setFieldsFromBean(Mapping m) {
+    public void setFieldsFromBean(Mapping item) {
         try {
-            m.setNaziv(naziv.getValue());
+            item.setNaziv(naziv.getValue());
         } catch (Exception e) {
         }
 
         try {
-            m.setCode(code.getValue());
+            item.setCode(code.getValue());
         } catch (Exception e) {
         }
 
         try {
-            m.setAktivan(active.getValue());
+            item.setAktivan(active.getValue());
         } catch (Exception e) {
         }
 
         try {
-            m.setReport(report.getValue());
+            item.setReport(report.getValue());
         } catch (Exception e) {
         }
 
         try {
-            m.setDatumUnosa(datumUnosa.getValue());
+            item.setDatumUnosa(datumUnosa.getValue());
         } catch (Exception e) {
         }
 
         try {
-            m.setFkIdgn((GrupniNaziv) grupniNaziv.getValue());
+            item.setFkIdgn((GrupniNaziv) grupniNaziv.getValue());
         } catch (Exception e) {
         }
 
         try {
-            m.setFkIdgn((GrupniNaziv) grupniNaziv.getValue());
+            item.setFkIdgn((GrupniNaziv) grupniNaziv.getValue());
         } catch (Exception e) {
         }
 
         try {
-            m.setFkIdk((Kategorija) kategorija.getValue());
+            item.setFkIdk((Kategorija) kategorija.getValue());
         } catch (Exception e) {
         }
 

@@ -12,7 +12,7 @@ import db.retail.ent.reports.KeyDist;
  */
 /**
  *
- * @author DPrtenjak
+ * @author Dobri
  */
 public class testCocaDB {
 
@@ -58,12 +58,15 @@ public class testCocaDB {
          System.err.println((++br1) + " " + o.toString());
          }
          */
+        
+        /*
         FS fs = DS.getASC_FS_C().getAll().get(2);
 
         for (KeyDist k : DBHandler_RETAIL.getDefault().getByID_KEYDIST(fs)) {
             System.err.println(k.toString());
         }
-
+        */
+        
         /*
          for (FS f : DS.getASC_FS_C().getAll()) {
          for (KeyDist k : DBHandler_RETAIL.getDefault().getByID_KEYDIST(f)) {
@@ -71,5 +74,7 @@ public class testCocaDB {
          }
          }
          */
+        
+        System.err.println(DS.getASC_Partner_C().getAll());
     }
 }

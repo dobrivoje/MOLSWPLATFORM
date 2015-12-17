@@ -34,7 +34,6 @@ import static MainMenu.MenuDefinitions.RETAIL_COCACALC_DATA_MAINTENENCE_KEY_DIST
 import static MainMenu.MenuDefinitions.RETAIL_COCACALC_DATA_MAINTENENCE_MAPPING;
 import static MainMenu.MenuDefinitions.RETAIL_COCACALC_PARTNERS;
 import static MainMenu.MenuDefinitions.RETAIL_COCACALC_PARTNERS_CONTRACTS;
-import static MainMenu.MenuDefinitions.RETAIL_COCACALC_PARTNERS_DATA;
 import static MainMenu.MenuDefinitions.RETAIL_SYS_NOTIF_BOARD;
 import HSE.Views.View_HSE_SysNotifBoard;
 import HSE.Views.View_HSE_WorkPlan;
@@ -42,7 +41,8 @@ import RETAIL.Views.View_RETAIL;
 import RETAIL.Views.View_RETAIL_CocaCalc;
 import RETAIL.Views.View_RETAIL_CocaCalc_DM_CSR;
 import RETAIL.Views.View_RETAIL_CocaCalc_DM_MAPPING;
-import RETAIL.Views.View_RETAIL_CocaCalc_PA_Contracts;
+import RETAIL.Views.View_RETAIL_CocaCalc_PARTNERS;
+import RETAIL.Views.View_RETAIL_CocaCalc_PA_CONTRACTS;
 import RETAIL.Views.View_RETAIL_SysNotifBoard;
 
 /**
@@ -166,15 +166,12 @@ public class MainMenu extends CssLayout {
         // --RETAIL
         // ------RETAIL_SYS_NOTIF_BOARD
         // ----------RETAIL_COCACALC_PARTNERS
-        // --------------RETAIL_COCACALC_PARTNERS_DATA
         // --------------RETAIL_COCACALC_PARTNERS_CONTRACTS
         // --------------RETAIL_COCACALC_PARTNERS_FS
         //
         mainMenuTree.expandItemsRecursively(RETAIL_COCACALC_PARTNERS);
-        mainMenuTree.setParent(RETAIL_COCACALC_PARTNERS_DATA, RETAIL_COCACALC_PARTNERS);
         mainMenuTree.setParent(RETAIL_COCACALC_PARTNERS_CONTRACTS, RETAIL_COCACALC_PARTNERS);
         mainMenuTree.setParent(RETAIL_COCACALC_PARTNERS_FS, RETAIL_COCACALC_PARTNERS);
-        mainMenuTree.setChildrenAllowed(RETAIL_COCACALC_PARTNERS_DATA, false);
         mainMenuTree.setChildrenAllowed(RETAIL_COCACALC_PARTNERS_FS, false);
         mainMenuTree.setChildrenAllowed(RETAIL_COCACALC_PARTNERS_CONTRACTS, false);
 
@@ -227,7 +224,11 @@ public class MainMenu extends CssLayout {
                     navigator.navigateTo(View_RETAIL_CocaCalc_DM_MAPPING.class.getSimpleName());
                     break;
                 case RETAIL_COCACALC_PARTNERS_CONTRACTS:
-                    navigator.navigateTo(View_RETAIL_CocaCalc_PA_Contracts.class.getSimpleName());
+                    navigator.navigateTo(View_RETAIL_CocaCalc_PA_CONTRACTS.class.getSimpleName());
+                    break;
+                    
+                case RETAIL_COCACALC_PARTNERS:
+                    navigator.navigateTo(View_RETAIL_CocaCalc_PARTNERS.class.getSimpleName());
                     break;
             }
         });

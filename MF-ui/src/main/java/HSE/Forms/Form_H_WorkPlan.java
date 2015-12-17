@@ -91,7 +91,7 @@ public class Form_H_WorkPlan extends Form_CRUD2<WorkPlan> {
                         visualContainer.refreshVisualContainer();
                     }
 
-                    Notification n = new Notification("WorkPlan Updated.", Notification.Type.TRAY_NOTIFICATION);
+                    Notification n = new Notification("Item Updated.", Notification.Type.TRAY_NOTIFICATION);
 
                     n.setDelayMsec(500);
                     n.show(getUI().getPage());
@@ -153,54 +153,54 @@ public class Form_H_WorkPlan extends Form_CRUD2<WorkPlan> {
     }
 
     @Override
-    public void setFieldsFromBean(WorkPlan workPlan) {
+    public void setFieldsFromBean(WorkPlan item) {
         try {
-            workPlan.setStartDate(startDate.getValue());
+            item.setStartDate(startDate.getValue());
         } catch (Exception e) {
         }
 
         try {
-            workPlan.setEndDate(endDate.getValue());
+            item.setEndDate(endDate.getValue());
         } catch (Exception e) {
         }
 
         try {
-            workPlan.setFK_FuelStation((FuelStation) fuelStation.getValue());
+            item.setFK_FuelStation((FuelStation) fuelStation.getValue());
         } catch (Exception e) {
         }
 
         try {
-            workPlan.setContractor(contractor.getValue());
+            item.setContractor(contractor.getValue());
         } catch (Exception e) {
         }
 
         try {
-            workPlan.setSubContractor(subContractor.getValue());
+            item.setSubContractor(subContractor.getValue());
         } catch (Exception e) {
         }
 
         try {
-            workPlan.setWorktype(worktype.getValue());
+            item.setWorktype(worktype.getValue());
         } catch (Exception e) {
         }
 
         try {
-            workPlan.setTermin(termin.getValue());
+            item.setTermin(termin.getValue());
         } catch (Exception e) {
         }
 
         try {
-            workPlan.setDuration(duration.getValue());
+            item.setDuration(duration.getValue());
         } catch (Exception e) {
         }
 
         try {
-            workPlan.setFinished(finished.getValue());
+            item.setFinished(finished.getValue());
         } catch (Exception e) {
         }
 
         try {
-            workPlan.setComment(comment.getValue());
+            item.setComment(comment.getValue());
         } catch (Exception e) {
         }
     }

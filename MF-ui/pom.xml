@@ -17,11 +17,6 @@
 
     <dependencies>
         <!-- Versions for these are configured in the parent POM -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
 
         <!-- Custom components -->
 
@@ -41,7 +36,7 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>MF-widgetset</artifactId>
+            <artifactId>UTILITIES</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -51,23 +46,19 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>UTILITIES</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>DB_HSE</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>DB_RETAIL</artifactId>
+            <artifactId>MF-widgetset</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>DATASERVICE</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
 

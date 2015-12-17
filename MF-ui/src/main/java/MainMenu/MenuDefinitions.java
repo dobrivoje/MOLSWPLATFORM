@@ -28,7 +28,6 @@ public enum MenuDefinitions {
     RETAIL_SYS_NOTIF_BOARD("Retail Dashboard"),
     RETAIL_COCACALC("Coca Calculus"),
     RETAIL_COCACALC_PARTNERS("Partners"),
-    RETAIL_COCACALC_PARTNERS_DATA("Partner Data"),
     RETAIL_COCACALC_PARTNERS_FS("Fuelstations"),
     RETAIL_COCACALC_PARTNERS_CONTRACTS("Contracts"),
     RETAIL_COCACALC_DATA_MAINTENENCE("Data Maintenance"),
@@ -69,7 +68,6 @@ public enum MenuDefinitions {
                 RETAIL_COCACALC,
                 RETAIL_COCACALC,
                 RETAIL_COCACALC_PARTNERS,
-                RETAIL_COCACALC_PARTNERS_DATA,
                 RETAIL_COCACALC_PARTNERS_FS,
                 RETAIL_COCACALC_PARTNERS_CONTRACTS,
                 RETAIL_COCACALC_DATA_MAINTENENCE,
@@ -83,7 +81,6 @@ public enum MenuDefinitions {
     public static List<MenuDefinitions> get_RETAIL_COCA_SubItems() {
         return Arrays.asList(
                 RETAIL_COCACALC_PARTNERS,
-                RETAIL_COCACALC_PARTNERS_DATA,
                 RETAIL_COCACALC_PARTNERS_FS,
                 RETAIL_COCACALC_PARTNERS_CONTRACTS,
                 RETAIL_COCACALC_DATA_MAINTENENCE,
