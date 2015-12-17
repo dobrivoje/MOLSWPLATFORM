@@ -343,6 +343,32 @@ public class DBHandler_RETAIL extends DBHandler {
         addNew_Partner(new Partner(naziv, kompanija));
     }
 
+    public void addNew_Ugovor(String brojUgovora, Date datumPotpisivanja, Date datumPreuzimanja, Double fiksniIznos, String bu1, String bu2, String bu3, FS fkIdfs, Partner fkIdp) throws Exception {
+        addNew_Ugovor(
+                new Ugovor(brojUgovora, datumPotpisivanja, datumPreuzimanja, fiksniIznos, bu1, bu2, bu3, fkIdfs, fkIdp)
+        );
+    }
+
+    public void addNew_Ugovor(Ugovor item) throws Exception {
+        try {
+            getEm().getTransaction().begin();
+            em.merge(item);
+            getEm().getTransaction().commit();
+        } catch (Exception ex) {
+            rollBackTransaction("Contract Addition Failed");
+        }
+    }
+    
+    public void updateUgovor(Ugovor item) throws Exception {
+        try {
+            getEm().getTransaction().begin();
+            em.merge(item);
+            getEm().getTransaction().commit();
+        } catch (Exception ex) {
+            rollBackTransaction("Contract Update Failed");
+        }
+    }
+
     public void updatePartner(Partner partner) throws Exception {
         try {
             getEm().getTransaction().begin();

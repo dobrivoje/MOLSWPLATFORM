@@ -55,8 +55,7 @@ public class View_RETAIL_CocaCalc_DM_CSR extends VerticalLayout implements View 
         //</editor-fold>
 
         table.addValueChangeListener((Property.ValueChangeEvent event) -> {
-            CompositeSellReport csr = (CompositeSellReport) table.getValue();
-            openProperties(csr);
+            openProperties((CompositeSellReport) table.getValue());
         });
 
         addComponent(VL);
@@ -90,8 +89,8 @@ public class View_RETAIL_CocaCalc_DM_CSR extends VerticalLayout implements View 
     }
     //</editor-fold>
 
-    private void openProperties(CompositeSellReport csr) {
-        if (csr != null) {
+    private void openProperties(CompositeSellReport item) {
+        if (item != null) {
             HL.setSplitPosition(50, Unit.PERCENTAGE);
 
             if (propVL.getComponentCount() > 0) {

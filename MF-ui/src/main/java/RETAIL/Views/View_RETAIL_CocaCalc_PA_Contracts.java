@@ -1,6 +1,7 @@
 package RETAIL.Views;
 
-import RETAIL.Tables.Table_R_CONTRACTS;
+import RETAIL.Forms.Form_R_UGOVOR;
+import RETAIL.Tables.Table_R_UGOVOR;
 import com.vaadin.event.FieldEvents;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -9,15 +10,18 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.data.Property;
+import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.HorizontalSplitPanel;
 import db.retail.ent.Ugovor;
+import mf.MyUI;
+import org.dobrivoje.auth.roles.Roles;
 
 public class View_RETAIL_CocaCalc_PA_Contracts extends VerticalLayout implements View {
 
     private final VerticalLayout VL = new VerticalLayout();
 
     private final HorizontalSplitPanel HL = new HorizontalSplitPanel();
-    private final Table_R_CONTRACTS table = new Table_R_CONTRACTS();
+    private final Table_R_UGOVOR table = new Table_R_UGOVOR();
 
     private final VerticalLayout propVL = new VerticalLayout();
 
@@ -51,8 +55,7 @@ public class View_RETAIL_CocaCalc_PA_Contracts extends VerticalLayout implements
         //</editor-fold>
 
         table.addValueChangeListener((Property.ValueChangeEvent event) -> {
-            Ugovor selectedItem = (Ugovor) table.getValue();
-            openProperties(selectedItem);
+            openProperties((Ugovor) table.getValue());
         });
 
         addComponent(VL);
@@ -93,13 +96,12 @@ public class View_RETAIL_CocaCalc_PA_Contracts extends VerticalLayout implements
                 propVL.removeAllComponents();
             }
 
-            /*
-            Form_R_Mapping form = new Form_R_Mapping(new BeanItem(mapping), true, () -> {
+            Form_R_UGOVOR form = new Form_R_UGOVOR(new BeanItem(selectedItem), true, () -> {
                 table.refreshVisualContainer();
             });
             form.setEnabled(MyUI.get().isPermitted(Roles.PERMISSION_APP_FS_USER_EDIT_OWN_WORKPLANS));
             propVL.addComponent(form);
-            */
+
         } else {
             HL.setSplitPosition(100, Unit.PERCENTAGE);
         }

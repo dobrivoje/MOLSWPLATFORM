@@ -2,6 +2,8 @@ package RETAIL.Tables;
 
 import org.superb.apps.utilities.vaadin.Tables.Table_GEN;
 import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.data.util.filter.Or;
+import com.vaadin.data.util.filter.SimpleStringFilter;
 import db.retail.ent.Ugovor;
 import java.util.List;
 import static mf.MyUI.DS_RETAIL;
@@ -10,13 +12,13 @@ import static mf.MyUI.DS_RETAIL;
  *
  * @author Dobri
  */
-public class Table_R_CONTRACTS extends Table_GEN<Ugovor> {
+public class Table_R_UGOVOR extends Table_GEN<Ugovor> {
 
-    public Table_R_CONTRACTS() {
+    public Table_R_UGOVOR() {
         this(new BeanItemContainer<>(Ugovor.class), DS_RETAIL.getASC_Ugovor_C().getAll());
     }
 
-    public Table_R_CONTRACTS(BeanItemContainer<Ugovor> beanContainer, List list) {
+    public Table_R_UGOVOR(BeanItemContainer<Ugovor> beanContainer, List list) {
         super(beanContainer, list);
 
         //<editor-fold defaultstate="collapsed" desc="definisanje kolona">
@@ -36,44 +38,30 @@ public class Table_R_CONTRACTS extends Table_GEN<Ugovor> {
          });
          */
         //</editor-fold>
-        
+        setVisibleColumns("brojUgovora", "fkIdp", "fkIdfs", "datumPotpisivanja1", "datumPreuzimanja1", "fiksniIznos");
+        setColumnHeaders("Br. Ugovora", "Partner", "FS", "Datum Potpisivanja", "Datum Preuzimanja", "Fiksni Iznos");
+
         /*
-        setVisibleColumns("naziv", "code", "kategorija1", "active1", "report1",
-                "izvObracun1", "izvSpecif1", "datumUnosa1");
-        setColumnHeaders("Mapping", "Code", "Category", "Active ?", "Report ?",
-                "Calc. Report", "Spec. Report", "Define Date");
-
-        setColumnAlignment("code", Align.CENTER);
-        setColumnWidth("code", 80);
-
-        setColumnAlignment("active1", Align.CENTER);
-        setColumnWidth("active1", 80);
-
-        setColumnAlignment("report1", Align.CENTER);
-        setColumnWidth("report1", 80);
-        */
+         setColumnAlignment("fkIdp", Align.CENTER);
+         setColumnWidth("fkIdp", 80);
+         */
     }
 
     public void setFilter(String filterString) {
         beanContainer.removeAllContainerFilters();
 
-        /*
         if (filterString.length() > 0) {
             SimpleStringFilter nazivFilter = new SimpleStringFilter(
-                    "naziv", filterString, true, false);
+                    "brojUgovora", filterString, true, false);
             SimpleStringFilter codeFilter = new SimpleStringFilter(
-                    "code", filterString, true, false);
+                    "fkIdp", filterString, true, false);
             SimpleStringFilter kategFilter = new SimpleStringFilter(
-                    "kategorija1", filterString, true, false);
-            SimpleStringFilter calcFilter = new SimpleStringFilter(
-                    "izvObracun1", filterString, true, false);
-            SimpleStringFilter specFilter = new SimpleStringFilter(
-                    "izvObracun1", filterString, true, false);
+                    "fkIdfs", filterString, true, false);
 
             beanContainer.addContainerFilter(
-                    new Or(nazivFilter, codeFilter, kategFilter, calcFilter, specFilter)
+                    new Or(nazivFilter, codeFilter, kategFilter)
             );
         }
-        */
+
     }
 }

@@ -59,8 +59,7 @@ public class View_RETAIL_CocaCalc extends VerticalLayout implements View {
         //</editor-fold>
 
         table.addValueChangeListener((Property.ValueChangeEvent event) -> {
-            FS fs = (FS) table.getValue();
-            openProperties(fs);
+            openProperties((FS) table.getValue());
         });
 
         addComponent(VL);
@@ -94,15 +93,15 @@ public class View_RETAIL_CocaCalc extends VerticalLayout implements View {
     }
     //</editor-fold>
 
-    private void openProperties(FS fs) {
-        if (fs != null) {
+    private void openProperties(FS item) {
+        if (item != null) {
             HL.setSplitPosition(50, Unit.PERCENTAGE);
 
             if (propVL.getComponentCount() > 0) {
                 propVL.removeAllComponents();
             }
 
-            Form_R_FS fsForm = new Form_R_FS(new BeanItem(fs), true, () -> {
+            Form_R_FS fsForm = new Form_R_FS(new BeanItem(item), true, () -> {
                 table.refreshVisualContainer();
             });
             fsForm.setEnabled(MyUI.get().isPermitted(Roles.PERMISSION_APP_FS_USER_EDIT_OWN_WORKPLANS));

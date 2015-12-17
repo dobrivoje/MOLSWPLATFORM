@@ -3,14 +3,14 @@ package db.retail.controllers;
 import db.retail.DBHandler_RETAIL;
 import db.retail.ent.Ugovor;
 import db.retail.ent.criteria.UgovorSearch;
-import db.retail.interfaces.IAdvancedSearchController;
+import db.retail.interfaces.IController;
 import java.util.List;
 
 /**
  *
  * @author Dobri
  */
-public class AS_UGOVOR_Controller implements IAdvancedSearchController<Ugovor, UgovorSearch> {
+public class AS_UGOVOR_Controller implements IController<Ugovor, UgovorSearch> {
 
     private static DBHandler_RETAIL dbh;
 
@@ -31,6 +31,16 @@ public class AS_UGOVOR_Controller implements IAdvancedSearchController<Ugovor, U
     @Override
     public Ugovor getByID(UgovorSearch criteria) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void update(Ugovor item) throws Exception {
+        dbh.updateUgovor(item);
+    }
+
+    @Override
+    public void add(Ugovor newItem) throws Exception {
+        dbh.addNew_Ugovor(newItem);
     }
 
 }

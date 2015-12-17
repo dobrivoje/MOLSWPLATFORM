@@ -55,8 +55,7 @@ public class View_RETAIL_CocaCalc_DM_MAPPING extends VerticalLayout implements V
         //</editor-fold>
 
         table.addValueChangeListener((Property.ValueChangeEvent event) -> {
-            Mapping mapping = (Mapping) table.getValue();
-            openProperties(mapping);
+            openProperties((Mapping) table.getValue());
         });
 
         addComponent(VL);
@@ -90,15 +89,15 @@ public class View_RETAIL_CocaCalc_DM_MAPPING extends VerticalLayout implements V
     }
     //</editor-fold>
 
-    private void openProperties(Mapping mapping) {
-        if (mapping != null) {
+    private void openProperties(Mapping item) {
+        if (item != null) {
             HL.setSplitPosition(50, Unit.PERCENTAGE);
 
             if (propVL.getComponentCount() > 0) {
                 propVL.removeAllComponents();
             }
 
-            Form_R_Mapping form = new Form_R_Mapping(new BeanItem(mapping), true, () -> {
+            Form_R_Mapping form = new Form_R_Mapping(new BeanItem(item), true, () -> {
                 table.refreshVisualContainer();
             });
             form.setEnabled(MyUI.get().isPermitted(Roles.PERMISSION_APP_FS_USER_EDIT_OWN_WORKPLANS));

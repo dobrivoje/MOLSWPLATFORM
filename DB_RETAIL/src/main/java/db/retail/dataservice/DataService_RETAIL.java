@@ -68,7 +68,7 @@ public class DataService_RETAIL {
     private final IMasterDetail<Partner, PUSearch> mdp = new MD_Partner_Controller(DBH_RETAIL);
     private final IMasterDetail<FS, PUSearch> mduc = new MD_Ugovor_Controller(DBH_RETAIL);
     private final IAdvancedSearchController<Partner, PUSearch> asp = new AS_PARTN_Controller(DBH_RETAIL);
-    private final IAdvancedSearchController<Ugovor, UgovorSearch> usc = new AS_UGOVOR_Controller(DBH_RETAIL);
+    private final IController<Ugovor, UgovorSearch> usc = new AS_UGOVOR_Controller(DBH_RETAIL);
 
     /**
      * Advanced Search Controller - Obračun
@@ -164,7 +164,7 @@ public class DataService_RETAIL {
         return asp;
     }
 
-    public IAdvancedSearchController<Ugovor, UgovorSearch> getASC_Ugovor_C() {
+    public IController<Ugovor, UgovorSearch> getASC_Ugovor_C() {
         return usc;
     }
 
