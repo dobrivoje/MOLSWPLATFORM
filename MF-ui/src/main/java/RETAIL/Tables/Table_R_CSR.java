@@ -45,6 +45,8 @@ public class Table_R_CSR extends Table_GEN<CompositeSellReport> {
 
         setColumnAlignment("mappingName1", Align.CENTER);
         setColumnWidth("mappingName1", 150);
+        
+        setColumnWidth("quantity", 110);
     }
 
     public void setFilter(String filterString) {

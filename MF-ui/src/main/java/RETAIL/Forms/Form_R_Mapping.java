@@ -39,13 +39,13 @@ public class Form_R_Mapping extends Form_CRUD2<Mapping> {
     @PropertyId("datumUnosa")
     private final DateField datumUnosa = new DateField("Defined on");
 
-    @PropertyId("fkIdgn")
-    private final ComboBox grupniNaziv = new ComboBox("Mapping group",
-            new BeanItemContainer(GrupniNaziv.class, DS_RETAIL.getASC_GN_C().getAll()));
-
     @PropertyId("fkIdk")
-    private final ComboBox kategorija = new ComboBox("Category",
+    private final ComboBox kategorija = new ComboBox("Calc. Report",
             new BeanItemContainer(Kategorija.class, DS_RETAIL.getASC_KATEG_C().getAll()));
+
+    @PropertyId("fkIdgn")
+    private final ComboBox grupniNaziv = new ComboBox("Spec. Report",
+            new BeanItemContainer(GrupniNaziv.class, DS_RETAIL.getASC_GN_C().getAll()));
     //</editor-fold>
 
     public Form_R_Mapping() {

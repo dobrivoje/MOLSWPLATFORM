@@ -1,6 +1,7 @@
 package RETAIL.Views;
 
-import RETAIL.Tables.Table_R_CSR;
+import RETAIL.Forms.Form_R_UGOVOR;
+import RETAIL.Tables.Table_R_UGOVOR;
 import com.vaadin.event.FieldEvents;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -8,16 +9,23 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.data.Property;
+import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.HorizontalSplitPanel;
+import db.retail.ent.Ugovor;
+import mf.MyUI;
+import org.dobrivoje.auth.roles.Roles;
 
-public class View_RETAIL_CocaCalc_DM_CSR extends VerticalLayout implements View {
+public class View_RETAIL_CocaCalc_PA_CONTRACTS extends VerticalLayout implements View {
 
     private final VerticalLayout VL = new VerticalLayout();
 
     private final HorizontalSplitPanel HL = new HorizontalSplitPanel();
-    private final Table_R_CSR table = new Table_R_CSR();
+    private final Table_R_UGOVOR table = new Table_R_UGOVOR();
 
-    public View_RETAIL_CocaCalc_DM_CSR() {
+    private final VerticalLayout propVL = new VerticalLayout();
+
+    public View_RETAIL_CocaCalc_PA_CONTRACTS() {
         //<editor-fold defaultstate="collapsed" desc="UI setup">
         setSizeFull();
         addStyleName("crud-view");
@@ -31,9 +39,13 @@ public class View_RETAIL_CocaCalc_DM_CSR extends VerticalLayout implements View 
         // kreiraj panel za tabelu i properies tabele :
         VerticalLayout vl1 = new VerticalLayout(table);
 
+        propVL.setMargin(true);
+        propVL.setSpacing(true);
+
         vl1.setMargin(true);
         vl1.setSizeFull();
         HL.setFirstComponent(vl1);
+        HL.setSecondComponent(propVL);
         VL.addComponent(topLayout);
         VL.addComponent(HL);
         VL.setSizeFull();
@@ -41,6 +53,10 @@ public class View_RETAIL_CocaCalc_DM_CSR extends VerticalLayout implements View 
         VL.setStyleName("crud-main-layout");
         addComponent(VL);
         //</editor-fold>
+
+        table.addValueChangeListener((Property.ValueChangeEvent event) -> {
+            openProperties((Ugovor) table.getValue());
+        });
 
         addComponent(VL);
     }
@@ -72,4 +88,22 @@ public class View_RETAIL_CocaCalc_DM_CSR extends VerticalLayout implements View 
     }
     //</editor-fold>
 
+    private void openProperties(Ugovor selectedItem) {
+        if (selectedItem != null) {
+            HL.setSplitPosition(50, Unit.PERCENTAGE);
+
+            if (propVL.getComponentCount() > 0) {
+                propVL.removeAllComponents();
+            }
+
+            Form_R_UGOVOR form = new Form_R_UGOVOR(new BeanItem(selectedItem), true, () -> {
+                table.refreshVisualContainer();
+            });
+            form.setEnabled(MyUI.get().isPermitted(Roles.PERMISSION_APP_FS_USER_EDIT_OWN_WORKPLANS));
+            propVL.addComponent(form);
+
+        } else {
+            HL.setSplitPosition(100, Unit.PERCENTAGE);
+        }
+    }
 }
