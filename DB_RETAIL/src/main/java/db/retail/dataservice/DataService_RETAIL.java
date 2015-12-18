@@ -67,7 +67,7 @@ public class DataService_RETAIL {
     private final IAdvancedSearchController<Kategorija, String> kc = new AS_KATEG_Controller(DBH_RETAIL);
     private final IMasterDetail<Partner, PUSearch> mdp = new MD_Partner_Controller(DBH_RETAIL);
     private final IMasterDetail<FS, PUSearch> mduc = new MD_Ugovor_Controller(DBH_RETAIL);
-    private final IAdvancedSearchController<Partner, PUSearch> asp = new AS_PARTN_Controller(DBH_RETAIL);
+    private final IController<Partner, PUSearch> asp = new AS_PARTN_Controller(DBH_RETAIL);
     private final IController<Ugovor, UgovorSearch> usc = new AS_UGOVOR_Controller(DBH_RETAIL);
 
     /**
@@ -160,7 +160,7 @@ public class DataService_RETAIL {
         return mduc;
     }
 
-    public IAdvancedSearchController<Partner, PUSearch> getASC_Partner_C() {
+    public IController<Partner, PUSearch> getASC_Partner_C() {
         return asp;
     }
 

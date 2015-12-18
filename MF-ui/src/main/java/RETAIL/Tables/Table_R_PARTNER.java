@@ -21,27 +21,8 @@ public class Table_R_PARTNER extends Table_GEN<Partner> {
     public Table_R_PARTNER(BeanItemContainer<Partner> beanContainer, List list) {
         super(beanContainer, list);
 
-        //<editor-fold defaultstate="collapsed" desc="definisanje kolona">
-        /*
-         addGeneratedColumn("active1", (final Table source, final Object row, Object column) -> {
-         CheckBox cb = new CheckBox("", ((Mapping) row).getAktivan());
-         cb.setEnabled(false);
-        
-         return cb;
-         });
-        
-         addGeneratedColumn("report1", (final Table source, final Object row, Object column) -> {
-         CheckBox cb = new CheckBox("", ((Mapping) row).getReport());
-         cb.setEnabled(false);
-        
-         return cb;
-         });
-         */
-        //</editor-fold>
         setVisibleColumns("naziv", "kompanija");
-        setColumnHeaders("Partner", "Firma");
-
-        setColumnAlignment("naziv", Align.CENTER);
+        setColumnHeaders("Partner", "Partner's Firm");
     }
 
     public void setFilter(String filterString) {
@@ -51,9 +32,7 @@ public class Table_R_PARTNER extends Table_GEN<Partner> {
             SimpleStringFilter nazivFilter = new SimpleStringFilter(
                     "naziv", filterString, true, false);
 
-            beanContainer.addContainerFilter(
-                    new Or(nazivFilter)
-            );
+            beanContainer.addContainerFilter(new Or(nazivFilter));
         }
     }
 }

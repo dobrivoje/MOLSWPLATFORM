@@ -60,7 +60,6 @@ public class View_RETAIL_CocaCalc_DM_MAPPING extends VerticalLayout implements V
 
         addComponent(VL);
     }
-    //<editor-fold defaultstate="collapsed" desc="Customer Table - Double click - Customer Form">
 
     @Override
     public void enter(ViewChangeEvent event) {

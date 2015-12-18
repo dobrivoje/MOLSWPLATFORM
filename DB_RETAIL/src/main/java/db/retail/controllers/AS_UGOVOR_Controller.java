@@ -25,7 +25,7 @@ public class AS_UGOVOR_Controller implements IController<Ugovor, UgovorSearch> {
 
     @Override
     public List<Ugovor> get(UgovorSearch criteria) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return dbh.get_FS_Ugovori(criteria.getFs());
     }
 
     @Override

@@ -9,13 +9,13 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import RETAIL.Tables.Table_R_FS;
+import RETAIL.Trees.Tree_R_FSUgovor;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.Panel;
+import db.Exceptions.CustomTreeNodesEmptyException;
 import db.retail.ent.FS;
-import java.util.ArrayList;
-import java.util.List;
 import mf.MyUI;
 import org.dobrivoje.auth.roles.Roles;
 
@@ -26,8 +26,6 @@ public class View_RETAIL_CocaCalc extends VerticalLayout implements View {
     private final HorizontalSplitPanel HL = new HorizontalSplitPanel();
     private final Table_R_FS table = new Table_R_FS();
     private final VerticalLayout propVL = new VerticalLayout();
-
-    private final List<Panel> propPanels = new ArrayList<>();
 
     public View_RETAIL_CocaCalc() {
         //<editor-fold defaultstate="collapsed" desc="UI setup">
@@ -101,13 +99,27 @@ public class View_RETAIL_CocaCalc extends VerticalLayout implements View {
                 propVL.removeAllComponents();
             }
 
-            Form_R_FS fsForm = new Form_R_FS(new BeanItem(item), true, () -> {
+            Form_R_FS form = new Form_R_FS(new BeanItem(item), true, () -> {
                 table.refreshVisualContainer();
             });
-            fsForm.setEnabled(MyUI.get().isPermitted(Roles.PERMISSION_APP_FS_USER_EDIT_OWN_WORKPLANS));
+            form.setEnabled(MyUI.get().isPermitted(Roles.PERMISSION_APP_FS_USER_EDIT_OWN_WORKPLANS));
 
-            propVL.addComponent(fsForm);
-            
+            VerticalLayout vp = new VerticalLayout();
+            vp.setSpacing(true);
+            vp.setSizeFull();
+
+            try {
+                vp.addComponent(new Panel("Contracts", new Tree_R_FSUgovor("", item)));
+            } catch (CustomTreeNodesEmptyException ex) {
+            }
+
+            vp.addComponents(
+                    new Panel("Performace"),
+                    new Panel("Update Form", form)
+            );
+
+            propVL.addComponent(vp);
+
         } else {
             HL.setSplitPosition(100, Unit.PERCENTAGE);
         }
