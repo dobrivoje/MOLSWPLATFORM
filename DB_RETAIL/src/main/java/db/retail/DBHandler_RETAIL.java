@@ -40,14 +40,17 @@ public class DBHandler_RETAIL extends DBHandler {
 
     //<editor-fold defaultstate="collapsed" desc="FS">
     //<editor-fold defaultstate="collapsed" desc="Read Data">
-    public List<FS> getAll_FS() {
+    public List<FS> getAll_FS(boolean initSubList) {
         List<FS> L;
         try {
             L = getEm().createNamedQuery("FS.findAll").getResultList();
 
-            L.stream().forEach((f) -> {
-                f.setUgovorList(get_FS_Ugovori(f));
-            });
+            if (initSubList) {
+
+                L.stream().forEach((f) -> {
+                    f.setUgovorList(get_FS_Ugovori(f));
+                });
+            }
 
             return L;
         } catch (Exception ex) {
@@ -283,15 +286,17 @@ public class DBHandler_RETAIL extends DBHandler {
 
     //<editor-fold defaultstate="collapsed" desc="PARTNER - UGOVOR">
     //<editor-fold defaultstate="collapsed" desc="Read Data">
-    public List<Partner> getAll_Partner() {
+    public List<Partner> getAll_Partner(boolean initSubList) {
         List<Partner> L;
 
         try {
             L = getEm().createNamedQuery("Partner.findAll").getResultList();
 
-            L.stream().forEach((p) -> {
-                p.setUgovorList(get_Partner_Ugovori(p));
-            });
+            if (initSubList) {
+                L.stream().forEach((p) -> {
+                    p.setUgovorList(get_Partner_Ugovori(p));
+                });
+            }
 
             return L;
 

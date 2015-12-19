@@ -17,7 +17,7 @@ import static mf.MyUI.DS_RETAIL;
 public class Table_R_UGOVOR extends Table_GEN<Ugovor> {
 
     public Table_R_UGOVOR() {
-        this(new BeanItemContainer<>(Ugovor.class), DS_RETAIL.getASC_Ugovor_C().getAll());
+        this(new BeanItemContainer<>(Ugovor.class), DS_RETAIL.getASC_Ugovor_C().getAll(false));
     }
 
     public Table_R_UGOVOR(BeanItemContainer<Ugovor> beanContainer, List list) {

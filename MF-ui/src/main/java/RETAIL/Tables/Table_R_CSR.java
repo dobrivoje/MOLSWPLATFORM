@@ -22,7 +22,7 @@ import static mf.MyUI.DS_RETAIL;
 public class Table_R_CSR extends Table_GEN<CompositeSellReport> {
 
     public Table_R_CSR() {
-        this(new BeanItemContainer<>(CompositeSellReport.class), DS_RETAIL.getASC_CS_C().getAll());
+        this(new BeanItemContainer<>(CompositeSellReport.class), DS_RETAIL.getASC_CS_C().getAll(false));
     }
 
     public Table_R_CSR(BeanItemContainer<CompositeSellReport> beanContainer, List list) {

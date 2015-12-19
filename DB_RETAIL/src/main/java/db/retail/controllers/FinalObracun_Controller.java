@@ -24,7 +24,7 @@ public class FinalObracun_Controller implements IAdvancedSearchController<Obracu
     }
 
     @Override
-    public List<ObracunFinal> getAll() {
+    public List<ObracunFinal> getAll(boolean initSubList) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

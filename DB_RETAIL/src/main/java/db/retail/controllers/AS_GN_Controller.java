@@ -18,7 +18,7 @@ public class AS_GN_Controller implements IAdvancedSearchController<GrupniNaziv, 
     }
 
     @Override
-    public List<GrupniNaziv> getAll() {
+    public List<GrupniNaziv> getAll(boolean initSubList) {
         return dbh.getAll_GRUPNINAZIV();
     }
 

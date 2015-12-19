@@ -18,7 +18,8 @@ import static mf.MyUI.DS_RETAIL;
 public class Grid_R_Partner extends Grid {
 
     public Grid_R_Partner() {
-        setContainerDataSource(new BeanItemContainer(Partner.class, DS_RETAIL.getASC_Partner_C().getAll()));
+        setContainerDataSource(new BeanItemContainer(Partner.class, 
+                DS_RETAIL.getASC_Partner_C().getAll(true)));
         setSelectionMode(SelectionMode.MULTI);
     }
 }

@@ -5,7 +5,6 @@ import db.retail.ent.Partner;
 import db.retail.ent.criteria.PUSearch;
 import db.retail.interfaces.ICRUDController;
 import db.retail.interfaces.IMasterDetail;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +26,7 @@ public class MD_Partner_Controller implements IMasterDetail<Partner, PUSearch>, 
 
     @Override
     public List<Partner> getAllDetails() {
-        return dbh.getAll_Partner();
+        return dbh.getAll_Partner(true);
     }
 
     @Override

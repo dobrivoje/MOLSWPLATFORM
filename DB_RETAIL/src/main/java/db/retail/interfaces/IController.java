@@ -22,7 +22,7 @@ public interface IController<Type, Criteria> extends IAdvancedSearchController<T
     public List<Type> get(Criteria criteria);
 
     @Override
-    public List<Type> getAll();
+    public List<Type> getAll(boolean initSubList);
 
     @Override
     public void update(Type item) throws Exception;

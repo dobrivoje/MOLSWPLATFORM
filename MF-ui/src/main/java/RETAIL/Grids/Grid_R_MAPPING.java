@@ -19,7 +19,7 @@ import static mf.MyUI.DS_RETAIL;
 public class Grid_R_MAPPING extends Grid_GEN<Mapping> {
 
     public Grid_R_MAPPING() {
-        this(new BeanItemContainer<>(Mapping.class), DS_RETAIL.getASC_MAPPING_C().getAll());
+        this(new BeanItemContainer<>(Mapping.class), DS_RETAIL.getASC_MAPPING_C().getAll(false));
     }
 
     public Grid_R_MAPPING(BeanItemContainer<Mapping> beanContainer, List list) {

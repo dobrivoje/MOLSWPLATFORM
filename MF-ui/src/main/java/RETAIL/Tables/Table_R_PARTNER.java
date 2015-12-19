@@ -15,7 +15,7 @@ import static mf.MyUI.DS_RETAIL;
 public class Table_R_PARTNER extends Table_GEN<Partner> {
 
     public Table_R_PARTNER() {
-        this(new BeanItemContainer<>(Partner.class), DS_RETAIL.getASC_Partner_C().getAll());
+        this(new BeanItemContainer<>(Partner.class), DS_RETAIL.getASC_Partner_C().getAll(true));
     }
 
     public Table_R_PARTNER(BeanItemContainer<Partner> beanContainer, List list) {

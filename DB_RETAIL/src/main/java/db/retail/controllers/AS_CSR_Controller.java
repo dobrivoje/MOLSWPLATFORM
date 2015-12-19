@@ -24,7 +24,7 @@ public class AS_CSR_Controller implements IAdvancedSearchController<CompositeSel
     }
 
     @Override
-    public List<CompositeSellReport> getAll() {
+    public List<CompositeSellReport> getAll(boolean initSubList) {
         return dbh.getAll_CSR();
     }
 

@@ -22,7 +22,7 @@ import static mf.MyUI.DS_RETAIL;
 public class Table_R_FS extends Table_GEN<FS> {
 
     public Table_R_FS() {
-        this(new BeanItemContainer<>(FS.class), DS_RETAIL.getASC_FS_C().getAll());
+        this(new BeanItemContainer<>(FS.class), DS_RETAIL.getASC_FS_C().getAll(true));
     }
 
     public Table_R_FS(BeanItemContainer<FS> beanContainer, List list) {

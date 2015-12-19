@@ -24,7 +24,7 @@ public class Mapping_Controller implements IAdvancedSearchController<Mapping, Ma
     }
 
     @Override
-    public List<Mapping> getAll() {
+    public List<Mapping> getAll(boolean initSubList) {
         return dbh.getAll_Mapping();
     }
 

@@ -19,7 +19,7 @@ public class AS_UGOVOR_Controller implements IController<Ugovor, UgovorSearch> {
     }
 
     @Override
-    public List<Ugovor> getAll() {
+    public List<Ugovor> getAll(boolean initSubList) {
         return dbh.getAll_UGOVOR();
     }
 

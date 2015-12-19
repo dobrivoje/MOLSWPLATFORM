@@ -6,7 +6,6 @@ import db.retail.ent.Ugovor;
 import db.retail.ent.criteria.PUSearch;
 import db.retail.interfaces.ICRUDController;
 import db.retail.interfaces.IMasterDetail;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +27,7 @@ public class MD_Ugovor_Controller implements IMasterDetail<FS, PUSearch>, ICRUDC
 
     @Override
     public List<FS> getAllDetails() {
-        return dbh.getAll_FS();
+        return dbh.getAll_FS(true);
     }
 
     @Override

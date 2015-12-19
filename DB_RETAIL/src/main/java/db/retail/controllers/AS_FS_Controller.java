@@ -24,8 +24,8 @@ public class AS_FS_Controller implements IAdvancedSearchController<FS, FSSearch>
     }
 
     @Override
-    public List<FS> getAll() {
-        return dbh.getAll_FS();
+    public List<FS> getAll(boolean initSubList) {
+        return dbh.getAll_FS(initSubList);
     }
 
     @Override

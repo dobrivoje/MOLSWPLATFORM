@@ -11,14 +11,20 @@ import java.util.List;
  *
  * @author Dobri
  * @param <P> Custom class
- * @param <T> POJO class representing search criteria
+ * @param <Criteria> POJO class representing search criteria
  */
-public interface IAdvancedSearchController<P, T> {
+public interface IAdvancedSearchController<P, Criteria> {
 
-    List<P> getAll();
+    /**
+     * For all P, generate all P's lists of details
+     *
+     * @param initSubList
+     * @return
+     */
+    List<P> getAll(boolean initSubList);
 
-    List<P> get(T criteria);
+    List<P> get(Criteria criteria);
 
-    P getByID(T criteria);
+    P getByID(Criteria criteria);
 
 }

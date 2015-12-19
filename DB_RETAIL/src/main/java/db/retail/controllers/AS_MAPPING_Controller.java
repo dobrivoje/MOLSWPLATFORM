@@ -34,7 +34,7 @@ public class AS_MAPPING_Controller implements IController<Mapping, MappingSearch
     }
 
     @Override
-    public List<Mapping> getAll() {
+    public List<Mapping> getAll(boolean initSubList) {
         return dbh.getAll_Mapping();
     }
 

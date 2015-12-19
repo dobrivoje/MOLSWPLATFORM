@@ -19,8 +19,8 @@ public class AS_PARTN_Controller implements IController<Partner, PUSearch> {
     }
     
     @Override
-    public List<Partner> getAll() {
-        return dbh.getAll_Partner();
+    public List<Partner> getAll(boolean initSubList) {
+        return dbh.getAll_Partner(initSubList);
     }
     
     @Override

@@ -23,7 +23,7 @@ import static mf.MyUI.DS_RETAIL;
 public class Table_R_MAPPING extends Table_GEN<Mapping> {
 
     public Table_R_MAPPING() {
-        this(new BeanItemContainer<>(Mapping.class), DS_RETAIL.getASC_MAPPING_C().getAll());
+        this(new BeanItemContainer<>(Mapping.class), DS_RETAIL.getASC_MAPPING_C().getAll(false));
     }
 
     public Table_R_MAPPING(BeanItemContainer<Mapping> beanContainer, List list) {

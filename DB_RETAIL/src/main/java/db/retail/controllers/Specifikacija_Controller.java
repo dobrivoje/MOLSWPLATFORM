@@ -24,7 +24,7 @@ public class Specifikacija_Controller implements IAdvancedSearchController<Speci
     }
 
     @Override
-    public List<Specifikacija> getAll() {
+    public List<Specifikacija> getAll(boolean initSubList) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

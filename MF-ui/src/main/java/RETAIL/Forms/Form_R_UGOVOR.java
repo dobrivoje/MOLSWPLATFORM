@@ -30,7 +30,7 @@ public class Form_R_UGOVOR extends Form_CRUD2<Ugovor> {
     private final ComboBox partner = new ComboBox("Partner", DS_RETAIL.getMD_Partner_C().getAllDetails());
 
     @PropertyId("fkIdfs")
-    private final ComboBox fs = new ComboBox("FS", DS_RETAIL.getASC_FS_C().getAll());
+    private final ComboBox fs = new ComboBox("FS", DS_RETAIL.getASC_FS_C().getAll(true));
 
     @PropertyId("datumPotpisivanja")
     private final DateField datumPotpisivanja = new DateField("Contract Sign Date");

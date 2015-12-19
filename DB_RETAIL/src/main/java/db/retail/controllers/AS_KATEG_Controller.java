@@ -18,7 +18,7 @@ public class AS_KATEG_Controller implements IAdvancedSearchController<Kategorija
     }
 
     @Override
-    public List<Kategorija> getAll() {
+    public List<Kategorija> getAll(boolean initSubList) {
         return dbh.getAll_KATEG();
     }
 

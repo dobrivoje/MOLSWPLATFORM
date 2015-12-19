@@ -41,11 +41,11 @@ public class Form_R_Mapping extends Form_CRUD2<Mapping> {
 
     @PropertyId("fkIdk")
     private final ComboBox kategorija = new ComboBox("Calc. Report",
-            new BeanItemContainer(Kategorija.class, DS_RETAIL.getASC_KATEG_C().getAll()));
+            new BeanItemContainer(Kategorija.class, DS_RETAIL.getASC_KATEG_C().getAll(false)));
 
     @PropertyId("fkIdgn")
     private final ComboBox grupniNaziv = new ComboBox("Spec. Report",
-            new BeanItemContainer(GrupniNaziv.class, DS_RETAIL.getASC_GN_C().getAll()));
+            new BeanItemContainer(GrupniNaziv.class, DS_RETAIL.getASC_GN_C().getAll(false)));
     //</editor-fold>
 
     public Form_R_Mapping() {
