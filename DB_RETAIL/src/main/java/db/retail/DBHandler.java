@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package db.retail;
 
 import javax.persistence.EntityManager;
@@ -37,4 +32,8 @@ public abstract class DBHandler {
         throw new Exception(message);
     }
     //</editor-fold>
+
+    public static final String ADD_FAILED = "New Insert Failed.";
+    public static final String UPDATE_FAILED = "Update Failed.";
+
 }

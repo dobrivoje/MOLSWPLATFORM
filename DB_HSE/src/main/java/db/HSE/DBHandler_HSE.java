@@ -117,7 +117,7 @@ public class DBHandler_HSE extends DBHandler {
             em.persist(workPlan);
             getEm().getTransaction().commit();
         } catch (Exception e) {
-            rollBackTransaction("New Workplan Addition Failed.");
+            rollBackTransaction(ADD_FAILED);
         }
     }
 
@@ -127,7 +127,7 @@ public class DBHandler_HSE extends DBHandler {
             em.merge(workPlan);
             getEm().getTransaction().commit();
         } catch (Exception e) {
-            rollBackTransaction("Existing Workplan Update Failed.");
+            rollBackTransaction(UPDATE_FAILED);
         }
     }
     //</editor-fold>

@@ -59,6 +59,8 @@ public class FS implements Serializable {
     private List<Ugovor> ugovorList;
     @OneToMany(mappedBy = "fkIdfs")
     private List<CompositeSellReport> compositeSellReportList;
+    @OneToMany(mappedBy = "fkIdfs")
+    private List<RelFSDocument> relFSDocumentList;
 
     public FS() {
     }
@@ -134,6 +136,15 @@ public class FS implements Serializable {
         this.compositeSellReportList = compositeSellReportList;
     }
 
+    @XmlTransient
+    public List<RelFSDocument> getRelFSDocumentList() {
+        return relFSDocumentList;
+    }
+
+    public void setRelFSDocumentList(List<RelFSDocument> relFSDocumentList) {
+        this.relFSDocumentList = relFSDocumentList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -148,10 +159,7 @@ public class FS implements Serializable {
             return false;
         }
         FS other = (FS) object;
-        if ((this.idfs == null && other.idfs != null) || (this.idfs != null && !this.idfs.equals(other.idfs))) {
-            return false;
-        }
-        return true;
+        return !((this.idfs == null && other.idfs != null) || (this.idfs != null && !this.idfs.equals(other.idfs)));
     }
 
     @Override

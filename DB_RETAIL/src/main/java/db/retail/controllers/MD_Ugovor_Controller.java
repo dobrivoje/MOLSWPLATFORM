@@ -28,25 +28,17 @@ public class MD_Ugovor_Controller implements IMasterDetail<FS, PUSearch>, ICRUDC
 
     @Override
     public List<FS> getAllDetails() {
-        List<FS> fss = new ArrayList(dbh.getAll_FS());
-
-        for (FS f : fss) {
-            f.setUgovorList(dbh.get_FS_Ugovori(f));
-        }
-
-        return fss;
+        return dbh.getAll_FS();
     }
 
     @Override
     public void add(Ugovor newItem) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
-        // dbh.addNew_(newItem);
+        dbh.addNew_Ugovor(newItem);
     }
 
     @Override
-    public void update(Ugovor newItem) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
-        //dbh.updatePartner(partner);
+    public void update(Ugovor item) throws Exception {
+        dbh.updateUgovor(item);
     }
 
 }

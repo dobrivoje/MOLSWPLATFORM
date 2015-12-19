@@ -2,14 +2,10 @@ package test;
 
 import db.retail.DBHandler_RETAIL;
 import db.retail.dataservice.DataService_RETAIL;
-import db.retail.ent.FS;
-import db.retail.ent.reports.KeyDist;
+import db.retail.ent.Document;
+import db.retail.ent.DocumentType;
+import db.retail.ent.Gallery;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
  * @author Dobri
@@ -58,15 +54,13 @@ public class testCocaDB {
          System.err.println((++br1) + " " + o.toString());
          }
          */
-        
         /*
-        FS fs = DS.getASC_FS_C().getAll().get(2);
+         FS fs = DS.getASC_FS_C().getAll().get(2);
 
-        for (KeyDist k : DBHandler_RETAIL.getDefault().getByID_KEYDIST(fs)) {
-            System.err.println(k.toString());
-        }
-        */
-        
+         for (KeyDist k : DBHandler_RETAIL.getDefault().getByID_KEYDIST(fs)) {
+         System.err.println(k.toString());
+         }
+         */
         /*
          for (FS f : DS.getASC_FS_C().getAll()) {
          for (KeyDist k : DBHandler_RETAIL.getDefault().getByID_KEYDIST(f)) {
@@ -74,7 +68,30 @@ public class testCocaDB {
          }
          }
          */
-        
-        System.err.println(DS.getASC_Partner_C().getAll());
+        System.err.println("test1");
+        System.err.println();
+
+        for (Gallery g : DBHandler_RETAIL.getDefault().getAll_Gallery()) {
+            System.err.println("gallery : " + g);
+            System.err.println("|___ ");
+            for (Document d : g.getDocumentList()) {
+                System.err.println("       [" + d + "]");
+            }
+        }
+
+        System.err.println("test2");
+        System.err.println();
+
+        DBHandler_RETAIL.getDefault().getAll_DocumentType().stream().forEach((DocumentType g) -> {
+            if (g.getDocumentList() != null) {
+                System.err.println("doc type : " + g);
+                System.err.println("|___ ");
+
+                for (Document d : g.getDocumentList()) {
+                    System.err.println("       [" + d + "]");
+                }
+            }
+        });
+
     }
 }

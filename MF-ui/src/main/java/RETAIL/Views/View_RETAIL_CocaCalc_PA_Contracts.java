@@ -11,6 +11,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanItem;
+import com.vaadin.server.Sizeable;
 import com.vaadin.ui.HorizontalSplitPanel;
 import db.retail.ent.Ugovor;
 import mf.MyUI;
@@ -33,7 +34,7 @@ public class View_RETAIL_CocaCalc_PA_Contracts extends VerticalLayout implements
         VL.setMargin(true);
         VL.setSpacing(true);
         HL.setSizeFull();
-        HL.setSplitPosition(100, Unit.PERCENTAGE);
+        HL.setSplitPosition(100, Sizeable.Unit.PERCENTAGE);
         HorizontalLayout topLayout = createTopBar();
 
         // kreiraj panel za tabelu i properies tabele :
@@ -78,7 +79,7 @@ public class View_RETAIL_CocaCalc_PA_Contracts extends VerticalLayout implements
 
         HorizontalLayout topLayout = new HorizontalLayout();
         topLayout.setSpacing(true);
-        topLayout.setWidth(100, Unit.PERCENTAGE);
+        topLayout.setWidth(100, Sizeable.Unit.PERCENTAGE);
         topLayout.addComponent(filter);
         topLayout.setComponentAlignment(filter, Alignment.MIDDLE_LEFT);
         topLayout.setExpandRatio(filter, 1);
@@ -90,7 +91,7 @@ public class View_RETAIL_CocaCalc_PA_Contracts extends VerticalLayout implements
 
     private void openProperties(Ugovor selectedItem) {
         if (selectedItem != null) {
-            HL.setSplitPosition(50, Unit.PERCENTAGE);
+            HL.setSplitPosition(50, Sizeable.Unit.PERCENTAGE);
 
             if (propVL.getComponentCount() > 0) {
                 propVL.removeAllComponents();
@@ -103,7 +104,7 @@ public class View_RETAIL_CocaCalc_PA_Contracts extends VerticalLayout implements
             propVL.addComponent(form);
 
         } else {
-            HL.setSplitPosition(100, Unit.PERCENTAGE);
+            HL.setSplitPosition(100, Sizeable.Unit.PERCENTAGE);
         }
     }
 }

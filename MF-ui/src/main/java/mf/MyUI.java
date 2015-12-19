@@ -2,7 +2,7 @@ package mf;
 
 import Uni.Views.LoginScreen;
 import Uni.Views.MainScreen;
-import HSE.Views.View_HSE_WorkPlan;
+import RETAIL.Views.View_RETAIL_SysNotifBoard;
 import com.vaadin.annotations.PreserveOnRefresh;
 import javax.servlet.annotation.WebServlet;
 import com.vaadin.annotations.Theme;
@@ -44,7 +44,7 @@ public class MyUI extends UI {
 
     protected void showMainView() {
         setContent(new MainScreen(MyUI.this));
-        getNavigator().navigateTo(View_HSE_WorkPlan.class.getSimpleName());
+        getNavigator().navigateTo(View_RETAIL_SysNotifBoard.class.getSimpleName());
     }
 
     public static MyUI get() {

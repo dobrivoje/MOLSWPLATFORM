@@ -42,7 +42,7 @@ import RETAIL.Views.View_RETAIL_CocaCalc;
 import RETAIL.Views.View_RETAIL_CocaCalc_DM_CSR;
 import RETAIL.Views.View_RETAIL_CocaCalc_DM_MAPPING;
 import RETAIL.Views.View_RETAIL_CocaCalc_PARTNERS;
-import RETAIL.Views.View_RETAIL_CocaCalc_PA_CONTRACTS;
+import RETAIL.Views.View_RETAIL_CocaCalc_PA_Contracts;
 import RETAIL.Views.View_RETAIL_SysNotifBoard;
 
 /**
@@ -224,9 +224,9 @@ public class MainMenu extends CssLayout {
                     navigator.navigateTo(View_RETAIL_CocaCalc_DM_MAPPING.class.getSimpleName());
                     break;
                 case RETAIL_COCACALC_PARTNERS_CONTRACTS:
-                    navigator.navigateTo(View_RETAIL_CocaCalc_PA_CONTRACTS.class.getSimpleName());
+                    navigator.navigateTo(View_RETAIL_CocaCalc_PA_Contracts.class.getSimpleName());
                     break;
-                    
+
                 case RETAIL_COCACALC_PARTNERS:
                     navigator.navigateTo(View_RETAIL_CocaCalc_PARTNERS.class.getSimpleName());
                     break;

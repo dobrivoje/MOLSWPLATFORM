@@ -22,18 +22,12 @@ public class MD_Partner_Controller implements IMasterDetail<Partner, PUSearch>, 
 
     @Override
     public List getDetails(Partner master) {
-        return dbh.getMD_Partner_Ugovori(master).getUgovorList();
+        return dbh.get_Partner_Ugovori(master);
     }
 
     @Override
     public List<Partner> getAllDetails() {
-        List<Partner> partners = new ArrayList(dbh.getAll_Partner());
-
-        for (Partner p : partners) {
-            p.setUgovorList(dbh.get_Partner_Ugovori(p));
-        }
-
-        return partners;
+        return dbh.getAll_Partner();
     }
 
     @Override

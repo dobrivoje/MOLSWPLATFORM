@@ -5,6 +5,9 @@ import db.retail.ent.Mapping;
 import db.retail.ent.reports.ObracunFinal;
 import db.retail.ent.reports.Specifikacija;
 import db.retail.ent.CompositeSellReport;
+import db.retail.ent.Document;
+import db.retail.ent.DocumentType;
+import db.retail.ent.Gallery;
 import db.retail.ent.GrupniNaziv;
 import db.retail.ent.Kategorija;
 import db.retail.ent.Koef;
@@ -12,15 +15,14 @@ import db.retail.ent.Partner;
 import db.retail.ent.ReportDetails;
 import db.retail.ent.Ugovor;
 import db.retail.ent.reports.KeyDist;
+import java.io.Serializable;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 public class DBHandler_RETAIL extends DBHandler {
 
@@ -39,8 +41,15 @@ public class DBHandler_RETAIL extends DBHandler {
     //<editor-fold defaultstate="collapsed" desc="FS">
     //<editor-fold defaultstate="collapsed" desc="Read Data">
     public List<FS> getAll_FS() {
+        List<FS> L;
         try {
-            return (List<FS>) getEm().createNamedQuery("FS.findAll").getResultList();
+            L = getEm().createNamedQuery("FS.findAll").getResultList();
+
+            L.stream().forEach((f) -> {
+                f.setUgovorList(get_FS_Ugovori(f));
+            });
+
+            return L;
         } catch (Exception ex) {
             return null;
         }
@@ -64,7 +73,7 @@ public class DBHandler_RETAIL extends DBHandler {
             em.persist(newFS);
             getEm().getTransaction().commit();
         } catch (Exception ex) {
-            rollBackTransaction("New FS Addition Failed");
+            rollBackTransaction(ADD_FAILED);
         }
     }
 
@@ -84,7 +93,7 @@ public class DBHandler_RETAIL extends DBHandler {
             em.merge(fs);
             getEm().getTransaction().commit();
         } catch (Exception ex) {
-            rollBackTransaction("FS Update Failed");
+            rollBackTransaction(UPDATE_FAILED);
         }
     }
     //</editor-fold>
@@ -153,7 +162,7 @@ public class DBHandler_RETAIL extends DBHandler {
             em.persist(newMapping);
             getEm().getTransaction().commit();
         } catch (Exception ex) {
-            rollBackTransaction("New FS Addition Failed");
+            rollBackTransaction(ADD_FAILED);
         }
     }
 
@@ -171,7 +180,7 @@ public class DBHandler_RETAIL extends DBHandler {
             em.merge(mapping);
             getEm().getTransaction().commit();
         } catch (Exception ex) {
-            rollBackTransaction("Mapping Update Failed");
+            rollBackTransaction(UPDATE_FAILED);
         }
     }
     //</editor-fold>
@@ -275,44 +284,51 @@ public class DBHandler_RETAIL extends DBHandler {
     //<editor-fold defaultstate="collapsed" desc="PARTNER - UGOVOR">
     //<editor-fold defaultstate="collapsed" desc="Read Data">
     public List<Partner> getAll_Partner() {
+        List<Partner> L;
+
         try {
-            return (List<Partner>) getEm().createNamedQuery("Partner.findAll").getResultList();
+            L = getEm().createNamedQuery("Partner.findAll").getResultList();
+
+            L.stream().forEach((p) -> {
+                p.setUgovorList(get_Partner_Ugovori(p));
+            });
+
+            return L;
+
         } catch (Exception ex) {
             return null;
         }
     }
 
     public List<Ugovor> get_FS_Ugovori(FS fs) {
+        List<Ugovor> L;
+
         try {
-            return getEm().createNamedQuery("Ugovor.findByFS")
+            L = getEm().createNamedQuery("Ugovor.findByFS")
                     .setParameter("IDFS", fs)
                     .getResultList();
+
+            fs.setUgovorList(L);
+
+            return L;
+
         } catch (Exception ex) {
             return null;
         }
     }
 
     public List<Ugovor> get_Partner_Ugovori(Partner partner) {
+        List<Ugovor> L;
+
         try {
-            return getEm().createNamedQuery("Ugovor.findByIDP")
+            L = getEm().createNamedQuery("Ugovor.findByIDP")
                     .setParameter("IDP", partner)
                     .getResultList();
-        } catch (Exception ex) {
-            return null;
-        }
-    }
 
-    public Partner getMD_Partner_Ugovori(Partner partner) {
-        Set<Ugovor> ugovori = new LinkedHashSet<>();
+            partner.setUgovorList(L);
 
-        try {
-            ugovori.addAll(getEm().createNamedQuery("Ugovor.findByIDP")
-                    .setParameter("IDP", partner)
-                    .getResultList());
+            return L;
 
-            partner.setUgovorList(new ArrayList<>(ugovori));
-
-            return partner;
         } catch (Exception ex) {
             return null;
         }
@@ -335,7 +351,7 @@ public class DBHandler_RETAIL extends DBHandler {
             em.persist(newPartner);
             getEm().getTransaction().commit();
         } catch (Exception ex) {
-            rollBackTransaction("New Partner Addition Failed");
+            rollBackTransaction(ADD_FAILED);
         }
     }
 
@@ -355,17 +371,17 @@ public class DBHandler_RETAIL extends DBHandler {
             em.merge(item);
             getEm().getTransaction().commit();
         } catch (Exception ex) {
-            rollBackTransaction("Contract Addition Failed");
+            rollBackTransaction(ADD_FAILED);
         }
     }
-    
+
     public void updateUgovor(Ugovor item) throws Exception {
         try {
             getEm().getTransaction().begin();
             em.merge(item);
             getEm().getTransaction().commit();
         } catch (Exception ex) {
-            rollBackTransaction("Contract Update Failed");
+            rollBackTransaction(UPDATE_FAILED);
         }
     }
 
@@ -375,8 +391,94 @@ public class DBHandler_RETAIL extends DBHandler {
             em.merge(partner);
             getEm().getTransaction().commit();
         } catch (Exception ex) {
-            rollBackTransaction("Partner Update Failed");
+            rollBackTransaction(UPDATE_FAILED);
         }
+    }
+    //</editor-fold>
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="GALLERY - DOCUMENTS">
+    //<editor-fold defaultstate="collapsed" desc="Read Data">
+    public List<Document> getByID_Gallery(Gallery g) {
+        try {
+            List docs = (List<Document>) getEm()
+                    .createNamedQuery("Document.findByGallery")
+                    .setParameter("IDG", g)
+                    .getResultList();
+
+            g.setDocumentList(docs);
+
+            return docs;
+
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    public List<Gallery> getAll_Gallery() {
+        List<Gallery> G;
+
+        try {
+            G = (List<Gallery>) getEm().createNamedQuery("Gallery.findAll").getResultList();
+
+            G.stream().forEach((g) -> {
+                g.setDocumentList(getByID_Gallery(g));
+            });
+
+            return G;
+
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    public List<Document> getByID_DocType(DocumentType dt) {
+
+        try {
+            List docs = (List<Document>) getEm()
+                    .createNamedQuery("Document.findByDocType")
+                    .setParameter("IDDT", dt)
+                    .getResultList();
+
+            dt.setDocumentList(docs);
+
+            return docs;
+
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    public List<DocumentType> getAll_DocumentType() {
+        List<DocumentType> DT;
+        try {
+            DT = (List<DocumentType>) getEm().createNamedQuery("DocumentType.findAll").getResultList();
+
+            DT.stream().forEach((dt) -> {
+                dt.setDocumentList(getByID_DocType(dt));
+            });
+
+            return DT;
+
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Add/update data">
+    public void addNew_Document(Document newItem) throws Exception {
+        try {
+            getEm().getTransaction().begin();
+            em.persist(newItem);
+            getEm().getTransaction().commit();
+        } catch (Exception ex) {
+            rollBackTransaction(ADD_FAILED);
+        }
+    }
+
+    public void addNew_Document(String name, Serializable docData, String path, Date uploadDate, DocumentType docType, Gallery gallery) throws Exception {
+        addNew_Document(new Document(name, null, path, uploadDate, docType, gallery));
     }
     //</editor-fold>
     //</editor-fold>
