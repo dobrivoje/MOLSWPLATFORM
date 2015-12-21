@@ -12,6 +12,7 @@ import RETAIL.Tables.Table_R_FS;
 import RETAIL.Trees.Tree_R_FSUgovor;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanItem;
+import com.vaadin.server.Sizeable;
 import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.Panel;
 import db.Exceptions.CustomTreeNodesEmptyException;
@@ -22,9 +23,12 @@ import org.dobrivoje.auth.roles.Roles;
 public class View_RETAIL_CocaCalc extends VerticalLayout implements View {
 
     private final VerticalLayout VL = new VerticalLayout();
-
+    private final VerticalLayout vp = new VerticalLayout();
     private final HorizontalSplitPanel HL = new HorizontalSplitPanel();
+
     private final Table_R_FS table = new Table_R_FS();
+    private final Form_R_FS form;
+
     private final VerticalLayout propVL = new VerticalLayout();
 
     public View_RETAIL_CocaCalc() {
@@ -55,6 +59,15 @@ public class View_RETAIL_CocaCalc extends VerticalLayout implements View {
         VL.setStyleName("crud-main-layout");
         addComponent(VL);
         //</editor-fold>
+
+        form = new Form_R_FS(new BeanItem(new FS()), true, () -> {
+            table.refreshVisualContainer();
+        });
+
+        form.setEnabled(false);
+
+        vp.setSpacing(true);
+        vp.setSizeFull();
 
         table.addValueChangeListener((Property.ValueChangeEvent event) -> {
             openProperties((FS) table.getValue());
@@ -92,21 +105,13 @@ public class View_RETAIL_CocaCalc extends VerticalLayout implements View {
     //</editor-fold>
 
     private void openProperties(FS item) {
+        vp.removeAllComponents();
+        propVL.removeAllComponents();
+
         if (item != null) {
-            HL.setSplitPosition(50, Unit.PERCENTAGE);
-
-            if (propVL.getComponentCount() > 0) {
-                propVL.removeAllComponents();
-            }
-
-            Form_R_FS form = new Form_R_FS(new BeanItem(item), true, () -> {
-                table.refreshVisualContainer();
-            });
+            HL.setSplitPosition(50, Sizeable.Unit.PERCENTAGE);
             form.setEnabled(MyUI.get().isPermitted(Roles.PERMISSION_APP_FS_USER_EDIT_OWN_WORKPLANS));
-
-            VerticalLayout vp = new VerticalLayout();
-            vp.setSpacing(true);
-            vp.setSizeFull();
+            form.setBeanItem(new BeanItem(item));
 
             try {
                 vp.addComponent(new Panel("Contracts", new Tree_R_FSUgovor("", item)));

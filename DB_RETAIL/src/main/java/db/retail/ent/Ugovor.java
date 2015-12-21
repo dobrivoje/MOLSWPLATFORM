@@ -229,6 +229,18 @@ public class Ugovor implements Serializable {
         this.fkIdfs = fkIdfs;
     }
 
+    // koristimo ih unutar tabele za renderovanje kolona
+    // i još važnije, za mogućnost sortiranja po nazivu kolone !
+    // pozivanje u tabeli je : setVisibleColumns(..."FS1", ...)
+    public String getFS1() {
+        return getFkIdfs().toString();
+    }
+
+    // pozivanje u tabeli je : setVisibleColumns(..."partner1", ...)
+    public String getPartner1() {
+        return getFkIdp().getNaziv();
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;

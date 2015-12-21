@@ -40,4 +40,38 @@ public class View_RETAIL extends View_Dashboard {
 
         buildContentWithComponents(C);
     }
+
+    /*
+     private void createCocaCalcOptions() {
+     List<Component> C = new ArrayList();
+
+     try {
+     List<Panel> LP = new ArrayList<>();
+     Panel p1 = new Panel(new Tree_R_PartnerUgovor("", MyUI.DS_RETAIL.getASC_Partner_C().getAll(false)));
+     p1.setHeight(500, Unit.PIXELS);
+     p1.setWidth(300, Unit.PIXELS);
+
+     LP.add(p1);
+
+     C.add(createPanelComponent(RETAIL_COCACALC_PARTNERS.toString(), LP, true));
+     } catch (Exception e) {
+     }
+
+     try {
+     List<Panel> LFS = new ArrayList<>();
+     Panel pf = new Panel();
+     pf.setHeight(500, Unit.PIXELS);
+     pf.setWidth(300, Unit.PIXELS);
+     pf.setContent(new Tree_R_FSUgovor("FS Ugovor", MyUI.DS_RETAIL.getASC_FS_C().getAll(false)));
+     LFS.add(pf);
+     C.add(createPanelComponent(RETAIL_COCACALC_PARTNERS_FS.toString(), LFS, true));
+     } catch (Exception e) {
+     }
+
+     C.add(createPanelComponent(RETAIL_COCACALC_PARTNERS_CONTRACTS.toString(), subPanels, true));
+     C.add(createPanelComponent(RETAIL_COCACALC_DATA_MAINTENENCE_MAPPING.toString(), subPanels, true));
+
+     buildContentWithComponents(C);
+     }
+     */
 }

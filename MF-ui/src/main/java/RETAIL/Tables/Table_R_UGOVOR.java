@@ -31,11 +31,14 @@ public class Table_R_UGOVOR extends Table_GEN<Ugovor> {
             return cb;
         });
         //</editor-fold>
-        setVisibleColumns("brojUgovora", "fkIdp", "fkIdfs", "datumPotpisivanja1", "datumPreuzimanja1", "ugovorAktivan1", "datumPrekidaUgovora1", "fiksniIznos");
+
+        setVisibleColumns("brojUgovora", "partner1", "FS1", "datumPotpisivanja1", "datumPreuzimanja1", "ugovorAktivan1", "datumPrekidaUgovora1", "fiksniIznos");
         setColumnHeaders("Contract No.", "Partner", "FS", "Sign Date", "Takeover Date", "Contract Active?", "Cancelation Date", "Fixed Ammount");
 
         setColumnAlignment("ugovorAktivan1", Align.CENTER);
         setColumnWidth("ugovorAktivan1", 110);
+        
+        setColumnWidth("partner1", 170);
     }
 
     public void setFilter(String filterString) {
@@ -45,9 +48,9 @@ public class Table_R_UGOVOR extends Table_GEN<Ugovor> {
             SimpleStringFilter nazivFilter = new SimpleStringFilter(
                     "brojUgovora", filterString, true, false);
             SimpleStringFilter codeFilter = new SimpleStringFilter(
-                    "fkIdp", filterString, true, false);
+                    "partner1", filterString, true, false);
             SimpleStringFilter kategFilter = new SimpleStringFilter(
-                    "fkIdfs", filterString, true, false);
+                    "FS1", filterString, true, false);
 
             beanContainer.addContainerFilter(
                     new Or(nazivFilter, codeFilter, kategFilter)

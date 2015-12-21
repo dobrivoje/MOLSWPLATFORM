@@ -8,6 +8,7 @@ import com.vaadin.data.util.BeanItem;
 import com.vaadin.event.FieldEvents;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.server.Sizeable;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.HorizontalSplitPanel;
@@ -22,11 +23,13 @@ import org.dobrivoje.auth.roles.Roles;
 public class View_RETAIL_CocaCalc_PARTNERS extends VerticalLayout implements View {
 
     private final VerticalLayout VL = new VerticalLayout();
-
-    private final HorizontalSplitPanel HL = new HorizontalSplitPanel();
-    private final Table_R_PARTNER table = new Table_R_PARTNER();
-
     private final VerticalLayout propVL = new VerticalLayout();
+    private final HorizontalSplitPanel HL = new HorizontalSplitPanel();
+    
+    private final Table_R_PARTNER table = new Table_R_PARTNER();
+    private final Form_R_PARTNER form;
+
+    VerticalLayout vp = new VerticalLayout();
 
     public View_RETAIL_CocaCalc_PARTNERS() {
         //<editor-fold defaultstate="collapsed" desc="UI setup">
@@ -56,6 +59,15 @@ public class View_RETAIL_CocaCalc_PARTNERS extends VerticalLayout implements Vie
         VL.setStyleName("crud-main-layout");
         addComponent(VL);
         //</editor-fold>
+
+        form = new Form_R_PARTNER(new BeanItem(new Partner()), true, () -> {
+            table.refreshVisualContainer();
+        });
+
+        form.setEnabled(false);
+
+        vp.setSpacing(true);
+        vp.setSizeFull();
 
         table.addValueChangeListener((Property.ValueChangeEvent event) -> {
             openProperties((Partner) table.getValue());
@@ -92,21 +104,13 @@ public class View_RETAIL_CocaCalc_PARTNERS extends VerticalLayout implements Vie
     //</editor-fold>
 
     private void openProperties(Partner item) {
+        vp.removeAllComponents();
+        propVL.removeAllComponents();
+
         if (item != null) {
-            HL.setSplitPosition(50, Unit.PERCENTAGE);
-
-            if (propVL.getComponentCount() > 0) {
-                propVL.removeAllComponents();
-            }
-
-            Form_R_PARTNER form = new Form_R_PARTNER(new BeanItem(item), true, () -> {
-                table.refreshVisualContainer();
-            });
+            HL.setSplitPosition(50, Sizeable.Unit.PERCENTAGE);
             form.setEnabled(MyUI.get().isPermitted(Roles.PERMISSION_APP_FS_USER_EDIT_OWN_WORKPLANS));
-
-            VerticalLayout vp = new VerticalLayout();
-            vp.setSpacing(true);
-            vp.setSizeFull();
+            form.setBeanItem(new BeanItem(item));
 
             try {
                 vp.addComponent(new Panel("Contracts", new Tree_R_PartnerUgovor("", item)));
@@ -118,7 +122,9 @@ public class View_RETAIL_CocaCalc_PARTNERS extends VerticalLayout implements Vie
             propVL.addComponent(vp);
 
         } else {
-            HL.setSplitPosition(100, Unit.PERCENTAGE);
+            form.setEnabled(false);
+            form.setBeanItem(new BeanItem(new Partner()));
+            HL.setSplitPosition(100, Sizeable.Unit.PERCENTAGE);
         }
     }
 }

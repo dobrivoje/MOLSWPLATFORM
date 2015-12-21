@@ -1,8 +1,8 @@
 package mf;
 
+import RETAIL.Views.View_RETAIL;
 import Uni.Views.LoginScreen;
 import Uni.Views.MainScreen;
-import RETAIL.Views.View_RETAIL_SysNotifBoard;
 import com.vaadin.annotations.PreserveOnRefresh;
 import javax.servlet.annotation.WebServlet;
 import com.vaadin.annotations.Theme;
@@ -44,7 +44,7 @@ public class MyUI extends UI {
 
     protected void showMainView() {
         setContent(new MainScreen(MyUI.this));
-        getNavigator().navigateTo(View_RETAIL_SysNotifBoard.class.getSimpleName());
+        getNavigator().navigateTo(View_RETAIL.class.getSimpleName());
     }
 
     public static MyUI get() {

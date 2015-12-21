@@ -11,6 +11,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanItem;
+import com.vaadin.server.Sizeable;
 import com.vaadin.ui.HorizontalSplitPanel;
 import db.retail.ent.Mapping;
 import mf.MyUI;
@@ -19,11 +20,11 @@ import org.dobrivoje.auth.roles.Roles;
 public class View_RETAIL_CocaCalc_DM_MAPPING extends VerticalLayout implements View {
 
     private final VerticalLayout VL = new VerticalLayout();
-
-    private final HorizontalSplitPanel HL = new HorizontalSplitPanel();
-    private final Table_R_MAPPING table = new Table_R_MAPPING();
-
     private final VerticalLayout propVL = new VerticalLayout();
+    private final HorizontalSplitPanel HL = new HorizontalSplitPanel();
+
+    private final Table_R_MAPPING table = new Table_R_MAPPING();
+    private final Form_R_Mapping form;
 
     public View_RETAIL_CocaCalc_DM_MAPPING() {
         //<editor-fold defaultstate="collapsed" desc="UI setup">
@@ -53,6 +54,14 @@ public class View_RETAIL_CocaCalc_DM_MAPPING extends VerticalLayout implements V
         VL.setStyleName("crud-main-layout");
         addComponent(VL);
         //</editor-fold>
+
+        form = new Form_R_Mapping(new BeanItem(new Mapping()), true, () -> {
+            table.refreshVisualContainer();
+        });
+
+        form.setEnabled(false);
+
+        propVL.addComponent(form);
 
         table.addValueChangeListener((Property.ValueChangeEvent event) -> {
             openProperties((Mapping) table.getValue());
@@ -90,20 +99,13 @@ public class View_RETAIL_CocaCalc_DM_MAPPING extends VerticalLayout implements V
 
     private void openProperties(Mapping item) {
         if (item != null) {
-            HL.setSplitPosition(50, Unit.PERCENTAGE);
-
-            if (propVL.getComponentCount() > 0) {
-                propVL.removeAllComponents();
-            }
-
-            Form_R_Mapping form = new Form_R_Mapping(new BeanItem(item), true, () -> {
-                table.refreshVisualContainer();
-            });
+            HL.setSplitPosition(50, Sizeable.Unit.PERCENTAGE);
             form.setEnabled(MyUI.get().isPermitted(Roles.PERMISSION_APP_FS_USER_EDIT_OWN_WORKPLANS));
-
-            propVL.addComponent(form);
+            form.setBeanItem(new BeanItem(item));
         } else {
-            HL.setSplitPosition(100, Unit.PERCENTAGE);
+            form.setEnabled(false);
+            form.setBeanItem(new BeanItem(new Mapping()));
+            HL.setSplitPosition(100, Sizeable.Unit.PERCENTAGE);
         }
     }
 }

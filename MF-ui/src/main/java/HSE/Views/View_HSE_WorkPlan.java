@@ -21,10 +21,11 @@ import mf.MyUI;
 public class View_HSE_WorkPlan extends VerticalLayout implements View {
 
     private final VerticalLayout VL = new VerticalLayout();
-
     private final HorizontalSplitPanel HL = new HorizontalSplitPanel();
-    private final Table_H_WorkPlan wpTable = new Table_H_WorkPlan();
     private final VerticalLayout propVL = new VerticalLayout();
+
+    private final Table_H_WorkPlan table = new Table_H_WorkPlan();
+    private final Form_H_WorkPlan form;
 
     private Button newBtn;
 
@@ -40,7 +41,7 @@ public class View_HSE_WorkPlan extends VerticalLayout implements View {
         HorizontalLayout topLayout = createTopBar();
 
         // kreiraj panel za tabelu i properies tabele :
-        VerticalLayout vl1 = new VerticalLayout(wpTable);
+        VerticalLayout vl1 = new VerticalLayout(table);
 
         propVL.setMargin(true);
         propVL.setSpacing(true);
@@ -57,12 +58,17 @@ public class View_HSE_WorkPlan extends VerticalLayout implements View {
         addComponent(VL);
         //</editor-fold>
 
-        wpTable.addValueChangeListener(new Property.ValueChangeListener() {
-            @Override
-            public void valueChange(Property.ValueChangeEvent event) {
-                WorkPlan wp = (WorkPlan) wpTable.getValue();
-                openProperties(wp);
-            }
+        form = new Form_H_WorkPlan(new BeanItem(new WorkPlan()), true, () -> {
+            table.refreshVisualContainer();
+        });
+
+        form.setEnabled(false);
+
+        propVL.addComponent(form);
+
+        table.addValueChangeListener((Property.ValueChangeEvent event) -> {
+            WorkPlan wp = (WorkPlan) table.getValue();
+            openProperties(wp);
         });
         //</editor-fold>
 
@@ -81,20 +87,14 @@ public class View_HSE_WorkPlan extends VerticalLayout implements View {
         filter.setInputPrompt("search data...");
         ResetButtonForTextField.extend(filter);
         filter.setImmediate(false);
-        filter.addTextChangeListener(new FieldEvents.TextChangeListener() {
-            @Override
-            public void textChange(FieldEvents.TextChangeEvent event) {
-                wpTable.setFilter(event.getText());
-            }
+        filter.addTextChangeListener((FieldEvents.TextChangeEvent event) -> {
+            table.setFilter(event.getText());
         });
 
         newBtn = new Button("New WorkPlan");
         newBtn.setWidth(200, Unit.PIXELS);
-        newBtn.addClickListener(new Button.ClickListener() {
-            @Override
-            public void buttonClick(Button.ClickEvent event) {
-                openProperties(new WorkPlan());
-            }
+        newBtn.addClickListener((Button.ClickEvent event) -> {
+            openProperties(new WorkPlan());
         });
 
         HorizontalLayout topLayout = new HorizontalLayout();
@@ -104,27 +104,19 @@ public class View_HSE_WorkPlan extends VerticalLayout implements View {
         topLayout.setComponentAlignment(filter, Alignment.MIDDLE_LEFT);
         topLayout.setExpandRatio(filter, 1);
         topLayout.setStyleName("top-bar");
-        
+
         return topLayout;
     }
     //</editor-fold>
 
-    private void openProperties(WorkPlan wp) {
-        if (wp != null) {
+    private void openProperties(WorkPlan item) {
+        if (item != null) {
             HL.setSplitPosition(40, Unit.PERCENTAGE);
-
-            if (propVL.getComponentCount() > 0) {
-                propVL.removeAllComponents();
-            }
-
-            Form_H_WorkPlan wpForm = new Form_H_WorkPlan(new BeanItem(wp), true, () -> {
-                wpTable.refreshVisualContainer();
-            });
-
-            wpForm.setEnabled(MyUI.get().isPermitted(Roles.PERMISSION_APP_FS_USER_EDIT_OWN_WORKPLANS));
-            propVL.addComponent(wpForm);
-
+            form.setEnabled(MyUI.get().isPermitted(Roles.PERMISSION_APP_FS_USER_EDIT_OWN_WORKPLANS));
+            form.setBeanItem(new BeanItem(item));
         } else {
+            form.setEnabled(false);
+            form.setBeanItem(new BeanItem(new WorkPlan()));
             HL.setSplitPosition(100, Unit.PERCENTAGE);
         }
     }

@@ -1,5 +1,6 @@
 package org.superb.apps.utilities.vaadin.Forms;
 
+import com.vaadin.data.Item;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.server.Sizeable;
@@ -14,6 +15,7 @@ import org.dobrivoje.utils.date.formats.DateFormat;
 import org.superb.apps.utilities.vaadin.Trees.IUpdateData;
 
 public abstract class Form_CRUD2<T> extends FormLayout implements IUpdateData<T> {
+
     public static final String APP_DATE_FORMAT = DateFormat.DATE_FORMAT_SRB.toString();
 
     protected FieldGroup fieldGroup;
@@ -54,6 +56,11 @@ public abstract class Form_CRUD2<T> extends FormLayout implements IUpdateData<T>
 
     public Button.ClickListener getClickListener() {
         return clickListener;
+    }
+
+    public void setBeanItem(Item item) {
+        fieldGroup.setItemDataSource(item);
+        beanItem = (BeanItem<T>) fieldGroup.getItemDataSource();
     }
 
     //<editor-fold defaultstate="collapsed" desc="UpdateDataListener">
@@ -143,4 +150,5 @@ public abstract class Form_CRUD2<T> extends FormLayout implements IUpdateData<T>
     public void update(T item) {
         setFieldsFromBean(item);
     }
+
 }
