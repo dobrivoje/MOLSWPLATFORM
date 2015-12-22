@@ -5,8 +5,20 @@
  */
 package db.retail.ent.reports;
 
+import db.retail.dataservice.DataService_RETAIL;
+import db.retail.ent.criteria.DateIntervalSearch;
+import db.retail.ent.criteria.OS_Search;
+import db.retail.interfaces.IAdvancedSearchController;
+import java.text.DecimalFormat;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 public class ObracunFinal {
 
+    //<editor-fold defaultstate="collapsed" desc="polja">
     private Integer idfs;
     private String fsName;
     private String fsCode;
@@ -16,6 +28,7 @@ public class ObracunFinal {
     private Double rKoef;
     private Double plan;
     private Double ostvarenje;
+    private Double ostvarenje1;
     private Boolean obavezan;
     private String koefNaziv;
     private Double total;
@@ -30,11 +43,13 @@ public class ObracunFinal {
     private String bu2;
     private String bu3;
     private Double fiksniIznos;
+    //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="konstruktor">
     public ObracunFinal() {
     }
 
-    public ObracunFinal(Integer idfs, String fsName, String fsCode, String reportName, String volType, Double prodato, Double rKoef, Double plan, Double ostvarenje, Boolean obavezan, String koefNaziv, Double total, Integer idrd, Integer rbrReport, Integer rbrKoef, String startObracuna, String krajObracuna, String partner, String brUgovora, String bu1, String bu2, String bu3, Double fiksniIznos) {
+    public ObracunFinal(Integer idfs, String fsName, String fsCode, String reportName, String volType, Double prodato, Double rKoef, Double plan, Double ostvarenje, Double ostvarenje1, Boolean obavezan, String koefNaziv, Double total, Integer idrd, Integer rbrReport, Integer rbrKoef, String startObracuna, String krajObracuna, String partner, String brUgovora, String bu1, String bu2, String bu3, Double fiksniIznos) {
         this.idfs = idfs;
         this.fsName = fsName;
         this.fsCode = fsCode;
@@ -44,6 +59,7 @@ public class ObracunFinal {
         this.rKoef = rKoef;
         this.plan = plan;
         this.ostvarenje = ostvarenje;
+        this.ostvarenje1 = ostvarenje1;
         this.obavezan = obavezan;
         this.koefNaziv = koefNaziv;
         this.total = total;
@@ -59,6 +75,7 @@ public class ObracunFinal {
         this.bu3 = bu3;
         this.fiksniIznos = fiksniIznos;
     }
+    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="getters/setters">
     public Integer getIdfs() {
@@ -131,6 +148,14 @@ public class ObracunFinal {
 
     public void setOstvarenje(Double ostvarenje) {
         this.ostvarenje = ostvarenje;
+    }
+
+    public Double getOstvarenje1() {
+        return ostvarenje1;
+    }
+
+    public void setOstvarenje1(Double ostvarenje1) {
+        this.ostvarenje1 = ostvarenje1;
     }
 
     public Boolean isObavezan() {
@@ -246,6 +271,41 @@ public class ObracunFinal {
     }
     //</editor-fold>
 
+    public static Map<String, Double> generate(String fsCode, String dateFrom, String dateTo) {
+        Map<String, Double> M = new LinkedHashMap<>();
+
+        for (ObracunFinal o : DataService_RETAIL.getDefault().getASC_FinalObracun_C().get(new OS_Search(new DateIntervalSearch(dateFrom, dateTo), fsCode))) {
+            M.put(
+                    o.getReportName().concat(" [").concat(o.getKoefNaziv()).concat("] "),
+                    o.getOstvarenje());
+        }
+
+        return M;
+    }
+
+    public static Map<String, List<String>> generate(String fsCode, String dateFrom, String dateTo, IAdvancedSearchController<ObracunFinal, OS_Search> controller) {
+        Map<String, List<String>> M = new LinkedHashMap<>();
+
+        for (ObracunFinal o : controller.get(new OS_Search(new DateIntervalSearch(dateFrom, dateTo), fsCode))) {
+            if (!M.containsKey(o.getReportName())) {
+                M.put(
+                        o.getReportName(),
+                        //                        new LinkedList<>(Arrays.asList(o.getKoefNaziv() + ", " + new DecimalFormat("0.000").format(o.getOstvarenje())))
+                        new LinkedList<>(Arrays.asList(o.getKoefNaziv() + ", " + o.getOstvarenje()))
+                );
+            } else {
+                M.get(o.getReportName())
+                        .add(
+                                o.getKoefNaziv()
+                                //                                + ", " + new DecimalFormat("0.000").format(o.getOstvarenje())
+                                + ", " + o.getOstvarenje()
+                        );
+            }
+        }
+
+        return M;
+    }
+
     @Override
     public String toString() {
         return "[" + idfs + "] ["
@@ -257,6 +317,7 @@ public class ObracunFinal {
                 + rKoef + "] ["
                 + plan + "] ["
                 + ostvarenje + "] ["
+                + ostvarenje1 + "] ["
                 + obavezan + "] ["
                 + koefNaziv + "] ["
                 + total + "] ["
@@ -271,6 +332,19 @@ public class ObracunFinal {
                 + bu2 + "] ["
                 + bu3 + "] ["
                 + fiksniIznos + "]";
+    }
+
+    public String getCalcToString() {
+        return "[" + fsName + "] ["
+                + fsCode + "] ["
+                + reportName + "] ["
+                + prodato + "] ["
+                + ostvarenje + "] ["
+                + ostvarenje1 + "] ["
+                + koefNaziv + "] ["
+                + total + "] ["
+                + partner + "] ["
+                + brUgovora + "]";
     }
 
 }

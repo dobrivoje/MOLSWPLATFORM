@@ -1,10 +1,13 @@
 package test;
 
-import db.retail.DBHandler_RETAIL;
 import db.retail.dataservice.DataService_RETAIL;
-import db.retail.ent.Document;
-import db.retail.ent.DocumentType;
-import db.retail.ent.Gallery;
+import db.retail.ent.criteria.DateIntervalSearch;
+import db.retail.ent.criteria.FSSearch;
+import db.retail.ent.criteria.OS_Search;
+import db.retail.ent.reports.ObracunFinal;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -14,84 +17,58 @@ public class testCocaDB {
 
     private static final DataService_RETAIL DS = DataService_RETAIL.getDefault();
 
+    private static final Map<String, List<String>> M = new LinkedHashMap<>();
+
     public static void main(String[] args) {
-        /*
-         System.err.println("FS test - All FS's:");
-         for (FS f : DS.getASC_FS().getAll()) {
-         System.err.println(f);
-         }
-        
-         System.err.println("FS test - FS by ID : " + fss.getCode());
-         System.err.println(DS.getASC_FS().get(fss));
-        
-         System.err.println("Mapping test - All mappings:");
-         for (Mapping m : DS.getASC_Mapping().getAll()) {
-         System.err.println(m);
-         }
-        
-         System.err.println("Mapping test - By ID: ");
-         System.err.println(DS.getASC_Mapping().get(ms));
-         */
 
-        /*
-         System.err.println("finalni obračun test.");
-        
-         int br = 0;
-         String Od = "2015-11-1";
-         String Do = "2015-11-30";
-         String fsCode = "90431";
-         //String fsCode = null;
-        
-         for (ObracunFinal o : DS.getASC_FinalObracun_C().get(new OS_Search(new DateIntervalSearch(Od, Do), fsCode))) {
-         System.err.println((++br) + " " + o.toString());
-         }
-        
-         System.err.println("finalni obračun test.");
-        
-         int br1 = 0;
-        
-         for (Specifikacija o : DS.getASC_Specifikacija_C().get(new OS_Search(new DateIntervalSearch(Od, Do), fsCode))) {
-         System.err.println((++br1) + " " + o.toString());
-         }
-         */
-        /*
-         FS fs = DS.getASC_FS_C().getAll().get(2);
+        System.err.println("finalni obračun test.");
 
-         for (KeyDist k : DBHandler_RETAIL.getDefault().getByID_KEYDIST(fs)) {
-         System.err.println(k.toString());
-         }
-         */
-        /*
-         for (FS f : DS.getASC_FS_C().getAll()) {
-         for (KeyDist k : DBHandler_RETAIL.getDefault().getByID_KEYDIST(f)) {
-         System.err.println(k.toString());
-         }
-         }
-         */
-        System.err.println("test1");
-        System.err.println();
+        int br = 0;
+        String Od = "2015-11-1";
+        String Do = "2015-11-30";
+        String fsCode = "90111";
+        //String fsCode = null;
 
-        for (Gallery g : DBHandler_RETAIL.getDefault().getAll_Gallery()) {
-            System.err.println("gallery : " + g);
-            System.err.println("|___ ");
-            for (Document d : g.getDocumentList()) {
-                System.err.println("       [" + d + "]");
-            }
+        for (ObracunFinal o : DS.getASC_FinalObracun_C().get(new OS_Search(new DateIntervalSearch(Od, Do), fsCode))) {
+            System.err.println((++br) + " " + o.getCalcToString());
         }
 
-        System.err.println("test2");
-        System.err.println();
+        /*
+         for (ObracunFinal o : DS.getASC_FinalObracun_C().get(new OS_Search(new DateIntervalSearch(Od, Do), fsCode))) {
+         if (!M.containsKey(o.getReportName())) {
+         M.put(
+         o.getReportName(),
+         new LinkedList<>(Arrays.asList(o.getKoefNaziv() + ", " + new DecimalFormat("0.000").format(o.getOstvarenje())))
+         );
+         } else {
+         M.get(o.getReportName()).add(
+         o.getKoefNaziv()
+         + ", " + new DecimalFormat("0.000").format(o.getOstvarenje())
+         );
+         }
+         }
+         */
+        System.err.println("test3 : map");
+        System.err.println("fs : " + DS.getASC_FS_C().getByID(new FSSearch(null, fsCode)));
 
-        DBHandler_RETAIL.getDefault().getAll_DocumentType().stream().forEach((DocumentType g) -> {
-            if (g.getDocumentList() != null) {
-                System.err.println("doc type : " + g);
-                System.err.println("|___ ");
+        for (Map.Entry<String, List<String>> entrySet : ObracunFinal.generate(fsCode, Do, Do, DS.getASC_FinalObracun_C()).entrySet()) {
+            String key = entrySet.getKey();
+            List<String> value = entrySet.getValue();
 
-                for (Document d : g.getDocumentList()) {
-                    System.err.println("       [" + d + "]");
-                }
-            }
-        });
+            System.err.println("* " + key);
+            System.err.println("   |___" + (value));
+        }
 
+        /*
+         System.err.println("test4 : map");
+        
+         for (Map.Entry<String, Double> entrySet : ObracunFinal.generate(fsCode, Do, Do).entrySet()) {
+         String key = entrySet.getKey();
+         Double value = entrySet.getValue();
+        
+         System.err.println("* " + key);
+         System.err.println("   |___" + new DecimalFormat("0.000").format(value));
+         }
+         */
     }
 }

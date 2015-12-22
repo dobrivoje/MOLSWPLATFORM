@@ -518,20 +518,21 @@ public class DBHandler_RETAIL extends DBHandler {
                         rs.getDouble(7),
                         rs.getDouble(8),
                         rs.getDouble(9),
-                        rs.getBoolean(10),
-                        rs.getString(11),
-                        rs.getDouble(12),
-                        rs.getInt(13),
+                        rs.getDouble(10),
+                        rs.getBoolean(11),
+                        rs.getString(12),
+                        rs.getDouble(13),
                         rs.getInt(14),
                         rs.getInt(15),
-                        rs.getString(16),
+                        rs.getInt(16),
                         rs.getString(17),
                         rs.getString(18),
                         rs.getString(19),
                         rs.getString(20),
                         rs.getString(21),
                         rs.getString(22),
-                        rs.getDouble(23)
+                        rs.getString(23),
+                        rs.getDouble(24)
                 );
 
                 lista.add(of);
