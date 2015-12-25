@@ -14,15 +14,22 @@ import db.retail.ent.Koef;
 import db.retail.ent.Partner;
 import db.retail.ent.ReportDetails;
 import db.retail.ent.Ugovor;
+import db.retail.ent.criteria.DateIntervalSearch;
+import db.retail.ent.criteria.OS_Search;
 import db.retail.ent.reports.KeyDist;
 import java.io.Serializable;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class DBHandler_RETAIL extends DBHandler {
 
@@ -509,30 +516,30 @@ public class DBHandler_RETAIL extends DBHandler {
 
             while (rs.next()) {
                 of = new ObracunFinal(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getDouble(6),
-                        rs.getDouble(7),
-                        rs.getDouble(8),
-                        rs.getDouble(9),
-                        rs.getDouble(10),
-                        rs.getBoolean(11),
-                        rs.getString(12),
-                        rs.getDouble(13),
-                        rs.getInt(14),
-                        rs.getInt(15),
-                        rs.getInt(16),
-                        rs.getString(17),
-                        rs.getString(18),
-                        rs.getString(19),
-                        rs.getString(20),
-                        rs.getString(21),
-                        rs.getString(22),
-                        rs.getString(23),
-                        rs.getDouble(24)
+                        rs.getInt(1),       // Integer idfs;
+                        rs.getString(2),    // String fsName;
+                        rs.getString(3),    // String fsCode;
+                        rs.getString(4),    // String reportName;
+                        rs.getString(5),    // String volType;
+                        rs.getDouble(6),    // Double prodato;
+                        rs.getDouble(7),    // Double rKoef;
+                        rs.getDouble(8),    // Double plan;
+                        rs.getDouble(9),    // Double ostvarenje;
+                        // rs.getDouble(10),   // Double ostvarenje1;
+                        rs.getBoolean(10),  // Boolean obavezan;
+                        rs.getString(11),   // String koefNaziv;
+                        rs.getDouble(12),   // Double total;
+                        rs.getInt(13),      // Integer idrd;
+                        rs.getInt(14),      // Integer rbrReport;
+                        rs.getInt(15),      // Integer rbrKoef;
+                        rs.getString(16),   // String startObracuna;
+                        rs.getString(17),   // String krajObracuna;
+                        rs.getString(18),   // String partner;
+                        rs.getString(19),   // String brUgovora;
+                        rs.getString(20),   // String bu1;
+                        rs.getString(21),   // String bu2;
+                        rs.getString(22),   // String bu3;
+                        rs.getDouble(23)    // Double fiksniIznos;
                 );
 
                 lista.add(of);
@@ -617,6 +624,30 @@ public class DBHandler_RETAIL extends DBHandler {
             }
         }
     }
+    
+    public synchronized Map<String, List<String>> get_FS_Performance(String DatumOD, String DatumDO, String FSCode) {
+        
+        Map<String, List<String>> M = new LinkedHashMap<>();
+
+        for (ObracunFinal o : get_ObracunFinal(DatumOD, DatumDO, FSCode) ) {
+            if (!M.containsKey(o.getReportName())) {
+                M.put(
+                        o.getReportName(),
+                        new LinkedList<>(Arrays.asList(o.getKoefNaziv() + ", " + new DecimalFormat("0.000").format(o.getOstvarenje())))
+                );
+            } else {
+                M.get(o.getReportName())
+                        .add(
+                                o.getKoefNaziv()
+                                + ", " + new DecimalFormat("0.000").format(o.getOstvarenje())
+                        );
+            }
+        }
+
+        return M;
+        
+    }
+    
     //</editor-fold>
 
 }

@@ -16,6 +16,7 @@ import db.retail.controllers.AS_PARTN_Controller;
 import db.retail.controllers.AS_UGOVOR_Controller;
 import db.retail.controllers.FS_Controller;
 import db.retail.controllers.FinalObracun_Controller;
+import db.retail.controllers.MD_FSPerformance_Controller;
 import db.retail.controllers.MD_Partner_Controller;
 import db.retail.controllers.MD_Ugovor_Controller;
 import db.retail.controllers.Specifikacija_Controller;
@@ -32,6 +33,7 @@ import db.retail.interfaces.IAdvancedSearchController;
 import db.retail.interfaces.ICRUDController;
 import db.retail.interfaces.IController;
 import db.retail.interfaces.IMasterDetail;
+import db.retail.interfaces.IMasterDetail2;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -69,6 +71,7 @@ public class DataService_RETAIL {
     private final IMasterDetail<FS, PUSearch> mduc = new MD_Ugovor_Controller(DBH_RETAIL);
     private final IController<Partner, PUSearch> asp = new AS_PARTN_Controller(DBH_RETAIL);
     private final IController<Ugovor, UgovorSearch> usc = new AS_UGOVOR_Controller(DBH_RETAIL);
+    private final IMasterDetail2<String, String, OS_Search> mdFSP = new MD_FSPerformance_Controller(DBH_RETAIL);
 
     /**
      * Advanced Search Controller - Obračun
@@ -166,6 +169,10 @@ public class DataService_RETAIL {
 
     public IController<Ugovor, UgovorSearch> getASC_Ugovor_C() {
         return usc;
+    }
+
+    public IMasterDetail2<String, String, OS_Search> getMD_FS_Performace_C() {
+        return mdFSP;
     }
 
 }
