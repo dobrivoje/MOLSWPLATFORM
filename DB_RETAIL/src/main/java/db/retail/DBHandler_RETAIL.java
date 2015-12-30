@@ -14,8 +14,6 @@ import db.retail.ent.Koef;
 import db.retail.ent.Partner;
 import db.retail.ent.ReportDetails;
 import db.retail.ent.Ugovor;
-import db.retail.ent.criteria.DateIntervalSearch;
-import db.retail.ent.criteria.OS_Search;
 import db.retail.ent.reports.KeyDist;
 import java.io.Serializable;
 import java.sql.CallableStatement;
@@ -516,30 +514,30 @@ public class DBHandler_RETAIL extends DBHandler {
 
             while (rs.next()) {
                 of = new ObracunFinal(
-                        rs.getInt(1),       // Integer idfs;
-                        rs.getString(2),    // String fsName;
-                        rs.getString(3),    // String fsCode;
-                        rs.getString(4),    // String reportName;
-                        rs.getString(5),    // String volType;
-                        rs.getDouble(6),    // Double prodato;
-                        rs.getDouble(7),    // Double rKoef;
-                        rs.getDouble(8),    // Double plan;
-                        rs.getDouble(9),    // Double ostvarenje;
+                        rs.getInt(1), // Integer idfs;
+                        rs.getString(2), // String fsName;
+                        rs.getString(3), // String fsCode;
+                        rs.getString(4), // String reportName;
+                        rs.getString(5), // String volType;
+                        rs.getDouble(6), // Double prodato;
+                        rs.getDouble(7), // Double rKoef;
+                        rs.getDouble(8), // Double plan;
+                        rs.getDouble(9), // Double ostvarenje;
                         // rs.getDouble(10),   // Double ostvarenje1;
-                        rs.getBoolean(10),  // Boolean obavezan;
-                        rs.getString(11),   // String koefNaziv;
-                        rs.getDouble(12),   // Double total;
-                        rs.getInt(13),      // Integer idrd;
-                        rs.getInt(14),      // Integer rbrReport;
-                        rs.getInt(15),      // Integer rbrKoef;
-                        rs.getString(16),   // String startObracuna;
-                        rs.getString(17),   // String krajObracuna;
-                        rs.getString(18),   // String partner;
-                        rs.getString(19),   // String brUgovora;
-                        rs.getString(20),   // String bu1;
-                        rs.getString(21),   // String bu2;
-                        rs.getString(22),   // String bu3;
-                        rs.getDouble(23)    // Double fiksniIznos;
+                        rs.getBoolean(10), // Boolean obavezan;
+                        rs.getString(11), // String koefNaziv;
+                        rs.getDouble(12), // Double total;
+                        rs.getInt(13), // Integer idrd;
+                        rs.getInt(14), // Integer rbrReport;
+                        rs.getInt(15), // Integer rbrKoef;
+                        rs.getString(16), // String startObracuna;
+                        rs.getString(17), // String krajObracuna;
+                        rs.getString(18), // String partner;
+                        rs.getString(19), // String brUgovora;
+                        rs.getString(20), // String bu1;
+                        rs.getString(21), // String bu2;
+                        rs.getString(22), // String bu3;
+                        rs.getDouble(23) // Double fiksniIznos;
                 );
 
                 lista.add(of);
@@ -624,12 +622,12 @@ public class DBHandler_RETAIL extends DBHandler {
             }
         }
     }
-    
-    public synchronized Map<String, List<String>> get_FS_Performance(String DatumOD, String DatumDO, String FSCode) {
-        
+
+    public Map<String, List<String>> get_FS_Performance_Detailed(String DatumOD, String DatumDO, String FSCode) {
+
         Map<String, List<String>> M = new LinkedHashMap<>();
 
-        for (ObracunFinal o : get_ObracunFinal(DatumOD, DatumDO, FSCode) ) {
+        for (ObracunFinal o : get_ObracunFinal(DatumOD, DatumDO, FSCode)) {
             if (!M.containsKey(o.getReportName())) {
                 M.put(
                         o.getReportName(),
@@ -645,9 +643,30 @@ public class DBHandler_RETAIL extends DBHandler {
         }
 
         return M;
-        
-    }
-    
-    //</editor-fold>
 
+    }
+
+    public Map<String, String> get_FS_Performance(String DatumOD, String DatumDO, String FSCode) {
+
+        Map<String, String> M = new LinkedHashMap<>();
+
+        for (ObracunFinal o : get_ObracunFinal(DatumOD, DatumDO, FSCode)) {
+            String s = (new DecimalFormat("###,###").format(o.getProdato()))
+                    .concat("/")
+                    .concat(new DecimalFormat("###,###").format(o.getPlan()))
+                    .concat(" -> ")
+                    .concat(new DecimalFormat("0.0").format(100 * o.getProdato() / o.getPlan()).concat("%"));
+
+            if (!M.containsKey(o.getReportName())) {
+                M.put(o.getReportName(), s);
+            } else {
+                M.replace(o.getReportName(), s);
+            }
+        }
+
+        return M;
+
+    }
+
+    //</editor-fold>
 }

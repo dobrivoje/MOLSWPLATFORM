@@ -7,10 +7,9 @@ import java.util.List;
  * of trees with root nodes with all sub-nodes list.
  *
  * @author Dobri
- * @param <Criteria> Criteria class
  * @param <MasterType> Master for which we generate list of details
  */
-public interface IMasterDetail<MasterType, Criteria> {
+public interface IMasterDetail<MasterType> {
 
     /**
      * Get the detail list for the master root data.

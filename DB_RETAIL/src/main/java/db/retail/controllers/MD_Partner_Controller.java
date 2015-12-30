@@ -2,7 +2,6 @@ package db.retail.controllers;
 
 import db.retail.DBHandler_RETAIL;
 import db.retail.ent.Partner;
-import db.retail.ent.criteria.PUSearch;
 import db.retail.interfaces.ICRUDController;
 import db.retail.interfaces.IMasterDetail;
 import java.util.List;
@@ -11,7 +10,7 @@ import java.util.List;
  *
  * @author Dobri
  */
-public class MD_Partner_Controller implements IMasterDetail<Partner, PUSearch>, ICRUDController<Partner> {
+public class MD_Partner_Controller implements IMasterDetail<Partner>, ICRUDController<Partner> {
 
     private static DBHandler_RETAIL dbh;
 

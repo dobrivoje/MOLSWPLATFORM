@@ -2,25 +2,32 @@ package db.retail.controllers;
 
 import db.retail.DBHandler_RETAIL;
 import db.retail.ent.criteria.OS_Search;
-import db.retail.interfaces.IMasterDetail2;
+import db.retail.interfaces.IMasterDetail;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
  * @author Dobri
  */
-public class MD_FSPerformance_Controller implements IMasterDetail2<String, String, OS_Search> {
+public class MD_FSPerformance_Controller implements IMasterDetail<String> {
 
     private static DBHandler_RETAIL dbh;
+    private OS_Search criteria;
 
-    public MD_FSPerformance_Controller(DBHandler_RETAIL dbh) {
+    public MD_FSPerformance_Controller(DBHandler_RETAIL dbh, OS_Search criteria) {
         MD_FSPerformance_Controller.dbh = dbh;
     }
 
     @Override
-    public Map<String, List<String>> getMasterDetail(OS_Search criteria) {
-        return dbh.get_FS_Performance(criteria.getDateFrom(), criteria.getDateTo(), criteria.getFsCode());
+    public List getDetails(String master) {
+        return (List) dbh.get_FS_Performance(criteria.getDateFrom(), criteria.getDateTo(), criteria.getFsCode())
+                .values();
+    }
+
+    @Override
+    public List<String> getAllDetails() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

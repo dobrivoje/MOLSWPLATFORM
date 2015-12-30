@@ -16,7 +16,7 @@ import db.retail.controllers.AS_PARTN_Controller;
 import db.retail.controllers.AS_UGOVOR_Controller;
 import db.retail.controllers.FS_Controller;
 import db.retail.controllers.FinalObracun_Controller;
-import db.retail.controllers.MD_FSPerformance_Controller;
+import db.retail.controllers.MD_FSPerformance_Detailed_Controller;
 import db.retail.controllers.MD_Partner_Controller;
 import db.retail.controllers.MD_Ugovor_Controller;
 import db.retail.controllers.Specifikacija_Controller;
@@ -67,11 +67,11 @@ public class DataService_RETAIL {
     private final IController<Mapping, MappingSearch> mc = new AS_MAPPING_Controller(DBH_RETAIL);
     private final IAdvancedSearchController<GrupniNaziv, String> gnc = new AS_GN_Controller(DBH_RETAIL);
     private final IAdvancedSearchController<Kategorija, String> kc = new AS_KATEG_Controller(DBH_RETAIL);
-    private final IMasterDetail<Partner, PUSearch> mdp = new MD_Partner_Controller(DBH_RETAIL);
-    private final IMasterDetail<FS, PUSearch> mduc = new MD_Ugovor_Controller(DBH_RETAIL);
+    private final IMasterDetail<Partner> mdp = new MD_Partner_Controller(DBH_RETAIL);
+    private final IMasterDetail<FS> mduc = new MD_Ugovor_Controller(DBH_RETAIL);
     private final IController<Partner, PUSearch> asp = new AS_PARTN_Controller(DBH_RETAIL);
     private final IController<Ugovor, UgovorSearch> usc = new AS_UGOVOR_Controller(DBH_RETAIL);
-    private final IMasterDetail2<String, String, OS_Search> mdFSP = new MD_FSPerformance_Controller(DBH_RETAIL);
+    private final IMasterDetail2<String, String, OS_Search> mdFSP = new MD_FSPerformance_Detailed_Controller(DBH_RETAIL);
 
     /**
      * Advanced Search Controller - Obračun
@@ -150,7 +150,7 @@ public class DataService_RETAIL {
      *
      * @return
      */
-    public IMasterDetail<Partner, PUSearch> getMD_Partner_C() {
+    public IMasterDetail<Partner> getMD_Partner_C() {
         return mdp;
     }
 
@@ -159,7 +159,7 @@ public class DataService_RETAIL {
      *
      * @return
      */
-    public IMasterDetail<FS, PUSearch> getMD_Ugovor_C() {
+    public IMasterDetail<FS> getMD_Ugovor_C() {
         return mduc;
     }
 

@@ -1,5 +1,6 @@
 package test;
 
+import db.retail.DBHandler_RETAIL;
 import db.retail.dataservice.DataService_RETAIL;
 import db.retail.ent.criteria.DateIntervalSearch;
 import db.retail.ent.criteria.FSSearch;
@@ -37,5 +38,14 @@ public class testCocaDB {
             System.err.println("* " + key);
             System.err.println("   |___" + (value));
         }
+
+        for (Map.Entry<String, String> entrySet : DBHandler_RETAIL.getDefault().get_FS_Performance(Od, Do, fsCode).entrySet()) {
+            String key = entrySet.getKey();
+            String value = entrySet.getValue();
+
+            System.err.println("* " + key);
+            System.err.println("   |___" + (value));
+        }
+
     }
 }
