@@ -31,7 +31,7 @@ public class testCocaDB {
         System.err.println("test3 : map");
         System.err.println("fs : " + DS.getASC_FS_C().getByID(new FSSearch(null, fsCode)));
 
-        for (Map.Entry<String, List<String>> entrySet : DS.getMD_FS_Performace_C().getMasterDetail(new OS_Search(new DateIntervalSearch(Od, Do), fsCode)).entrySet()) {
+        for (Map.Entry<String, List<String>> entrySet : DS.getMD_FS_Performace_Detailed_C().getMasterDetail(new OS_Search(new DateIntervalSearch(Od, Do), fsCode)).entrySet()) {
             String key = entrySet.getKey();
             List<String> value = entrySet.getValue();
 
@@ -42,10 +42,7 @@ public class testCocaDB {
         for (Map.Entry<String, String> entrySet : DBHandler_RETAIL.getDefault().get_FS_Performance(Od, Do, fsCode).entrySet()) {
             String key = entrySet.getKey();
             String value = entrySet.getValue();
-
-            System.err.println("* " + key);
-            System.err.println("   |___" + (value));
         }
-
+        
     }
 }

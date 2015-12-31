@@ -27,7 +27,7 @@ public class Tree_R_FSPerformance extends CustomObjectTree<FS> {
 
     @Override
     protected void createSubNodes(FS rootItem) {
-        super.createSingleRootChildNodes(rootItem, (List) DS_RETAIL.getMD_FS_Performace_C().getMasterDetail(
+        super.createSingleRootChildNodes(rootItem, (List) DS_RETAIL.getMD_FS_Performace_Detailed_C().getMasterDetail(
                 new OS_Search(new DateIntervalSearch("", ""), rootItem.getCode())
         ));
 

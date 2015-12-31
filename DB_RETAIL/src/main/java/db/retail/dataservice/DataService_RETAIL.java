@@ -16,6 +16,7 @@ import db.retail.controllers.AS_PARTN_Controller;
 import db.retail.controllers.AS_UGOVOR_Controller;
 import db.retail.controllers.FS_Controller;
 import db.retail.controllers.FinalObracun_Controller;
+import db.retail.controllers.MD_FSPerformance_Controller;
 import db.retail.controllers.MD_FSPerformance_Detailed_Controller;
 import db.retail.controllers.MD_Partner_Controller;
 import db.retail.controllers.MD_Ugovor_Controller;
@@ -66,12 +67,13 @@ public class DataService_RETAIL {
     private final ICRUDController<FS> icc = new FS_Controller(DBH_RETAIL);
     private final IController<Mapping, MappingSearch> mc = new AS_MAPPING_Controller(DBH_RETAIL);
     private final IAdvancedSearchController<GrupniNaziv, String> gnc = new AS_GN_Controller(DBH_RETAIL);
-    private final IAdvancedSearchController<Kategorija, String> kc = new AS_KATEG_Controller(DBH_RETAIL);
+    private final IAdvancedSearchController<Kategorija, Integer> kc = new AS_KATEG_Controller(DBH_RETAIL);
     private final IMasterDetail<Partner> mdp = new MD_Partner_Controller(DBH_RETAIL);
     private final IMasterDetail<FS> mduc = new MD_Ugovor_Controller(DBH_RETAIL);
     private final IController<Partner, PUSearch> asp = new AS_PARTN_Controller(DBH_RETAIL);
     private final IController<Ugovor, UgovorSearch> usc = new AS_UGOVOR_Controller(DBH_RETAIL);
     private final IMasterDetail2<String, String, OS_Search> mdFSP = new MD_FSPerformance_Detailed_Controller(DBH_RETAIL);
+    private final IMasterDetail<String> mdFSP1 = new MD_FSPerformance_Controller(DBH_RETAIL);
 
     /**
      * Advanced Search Controller - Obračun
@@ -141,7 +143,7 @@ public class DataService_RETAIL {
      *
      * @return
      */
-    public IAdvancedSearchController<Kategorija, String> getASC_KATEG_C() {
+    public IAdvancedSearchController<Kategorija, Integer> getASC_KATEG_C() {
         return kc;
     }
 
@@ -171,8 +173,12 @@ public class DataService_RETAIL {
         return usc;
     }
 
-    public IMasterDetail2<String, String, OS_Search> getMD_FS_Performace_C() {
+    public IMasterDetail2<String, String, OS_Search> getMD_FS_Performace_Detailed_C() {
         return mdFSP;
+    }
+
+    public IMasterDetail<String> getMD_FS_Performace_C() {
+        return mdFSP1;
     }
 
 }

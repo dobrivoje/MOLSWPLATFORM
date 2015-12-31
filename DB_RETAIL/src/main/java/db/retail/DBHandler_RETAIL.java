@@ -277,11 +277,11 @@ public class DBHandler_RETAIL extends DBHandler {
         }
     }
 
-    public List<Kategorija> getByName_KATEG(String naziv) {
+    public Kategorija getByID_KATEG(int id) {
         try {
-            return getEm().createNamedQuery("Kategorija.findByNaziv")
-                    .setParameter("naziv", naziv)
-                    .getResultList();
+            return (Kategorija) getEm().createNamedQuery("Kategorija.findByIdk")
+                    .setParameter("idk", id)
+                    .getSingleResult();
         } catch (Exception ex) {
             return null;
         }
