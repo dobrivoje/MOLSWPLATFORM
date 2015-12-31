@@ -1,6 +1,5 @@
 package test;
 
-import db.retail.DBHandler_RETAIL;
 import db.retail.dataservice.DataService_RETAIL;
 import db.retail.ent.criteria.DateIntervalSearch;
 import db.retail.ent.criteria.FSSearch;
@@ -31,18 +30,14 @@ public class testCocaDB {
         System.err.println("test3 : map");
         System.err.println("fs : " + DS.getASC_FS_C().getByID(new FSSearch(null, fsCode)));
 
-        for (Map.Entry<String, List<String>> entrySet : DS.getMD_FS_Performace_Detailed_C().getMasterDetail(new OS_Search(new DateIntervalSearch(Od, Do), fsCode)).entrySet()) {
+        for (Map.Entry<String, List> entrySet : DataService_RETAIL.getDefault().getMD_FS_Performace_C2().getMasterDetail(
+                new OS_Search(new DateIntervalSearch(Od, Do), fsCode)).entrySet()) {
             String key = entrySet.getKey();
-            List<String> value = entrySet.getValue();
+            Object value = entrySet.getValue();
 
-            System.err.println("* " + key);
-            System.err.println("   |___" + (value));
+            System.err.println("key: " + key);
+            System.err.println("value: " + value);
         }
 
-        for (Map.Entry<String, String> entrySet : DBHandler_RETAIL.getDefault().get_FS_Performance(Od, Do, fsCode).entrySet()) {
-            String key = entrySet.getKey();
-            String value = entrySet.getValue();
-        }
-        
     }
 }

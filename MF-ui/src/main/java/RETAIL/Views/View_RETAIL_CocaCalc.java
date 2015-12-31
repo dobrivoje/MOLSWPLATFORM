@@ -9,6 +9,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import RETAIL.Tables.Table_R_FS;
+import RETAIL.Trees.Tree_R_FSPerformance;
 import RETAIL.Trees.Tree_R_FSUgovor;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanItem;
@@ -17,7 +18,11 @@ import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.Panel;
 import db.Exceptions.CustomTreeNodesEmptyException;
 import db.retail.ent.FS;
+import db.retail.ent.criteria.DateIntervalSearch;
+import db.retail.ent.criteria.OS_Search;
+import java.util.Map;
 import mf.MyUI;
+import static mf.MyUI.DS_RETAIL;
 import org.dobrivoje.auth.roles.Roles;
 
 public class View_RETAIL_CocaCalc extends VerticalLayout implements View {
@@ -109,6 +114,8 @@ public class View_RETAIL_CocaCalc extends VerticalLayout implements View {
         propVL.removeAllComponents();
 
         if (item != null) {
+            Map<String, Object> M;
+
             HL.setSplitPosition(50, Sizeable.Unit.PERCENTAGE);
             form.setEnabled(MyUI.get().isPermitted(Roles.PERMISSION_APP_FS_USER_EDIT_OWN_WORKPLANS));
             form.setBeanItem(new BeanItem(item));
@@ -118,12 +125,27 @@ public class View_RETAIL_CocaCalc extends VerticalLayout implements View {
             } catch (CustomTreeNodesEmptyException ex) {
             }
 
-            vp.addComponents(
-                    new Panel("Performace"),
-                    new Panel("Update Form", form)
-            );
+            try {
+                vp.addComponents(
+                        new Panel("Performace",
+                                new Tree_R_FSPerformance("", DS_RETAIL.getMD_FS_Performace_C2().getMasterDetail(
+                                                new OS_Search(new DateIntervalSearch("2015-11-1", "2015-11-30"), item.getCode())
+                                        )
+                                )
+                        ),
+                        new Panel("Update Form", form)
+                );
+
+            } catch (CustomTreeNodesEmptyException | NullPointerException e) {
+            }
 
             propVL.addComponent(vp);
+
+            System.err.println("FS PERFORMANSE : "
+                    + DS_RETAIL.getMD_FS_Performace_C2().getMasterDetail(
+                            new OS_Search(new DateIntervalSearch("2015-11-1", "2015-11-30"), item.getCode())
+                    ).toString()
+            );
 
         } else {
             HL.setSplitPosition(100, Unit.PERCENTAGE);

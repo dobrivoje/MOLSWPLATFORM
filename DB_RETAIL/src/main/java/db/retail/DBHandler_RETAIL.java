@@ -646,9 +646,9 @@ public class DBHandler_RETAIL extends DBHandler {
 
     }
 
-    public Map<String, String> get_FS_Performance(String DatumOD, String DatumDO, String FSCode) {
+    public Map<String, Object> get_FS_Performance(String DatumOD, String DatumDO, String FSCode) {
 
-        Map<String, String> M = new LinkedHashMap<>();
+        Map<String, Object> M = new LinkedHashMap<>();
 
         for (ObracunFinal o : get_ObracunFinal(DatumOD, DatumDO, FSCode)) {
             String s = (new DecimalFormat("###,###").format(o.getProdato()))

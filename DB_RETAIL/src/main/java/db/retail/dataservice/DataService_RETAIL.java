@@ -16,7 +16,7 @@ import db.retail.controllers.AS_PARTN_Controller;
 import db.retail.controllers.AS_UGOVOR_Controller;
 import db.retail.controllers.FS_Controller;
 import db.retail.controllers.FinalObracun_Controller;
-import db.retail.controllers.MD_FSPerformance_Controller;
+import db.retail.controllers.MD_FSPerformance_Controller2;
 import db.retail.controllers.MD_FSPerformance_Detailed_Controller;
 import db.retail.controllers.MD_Partner_Controller;
 import db.retail.controllers.MD_Ugovor_Controller;
@@ -35,6 +35,7 @@ import db.retail.interfaces.ICRUDController;
 import db.retail.interfaces.IController;
 import db.retail.interfaces.IMasterDetail;
 import db.retail.interfaces.IMasterDetail2;
+import db.retail.interfaces.IMasterDetail4;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -73,7 +74,7 @@ public class DataService_RETAIL {
     private final IController<Partner, PUSearch> asp = new AS_PARTN_Controller(DBH_RETAIL);
     private final IController<Ugovor, UgovorSearch> usc = new AS_UGOVOR_Controller(DBH_RETAIL);
     private final IMasterDetail2<String, String, OS_Search> mdFSP = new MD_FSPerformance_Detailed_Controller(DBH_RETAIL);
-    private final IMasterDetail<String> mdFSP1 = new MD_FSPerformance_Controller(DBH_RETAIL);
+    private final IMasterDetail4<String, OS_Search> mdFSP2 = new MD_FSPerformance_Controller2(DBH_RETAIL);
 
     /**
      * Advanced Search Controller - Obračun
@@ -177,8 +178,8 @@ public class DataService_RETAIL {
         return mdFSP;
     }
 
-    public IMasterDetail<String> getMD_FS_Performace_C() {
-        return mdFSP1;
+    public IMasterDetail4<String, OS_Search> getMD_FS_Performace_C2() {
+        return mdFSP2;
     }
 
 }

@@ -52,9 +52,9 @@ public abstract class CustomObjectTree<T> extends CustomTree<T> implements IRefr
      * @throws CustomTreeNodesEmptyException
      * @throws NullPointerException
      */
-    public CustomObjectTree(String caption, Map<T, List<? extends Object>> customTree) throws CustomTreeNodesEmptyException, NullPointerException {
+    public CustomObjectTree(String caption, Map<T, List> customTree) throws CustomTreeNodesEmptyException, NullPointerException {
         super(caption);
-        init();
+        // init();
         createCustomTree(customTree);
     }
 
@@ -120,7 +120,7 @@ public abstract class CustomObjectTree<T> extends CustomTree<T> implements IRefr
         super.setNodeItems(root, rootChildListNodes);
     }
 
-    private void createCustomTree(Map<T, List<? extends Object>> customTree) {
+    private void createCustomTree(Map<T, List> customTree) {
         customTree.entrySet().stream().forEach((ES) -> {
             super.setNodeItems(ES.getKey(), ES.getValue());
         });
