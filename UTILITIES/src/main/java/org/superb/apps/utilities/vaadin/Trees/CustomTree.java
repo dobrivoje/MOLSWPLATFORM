@@ -49,6 +49,10 @@ public class CustomTree<T> extends Tree {
         setCaption(caption);
         elements = new ArrayList();
 
+        if (items.size() > 0) {
+            items.removeAllItems();
+        }
+
         winFormHeight = WINDOW_HEIGHT_DEFAULT_NORM;
         winFormWidth = WINDOW_WIDTH_DEFAULT_NORM;
 
@@ -69,6 +73,10 @@ public class CustomTree<T> extends Tree {
      * @throws db.Exceptions.CustomTreeNodesEmptyException
      */
     public CustomTree(String caption, List rootItems) throws CustomTreeNodesEmptyException, NullPointerException {
+        createRoots(caption, rootItems);
+    }
+
+    protected final void createRoots(String caption, List rootItems) throws UnsupportedOperationException, CustomTreeNodesEmptyException, NullPointerException {
         if (rootItems == null) {
             throw new NullPointerException();
         }
@@ -98,15 +106,15 @@ public class CustomTree<T> extends Tree {
             throw new NullPointerException();
         }
 
-        if (container.size() > 0) {
-            init(caption);
-
-            setContainerDataSource(container);
-            elements.clear();
-            elements.addAll(container.getItemIds());
-        } else {
+        if (container.size() <= 0) {
             throw new CustomTreeNodesEmptyException();
         }
+
+        init(caption);
+        setContainerDataSource(container);
+
+        elements.clear();
+        elements.addAll(container.getItemIds());
     }
 
     /**
@@ -114,8 +122,9 @@ public class CustomTree<T> extends Tree {
      *
      * @param rootNode root node.
      * @param rootNodeChildItemsList List of the sub nodes for the root node.
+     * @param expandRootNodes
      */
-    protected void setNodeItems(Object rootNode, List rootNodeChildItemsList) {
+    protected void setNodeItems(Object rootNode, List rootNodeChildItemsList, boolean expandRootNodes) {
         for (Object childItem : rootNodeChildItemsList) {
             if (this.containsId(rootNode)) {
                 addItem(childItem);
@@ -123,5 +132,14 @@ public class CustomTree<T> extends Tree {
                 setChildrenAllowed(childItem, false);
             }
         }
+
+        if (expandRootNodes) {
+            expandItem(rootNode);
+        }
     }
+
+    protected void setNodeItems(Object rootNode, List rootNodeChildItemsList) {
+        this.setNodeItems(false, rootNodeChildItemsList, readOnly);
+    }
+
 }

@@ -1,6 +1,7 @@
 package org.superb.apps.utilities.vaadin.Trees;
 
 import db.Exceptions.CustomTreeNodesEmptyException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -26,7 +27,12 @@ public abstract class CustomObjectTree<T> extends CustomTree<T> implements IRefr
 
     public CustomObjectTree(String caption, List rootNodes) throws CustomTreeNodesEmptyException, NullPointerException {
         super(caption, rootNodes);
-        init();
+        recreateAllSubNodes();
+    }
+
+    public CustomObjectTree(List rootNodes) throws CustomTreeNodesEmptyException, NullPointerException {
+        super("", rootNodes);
+        recreateAllSubNodes();
     }
 
     /**
@@ -74,15 +80,15 @@ public abstract class CustomObjectTree<T> extends CustomTree<T> implements IRefr
         this.dateFrom = dateFrom;
         this.dateTo = dateTo;
 
-        init();
+        recreateAllSubNodes();
     }
 
-    //<editor-fold defaultstate="collapsed" desc="init">
-    private void init() {
+    //<editor-fold defaultstate="collapsed" desc="Recreate All Sub Nodes">
+    protected final void recreateAllSubNodes() {
         /*
-         if (super.getItemIds() != null || !super.getItemIds().isEmpty()) {
-         super.getItemIds().stream().forEach((e) -> {
-         createSubNodes((T) e);
+         if (!items.getContainerPropertyIds().isEmpty()) {
+         items.getContainerPropertyIds().stream().forEach((rootNode) -> {
+         createSubNodes((T) rootNode);
          });
          }
          */
@@ -92,7 +98,6 @@ public abstract class CustomObjectTree<T> extends CustomTree<T> implements IRefr
                 createSubNodes((T) e);
             });
         }
-
     }
     //</editor-fold>
 
@@ -108,16 +113,21 @@ public abstract class CustomObjectTree<T> extends CustomTree<T> implements IRefr
     protected abstract void createSubNodes(T t);
     //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc="createSingleRootChildNodes">
+    //<editor-fold defaultstate="collapsed" desc="createChildNodesForTheRoot">
     /**
      * Create this tree with <b>single</b> type T root node,<br>
      * with it's sub-nodes list "subList".
      *
      * @param root root node.
      * @param rootChildListNodes root's nodes sub-list.
+     * @param expandRootNodes expand root nodes ?
      */
-    protected void createSingleRootChildNodes(T root, List rootChildListNodes) {
-        super.setNodeItems(root, rootChildListNodes);
+    protected void createChildNodesForTheRoot(T root, List rootChildListNodes, boolean expandRootNodes) {
+        super.setNodeItems(root, rootChildListNodes, expandRootNodes);
+    }
+
+    protected void createChildNodesForTheRoot(T root, List rootChildListNodes) {
+        this.createChildNodesForTheRoot(root, rootChildListNodes, false);
     }
 
     private void createCustomTree(Map<T, List> customTree) {
@@ -130,7 +140,7 @@ public abstract class CustomObjectTree<T> extends CustomTree<T> implements IRefr
     //<editor-fold defaultstate="collapsed" desc="refreshVisualContainer">
     @Override
     public void refreshVisualContainer() {
-        init();
+        recreateAllSubNodes();
     }
     //</editor-fold>
 
