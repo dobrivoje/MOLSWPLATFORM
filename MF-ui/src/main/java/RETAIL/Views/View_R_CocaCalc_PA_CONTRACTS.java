@@ -18,7 +18,7 @@ import db.retail.ent.Ugovor;
 import mf.MyUI;
 import org.dobrivoje.auth.roles.Roles;
 
-public class View_RETAIL_CocaCalc_PA_Contracts extends VerticalLayout implements View {
+public class View_R_CocaCalc_PA_CONTRACTS extends VerticalLayout implements View {
 
     private final VerticalLayout VL = new VerticalLayout();
     private final VerticalLayout propVL = new VerticalLayout();
@@ -30,7 +30,7 @@ public class View_RETAIL_CocaCalc_PA_Contracts extends VerticalLayout implements
 
     private Button newBtn;
 
-    public View_RETAIL_CocaCalc_PA_Contracts() {
+    public View_R_CocaCalc_PA_CONTRACTS() {
         //<editor-fold defaultstate="collapsed" desc="UI setup">
         setSizeFull();
         addStyleName("crud-view");

@@ -17,7 +17,7 @@ import db.retail.ent.Mapping;
 import mf.MyUI;
 import org.dobrivoje.auth.roles.Roles;
 
-public class View_RETAIL_CocaCalc_DM_MAPPING extends VerticalLayout implements View {
+public class View_R_CocaCalc_DM_MAPPING extends VerticalLayout implements View {
 
     private final VerticalLayout VL = new VerticalLayout();
     private final VerticalLayout propVL = new VerticalLayout();
@@ -26,7 +26,7 @@ public class View_RETAIL_CocaCalc_DM_MAPPING extends VerticalLayout implements V
     private final Table_R_MAPPING table = new Table_R_MAPPING();
     private final Form_R_Mapping form;
 
-    public View_RETAIL_CocaCalc_DM_MAPPING() {
+    public View_R_CocaCalc_DM_MAPPING() {
         //<editor-fold defaultstate="collapsed" desc="UI setup">
         setSizeFull();
         addStyleName("crud-view");

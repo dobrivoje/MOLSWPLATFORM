@@ -1,38 +1,37 @@
 package org.vaadin.highcharts;
 
 import com.vaadin.ui.Component;
-import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import org.dobrivoje.utils.colors.PleasingColorGenerator;
+import org.dobrivoje.utils.colors.AppealingColorGenerator;
+import org.dobrivoje.utils.colors.IColorGenerator;
 
 public class HighChartGen extends AbstractHighChart {
 
     public HighChartGen() {
     }
 
-    public Component generateHighChart(ChartType chartType, String title, Map<Object, List<Object>> series, List<Object> categories) {
+    public Component generateHighChart(ChartType chartType, String title, Map<Object, List> series, List<Object> xAxisValues) {
         HighChart hc = new HighChart();
+
+        List<IColorGenerator> colorFactory = new ArrayList<>();
+
+        // prvo želimo crvenu linuju kao marker za npr. target
+        colorFactory.add((IColorGenerator) () -> {
+            return Arrays.asList(255, 0, 0, 0.7f);
+        });
+        // zatim preostalih series.size()-1 serija...
+        for (int i = 1; i < series.size(); i++) {
+            colorFactory.add(new AppealingColorGenerator());
+        }
 
         String out = generateHeader(title)
                 + chartType.toString()
-                + generateChartCategories(categories)
+                + generateChartCategories(xAxisValues)
                 + generateSeriesBegin()
-                + generateSeries(series)
-                + generateSeriesEnd();
-
-        hc.setHcjs(out);
-        return hc;
-    }
-
-    public Component generatePleasingHighChart(ChartType chartType, String title, Map<Object, List<Object>> series, List<Object> categories) {
-        HighChart hc = new HighChart();
-
-        String out = generateHeader(title)
-                + chartType.toString()
-                + generateChartCategories(categories)
-                + generateSeriesBegin()
-                + generateSeriesWithPleasingColors(series)
+                + generateSeries(series, colorFactory)
                 + generateSeriesEnd();
 
         hc.setHcjs(out);
@@ -40,28 +39,18 @@ public class HighChartGen extends AbstractHighChart {
     }
 
     //<editor-fold defaultstate="collapsed" desc="highchart generating methods">
-    private String generateSeries(Map<Object, List<Object>> series) {
+    private String generateSeries(Map<Object, List> series, List<IColorGenerator> colorFactory) {
         String s = new String();
 
-        for (Map.Entry<Object, List<Object>> es : series.entrySet()) {
+        int ind = 0;
+        for (Map.Entry<Object, List> es : series.entrySet()) {
             Object key = es.getKey();
             List<Object> value = es.getValue();
 
-            s += " { name: '" + key + "', data: " + value + "} , ";
-        }
-        return s;
-    }
+            List c = colorFactory.get(ind++).generateRGBColor();
 
-    private String generateSeriesWithPleasingColors(Map<Object, List<Object>> series) {
-        String s = new String();
-        String pleasingColor;
-
-        for (Map.Entry<Object, List<Object>> es : series.entrySet()) {
-            Object key = es.getKey();
-            List<Object> values = es.getValue();
-            pleasingColor = PleasingColorGenerator.generateRandomColor(Color.RED);
-
-            s += " { name: '" + key + "', data: " + values + "} , color: '" + pleasingColor + "', ";
+            s += " { color: 'rgba(" + c.get(0) + "," + c.get(1) + "," + c.get(2) + "," + c.get(3) + ")', ";
+            s += " name: '" + key + "', data: " + value + "} , ";
         }
         return s;
     }
@@ -75,13 +64,13 @@ public class HighChartGen extends AbstractHighChart {
         return "series: [ ";
     }
 
-    private String generateChartCategories(List<Object> categories) {
-        if (categories == null) {
+    private String generateChartCategories(List<Object> xAxisValues) {
+        if (xAxisValues == null) {
             return "";
         } else {
             String s = new String();
 
-            s = categories.stream().map((k) -> " ' " + k + " ', ").reduce(s, String::concat);
+            s = xAxisValues.stream().map((k) -> " ' " + k + " ', ").reduce(s, String::concat);
 
             s = s.substring(0, s.length() - 2);
 

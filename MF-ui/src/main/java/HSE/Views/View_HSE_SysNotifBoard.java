@@ -6,11 +6,14 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
+import db.retail.ent.FS;
+import db.retail.ent.criteria.NameIDLogicSearch;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import static mf.MyUI.DS_RETAIL;
 import org.superb.apps.utilities.vaadin.Views.View_Dashboard;
 import org.vaadin.highcharts.HighChartGen;
 import org.vaadin.highcharts.ChartType;
@@ -22,14 +25,22 @@ public class View_HSE_SysNotifBoard extends View_Dashboard {
         super("HSE Notifications Board");
 
         createTopBar();
+
+        List reportNames = DS_RETAIL.getAS_ReportDetails_C().get(new NameIDLogicSearch(null, true, -1));
+        
+        List<FS> fs = DS_RETAIL.getASC_FS_C().getAll(false).subList(0, 4);
+        List<String> fsNames = new ArrayList();
+        fs.stream().forEach((f) -> {
+            fsNames.add(f.getNaziv());
+        });
+
         buildContentWithComponents(
-                createReport(ChartType.LINE, "Report", "Preševo", "Horgoš 1", "Požega"),
-                createReport(ChartType.SPLINE, "Report", "Preševo", "Horgoš 1", "Požega"),
-                createReport(ChartType.BAR, "Report", "Preševo", "Horgoš 1", "Požega"),
-                createReport(ChartType.SPLINE, "Report", "Preševo", "Horgoš 1", "Požega"),
-                createReport(ChartType.PIE_GRADIENT, "Report", "Preševo", "Horgoš 1", "Požega"),
-                createReport(ChartType.AREA, "Report", "Preševo", "Horgoš 1", "Požega"),
-                createReport(ChartType.AREA_SPLINE, "Report", "Preševo", "Horgoš 1", "Požega")
+                createReport(ChartType.STACKED_BAR, "Report", reportNames, fsNames),
+                createReport(ChartType.SPLINE, "Report", reportNames, fsNames),
+                createReport(ChartType.BAR, "Fuel Consumption", reportNames, Arrays.asList("Premium", "EVO")),
+                createReport(ChartType.AREA_SPLINE, "Report", reportNames, fsNames),
+                createReport(ChartType.DONUT_3D, "Report", reportNames, fsNames),
+                createReport(ChartType.AREA, "Report", reportNames, fsNames)
         );
     }
 
@@ -49,30 +60,29 @@ public class View_HSE_SysNotifBoard extends View_Dashboard {
     }
     //</editor-fold>
 
-    private Map<Object, List<Object>> initData(List<Object> categories) {
-        Map<Object, List<Object>> M = new HashMap<>();
+    private Map<Object, List> createYAxisValues(List xAxisValues, List categories) {
+        Map<Object, List> M = new HashMap<>();
 
-        List<Object> tmpRandomList;
+        List categoryValues;
 
-        for (Object G : Arrays.asList("BMB95", "BMB95 EVO", "ED", "EVOD", "LPG")) {
-            tmpRandomList = new ArrayList<>();
+        for (Object category : categories) {
+            categoryValues = new ArrayList<>();
 
-            for (int j = 0; j < categories.size(); j++) {
-                tmpRandomList.add((float) (10 + 17000 * Math.random()));
+            for (Object xV : xAxisValues) {
+                categoryValues.add((float) (10 + 17000 * Math.random()));
             }
-            M.put(G, tmpRandomList);
+            M.put(category, categoryValues);
         }
 
         return M;
     }
 
-    private Component createReport(ChartType chartType, String title, Object... procurators) {
-        List<Object> k = Arrays.asList(procurators);
+    private Component createReport(ChartType chartType, String title, List categories, List xAxisValues) {
         Component c1 = new HighChartGen().generateHighChart(
                 chartType,
                 title,
-                initData(k),
-                k
+                createYAxisValues(xAxisValues, categories),
+                xAxisValues
         );
 
         subPanels.add(new Panel(title, c1));

@@ -31,8 +31,24 @@ public enum ChartType {
     ),
     //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc="STACKED_BAR">
+    //<editor-fold defaultstate="collapsed" desc="STACKED BAR">
     STACKED_BAR(
+            " chart: { "
+            + "  type: 'bar' "
+            + "}, "
+            + " plotOptions: { "
+            + "            series: { "
+            + "                stacking: 'normal' "
+            + "            } "
+            + "        }, "
+            + "        credits: { "
+            + "            enabled: false "
+            + "        },"
+    ),
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="STACKED_COLUMN">
+    STACKED_COLUMN(
             " chart: { "
             + "         type: 'column' "
             + "  }, "
@@ -225,6 +241,27 @@ public enum ChartType {
             + "        credits: { "
             + "            enabled: false "
             + "        },"
+    ),
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="PIE_GRADIENT">
+    DONUT_3D(
+            " chart: { "
+            + "            type: 'pie', "
+            + "            options3d: { "
+            + "                enabled: true, "
+            + "                alpha: 55 "
+            + "            } "
+            + "        }, "
+            + "  plotOptions: { "
+            + "            pie: { "
+            + "                innerSize: 100, "
+            + "                depth: 45 "
+            + "            } "
+            + "  }, "
+            + "  credits: { "
+            + "     enabled: false "
+            + "  },"
     );
     //</editor-fold>
 

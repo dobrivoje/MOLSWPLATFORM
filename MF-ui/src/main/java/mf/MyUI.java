@@ -1,6 +1,6 @@
 package mf;
 
-import RETAIL.Views.View_RETAIL;
+import RETAIL.Views.View_R;
 import Uni.Views.LoginScreen;
 import Uni.Views.MainScreen;
 import com.vaadin.annotations.PreserveOnRefresh;
@@ -44,7 +44,7 @@ public class MyUI extends UI {
 
     protected void showMainView() {
         setContent(new MainScreen(MyUI.this));
-        getNavigator().navigateTo(View_RETAIL.class.getSimpleName());
+        getNavigator().navigateTo(View_R.class.getSimpleName());
     }
 
     public static MyUI get() {

@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import org.superb.apps.utilities.vaadin.Views.View_Dashboard;
 
-public class View_RETAIL extends View_Dashboard {
+public class View_R extends View_Dashboard {
 
-    public View_RETAIL() {
+    public View_R() {
         super(RETAIL_COCACALC.toString());
         createCocaCalcOptions();
     }

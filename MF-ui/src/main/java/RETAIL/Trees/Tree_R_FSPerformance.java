@@ -1,8 +1,10 @@
 package RETAIL.Trees;
 
 import db.Exceptions.CustomTreeNodesEmptyException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import static mf.MyUI.DS_RETAIL;
 import org.superb.apps.utilities.vaadin.Trees.CustomObjectTree;
 
 /**
@@ -11,13 +13,13 @@ import org.superb.apps.utilities.vaadin.Trees.CustomObjectTree;
  */
 public class Tree_R_FSPerformance extends CustomObjectTree<String> {
 
-    public Tree_R_FSPerformance(String caption, Map<String, List> tree) throws CustomTreeNodesEmptyException, NullPointerException {
-        super(caption, tree);
+    public Tree_R_FSPerformance(Map<String, List> customTree) throws CustomTreeNodesEmptyException, NullPointerException {
+        super(new ArrayList(customTree.keySet()));
     }
-    
-    // pozivanjem konstruktora sa mapom, donji metod NIJE POTREBAN !
+
     @Override
     protected void createSubNodes(String rootNode) {
+        createChildNodesForTheRoot(rootNode, DS_RETAIL.getMD_FS_Performace_C().getDetails(rootNode), true);
     }
 
 }

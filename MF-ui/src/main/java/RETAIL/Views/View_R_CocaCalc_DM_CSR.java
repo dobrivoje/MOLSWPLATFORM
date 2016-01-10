@@ -10,14 +10,14 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.HorizontalSplitPanel;
 
-public class View_RETAIL_CocaCalc_DM_CSR extends VerticalLayout implements View {
+public class View_R_CocaCalc_DM_CSR extends VerticalLayout implements View {
 
     private final VerticalLayout VL = new VerticalLayout();
 
     private final HorizontalSplitPanel HL = new HorizontalSplitPanel();
     private final Table_R_CSR table = new Table_R_CSR();
 
-    public View_RETAIL_CocaCalc_DM_CSR() {
+    public View_R_CocaCalc_DM_CSR() {
         //<editor-fold defaultstate="collapsed" desc="UI setup">
         setSizeFull();
         addStyleName("crud-view");

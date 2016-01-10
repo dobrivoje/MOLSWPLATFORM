@@ -20,7 +20,7 @@ import db.retail.ent.Partner;
 import mf.MyUI;
 import org.dobrivoje.auth.roles.Roles;
 
-public class View_RETAIL_CocaCalc_PARTNERS extends VerticalLayout implements View {
+public class View_R_CocaCalc_PARTNERS extends VerticalLayout implements View {
 
     private final VerticalLayout VL = new VerticalLayout();
     private final VerticalLayout propVL = new VerticalLayout();
@@ -31,7 +31,7 @@ public class View_RETAIL_CocaCalc_PARTNERS extends VerticalLayout implements Vie
 
     VerticalLayout vp = new VerticalLayout();
 
-    public View_RETAIL_CocaCalc_PARTNERS() {
+    public View_R_CocaCalc_PARTNERS() {
         //<editor-fold defaultstate="collapsed" desc="UI setup">
         setSizeFull();
         addStyleName("crud-view");
@@ -113,7 +113,7 @@ public class View_RETAIL_CocaCalc_PARTNERS extends VerticalLayout implements Vie
             form.setBeanItem(new BeanItem(item));
 
             try {
-                vp.addComponent(new Panel("Contracts", new Tree_R_PartnerUgovor("", item)));
+                vp.addComponent(new Panel("Contracts", new Tree_R_PartnerUgovor(item)));
             } catch (CustomTreeNodesEmptyException ex) {
             }
 

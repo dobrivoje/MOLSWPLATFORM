@@ -37,13 +37,13 @@ import static MainMenu.MenuDefinitions.RETAIL_COCACALC_PARTNERS_CONTRACTS;
 import static MainMenu.MenuDefinitions.RETAIL_SYS_NOTIF_BOARD;
 import HSE.Views.View_HSE_SysNotifBoard;
 import HSE.Views.View_HSE_WorkPlan;
-import RETAIL.Views.View_RETAIL;
-import RETAIL.Views.View_RETAIL_CocaCalc;
-import RETAIL.Views.View_RETAIL_CocaCalc_DM_CSR;
-import RETAIL.Views.View_RETAIL_CocaCalc_DM_MAPPING;
-import RETAIL.Views.View_RETAIL_CocaCalc_PARTNERS;
-import RETAIL.Views.View_RETAIL_CocaCalc_PA_Contracts;
-import RETAIL.Views.View_RETAIL_SysNotifBoard;
+import RETAIL.Views.View_R;
+import RETAIL.Views.View_R_CocaCalc;
+import RETAIL.Views.View_R_CocaCalc_DM_CSR;
+import RETAIL.Views.View_R_CocaCalc_DM_MAPPING;
+import RETAIL.Views.View_R_CocaCalc_PARTNERS;
+import RETAIL.Views.View_R_CocaCalc_PA_CONTRACTS;
+import RETAIL.Views.View_R_SysNotifBoard;
 
 /**
  * Responsive navigation menu presenting a list of available views to the user.
@@ -70,7 +70,7 @@ public class MainMenu extends CssLayout {
         top.setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
         top.addStyleName(ValoTheme.MENU_TITLE);
         top.setSpacing(true);
-        Label title = new Label("Company Sectors");
+        Label title = new Label("Sectors Software Modules");
         title.addStyleName(ValoTheme.LABEL_H3);
         title.setSizeUndefined();
         //Image image = new Image(null, new ThemeResource("img/table-logo.png"));
@@ -205,30 +205,30 @@ public class MainMenu extends CssLayout {
 
                 case MOL_SECTOR_RETAIL:
                 case RETAIL_SYS_NOTIF_BOARD:
-                    navigator.navigateTo(View_RETAIL_SysNotifBoard.class.getSimpleName());
+                    navigator.navigateTo(View_R_SysNotifBoard.class.getSimpleName());
                     break;
 
                 case RETAIL_COCACALC:
-                    navigator.navigateTo(View_RETAIL.class.getSimpleName());
+                    navigator.navigateTo(View_R.class.getSimpleName());
                     break;
 
                 case RETAIL_COCACALC_PARTNERS_FS:
-                    navigator.navigateTo(View_RETAIL_CocaCalc.class.getSimpleName());
+                    navigator.navigateTo(View_R_CocaCalc.class.getSimpleName());
                     break;
 
                 case RETAIL_COCACALC_DATA_MAINTENENCE_CSR:
-                    navigator.navigateTo(View_RETAIL_CocaCalc_DM_CSR.class.getSimpleName());
+                    navigator.navigateTo(View_R_CocaCalc_DM_CSR.class.getSimpleName());
                     break;
 
                 case RETAIL_COCACALC_DATA_MAINTENENCE_MAPPING:
-                    navigator.navigateTo(View_RETAIL_CocaCalc_DM_MAPPING.class.getSimpleName());
+                    navigator.navigateTo(View_R_CocaCalc_DM_MAPPING.class.getSimpleName());
                     break;
                 case RETAIL_COCACALC_PARTNERS_CONTRACTS:
-                    navigator.navigateTo(View_RETAIL_CocaCalc_PA_Contracts.class.getSimpleName());
+                    navigator.navigateTo(View_R_CocaCalc_PA_CONTRACTS.class.getSimpleName());
                     break;
 
                 case RETAIL_COCACALC_PARTNERS:
-                    navigator.navigateTo(View_RETAIL_CocaCalc_PARTNERS.class.getSimpleName());
+                    navigator.navigateTo(View_R_CocaCalc_PARTNERS.class.getSimpleName());
                     break;
             }
         });

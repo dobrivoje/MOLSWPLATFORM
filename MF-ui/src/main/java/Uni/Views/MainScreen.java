@@ -8,13 +8,13 @@ import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
 import HSE.Views.View_HSE_WorkPlan;
 import MainMenu.MainMenu;
-import RETAIL.Views.View_RETAIL;
-import RETAIL.Views.View_RETAIL_CocaCalc;
-import RETAIL.Views.View_RETAIL_CocaCalc_DM_CSR;
-import RETAIL.Views.View_RETAIL_CocaCalc_DM_MAPPING;
-import RETAIL.Views.View_RETAIL_CocaCalc_PARTNERS;
-import RETAIL.Views.View_RETAIL_CocaCalc_PA_Contracts;
-import RETAIL.Views.View_RETAIL_SysNotifBoard;
+import RETAIL.Views.View_R;
+import RETAIL.Views.View_R_CocaCalc;
+import RETAIL.Views.View_R_CocaCalc_DM_CSR;
+import RETAIL.Views.View_R_CocaCalc_DM_MAPPING;
+import RETAIL.Views.View_R_CocaCalc_PARTNERS;
+import RETAIL.Views.View_R_CocaCalc_PA_CONTRACTS;
+import RETAIL.Views.View_R_SysNotifBoard;
 import mf.MyUI;
 
 /**
@@ -44,13 +44,13 @@ public class MainScreen extends HorizontalLayout {
         navigator.addView(EmptyView.class.getSimpleName(), EmptyView.class);
         navigator.addView(View_HSE_WorkPlan.class.getSimpleName(), View_HSE_WorkPlan.class);
         navigator.addView(View_HSE_SysNotifBoard.class.getSimpleName(), View_HSE_SysNotifBoard.class);
-        navigator.addView(View_RETAIL_SysNotifBoard.class.getSimpleName(), View_RETAIL_SysNotifBoard.class);
-        navigator.addView(View_RETAIL.class.getSimpleName(), View_RETAIL.class);
-        navigator.addView(View_RETAIL_CocaCalc.class.getSimpleName(), View_RETAIL_CocaCalc.class);
-        navigator.addView(View_RETAIL_CocaCalc_DM_CSR.class.getSimpleName(), View_RETAIL_CocaCalc_DM_CSR.class);
-        navigator.addView(View_RETAIL_CocaCalc_DM_MAPPING.class.getSimpleName(), View_RETAIL_CocaCalc_DM_MAPPING.class);
-        navigator.addView(View_RETAIL_CocaCalc_PA_Contracts.class.getSimpleName(), View_RETAIL_CocaCalc_PA_Contracts.class);
-        navigator.addView(View_RETAIL_CocaCalc_PARTNERS.class.getSimpleName(), View_RETAIL_CocaCalc_PARTNERS.class);
+        navigator.addView(View_R_SysNotifBoard.class.getSimpleName(), View_R_SysNotifBoard.class);
+        navigator.addView(View_R.class.getSimpleName(), View_R.class);
+        navigator.addView(View_R_CocaCalc.class.getSimpleName(), View_R_CocaCalc.class);
+        navigator.addView(View_R_CocaCalc_DM_CSR.class.getSimpleName(), View_R_CocaCalc_DM_CSR.class);
+        navigator.addView(View_R_CocaCalc_DM_MAPPING.class.getSimpleName(), View_R_CocaCalc_DM_MAPPING.class);
+        navigator.addView(View_R_CocaCalc_PA_CONTRACTS.class.getSimpleName(), View_R_CocaCalc_PA_CONTRACTS.class);
+        navigator.addView(View_R_CocaCalc_PARTNERS.class.getSimpleName(), View_R_CocaCalc_PARTNERS.class);
 
         navigator.addViewChangeListener(viewChangeListener);
 
