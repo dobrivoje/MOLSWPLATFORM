@@ -31,6 +31,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ReportDetails.findAll", query = "SELECT r FROM ReportDetails r"),
+
+    @NamedQuery(name = "ReportDetails.ActiveReportDetails", query = "SELECT r FROM ReportDetails r WHERE r.aktivno = :aktivno"),
+
     @NamedQuery(name = "ReportDetails.findByIdrd", query = "SELECT r FROM ReportDetails r WHERE r.idrd = :idrd"),
     @NamedQuery(name = "ReportDetails.findByNaziv", query = "SELECT r FROM ReportDetails r WHERE r.naziv = :naziv"),
     @NamedQuery(name = "ReportDetails.findByRBr", query = "SELECT r FROM ReportDetails r WHERE r.rBr = :rBr"),
@@ -148,7 +151,11 @@ public class ReportDetails implements Serializable {
 
     @Override
     public String toString() {
-        return "db.retail.ReportDetails[ idrd=" + idrd + " ]";
+        try {
+            return getNaziv();
+        } catch (Exception e) {
+            return "";
+        }
     }
 
 }

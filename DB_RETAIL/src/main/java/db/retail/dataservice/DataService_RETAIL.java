@@ -13,11 +13,12 @@ import db.retail.controllers.AS_GN_Controller;
 import db.retail.controllers.AS_KATEG_Controller;
 import db.retail.controllers.AS_MAPPING_Controller;
 import db.retail.controllers.AS_PARTN_Controller;
+import db.retail.controllers.AS_REPDETAILS_Controller;
 import db.retail.controllers.AS_UGOVOR_Controller;
 import db.retail.controllers.FS_Controller;
 import db.retail.controllers.FinalObracun_Controller;
-import db.retail.controllers.MD_FSPerformance_Controller2;
-import db.retail.controllers.MD_FSPerformance_Detailed_Controller;
+import db.retail.controllers.MD_FSPerformanceTotal_Controller;
+import db.retail.controllers.MD_FSPerformanceDetailed_Controller;
 import db.retail.controllers.MD_Partner_Controller;
 import db.retail.controllers.MD_Ugovor_Controller;
 import db.retail.controllers.Specifikacija_Controller;
@@ -27,15 +28,17 @@ import db.retail.ent.GrupniNaziv;
 import db.retail.ent.Kategorija;
 import db.retail.ent.Mapping;
 import db.retail.ent.Partner;
+import db.retail.ent.ReportDetails;
 import db.retail.ent.Ugovor;
+import db.retail.ent.criteria.DateIntervalSearch;
+import db.retail.ent.criteria.NameIDLogicSearch;
 import db.retail.ent.criteria.PUSearch;
 import db.retail.ent.criteria.UgovorSearch;
 import db.retail.interfaces.IAdvancedSearchController;
 import db.retail.interfaces.ICRUDController;
 import db.retail.interfaces.IController;
+import db.retail.interfaces.IMDSearch;
 import db.retail.interfaces.IMasterDetail;
-import db.retail.interfaces.IMasterDetail2;
-import db.retail.interfaces.IMasterDetail4;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -73,8 +76,9 @@ public class DataService_RETAIL {
     private final IMasterDetail<FS> mduc = new MD_Ugovor_Controller(DBH_RETAIL);
     private final IController<Partner, PUSearch> asp = new AS_PARTN_Controller(DBH_RETAIL);
     private final IController<Ugovor, UgovorSearch> usc = new AS_UGOVOR_Controller(DBH_RETAIL);
-    private final IMasterDetail2<String, String, OS_Search> mdFSP = new MD_FSPerformance_Detailed_Controller(DBH_RETAIL);
-    private final IMasterDetail4<String, OS_Search> mdFSP2 = new MD_FSPerformance_Controller2(DBH_RETAIL);
+    private final IMDSearch<String, OS_Search> mds1 = new MD_FSPerformanceTotal_Controller(DBH_RETAIL);
+    private final IAdvancedSearchController<ReportDetails, NameIDLogicSearch> rd = new AS_REPDETAILS_Controller(DBH_RETAIL);
+    private final IMDSearch<ReportDetails, OS_Search> fspdtc = new MD_FSPerformanceDetailed_Controller(DBH_RETAIL);
 
     /**
      * Advanced Search Controller - Obračun
@@ -174,12 +178,39 @@ public class DataService_RETAIL {
         return usc;
     }
 
-    public IMasterDetail2<String, String, OS_Search> getMD_FS_Performace_Detailed_C() {
-        return mdFSP;
+    public IMDSearch<String, OS_Search> getMD_FS_Performace_C() {
+        return mds1;
     }
 
-    public IMasterDetail4<String, OS_Search> getMD_FS_Performace_C2() {
-        return mdFSP2;
+    public IMDSearch<String, OS_Search> getMD_FS_Performace_C(String from, String to, String fsCode) {
+        mds1.setCriteria(new OS_Search(new DateIntervalSearch(from, to), fsCode));
+
+        return mds1;
     }
 
+    public IMDSearch<String, OS_Search> getMD_FS_Performace_C(OS_Search criteria) {
+        mds1.setCriteria(criteria);
+
+        return mds1;
+    }
+
+    public IMDSearch<ReportDetails, OS_Search> getMD_FSPerformanceDetailed_C() {
+        return fspdtc;
+    }
+
+    public IMDSearch<ReportDetails, OS_Search> getMD_FSPerformanceDetailed_C(String from, String to, String fsCode) {
+        fspdtc.setCriteria(new OS_Search(new DateIntervalSearch(from, to), fsCode));
+
+        return fspdtc;
+    }
+
+    public IMDSearch<ReportDetails, OS_Search> getMD_FSPerformanceDetailed_C(OS_Search criteria) {
+        fspdtc.setCriteria(criteria);
+
+        return fspdtc;
+    }
+
+    public IAdvancedSearchController<ReportDetails, NameIDLogicSearch> getAS_ReportDetails_C() {
+        return rd;
+    }
 }

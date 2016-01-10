@@ -15,6 +15,8 @@ import db.retail.ent.Partner;
 import db.retail.ent.ReportDetails;
 import db.retail.ent.Ugovor;
 import db.retail.ent.reports.KeyDist;
+import db.retail.ent.reports.ObracunFinalTotal;
+import db.retail.ent.reports.Obracun_FS_PerfDetaljno;
 import java.io.Serializable;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -22,10 +24,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -281,6 +281,41 @@ public class DBHandler_RETAIL extends DBHandler {
         try {
             return (Kategorija) getEm().createNamedQuery("Kategorija.findByIdk")
                     .setParameter("idk", id)
+                    .getSingleResult();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+    //</editor-fold>
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="REPORT DETAILS">
+    //<editor-fold defaultstate="collapsed" desc="Read Data">
+    public List<ReportDetails> getAll_REPDETAILS() {
+        try {
+            return (List<ReportDetails>) getEm()
+                    .createNamedQuery("ReportDetails.findAll")
+                    .getResultList();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    public List<ReportDetails> getAll_REPDETAILS_ByActive(boolean active) {
+        try {
+            return (List<ReportDetails>) getEm()
+                    .createNamedQuery("ReportDetails.ActiveReportDetails")
+                    .setParameter("aktivno", active)
+                    .getResultList();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    public ReportDetails getByID_REPDETAILS(int id) {
+        try {
+            return (ReportDetails) getEm().createNamedQuery("ReportDetails.findByIdrd")
+                    .setParameter("idrd", id)
                     .getSingleResult();
         } catch (Exception ex) {
             return null;
@@ -564,6 +599,119 @@ public class DBHandler_RETAIL extends DBHandler {
         }
     }
 
+    public synchronized List<ObracunFinalTotal> get_ObracunFinal_Total(String DatumOD, String DatumDO, String FSCode) {
+        ObracunFinalTotal of;
+        List<ObracunFinalTotal> lista = new ArrayList<>();
+
+        try {
+            if (!em.getTransaction().isActive()) {
+                em.getTransaction().begin();
+            }
+
+            Connection c = em.unwrap(java.sql.Connection.class);
+
+            CallableStatement cs = c.prepareCall("{call [COCA].[dbo].[sp_OBRACUN_FINAL_TOTAL] (?1, ?2, ?3)} ");
+            cs.setString(1, DatumOD);
+            cs.setString(2, DatumDO);
+            cs.setString(3, FSCode);
+
+            ResultSet rs = cs.executeQuery();
+
+            while (rs.next()) {
+                of = new ObracunFinalTotal(
+                        rs.getInt(1),       // Integer idfs;
+                        rs.getString(2),    // String fsName;
+                        rs.getString(3),    // String fsCode;
+                        rs.getString(4),    // String reportName;
+                        rs.getInt(5),       // Int rbrReport;
+                        rs.getDouble(6),    // Double prodato;
+                        rs.getDouble(7),    // Double plan;
+                        rs.getDouble(8)     // Double ostvarenje;
+                );
+
+                lista.add(of);
+
+                of = null;
+            }
+
+            em.getTransaction().commit();
+
+            return lista;
+
+        } catch (SQLException e1) {
+            em.getTransaction().rollback();
+            return null;
+        } catch (Exception e2) {
+            em.getTransaction().rollback();
+            return null;
+        } finally {
+            try {
+                getEm().flush();
+                getEm().close();
+            } catch (Exception ex) {
+            }
+        }
+    }
+
+    public synchronized List<Obracun_FS_PerfDetaljno> get_FS_Performance_Detailjno(String DatumOD, String DatumDO, String FSCode) {
+        Obracun_FS_PerfDetaljno of;
+        List<Obracun_FS_PerfDetaljno> lista = new ArrayList<>();
+
+        try {
+            if (!em.getTransaction().isActive()) {
+                em.getTransaction().begin();
+            }
+
+            Connection c = em.unwrap(java.sql.Connection.class);
+
+            CallableStatement cs = c.prepareCall("{call [COCA].[dbo].[sp_FS_PERF_Detaljno] (?1, ?2, ?3)} ");
+            cs.setString(1, DatumOD);
+            cs.setString(2, DatumDO);
+            cs.setString(3, FSCode);
+
+            ResultSet rs = cs.executeQuery();
+
+            while (rs.next()) {
+                of = new Obracun_FS_PerfDetaljno(
+                        rs.getInt(1), // Integer idfs;
+                        rs.getString(2), // String fsName;
+                        rs.getString(3), // String fsCode;
+                        rs.getString(4), // String reportName;
+                        rs.getInt(5), // Int rbrReport;
+                        rs.getString(6), // String volType;
+                        rs.getInt(7), // int idRd;
+                        rs.getDouble(8), // double sumQty;
+                        rs.getDouble(9), // double plan;
+                        rs.getDouble(10), // double ostvarenje;
+                        rs.getInt(11), // int dan;
+                        rs.getInt(12), // int mesec;
+                        rs.getInt(13) // int godina;
+                );
+
+                lista.add(of);
+
+                of = null;
+            }
+
+            em.getTransaction().commit();
+
+            return lista;
+
+        } catch (SQLException e1) {
+            em.getTransaction().rollback();
+            return null;
+        } catch (Exception e2) {
+            em.getTransaction().rollback();
+            return null;
+        } finally {
+            try {
+                getEm().flush();
+                getEm().close();
+            } catch (Exception ex) {
+            }
+        }
+    }
+
     public synchronized List<Specifikacija> get_Specifikacija(String DatumOD, String DatumDO, String FSCode) {
         Specifikacija of;
         List<Specifikacija> lista = new ArrayList<>();
@@ -623,34 +771,11 @@ public class DBHandler_RETAIL extends DBHandler {
         }
     }
 
-    public Map<String, List<String>> get_FS_Performance_Detailed(String DatumOD, String DatumDO, String FSCode) {
-
-        Map<String, List<String>> M = new LinkedHashMap<>();
-
-        for (ObracunFinal o : get_ObracunFinal(DatumOD, DatumDO, FSCode)) {
-            if (!M.containsKey(o.getReportName())) {
-                M.put(
-                        o.getReportName(),
-                        new LinkedList<>(Arrays.asList(o.getKoefNaziv() + ", " + new DecimalFormat("0.000").format(o.getOstvarenje())))
-                );
-            } else {
-                M.get(o.getReportName())
-                        .add(
-                                o.getKoefNaziv()
-                                + ", " + new DecimalFormat("0.000").format(o.getOstvarenje())
-                        );
-            }
-        }
-
-        return M;
-
-    }
-
-    public Map<String, Object> get_FS_Performance(String DatumOD, String DatumDO, String FSCode) {
+    public Map<String, Object> get_FS_Performance_Total(String DatumOD, String DatumDO, String FSCode) {
 
         Map<String, Object> M = new LinkedHashMap<>();
 
-        for (ObracunFinal o : get_ObracunFinal(DatumOD, DatumDO, FSCode)) {
+        for (ObracunFinalTotal o : get_ObracunFinal_Total(DatumOD, DatumDO, FSCode)) {
             String s = (new DecimalFormat("###,###").format(o.getProdato()))
                     .concat("/")
                     .concat(new DecimalFormat("###,###").format(o.getPlan()))
@@ -667,6 +792,5 @@ public class DBHandler_RETAIL extends DBHandler {
         return M;
 
     }
-
     //</editor-fold>
 }

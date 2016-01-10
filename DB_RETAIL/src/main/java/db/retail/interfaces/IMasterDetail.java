@@ -17,13 +17,13 @@ public interface IMasterDetail<MasterType> {
      * @param master
      * @return List
      */
-    public List getDetails(MasterType master);
+    List getDetails(MasterType master);
 
     /**
      * For all master nodes, create all their lists of details.
      *
      * @return
      */
-    public List<MasterType> getAllDetails();
+    List<MasterType> getAllDetails();
 
 }

@@ -10,6 +10,9 @@ public class OS_Search {
         this.fsCode = fsCode;
     }
 
+    public OS_Search() {
+    }
+
     public DateIntervalSearch getDis() {
         return dis;
     }
