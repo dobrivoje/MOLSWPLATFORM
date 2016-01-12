@@ -7,12 +7,20 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import db.retail.ent.FS;
+import db.retail.ent.ReportDetails;
+import db.retail.ent.criteria.DateIntervalSearch;
+import db.retail.ent.criteria.FSSearch;
 import db.retail.ent.criteria.NameIDLogicSearch;
+import db.retail.ent.criteria.OS_Search;
+import db.retail.ent.reports.Obracun_FS_PerfDetaljno;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import static mf.MyUI.DS_RETAIL;
 import org.superb.apps.utilities.vaadin.Views.View_Dashboard;
 import org.vaadin.highcharts.HighChartGen;
@@ -27,20 +35,17 @@ public class View_HSE_SysNotifBoard extends View_Dashboard {
         createTopBar();
 
         List reportNames = DS_RETAIL.getAS_ReportDetails_C().get(new NameIDLogicSearch(null, true, -1));
-        
-        List<FS> fs = DS_RETAIL.getASC_FS_C().getAll(false).subList(0, 4);
-        List<String> fsNames = new ArrayList();
-        fs.stream().forEach((f) -> {
-            fsNames.add(f.getNaziv());
-        });
+        List<String> fsNames = DS_RETAIL.getASC_FS_C().getAll(false).subList(0, 4)
+                .stream().map(FS::getNaziv).collect(Collectors.toList());
+
+        OS_Search criteria = new OS_Search(new DateIntervalSearch("2015-11-1", "2015-11-30"), "90431");
 
         buildContentWithComponents(
+                createReport_FSDailyPerformance(ChartType.AREA, "FS Daily Performances", criteria),
                 createReport(ChartType.STACKED_BAR, "Report", reportNames, fsNames),
                 createReport(ChartType.SPLINE, "Report", reportNames, fsNames),
                 createReport(ChartType.BAR, "Fuel Consumption", reportNames, Arrays.asList("Premium", "EVO")),
-                createReport(ChartType.AREA_SPLINE, "Report", reportNames, fsNames),
-                createReport(ChartType.DONUT_3D, "Report", reportNames, fsNames),
-                createReport(ChartType.AREA, "Report", reportNames, fsNames)
+                createReport(ChartType.AREA_SPLINE, "Report", reportNames, fsNames)
         );
     }
 
@@ -77,15 +82,67 @@ public class View_HSE_SysNotifBoard extends View_Dashboard {
         return M;
     }
 
+    private Map<Object, List> createYAxisValues2(Map<ReportDetails, List> MM) {
+        Map<Object, List> M = new HashMap<>();
+
+        for (Map.Entry<ReportDetails, List> E : MM.entrySet()) {
+            ReportDetails category = E.getKey();
+            List<Obracun_FS_PerfDetaljno> categoryValues = E.getValue();
+
+            M.put(category, categoryValues.stream().map(Obracun_FS_PerfDetaljno::getOstvarenje).collect(Collectors.toList()));
+        }
+
+        return M;
+    }
+
     private Component createReport(ChartType chartType, String title, List categories, List xAxisValues) {
         Component c1 = new HighChartGen().generateHighChart(
                 chartType,
                 title,
-                createYAxisValues(xAxisValues, categories),
-                xAxisValues
+                xAxisValues,
+                createYAxisValues(xAxisValues, categories)
         );
 
         subPanels.add(new Panel(title, c1));
+
+        VerticalLayout VL = new VerticalLayout();
+        VL.setSizeUndefined();
+        VL.setMargin(true);
+        VL.setSpacing(true);
+
+        for (Component c : subPanels) {
+            VL.addComponents(c);
+        }
+
+        return VL;
+    }
+
+    private Component createReport_FSDailyPerformance(ChartType chartType, String title, OS_Search criteria) {
+        Map<ReportDetails, List> data = DS_RETAIL.getMD_FSPerformanceDetailed_C(criteria.getDateFrom(), criteria.getDateTo(), criteria.getFsCode()).getTree();
+
+        List categories = data.keySet().stream().collect(Collectors.toList());
+
+        List xAxisValues = ((List<Obracun_FS_PerfDetaljno>) data.get((ReportDetails) categories.get(0)))
+                .stream().map(Obracun_FS_PerfDetaljno::getDan).collect(Collectors.toList());
+
+        Component c1 = new HighChartGen().generateHighChart(
+                chartType,
+                title,
+                xAxisValues,
+                createYAxisValues2(data)
+        );
+
+        subPanels.add(
+                new Panel(
+                        DS_RETAIL.getASC_FS_C().getByID(new FSSearch("", criteria.getFsCode())).toString()
+                        .concat(" from : ")
+                        .concat(criteria.getDateFrom())
+                        .concat(" - ")
+                        .concat(criteria.getDateTo()
+                        ),
+                        c1
+                )
+        );
 
         VerticalLayout VL = new VerticalLayout();
         VL.setSizeUndefined();

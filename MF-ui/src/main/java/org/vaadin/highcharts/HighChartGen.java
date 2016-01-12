@@ -13,7 +13,28 @@ public class HighChartGen extends AbstractHighChart {
     public HighChartGen() {
     }
 
-    public Component generateHighChart(ChartType chartType, String title, Map<Object, List> series, List<Object> xAxisValues) {
+    /**
+     *
+     * @param chartType Chart type
+     * @param title Title for the chart to be displayed
+     * @param series Set for the series of data to be shown
+     * @param xAxisValues
+     * @return Vaadin component to be typically embedded into layout component.
+     */
+    public Component generateHighChart(ChartType chartType, String title, List<Object> xAxisValues, Map<Object, List> series) {
+        return generateHighChart(chartType, title, xAxisValues, series, new AppealingColorGenerator());
+    }
+
+    /**
+     *
+     * @param chartType Chart type
+     * @param title Title for the chart to be displayed
+     * @param series Set for the series of data to be shown
+     * @param xAxisValues 
+     * @param colorGenerator
+     * @return Vaadin component to be typically embedded into layout component.
+     */
+    public Component generateHighChart(ChartType chartType, String title, List<Object> xAxisValues, Map<Object, List> series, IColorGenerator colorGenerator) {
         HighChart hc = new HighChart();
 
         List<IColorGenerator> colorFactory = new ArrayList<>();
@@ -35,6 +56,7 @@ public class HighChartGen extends AbstractHighChart {
                 + generateSeriesEnd();
 
         hc.setHcjs(out);
+
         return hc;
     }
 

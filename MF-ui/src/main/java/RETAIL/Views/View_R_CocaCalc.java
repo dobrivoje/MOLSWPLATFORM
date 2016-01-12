@@ -24,7 +24,6 @@ import db.retail.ent.criteria.DateIntervalSearch;
 import db.retail.ent.criteria.OS_Search;
 import java.util.Date;
 import mf.MyUI;
-import static mf.MyUI.DS_RETAIL;
 import static mf.MyUI.SYSTEM_DATE_FORMAT;
 import org.dobrivoje.auth.roles.Roles;
 import org.superb.apps.utilities.datum.Dates;
@@ -107,7 +106,7 @@ public class View_R_CocaCalc extends VerticalLayout implements View {
         //tree_R_FSPerformance.update(ossEvent);
 
         try {
-            tree_R_FSPerformance = new Tree_R_FSPerformance(DS_RETAIL.getMD_FS_Performace_C(ossevent).getTree());
+            tree_R_FSPerformance = new Tree_R_FSPerformance(ossevent);
         } catch (CustomTreeNodesEmptyException | NullPointerException ex) {
         }
 
@@ -175,7 +174,7 @@ public class View_R_CocaCalc extends VerticalLayout implements View {
 
             //<editor-fold defaultstate="collapsed" desc="Create Panels With Trees">
             try {
-                tree_R_FSPerformance = new Tree_R_FSPerformance(DS_RETAIL.getMD_FS_Performace_C(ossEvent).getTree());
+                tree_R_FSPerformance = new Tree_R_FSPerformance(ossEvent);
 
                 vp.addComponent(lastPerformacePanel = new Panel("Performace", (Tree_R_FSPerformance) tree_R_FSPerformance));
 
@@ -187,7 +186,7 @@ public class View_R_CocaCalc extends VerticalLayout implements View {
             } catch (CustomTreeNodesEmptyException ex) {
             }
 
-            vp.addComponents(new Panel("Update Form", form));
+            // vp.addComponents(new Panel("Update Form", form));
             //</editor-fold> 
 
             propVL.addComponent(vp);

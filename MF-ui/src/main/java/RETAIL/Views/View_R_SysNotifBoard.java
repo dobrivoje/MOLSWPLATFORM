@@ -1,15 +1,19 @@
 package RETAIL.Views;
 
+import com.google.gwt.thirdparty.guava.common.collect.Lists;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
+import db.retail.ent.FS;
 import db.retail.ent.ReportDetails;
 import db.retail.ent.criteria.DateIntervalSearch;
+import db.retail.ent.criteria.FSSearch;
 import db.retail.ent.criteria.NameIDLogicSearch;
 import db.retail.ent.criteria.OS_Search;
+import db.retail.ent.reports.Obracun_FS_PerfDetaljno;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -29,31 +33,18 @@ public class View_R_SysNotifBoard extends View_Dashboard {
     public View_R_SysNotifBoard() {
         super("Retail Dashboard");
 
-        List<Object> L = new ArrayList<>();
-        int K = 1000;
-        for (int i = 0; i < K; i++) {
-            L.add(i);
-        }
+        List reportNames = DS_RETAIL.getAS_ReportDetails_C().get(new NameIDLogicSearch(null, true, -1));
+        List<String> fsNames = DS_RETAIL.getASC_FS_C().getAll(false).subList(0, 4)
+                .stream().map(FS::getNaziv).collect(Collectors.toList());
 
-        List reportsList = DS_RETAIL.getAS_ReportDetails_C().get(new NameIDLogicSearch("", true, -1));
-        // List cats = Arrays.asList("Радица", "Violeta", "Живка", "Стамена", "Nikolina");
-        /*
-         List cats = DS_RETAIL.getASC_FS_C().get(
-         new FSSearch(null, null, null, true)
-         ).subList(0, 3);
-         */
-        List cats = DS_RETAIL.getASC_FS_C().getAll(false)
-                .stream().filter(p -> p.getCocaModel().equals(true)).collect(Collectors.toList())
-                .subList(0, 4);
+        OS_Search criteria = new OS_Search(new DateIntervalSearch("2015-11-1", "2015-11-30"), "90431");
 
         buildContentWithComponents(
-                //createReportFSPerformaceDetailed(ChartType.SPLINE, "FS Performace During Time", reportsList, "2015-11-1", "2015-11-30", "90431"),
-                createReport(ChartType.BAR, "t1", Arrays.asList("Stanko", "Dobri", "Nenad"), cats),
-                createReport(ChartType.BAR, "t2", reportsList, cats),
-                createReport(ChartType.AREA, "t3", Arrays.asList("Stanko", "Dobri", "Nenad"), cats),
-                createReport(ChartType.AREA_RANGE, "xxx", Arrays.asList("Stanko", "Dobri", "Nenad", "Stanko", "Dobri", "Nenad"), cats),
-                createZoomableReport(ChartType.LINE_TIMESERIES_ZUMABLE, "", L),
-                createReport(ChartType.STACKED_COLUMN, "AJTI", Arrays.asList("Иштван", "Арпад", "Добривоје"), cats)
+                createReport_FSDailyPerformance(ChartType.AREA, "FS Daily Performances", criteria),
+                createReport(ChartType.STACKED_BAR, "Report", reportNames, fsNames),
+                createReport(ChartType.SPLINE, "Report", reportNames, fsNames),
+                createReport(ChartType.BAR, "Fuel Consumption", reportNames, Arrays.asList("Premium", "EVO")),
+                createReport(ChartType.AREA_SPLINE, "Report", reportNames, fsNames)
         );
     }
 
@@ -73,114 +64,87 @@ public class View_R_SysNotifBoard extends View_Dashboard {
     }
     //</editor-fold>
 
-    private Map<Object, List> generateData(List xAxisValues, List categories) {
+    private Map<Object, List> createYAxisValues(List xAxisValues, List categories) {
         Map<Object, List> M = new HashMap<>();
 
-        List tmpRandomList;
+        List categoryValues;
 
-        for (Object G : categories) {
-            tmpRandomList = new ArrayList<>();
+        for (Object category : categories) {
+            categoryValues = new ArrayList<>();
 
             for (Object xV : xAxisValues) {
-                tmpRandomList.add((1 + (int) (3 * Math.random())));
+                categoryValues.add((float) (10 + 17000 * Math.random()));
             }
-
-            M.put(G, tmpRandomList);
+            M.put(category, categoryValues);
         }
 
         return M;
     }
 
-    private Component createReport(ChartType chartType, String title, List xAxisValues, List categories) {
-        Component c1 = new HighChartGen().generateHighChart(
-                chartType,
-                title,
-                generateData(xAxisValues, categories),
-                xAxisValues
-        );
-
-        subPanels.add(new Panel(title, c1));
-
-        VerticalLayout VL = new VerticalLayout();
-        VL.setSizeUndefined();
-        VL.setMargin(true);
-        VL.setSpacing(true);
-
-        for (Component c : subPanels) {
-            VL.addComponents(c);
-        }
-
-        return VL;
-    }
-
-    private Component createReportFSPerformaceDetailed(ChartType chartType, String title, String from, String to, String fsCode) {
-        Map<ReportDetails, List> M = DS_RETAIL.getMD_FSPerformanceDetailed_C(
-                new OS_Search(new DateIntervalSearch(from, to), fsCode)
-        ).getTree();
-
-        List<ReportDetails> categories = Arrays.asList(DS_RETAIL.getAS_ReportDetails_C().getAll(false).get(0));
-        List xAxisValues = M.get(0);
-
-        for (Map.Entry<ReportDetails, List> E : M.entrySet()
-                .stream()
-                .filter((Map.Entry<ReportDetails, List> p) -> p.getKey().getIdrd().equals(1))
-                .collect(Collectors.toList())) {
-            Object cat = E.getKey();
-            List values = E.getValue();
-        }
-
-        Component c1 = new HighChartGen().generateHighChart(
-                chartType,
-                title,
-                generateData(xAxisValues, categories),
-                xAxisValues
-        );
-
-        subPanels.add(new Panel(title, c1));
-
-        VerticalLayout VL = new VerticalLayout();
-        VL.setSizeUndefined();
-        VL.setMargin(true);
-        VL.setSpacing(true);
-
-        for (Component c : subPanels) {
-            VL.addComponents(c);
-        }
-
-        return VL;
-    }
-
-    private Map<Object, List> initZoomableData(List<Object> categories) {
+    private Map<Object, List> createYAxisValues2(Map<ReportDetails, List> MM) {
         Map<Object, List> M = new HashMap<>();
 
-        List<Object> tmpRandomList;
-        int K = 1000;
+        for (Map.Entry<ReportDetails, List> E : MM.entrySet()) {
+            ReportDetails category = E.getKey();
+            List<Obracun_FS_PerfDetaljno> categoryValues = E.getValue();
 
-        for (Object G : Arrays.asList("BMB95", "BMB EVO", "LPG", "DSL", "DSL EVO")) {
-            tmpRandomList = new ArrayList<>();
-
-            for (int j = 0; j < categories.size(); j++) {
-                double D = (10000 * (j * sin(2 * (1000 - j) * PI) * exp((5 * j) / (j + 1) / K)) * Math.random());
-                tmpRandomList.add(D);
-            }
-
-            M.put(G, tmpRandomList);
+            M.put(category, categoryValues.stream().map(Obracun_FS_PerfDetaljno::getOstvarenje).collect(Collectors.toList()));
         }
 
         return M;
     }
 
-    private Component createZoomableReport(ChartType chartType, String title, List data) {
+    private Component createReport(ChartType chartType, String title, List categories, List xAxisValues) {
         Component c1 = new HighChartGen().generateHighChart(
                 chartType,
                 title,
-                initZoomableData(data),
-                data
+                xAxisValues,
+                createYAxisValues(xAxisValues, categories)
         );
 
         subPanels.add(new Panel(title, c1));
 
         VerticalLayout VL = new VerticalLayout();
+        VL.setSizeUndefined();
+        VL.setMargin(true);
+        VL.setSpacing(true);
+
+        for (Component c : subPanels) {
+            VL.addComponents(c);
+        }
+
+        return VL;
+    }
+
+    private Component createReport_FSDailyPerformance(ChartType chartType, String title, OS_Search criteria) {
+        Map<ReportDetails, List> data = DS_RETAIL.getMD_FSPerformanceDetailed_C(criteria.getDateFrom(), criteria.getDateTo(), criteria.getFsCode()).getTree();
+
+        List categories = data.keySet().stream().collect(Collectors.toList());
+
+        List xAxisValues = ((List<Obracun_FS_PerfDetaljno>) data.get((ReportDetails) categories.get(0)))
+                .stream().map(Obracun_FS_PerfDetaljno::getDan).collect(Collectors.toList());
+
+        Component c1 = new HighChartGen().generateHighChart(
+                chartType,
+                title,
+                xAxisValues,
+                createYAxisValues2(data)
+        );
+
+        subPanels.add(
+                new Panel(
+                        DS_RETAIL.getASC_FS_C().getByID(new FSSearch("", criteria.getFsCode())).toString()
+                        .concat(" from : ")
+                        .concat(criteria.getDateFrom())
+                        .concat(" - ")
+                        .concat(criteria.getDateTo()
+                        ),
+                        c1
+                )
+        );
+
+        VerticalLayout VL = new VerticalLayout();
+        VL.setSizeUndefined();
         VL.setMargin(true);
         VL.setSpacing(true);
 

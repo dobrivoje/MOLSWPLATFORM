@@ -60,16 +60,16 @@ public class MyWindow extends Window {
         setContent(layout);
     }
 
-    public MyWindow(Layout layout, String caption, float height, float width) {
+    public MyWindow(String caption, Layout layout, float height, float width) {
         this(layout);
         setCaption(caption);
 
         if (height != 0) {
-            setHeight(height, Unit.PIXELS);
+            setHeight(height, Unit.PERCENTAGE);
         }
 
         if (width != 0) {
-            setHeight(width, Unit.PIXELS);
+            setHeight(width, Unit.PERCENTAGE);
         }
     }
 
