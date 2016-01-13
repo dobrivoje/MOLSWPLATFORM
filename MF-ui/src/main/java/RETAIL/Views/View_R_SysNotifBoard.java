@@ -1,6 +1,5 @@
 package RETAIL.Views;
 
-import com.google.gwt.thirdparty.guava.common.collect.Lists;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Component;
@@ -21,9 +20,6 @@ import java.util.List;
 import java.util.Map;
 import org.vaadin.highcharts.HighChartGen;
 import org.vaadin.highcharts.ChartType;
-import static java.lang.Math.sin;
-import static java.lang.Math.PI;
-import static java.lang.Math.exp;
 import java.util.stream.Collectors;
 import static mf.MyUI.DS_RETAIL;
 import org.superb.apps.utilities.vaadin.Views.View_Dashboard;

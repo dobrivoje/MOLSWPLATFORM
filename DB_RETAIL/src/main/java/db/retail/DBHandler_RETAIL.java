@@ -619,14 +619,15 @@ public class DBHandler_RETAIL extends DBHandler {
 
             while (rs.next()) {
                 of = new ObracunFinalTotal(
-                        rs.getInt(1),       // Integer idfs;
-                        rs.getString(2),    // String fsName;
-                        rs.getString(3),    // String fsCode;
-                        rs.getString(4),    // String reportName;
-                        rs.getInt(5),       // Int rbrReport;
-                        rs.getDouble(6),    // Double prodato;
-                        rs.getDouble(7),    // Double plan;
-                        rs.getDouble(8)     // Double ostvarenje;
+                        rs.getInt(1), // Integer idfs;
+                        rs.getString(2), // String fsName;
+                        rs.getString(3), // String fsCode;
+                        rs.getString(4), // String reportName;
+                        rs.getInt(5), // Int rbrReport;
+                        rs.getDouble(6), // Double prodato;
+                        rs.getDouble(7), // Double plan;
+                        rs.getDouble(8), // Double ostvarenje;
+                        rs.getInt(9) // Int IDRd;
                 );
 
                 lista.add(of);
@@ -792,5 +793,28 @@ public class DBHandler_RETAIL extends DBHandler {
         return M;
 
     }
+
+    public Map<ReportDetails, Object> get_FS_Performance_Total2(String DatumOD, String DatumDO, String FSCode) {
+
+        Map<ReportDetails, Object> M = new LinkedHashMap<>();
+
+        for (ObracunFinalTotal o : get_ObracunFinal_Total(DatumOD, DatumDO, FSCode)) {
+            String s = (new DecimalFormat("###,###").format(o.getProdato()))
+                    .concat("/")
+                    .concat(new DecimalFormat("###,###").format(o.getPlan()))
+                    .concat(" -> ")
+                    .concat(new DecimalFormat("0.0").format(100 * o.getProdato() / o.getPlan()).concat("%"));
+
+            if (!M.containsKey(getByID_REPDETAILS(o.getIdrd()))) {
+                M.put(getByID_REPDETAILS(o.getIdrd()), s);
+            } else {
+                M.replace(getByID_REPDETAILS(o.getIdrd()), s);
+            }
+        }
+
+        return M;
+
+    }
+
     //</editor-fold>
 }

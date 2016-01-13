@@ -122,7 +122,7 @@ public class Form_R_UGOVOR extends Form_CRUD2<Ugovor> {
 
         try {
             item.setFiksniIznos(Double.parseDouble(fiksniIznos.getValue()));
-        } catch (NumberFormatException nfe) {
+        } catch (Exception nfe) {
         }
     }
 

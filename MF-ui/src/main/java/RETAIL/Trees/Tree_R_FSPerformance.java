@@ -12,7 +12,9 @@ import db.retail.ent.criteria.FSSearch;
 import db.retail.ent.criteria.OS_Search;
 import db.retail.ent.reports.Obracun_FS_PerfDetaljno;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -26,48 +28,73 @@ import org.vaadin.highcharts.HighChartGen;
  *
  * @author Dobri
  */
-public class Tree_R_FSPerformance extends CustomObjectTree<String> {
+public class Tree_R_FSPerformance extends CustomObjectTree<ReportDetails> {
 
     public Tree_R_FSPerformance(OS_Search ossevent) throws CustomTreeNodesEmptyException, NullPointerException {
-        super(new ArrayList(DS_RETAIL.getMD_FS_Performace_C(ossevent).getTree().keySet()));
+        super(new ArrayList(DS_RETAIL.getMD_FS_Performace_C2(ossevent).getTree().keySet()));
 
+        //<editor-fold defaultstate="collapsed" desc="addItemClickListener">
         addItemClickListener((ItemClickEvent event) -> {
+            OS_Search criteria = new OS_Search(new DateIntervalSearch(ossevent.getDateFrom(), ossevent.getDateTo()), ossevent.getFsCode());
+            FS f = DS_RETAIL.getASC_FS_C().getByID(new FSSearch("", ossevent.getFsCode()));
+
+            VerticalLayout VL;
+            List<ReportDetails> rd = null;
+
             if (event.isDoubleClick()) {
-                OS_Search criteria = new OS_Search(new DateIntervalSearch(ossevent.getDateFrom(), ossevent.getDateTo()), ossevent.getFsCode());
+                if (event.getItemId() instanceof ReportDetails) {
+                    if (event.isCtrlKey()) {
+                        rd = DS_RETAIL.getMD_FSPerformanceDetailed_C(criteria.getDateFrom(), criteria.getDateTo(), criteria.getFsCode()).getTree()
+                                .keySet().stream().collect(Collectors.toList());
+                    } else {
+                        rd = Arrays.asList((ReportDetails) event.getItemId());
+                    }
+                }
+            }
 
-                FS f = DS_RETAIL.getASC_FS_C().getByID(new FSSearch("", ossevent.getFsCode()));
-
-                VerticalLayout VL = new VerticalLayout(createReport_FSDailyPerformance(
-                        ChartType.AREA_SPLINE,
-                        f.getNaziv() + ", " + f.getCode() + ", " + ossevent.getDateFrom() + " - " + ossevent.getDateTo(),
-                        criteria)
+            if (rd != null) {
+                VL = new VerticalLayout(
+                        createReport_FSDailyPerformance(
+                                ChartType.AREA_SPLINE,
+                                f.getNaziv() + ", " + f.getCode() + ", " + ossevent.getDateFrom() + " - " + ossevent.getDateTo(),
+                                criteria,
+                                rd
+                        )
                 );
+
                 VL.setSizeFull();
                 VL.setMargin(true);
-
                 UI.getCurrent().addWindow(new MyWindow("FS Daily Performace", VL, 60, 80));
             }
-        });
-
+        }
+        );
+        //</editor-fold>
     }
 
     @Override
-    protected void createSubNodes(String rootNode) {
-        createChildNodesForTheRoot(rootNode, DS_RETAIL.getMD_FS_Performace_C().getDetails(rootNode), true);
+    protected void createSubNodes(ReportDetails rootNode) {
+        createChildNodesForTheRoot(rootNode, DS_RETAIL.getMD_FS_Performace_C2().getDetails(rootNode), true);
     }
 
-    private Component createReport_FSDailyPerformance(ChartType chartType, String title, OS_Search criteria) {
+    //<editor-fold defaultstate="collapsed" desc="report methods">
+    private Component createReport_FSDailyPerformance(ChartType chartType, String title, OS_Search criteria, List<ReportDetails> categories) {
         Map<ReportDetails, List> data = DS_RETAIL.getMD_FSPerformanceDetailed_C(criteria.getDateFrom(), criteria.getDateTo(), criteria.getFsCode()).getTree();
+        Map<ReportDetails, List> d = new LinkedHashMap<>();
 
-        List categories = data.keySet().stream().collect(Collectors.toList());
-        List xAxisValues = ((List<Obracun_FS_PerfDetaljno>) data.get((ReportDetails) categories.get(0)))
+        List xAxisValues = ((List<Obracun_FS_PerfDetaljno>) data.get(categories.get(0)))
                 .stream().map(Obracun_FS_PerfDetaljno::getDan).collect(Collectors.toList());
+
+        for (ReportDetails cc : categories) {
+            if (data.containsKey(cc)) {
+                d.put(cc, data.get(cc));
+            }
+        }
 
         return new HighChartGen().generateHighChart(
                 chartType,
                 title,
                 xAxisValues,
-                createYAxisValues2(data)
+                createYAxisValues2(d)
         );
     }
 
@@ -83,5 +110,5 @@ public class Tree_R_FSPerformance extends CustomObjectTree<String> {
 
         return M;
     }
-
+    //</editor-fold>
 }

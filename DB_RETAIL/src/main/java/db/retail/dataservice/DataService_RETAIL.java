@@ -19,6 +19,7 @@ import db.retail.controllers.FS_Controller;
 import db.retail.controllers.FinalObracun_Controller;
 import db.retail.controllers.MD_FSPerformanceTotal_Controller;
 import db.retail.controllers.MD_FSPerformanceDetailed_Controller;
+import db.retail.controllers.MD_FSPerformanceTotal_Controller2;
 import db.retail.controllers.MD_Partner_Controller;
 import db.retail.controllers.MD_Ugovor_Controller;
 import db.retail.controllers.Specifikacija_Controller;
@@ -77,6 +78,7 @@ public class DataService_RETAIL {
     private final IController<Partner, PUSearch> asp = new AS_PARTN_Controller(DBH_RETAIL);
     private final IController<Ugovor, UgovorSearch> usc = new AS_UGOVOR_Controller(DBH_RETAIL);
     private final IMDSearch<String, OS_Search> mds1 = new MD_FSPerformanceTotal_Controller(DBH_RETAIL);
+    private final IMDSearch<ReportDetails, OS_Search> mds2 = new MD_FSPerformanceTotal_Controller2(DBH_RETAIL);
     private final IAdvancedSearchController<ReportDetails, NameIDLogicSearch> rd = new AS_REPDETAILS_Controller(DBH_RETAIL);
     private final IMDSearch<ReportDetails, OS_Search> fspdtc = new MD_FSPerformanceDetailed_Controller(DBH_RETAIL);
 
@@ -182,16 +184,32 @@ public class DataService_RETAIL {
         return mds1;
     }
 
+    public IMDSearch<ReportDetails, OS_Search> getMD_FS_Performace_C2() {
+        return mds2;
+    }
+
     public IMDSearch<String, OS_Search> getMD_FS_Performace_C(String from, String to, String fsCode) {
         mds1.setCriteria(new OS_Search(new DateIntervalSearch(from, to), fsCode));
 
         return mds1;
     }
 
+    public IMDSearch<ReportDetails, OS_Search> getMD_FS_Performace_C2(String from, String to, String fsCode) {
+        mds2.setCriteria(new OS_Search(new DateIntervalSearch(from, to), fsCode));
+
+        return mds2;
+    }
+
     public IMDSearch<String, OS_Search> getMD_FS_Performace_C(OS_Search criteria) {
         mds1.setCriteria(criteria);
 
         return mds1;
+    }
+
+    public IMDSearch<ReportDetails, OS_Search> getMD_FS_Performace_C2(OS_Search criteria) {
+        mds2.setCriteria(criteria);
+
+        return mds2;
     }
 
     public IMDSearch<ReportDetails, OS_Search> getMD_FSPerformanceDetailed_C() {

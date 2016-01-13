@@ -1,7 +1,6 @@
 package org.superb.apps.utilities.vaadin.Trees;
 
 import db.Exceptions.CustomTreeNodesEmptyException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;

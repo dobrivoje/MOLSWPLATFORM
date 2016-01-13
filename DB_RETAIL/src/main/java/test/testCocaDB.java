@@ -2,7 +2,7 @@ package test;
 
 import db.retail.DBHandler_RETAIL;
 import db.retail.dataservice.DataService_RETAIL;
-import db.retail.ent.criteria.DateIntervalSearch;
+import db.retail.ent.ReportDetails;
 import db.retail.ent.criteria.OS_Search;
 import db.retail.interfaces.IMDSearch;
 import java.util.LinkedHashMap;
@@ -37,11 +37,14 @@ public class testCocaDB {
          System.err.println(ic.getTree());
          System.err.println(ic.getTree().keySet());
          */
-        IMDSearch<String, OS_Search> ic = DS.getMD_FS_Performace_C();
-        ic.setCriteria(new OS_Search(new DateIntervalSearch(Od, Do), fsCode));
 
-        for (Map.Entry<String, List> E : ic.getTree().entrySet()) {
-            System.err.println(E.getKey() + " -> " + E.getValue());
+        IMDSearch<ReportDetails, OS_Search> ic2 = DS.getMD_FS_Performace_C2(Od, Do, fsCode);
+
+        for (Map.Entry<ReportDetails, List> E : ic2.getTree().entrySet()) {
+            ReportDetails key = E.getKey();
+            Object value = E.getValue();
+
+            System.err.println(key + " - " + value);
         }
 
     }

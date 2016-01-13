@@ -16,9 +16,10 @@ public class ObracunFinalTotal {
     private Double prodato;
     private Double plan;
     private Double ostvarenje;
+    private Integer idrd;
     //</editor-fold>
 
-    public ObracunFinalTotal(Integer idfs, String fsName, String fsCode, String reportName, Integer rbrReport, Double prodato, Double plan, Double ostvarenje) {
+    public ObracunFinalTotal(Integer idfs, String fsName, String fsCode, String reportName, Integer rbrReport, Double prodato, Double plan, Double ostvarenje, int idrd) {
         this.idfs = idfs;
         this.fsName = fsName;
         this.fsCode = fsCode;
@@ -27,6 +28,7 @@ public class ObracunFinalTotal {
         this.prodato = prodato;
         this.plan = plan;
         this.ostvarenje = ostvarenje;
+        this.idrd = idrd;
     }
 
     //<editor-fold defaultstate="collapsed" desc="getters/setters">
@@ -93,6 +95,14 @@ public class ObracunFinalTotal {
     public void setOstvarenje(Double ostvarenje) {
         this.ostvarenje = ostvarenje;
     }
+
+    public Integer getIdrd() {
+        return idrd;
+    }
+
+    public void setIdrd(Integer idrd) {
+        this.idrd = idrd;
+    }
     //</editor-fold>
 
     @Override
@@ -104,7 +114,8 @@ public class ObracunFinalTotal {
                 + rbrReport + "] ["
                 + prodato + "] ["
                 + plan + "] ["
-                + ostvarenje + "]";
+                + ostvarenje + "] ["
+                + idrd + "]";
     }
 
     public String getCalcToString() {
