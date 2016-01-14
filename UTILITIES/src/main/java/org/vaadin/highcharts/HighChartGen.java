@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import org.dobrivoje.utils.colors.AppealingColorGenerator;
 import org.dobrivoje.utils.colors.IColorGenerator;
+import org.vaadin.highcharts.AbstractHighChart;
 
 public class HighChartGen extends AbstractHighChart {
 

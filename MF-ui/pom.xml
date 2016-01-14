@@ -30,11 +30,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.vaadin.highcharts</groupId>
-            <artifactId>highcharts</artifactId>
-            <version>1.1</version>
-        </dependency>
-        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>UTILITIES</artifactId>
             <version>${project.version}</version>
