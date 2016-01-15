@@ -15,7 +15,7 @@ import com.vaadin.server.Sizeable;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalSplitPanel;
 import db.retail.ent.Ugovor;
-import mf.MyUI;
+import Main.MyUI;
 import org.dobrivoje.auth.roles.Roles;
 
 public class View_R_CocaCalc_PA_CONTRACTS extends VerticalLayout implements View {

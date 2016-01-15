@@ -9,7 +9,7 @@ import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.Grid.SelectionMode;
 import db.retail.ent.Partner;
-import static mf.MyUI.DS_RETAIL;
+import static Main.MyUI.DS_RETAIL;
 
 /**
  *

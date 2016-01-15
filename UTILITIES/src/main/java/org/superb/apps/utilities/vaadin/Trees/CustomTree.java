@@ -40,6 +40,8 @@ public class CustomTree<T> extends Tree {
 
     protected boolean readOnly = true;
 
+    protected boolean expandRootNodes = false;
+
     /**
      * <b>elements</b> - List of the root nodes elements for this Custom tree.
      */
@@ -65,6 +67,11 @@ public class CustomTree<T> extends Tree {
         init(caption);
     }
 
+    public CustomTree(String caption, boolean expandRootNodes) {
+        this.expandRootNodes = expandRootNodes;
+        init(caption);
+    }
+
     /**
      * Custom tree creation with treeItems as root nodes list.
      *
@@ -73,6 +80,11 @@ public class CustomTree<T> extends Tree {
      * @throws db.Exceptions.CustomTreeNodesEmptyException
      */
     public CustomTree(String caption, List rootItems) throws CustomTreeNodesEmptyException, NullPointerException {
+        this(caption, rootItems, false);
+    }
+
+    public CustomTree(String caption, List rootItems, boolean expandRootNodes) throws CustomTreeNodesEmptyException, NullPointerException {
+        this.expandRootNodes = expandRootNodes;
         createRoots(caption, rootItems);
     }
 

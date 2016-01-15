@@ -7,9 +7,12 @@ package test;
 
 import db.retail.DBHandler_RETAIL;
 import db.retail.dataservice.DataService_RETAIL;
+import db.retail.ent.FS;
 import db.retail.ent.ReportDetails;
+import db.retail.ent.criteria.DateIntervalSearch;
 import db.retail.ent.criteria.NameIDLogicSearch;
-import db.retail.ent.reports.Obracun_FS_PerfDetaljno;
+import db.retail.ent.criteria.OS_Search;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -26,29 +29,44 @@ public class test2 {
     public static void main(String[] args) {
         String oD = "2015-11-1";
         String dO = "2015-11-30";
-        String fs = "90431";
-        //String fs = null;
-
-        Map<ReportDetails, List> data = DS.getMD_FSPerformanceDetailed_C(oD, dO, fs).getTree();
-        List cats = data.keySet()
-                .stream()
-                //.filter(p -> p.getIdrd() == 1)
-                //.map(ReportDetails::getNaziv)
-                .collect(Collectors.toList());
-
-        System.err.println("cats : " + ((ReportDetails) cats.get(0)).getIdrd());
-        System.err.println("cats : " + cats.get(0));
-        System.err.println("cats.get(0) list : ");
-        for (Obracun_FS_PerfDetaljno xAxis : (List<Obracun_FS_PerfDetaljno>) data.get(cats.get(0))) {
-            System.err.println(xAxis.getDan() + " - " + xAxis.getOstvarenje());
-        }
-
-        Map<ReportDetails, List> data1 = DS.getMD_FSPerformanceDetailed_C(oD, dO, fs).getTree();
-        List categories = data1.keySet().stream().collect(Collectors.toList());
-        System.err.println("data1 : " + categories);
+        //String fs = "90431";
+        String fs = null;
 
         List reportNames = DS.getAS_ReportDetails_C().get(new NameIDLogicSearch(null, false, -1));
         System.err.println(reportNames);
+
+        for (FS f : DS.getASC_FS_C().getAll(false)) {
+            System.err.println("------------------------------");
+            System.err.println("----" + f + "-----");
+            System.err.println("------------------------------");
+            for (Map.Entry<ReportDetails, List> entrySet : DS.getMD_FS_Performace_C2(new OS_Search(new DateIntervalSearch(dO, dO), f.getCode())).getTree().entrySet()) {
+                ReportDetails key = entrySet.getKey();
+                List value = entrySet.getValue();
+
+                System.err.println("k : " + key);
+                System.err.println("v : " + value);
+
+            }
+        }
+
+        List<FS> fsNames = DS.getASC_FS_C().getAll(false).subList(0, 10)
+                .stream()
+                .sorted(new Comparator<FS>() {
+
+                    @Override
+                    public int compare(FS f1, FS f2) {
+                        try {
+                            return Integer.valueOf(f2.getCode()) - Integer.valueOf(f1.getCode());
+                        } catch (Exception e) {
+                            return 0;
+                        }
+                    }
+                })
+                .collect(Collectors.toList());
+
+        for (FS fsn : fsNames) {
+            System.err.println(fsn + ", " + fsn.getNaziv().length()+", "+fsn.getCode());
+        }
     }
 
 }

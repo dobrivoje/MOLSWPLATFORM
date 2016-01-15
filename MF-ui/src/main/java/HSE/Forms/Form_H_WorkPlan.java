@@ -17,8 +17,8 @@ import com.vaadin.ui.TextField;
 import db.HSE.ent.FuelStation;
 import db.HSE.ent.WorkPlan;
 import org.superb.apps.utilities.vaadin.Tables.IRefreshVisualContainer;
-import static mf.MyUI.SYSTEM_DATE_FORMAT;
-import static mf.MyUI.DS_HSE;
+import static Main.MyUI.SYSTEM_DATE_FORMAT;
+import static Main.MyUI.DS_HSE;
 import static org.superb.apps.utilities.Enums.CrudOperations.BUTTON_CAPTION_UPDATE;
 import org.superb.apps.utilities.vaadin.Forms.Form_CRUD2;
 

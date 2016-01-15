@@ -11,7 +11,7 @@ import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import db.retail.ent.FS;
-import static mf.MyUI.DS_RETAIL;
+import static Main.MyUI.DS_RETAIL;
 import org.superb.apps.utilities.vaadin.Tables.IRefreshVisualContainer;
 import static org.superb.apps.utilities.Enums.CrudOperations.BUTTON_CAPTION_UPDATE;
 import org.superb.apps.utilities.vaadin.Forms.Form_CRUD2;

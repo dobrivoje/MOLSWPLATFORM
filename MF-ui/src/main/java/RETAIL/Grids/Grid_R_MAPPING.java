@@ -10,7 +10,7 @@ import com.vaadin.data.util.filter.Or;
 import com.vaadin.data.util.filter.SimpleStringFilter;
 import db.retail.ent.Mapping;
 import java.util.List;
-import static mf.MyUI.DS_RETAIL;
+import static Main.MyUI.DS_RETAIL;
 
 /**
  *

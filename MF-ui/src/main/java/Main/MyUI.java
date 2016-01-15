@@ -1,4 +1,4 @@
-package mf;
+package Main;
 
 import RETAIL.Views.View_R;
 import Uni.Views.LoginScreen;

@@ -30,6 +30,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "FS.findAll", query = "SELECT f FROM FS f"),
+    @NamedQuery(name = "FS.SortedAsc", query = "SELECT f FROM FS f ORDER BY f.naziv ASC"),
+    @NamedQuery(name = "FS.SortedDesc", query = "SELECT f FROM FS f ORDER BY f.naziv DESC"),
     @NamedQuery(name = "FS.findByIdfs", query = "SELECT f FROM FS f WHERE f.idfs = :idfs"),
     @NamedQuery(name = "FS.findByNaziv", query = "SELECT f FROM FS f WHERE f.naziv = :naziv"),
     @NamedQuery(name = "FS.findByCode", query = "SELECT f FROM FS f WHERE f.code = :code"),

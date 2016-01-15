@@ -8,7 +8,7 @@ import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Table;
 import db.retail.ent.Ugovor;
 import java.util.List;
-import static mf.MyUI.DS_RETAIL;
+import static Main.MyUI.DS_RETAIL;
 
 /**
  *

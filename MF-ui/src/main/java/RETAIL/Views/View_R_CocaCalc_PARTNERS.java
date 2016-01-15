@@ -17,7 +17,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import db.Exceptions.CustomTreeNodesEmptyException;
 import db.retail.ent.Partner;
-import mf.MyUI;
+import Main.MyUI;
 import org.dobrivoje.auth.roles.Roles;
 
 public class View_R_CocaCalc_PARTNERS extends VerticalLayout implements View {
@@ -25,7 +25,7 @@ public class View_R_CocaCalc_PARTNERS extends VerticalLayout implements View {
     private final VerticalLayout VL = new VerticalLayout();
     private final VerticalLayout propVL = new VerticalLayout();
     private final HorizontalSplitPanel HL = new HorizontalSplitPanel();
-    
+
     private final Table_R_PARTNER table = new Table_R_PARTNER();
     private final Form_R_PARTNER form;
 
@@ -113,7 +113,7 @@ public class View_R_CocaCalc_PARTNERS extends VerticalLayout implements View {
             form.setBeanItem(new BeanItem(item));
 
             try {
-                vp.addComponent(new Panel("Contracts", new Tree_R_PartnerUgovor(item)));
+                vp.addComponent(new Panel("Contracts", new Tree_R_PartnerUgovor(item, true)));
             } catch (CustomTreeNodesEmptyException ex) {
             }
 

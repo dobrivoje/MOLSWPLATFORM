@@ -14,7 +14,7 @@ import com.vaadin.data.util.BeanItem;
 import com.vaadin.server.Sizeable;
 import com.vaadin.ui.HorizontalSplitPanel;
 import db.retail.ent.Mapping;
-import mf.MyUI;
+import Main.MyUI;
 import org.dobrivoje.auth.roles.Roles;
 
 public class View_R_CocaCalc_DM_MAPPING extends VerticalLayout implements View {

@@ -13,7 +13,7 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.CheckBox;
 import db.retail.ent.FS;
 import java.util.List;
-import static mf.MyUI.DS_RETAIL;
+import static Main.MyUI.DS_RETAIL;
 
 /**
  *

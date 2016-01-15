@@ -16,7 +16,7 @@ import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.HorizontalSplitPanel;
 import db.HSE.ent.WorkPlan;
 import org.dobrivoje.auth.roles.Roles;
-import mf.MyUI;
+import Main.MyUI;
 
 public class View_HSE_WorkPlan extends VerticalLayout implements View {
 

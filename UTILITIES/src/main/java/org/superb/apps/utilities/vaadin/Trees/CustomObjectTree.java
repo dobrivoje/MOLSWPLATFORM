@@ -29,8 +29,18 @@ public abstract class CustomObjectTree<T> extends CustomTree<T> implements IRefr
         recreateAllSubNodes();
     }
 
+    public CustomObjectTree(String caption, List rootNodes, boolean expandRootNodes) throws CustomTreeNodesEmptyException, NullPointerException {
+        super(caption, rootNodes, expandRootNodes);
+        recreateAllSubNodes();
+    }
+
     public CustomObjectTree(List rootNodes) throws CustomTreeNodesEmptyException, NullPointerException {
-        super("", rootNodes);
+        super("", rootNodes, false);
+        recreateAllSubNodes();
+    }
+
+    public CustomObjectTree(List rootNodes, boolean expandRootNodes) throws CustomTreeNodesEmptyException, NullPointerException {
+        super("", rootNodes, expandRootNodes);
         recreateAllSubNodes();
     }
 
@@ -44,7 +54,11 @@ public abstract class CustomObjectTree<T> extends CustomTree<T> implements IRefr
      * @throws NullPointerException
      */
     public CustomObjectTree(String caption, T rootNode, List rootNodeSubList) throws CustomTreeNodesEmptyException, NullPointerException {
-        super(caption, Arrays.asList(rootNode));
+        this(caption, rootNode, rootNodeSubList, false);
+    }
+
+    public CustomObjectTree(String caption, T rootNode, List rootNodeSubList, boolean expandRootNodes) throws CustomTreeNodesEmptyException, NullPointerException {
+        super(caption, Arrays.asList(rootNode), expandRootNodes);
         this.rootNodeSubList = rootNodeSubList;
 
         super.setNodeItems(rootNode, rootNodeSubList);
@@ -58,6 +72,10 @@ public abstract class CustomObjectTree<T> extends CustomTree<T> implements IRefr
      * @throws NullPointerException
      */
     public CustomObjectTree(String caption, Map<T, List> customTree) throws CustomTreeNodesEmptyException, NullPointerException {
+        this(caption, customTree, false);
+    }
+
+    public CustomObjectTree(String caption, Map<T, List> customTree, boolean expandRootNodes) throws CustomTreeNodesEmptyException, NullPointerException {
         super(caption);
         // init();
         createCustomTree(customTree);
@@ -74,7 +92,11 @@ public abstract class CustomObjectTree<T> extends CustomTree<T> implements IRefr
      * @throws NullPointerException
      */
     public CustomObjectTree(String caption, List rootNodes, Date dateFrom, Date dateTo) throws CustomTreeNodesEmptyException, NullPointerException {
-        super(caption, rootNodes);
+        this(caption, rootNodes, dateFrom, dateTo, false);
+    }
+
+    public CustomObjectTree(String caption, List rootNodes, Date dateFrom, Date dateTo, boolean expandRootNodes) throws CustomTreeNodesEmptyException, NullPointerException {
+        super(caption, rootNodes, expandRootNodes);
 
         this.dateFrom = dateFrom;
         this.dateTo = dateTo;

@@ -14,7 +14,7 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.Align;
 import db.retail.ent.Mapping;
 import java.util.List;
-import static mf.MyUI.DS_RETAIL;
+import static Main.MyUI.DS_RETAIL;
 
 /**
  *

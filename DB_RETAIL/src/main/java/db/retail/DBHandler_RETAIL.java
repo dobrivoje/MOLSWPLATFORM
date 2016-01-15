@@ -48,7 +48,7 @@ public class DBHandler_RETAIL extends DBHandler {
     public List<FS> getAll_FS(boolean initSubList) {
         List<FS> L;
         try {
-            L = getEm().createNamedQuery("FS.findAll").getResultList();
+            L = getEm().createNamedQuery("FS.SortedAsc").getResultList();
 
             if (initSubList) {
 

@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import static mf.MyUI.DS_RETAIL;
+import static Main.MyUI.DS_RETAIL;
 import org.superb.apps.utilities.vaadin.Views.View_Dashboard;
 import org.vaadin.highcharts.HighChartGen;
 import org.vaadin.highcharts.ChartType;

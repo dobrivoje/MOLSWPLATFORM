@@ -21,7 +21,7 @@ import java.util.Map;
 import org.vaadin.highcharts.HighChartGen;
 import org.vaadin.highcharts.ChartType;
 import java.util.stream.Collectors;
-import static mf.MyUI.DS_RETAIL;
+import static Main.MyUI.DS_RETAIL;
 import org.superb.apps.utilities.vaadin.Views.View_Dashboard;
 
 public class View_R_SysNotifBoard extends View_Dashboard {

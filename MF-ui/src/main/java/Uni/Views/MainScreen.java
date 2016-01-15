@@ -7,7 +7,7 @@ import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
 import HSE.Views.View_HSE_WorkPlan;
-import MainMenu.MainMenu;
+import Uni.MainMenu.MainMenu;
 import RETAIL.Views.View_R;
 import RETAIL.Views.View_R_CocaCalc;
 import RETAIL.Views.View_R_CocaCalc_DM_CSR;
@@ -15,7 +15,7 @@ import RETAIL.Views.View_R_CocaCalc_DM_MAPPING;
 import RETAIL.Views.View_R_CocaCalc_PARTNERS;
 import RETAIL.Views.View_R_CocaCalc_PA_CONTRACTS;
 import RETAIL.Views.View_R_SysNotifBoard;
-import mf.MyUI;
+import Main.MyUI;
 
 /**
  * Content of the UI when the user is logged in.

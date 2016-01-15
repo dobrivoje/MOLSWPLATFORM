@@ -5,7 +5,7 @@
  */
 package Uni.Menu;
 
-import MainMenu.MenuDefinitions;
+import Uni.MainMenu.MenuDefinitions;
 import com.vaadin.ui.Tree;
 import java.util.ArrayList;
 import java.util.HashMap;

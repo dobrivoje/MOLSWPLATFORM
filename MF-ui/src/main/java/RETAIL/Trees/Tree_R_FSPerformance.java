@@ -18,7 +18,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import static mf.MyUI.DS_RETAIL;
+import static Main.MyUI.DS_RETAIL;
 import org.superb.apps.utilities.vaadin.MyWindows.MyWindow;
 import org.superb.apps.utilities.vaadin.Trees.CustomObjectTree;
 import org.vaadin.highcharts.ChartType;
@@ -31,7 +31,11 @@ import org.vaadin.highcharts.HighChartGen;
 public class Tree_R_FSPerformance extends CustomObjectTree<ReportDetails> {
 
     public Tree_R_FSPerformance(OS_Search ossevent) throws CustomTreeNodesEmptyException, NullPointerException {
-        super(new ArrayList(DS_RETAIL.getMD_FS_Performace_C2(ossevent).getTree().keySet()));
+        this(ossevent, false);
+    }
+
+    public Tree_R_FSPerformance(OS_Search ossevent, boolean expandRootNodes) throws CustomTreeNodesEmptyException, NullPointerException {
+        super(new ArrayList(DS_RETAIL.getMD_FS_Performace_C2(ossevent).getTree().keySet()), expandRootNodes);
 
         //<editor-fold defaultstate="collapsed" desc="addItemClickListener">
         addItemClickListener((ItemClickEvent event) -> {
@@ -73,7 +77,7 @@ public class Tree_R_FSPerformance extends CustomObjectTree<ReportDetails> {
 
     @Override
     protected void createSubNodes(ReportDetails rootNode) {
-        createChildNodesForTheRoot(rootNode, DS_RETAIL.getMD_FS_Performace_C2().getDetails(rootNode), true);
+        createChildNodesForTheRoot(rootNode, DS_RETAIL.getMD_FS_Performace_C2().getDetails(rootNode), expandRootNodes);
     }
 
     //<editor-fold defaultstate="collapsed" desc="report methods">

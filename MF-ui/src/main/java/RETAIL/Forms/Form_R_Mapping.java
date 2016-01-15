@@ -16,7 +16,7 @@ import com.vaadin.ui.TextField;
 import db.retail.ent.GrupniNaziv;
 import db.retail.ent.Kategorija;
 import db.retail.ent.Mapping;
-import static mf.MyUI.DS_RETAIL;
+import static Main.MyUI.DS_RETAIL;
 import org.superb.apps.utilities.vaadin.Tables.IRefreshVisualContainer;
 import static org.superb.apps.utilities.Enums.CrudOperations.BUTTON_CAPTION_UPDATE;
 import org.superb.apps.utilities.vaadin.Forms.Form_CRUD2;
