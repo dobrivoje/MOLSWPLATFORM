@@ -185,9 +185,9 @@ public class View_R_CocaCalc extends VerticalLayout implements View {
                 vp.addComponents(new Panel("Contracts", new Tree_R_FSUgovor(item)));
             } catch (CustomTreeNodesEmptyException ex) {
             }
-
             // vp.addComponents(new Panel("Update Form", form));
             //</editor-fold> 
+
             propVL.addComponent(vp);
         } else {
             ossEvent.setFsCode(null);

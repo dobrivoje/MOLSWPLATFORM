@@ -10,10 +10,7 @@ import db.retail.ent.FS;
 import java.util.ArrayList;
 import java.util.List;
 import static Main.MyUI.DS_RETAIL;
-import RETAIL.Trees.Tree_R_FSPerformance;
 import db.Exceptions.CustomTreeNodesEmptyException;
-import db.retail.ent.criteria.DateIntervalSearch;
-import db.retail.ent.criteria.OS_Search;
 import java.util.Arrays;
 import org.superb.apps.utilities.vaadin.Views.View_Dashboard;
 
@@ -42,25 +39,27 @@ public class View_R extends View_Dashboard {
     private void createFuelStations() {
         List<Component> C = new ArrayList();
 
-        for (FS fs : DS_RETAIL.getASC_FS_C().getAll(false).subList(0, 5)) {
-            try {
-                C.add(
-                        createPanelComponent(
-                                fs.toString(),
-                                Arrays.asList(
-                                        new Panel(new Tree_R_FSPerformance(new OS_Search(new DateIntervalSearch("2015-11-1", "2015-11-30"), fs.getCode()), true))
-                                ), true
-                        )
-                );
-            } catch (CustomTreeNodesEmptyException ex) {
-            }
+        for (FS fs : DS_RETAIL.getASC_FS_C().getAll(false)) {
+            /*
+             try {
+             C.add(
+             createPanelComponent(
+             fs.toString(),
+             Arrays.asList(
+             new Panel(new Tree_R_FSPerformance(new OS_Search(new DateIntervalSearch("2015-11-1", "2015-11-30"), fs.getCode()), true))
+             ), true
+             )
+             );
+             } catch (CustomTreeNodesEmptyException ex) {
+             }
+             */
 
             try {
                 C.add(
                         createPanelComponent(
                                 fs.toString(),
                                 Arrays.asList(
-                                        new Panel(new Tree_R_FSUgovor(fs, true))
+                                        new Panel(new Tree_R_FSUgovor(Arrays.asList(fs), true))
                                 ), true
                         )
                 );

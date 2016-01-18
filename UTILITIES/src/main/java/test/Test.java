@@ -99,5 +99,10 @@ public class Test {
         System.err.println("od : " + d5.getFrom(DateFormat.DATETIME_FORMAT_SRB));
         System.err.println("do : " + d5.getTo(DateFormat.DATETIME_FORMAT_SRB));
 
+        
+        System.err.println("od : " + d5.getFromStr());
+        System.err.println("do : " + d5.getToStr());
+
+        
     }
 }

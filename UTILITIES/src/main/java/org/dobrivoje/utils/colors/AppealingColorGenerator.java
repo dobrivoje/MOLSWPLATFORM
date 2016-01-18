@@ -28,18 +28,22 @@ public class AppealingColorGenerator implements IColorGenerator {
     }
 
     @Override
-    public List generateRGBColor() {
-        Random random = new Random();
+    public List generateRGBColor(int index) {
+        try {
+            Random random = new Random();
 
-        int red = random.nextInt(256);
-        int green = random.nextInt(256);
-        int blue = random.nextInt(256);
+            int red = random.nextInt(256);
+            int green = random.nextInt(256);
+            int blue = random.nextInt(256);
 
-        red = (red + baseColor.getRed()) / 2;
-        green = (green + baseColor.getGreen()) / 2;
-        blue = (blue + baseColor.getBlue()) / 2;
+            red = (red + baseColor.getRed()) / 2;
+            green = (green + baseColor.getGreen()) / 2;
+            blue = (blue + baseColor.getBlue()) / 2;
 
-        return Arrays.asList(red, green, blue, opacity);
+            return Arrays.asList(red, green, blue, opacity);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 }

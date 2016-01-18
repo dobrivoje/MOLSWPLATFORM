@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import static Main.MyUI.DS_RETAIL;
+import org.dobrivoje.utils.colors.PastelColorGenerator;
 import org.superb.apps.utilities.vaadin.MyWindows.MyWindow;
 import org.superb.apps.utilities.vaadin.Trees.CustomObjectTree;
 import org.vaadin.highcharts.ChartType;
@@ -68,7 +69,7 @@ public class Tree_R_FSPerformance extends CustomObjectTree<ReportDetails> {
 
                 VL.setSizeFull();
                 VL.setMargin(true);
-                UI.getCurrent().addWindow(new MyWindow("FS Daily Performace", VL, 60, 80));
+                UI.getCurrent().addWindow(new MyWindow("FS Daily Performace", VL, 614, 444, Unit.PIXELS));
             }
         }
         );
@@ -98,7 +99,8 @@ public class Tree_R_FSPerformance extends CustomObjectTree<ReportDetails> {
                 chartType,
                 title,
                 xAxisValues,
-                createYAxisValues2(d)
+                createYAxisValues2(d),
+                new PastelColorGenerator(0.85f)
         );
     }
 

@@ -21,13 +21,17 @@ public class RandomRGBColorGenerator implements IColorGenerator {
     }
 
     @Override
-    public List generateRGBColor() {
-        return Arrays.asList(
-                (int) (255 * Math.random()),
-                (int) (255 * Math.random()),
-                (int) (255 * Math.random()),
-                opacity
-        );
+    public List generateRGBColor(int index) {
+        try {
+            return Arrays.asList(
+                    (int) (255 * Math.random()),
+                    (int) (255 * Math.random()),
+                    (int) (255 * Math.random()),
+                    opacity
+            );
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 }

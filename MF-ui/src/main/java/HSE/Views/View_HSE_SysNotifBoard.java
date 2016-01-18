@@ -20,6 +20,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import static Main.MyUI.DS_RETAIL;
+import org.dobrivoje.utils.colors.AppealingColorGenerator;
+import org.dobrivoje.utils.colors.IColorGenerator;
+import org.superb.apps.utilities.datum.Dates;
 import org.superb.apps.utilities.vaadin.Views.View_Dashboard;
 import org.vaadin.highcharts.HighChartGen;
 import org.vaadin.highcharts.ChartType;
@@ -36,14 +39,15 @@ public class View_HSE_SysNotifBoard extends View_Dashboard {
         List<String> fsNames = DS_RETAIL.getASC_FS_C().getAll(false).subList(0, 4)
                 .stream().map(FS::getNaziv).collect(Collectors.toList());
 
-        OS_Search criteria = new OS_Search(new DateIntervalSearch("2015-11-1", "2015-11-30"), "90431");
+        Dates dates = new Dates(-2, true);
+        OS_Search criteria = new OS_Search(new DateIntervalSearch(dates.getFromStr(), dates.getToStr()), "90431");
 
         buildContentWithComponents(
-                createReport_FSDailyPerformance(ChartType.AREA, "FS Daily Performances", criteria),
+                createReport_FSDailyPerformance(ChartType.AREA_SPLINE, "FS Daily Performances", criteria),
                 createReport(ChartType.STACKED_BAR, "Report", reportNames, fsNames),
                 createReport(ChartType.SPLINE, "Report", reportNames, fsNames),
                 createReport(ChartType.BAR, "Fuel Consumption", reportNames, Arrays.asList("Premium", "EVO")),
-                createReport(ChartType.AREA_SPLINE, "Report", reportNames, fsNames)
+                createReport(ChartType.AREA, "Report", reportNames, fsNames)
         );
     }
 
@@ -123,11 +127,31 @@ public class View_HSE_SysNotifBoard extends View_Dashboard {
         List xAxisValues = ((List<Obracun_FS_PerfDetaljno>) data.get((ReportDetails) categories.get(0)))
                 .stream().map(Obracun_FS_PerfDetaljno::getDan).collect(Collectors.toList());
 
+        List<IColorGenerator> colorFactory = new ArrayList<>();
+
+        //<editor-fold defaultstate="collapsed" desc="Create series colors">
+        for (int i = 0; i < 3; i++) {
+            colorFactory.add(new AppealingColorGenerator());
+        }
+        // maingrade
+        colorFactory.add((IColorGenerator) (int colorIndex) -> {
+            return Arrays.asList(255, 50, 0, 0.7f);
+        });
+        // premium
+        colorFactory.add((IColorGenerator) (int colorIndex) -> {
+            return Arrays.asList(255, 12, 0, 0.7f);
+        });
+        for (int i = 6; i <= createYAxisValues2(data).size(); i++) {
+            colorFactory.add(new AppealingColorGenerator());
+        }
+        //</editor-fold>
+
         Component c1 = new HighChartGen().generateHighChart(
                 chartType,
                 title,
                 xAxisValues,
-                createYAxisValues2(data)
+                createYAxisValues2(data),
+                colorFactory
         );
 
         subPanels.add(

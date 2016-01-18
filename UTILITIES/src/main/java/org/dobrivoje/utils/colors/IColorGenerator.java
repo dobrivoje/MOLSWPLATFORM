@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface IColorGenerator {
 
-    List generateRGBColor();
-    
+    List generateRGBColor(int colorIndex) throws IndexOutOfBoundsException;
+
 }

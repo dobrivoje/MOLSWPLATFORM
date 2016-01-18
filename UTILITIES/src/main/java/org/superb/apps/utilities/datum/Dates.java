@@ -15,6 +15,7 @@ public class Dates {
 
     private Date from;
     private Date to;
+    private DateFormat dateFormat;
 
     /**
      * Pozivanje ovog konstruktora postavlja interval datuma : <br>
@@ -26,8 +27,8 @@ public class Dates {
 
     /**
      * Pozivanje ovog konstruktora postavlja interval datuma : <br>
-     * od 1. dana prethodnog meseca do današnjeg datuma (justThatMonth=false). od
-     * 1. dana prethodnog meseca do posledenjeg dana tog meseca
+     * od 1. dana prethodnog meseca do današnjeg datuma (justThatMonth=false).
+     * od 1. dana prethodnog meseca do posledenjeg dana tog meseca
      * (justThatMonth=true).
      *
      * @param justThatMonth Do poslednjeg dana u mesecu.
@@ -60,6 +61,12 @@ public class Dates {
      * months < 0 : Od 1. dana za <u>months</u> unazad, do danas. <br>
      */
     public Dates(int months) {
+        this.dateFormat = DateFormat.DATE_FORMAT_ENG;
+        setMonthsBF(months, false);
+    }
+
+    public Dates(int months, DateFormat dateFormat) {
+        this.dateFormat = dateFormat;
         setMonthsBF(months, false);
     }
 
@@ -75,6 +82,12 @@ public class Dates {
      * justThatMonth=false : do danas.<br>
      */
     public Dates(int months, boolean justThatMonth) {
+        this.dateFormat = DateFormat.DATE_FORMAT_ENG;
+        setMonthsBF(months, justThatMonth);
+    }
+
+    public Dates(int months, boolean justThatMonth, DateFormat dateFormat) {
+        this.dateFormat = dateFormat;
         setMonthsBF(months, justThatMonth);
     }
 
@@ -188,7 +201,7 @@ public class Dates {
      * @return
      */
     public String getFromStr() {
-        return getFromStr("yyyy-MM-dd");
+        return getFromStr(dateFormat.toString());
     }
 
     /**
@@ -197,7 +210,7 @@ public class Dates {
      * @return
      */
     public String getToStr() {
-        return getToStr("yyyy-MM-dd");
+        return getToStr(dateFormat.toString());
     }
 
     /**
