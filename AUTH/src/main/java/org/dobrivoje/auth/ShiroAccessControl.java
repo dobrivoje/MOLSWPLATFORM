@@ -3,6 +3,8 @@ package org.dobrivoje.auth;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -30,13 +32,25 @@ public class ShiroAccessControl implements IAccessAuthControl {
         factory = new IniSecurityManagerFactory(initFile);
         securityManager = factory.getInstance();
         SecurityUtils.setSecurityManager(securityManager);
+
+        // izmena koda ispod, kodom ispod njega :
+        // subject = ThreadContext.getSubject();
         subject = SecurityUtils.getSubject();
     }
     //</editor-fold>
 
     @Override
     public synchronized boolean login(String username, String password) {
+        Logger.getLogger("shiro access control").log(Level.INFO, "SHIRO ACCESS CONTROL LOGIN. NO. OF LOGGEDIN USERS : {0}", loggedInUsers);
+        Logger.getLogger("shiro access control sessions").log(Level.INFO, "SHIRO ACCESS CONTROL ACTIVE SESSIONS : {0}", usersSessions.toArray());
+
+        // dodata provera pre logovanja
+        ensureUserIsLoggedOut();
+
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+
+        // dodat kod prema instrukciji sa : http://stackoverflow.com/questions/14516851/shiro-complaining-there-is-no-session-with-id-xxx-with-defaultsecuritymanager
+        token.setRememberMe(true);
 
         if (subject.getSession().getAttribute(UN_SESSION_KEY) == null) {
             try {
@@ -61,9 +75,13 @@ public class ShiroAccessControl implements IAccessAuthControl {
         decLoggedUsers();
 
         try {
-            subject.logout();
+            // subject.logout();
+            ensureUserIsLoggedOut();
         } catch (Exception e) {
         }
+
+        Logger.getLogger("shiro access control").log(Level.INFO, "SHIRO ACCESS CONTROL LOGOUT. NO. OF LOGGEDIN USERS : {0}", getLoggedUsers());
+        Logger.getLogger("shiro access control sessions").log(Level.INFO, "SHIRO ACCESS CONTROL ACTIVE SESSIONS : {0}", usersSessions.toString());
     }
 
     //<editor-fold defaultstate="collapsed" desc="Permissions/Auths...">
@@ -163,5 +181,23 @@ public class ShiroAccessControl implements IAccessAuthControl {
 
     public static Set<Serializable> getUsersSessions() {
         return usersSessions;
+    }
+
+    private void ensureUserIsLoggedOut() {
+        try {
+            Subject currentUser = SecurityUtils.getSubject();
+
+            if (currentUser != null) {
+                // Log the user out and kill their session if possible.
+                currentUser.logout();
+                decLoggedUsers();
+
+                Session session = currentUser.getSession(false);
+                if (session != null) {
+                    session.stop();
+                }
+            }
+        } catch (Exception e) {
+        }
     }
 }

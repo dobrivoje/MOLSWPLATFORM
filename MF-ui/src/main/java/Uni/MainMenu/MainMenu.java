@@ -7,7 +7,6 @@ import java.util.Map;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.server.FontAwesome;
-import com.vaadin.server.Page;
 import com.vaadin.server.Resource;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.Alignment;
@@ -37,6 +36,7 @@ import static Uni.MainMenu.MenuDefinitions.RETAIL_COCACALC_PARTNERS_CONTRACTS;
 import static Uni.MainMenu.MenuDefinitions.RETAIL_SYS_NOTIF_BOARD;
 import HSE.Views.View_HSE_SysNotifBoard;
 import HSE.Views.View_HSE_WorkPlan;
+import Main.MyUI;
 import RETAIL.Views.View_R;
 import RETAIL.Views.View_R_CocaCalc;
 import RETAIL.Views.View_R_CocaCalc_DM_CSR;
@@ -44,6 +44,7 @@ import RETAIL.Views.View_R_CocaCalc_DM_MAPPING;
 import RETAIL.Views.View_R_CocaCalc_PARTNERS;
 import RETAIL.Views.View_R_CocaCalc_PA_CONTRACTS;
 import RETAIL.Views.View_R_SysNotifBoard;
+import com.vaadin.server.Page;
 
 /**
  * Responsive navigation menu presenting a list of available views to the user.
@@ -83,7 +84,10 @@ public class MainMenu extends CssLayout {
         MenuBar logoutMenu = new MenuBar();
         logoutMenu.addItem("Logout", FontAwesome.SIGN_OUT, (MenuItem selectedItem) -> {
             VaadinSession.getCurrent().getSession().invalidate();
+            MyUI.get().getAccessControl().logout();
+
             Page.getCurrent().reload();
+            getUI().getNavigator().navigateTo("");
         });
 
         logoutMenu.addStyleName("user-menu");
