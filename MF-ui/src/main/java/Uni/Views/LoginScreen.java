@@ -101,18 +101,24 @@ public class LoginScreen extends CssLayout {
 
         buttons.addComponent(login = new Button("Login"));
         login.setDisableOnClick(true);
-        login.addClickListener((Button.ClickEvent event) -> {
-            try {
-                login();
-            } finally {
-                login.setEnabled(true);
+        login.addClickListener(new Button.ClickListener() {
+            @Override
+            public void buttonClick(Button.ClickEvent event) {
+                try {
+                    login();
+                } finally {
+                    login.setEnabled(true);
+                }
             }
         });
         login.setClickShortcut(ShortcutAction.KeyCode.ENTER);
 
         buttons.addComponent(forgotPassword = new Button("Forgot password?"));
-        forgotPassword.addClickListener((Button.ClickEvent event) -> {
-            showNotification(new Notification(PASSWORD_HINT));
+        forgotPassword.addClickListener(new Button.ClickListener() {
+            @Override
+            public void buttonClick(Button.ClickEvent event) {
+                showNotification(new Notification(PASSWORD_HINT));
+            }
         });
         forgotPassword.addStyleName(ValoTheme.BUTTON_LINK);
 
