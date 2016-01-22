@@ -19,7 +19,6 @@ public class ShiroAccessControl implements IAccessAuthControl {
     // atribut pod navodnicima je id sesije koja se odnosi na username ulogovanog korisnika
     // private static final String UN_SESSION_KEY = "UR8450-XC88xoiuf-iow889s-HG786hjgghH11H50HH8911-mNNmn558wuuuw768x8c7";
     private String UN_SESSION_KEY;
-    private static int loggedInUsers = 0;
     private static final Set<Serializable> usersSessions = new HashSet<>();
 
     private final Factory<SecurityManager> factory;
@@ -58,9 +57,8 @@ public class ShiroAccessControl implements IAccessAuthControl {
 
     @Override
     public synchronized void logout() {
-        decLoggedUsers();
-
         try {
+            removeUserSession();
             subject.logout();
         } catch (Exception e) {
         }
@@ -136,32 +134,26 @@ public class ShiroAccessControl implements IAccessAuthControl {
     }
 
     @Override
-    public synchronized int getLoggedUsers() {
-        return loggedInUsers;
+    public synchronized int getNoOfSessions() {
+        return usersSessions.size();
     }
 
-    @Override
-    public synchronized void incLoggedUsers() {
+    private synchronized void incLoggedUsers() {
         if (!usersSessions.contains(getSubjectSessionID())) {
             usersSessions.add(getSubjectSessionID());
-            loggedInUsers++;
         }
     }
 
     @Override
-    public synchronized void decLoggedUsers() {
+    public Set<Serializable> getUsersSessions() {
+        return usersSessions;
+    }
+
+    @Override
+    public synchronized void removeUserSession() {
         if (usersSessions.contains(getSubjectSessionID())) {
             usersSessions.remove(getSubjectSessionID());
         }
-
-        if (--loggedInUsers < 0) {
-            loggedInUsers = 0;
-        }
-
     }
     //</editor-fold>
-
-    public static Set<Serializable> getUsersSessions() {
-        return usersSessions;
-    }
 }

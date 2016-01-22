@@ -1,6 +1,7 @@
 package org.dobrivoje.auth;
 
 import java.io.Serializable;
+import java.util.Set;
 import org.apache.shiro.session.Session;
 
 /**
@@ -23,11 +24,11 @@ public interface IAccessAuthControl {
 
     String getInfSysUserSession();
 
-    int getLoggedUsers();
+    int getNoOfSessions();
 
-    void incLoggedUsers();
+    Set<Serializable> getUsersSessions();
 
-    void decLoggedUsers();
+    void removeUserSession();
 
     Session getSubjectSession();
 

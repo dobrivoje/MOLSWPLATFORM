@@ -16,15 +16,16 @@ import dataservice.DataService;
 import db.HSE.dataservice.DataService_HSE;
 import db.retail.dataservice.DataService_RETAIL;
 import org.dobrivoje.auth.IAccessAuthControl;
-import org.dobrivoje.auth.IntermolADAccessControl;
 import org.dobrivoje.utils.date.formats.DateFormat;
+import org.superb.apps.utilities.Enums.ServletOperations;
 
 @Theme("mytheme")
 @Widgetset("mf.MyAppWidgetset")
 @PreserveOnRefresh
 public class MyUI extends UI {
 
-    private final IAccessAuthControl accessControl = new IntermolADAccessControl();
+    // private final IAccessAuthControl accessControl = new IntermolADAccessControl();
+    private IAccessAuthControl accessControl;
 
     public static final DataService_HSE DS_HSE = DataService.getDS_HSE();
     public static final DataService_RETAIL DS_RETAIL = DataService.getDS_RETAIL();
@@ -33,6 +34,8 @@ public class MyUI extends UI {
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
+        accessControl = (IAccessAuthControl) vaadinRequest.getWrappedSession().getAttribute(ServletOperations.SERVLET_CREATION.toString());
+
         Responsive.makeResponsive(this);
         setLocale(vaadinRequest.getLocale());
         getPage().setTitle("MOL Serbia SW Platform");

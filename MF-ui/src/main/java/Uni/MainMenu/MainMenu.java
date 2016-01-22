@@ -37,6 +37,7 @@ import static Uni.MainMenu.MenuDefinitions.RETAIL_COCACALC_PARTNERS_CONTRACTS;
 import static Uni.MainMenu.MenuDefinitions.RETAIL_SYS_NOTIF_BOARD;
 import HSE.Views.View_HSE_SysNotifBoard;
 import HSE.Views.View_HSE_WorkPlan;
+import Main.MyUI;
 import RETAIL.Views.View_R;
 import RETAIL.Views.View_R_CocaCalc;
 import RETAIL.Views.View_R_CocaCalc_DM_CSR;
@@ -81,8 +82,10 @@ public class MainMenu extends CssLayout {
 
         // logout menu item
         MenuBar logoutMenu = new MenuBar();
-        logoutMenu.addItem("Logout", FontAwesome.SIGN_OUT, (MenuItem selectedItem) -> {
+        logoutMenu.addItem("Logout", FontAwesome.SIGN_OUT, (MenuItem m) -> {
             VaadinSession.getCurrent().getSession().invalidate();
+            MyUI.get().getAccessControl().logout();
+
             Page.getCurrent().reload();
         });
 

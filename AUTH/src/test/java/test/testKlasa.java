@@ -83,5 +83,14 @@ public class testKlasa {
         }
 
         System.err.println(" *** " + intermolAD.getPrincipal() + " -> " + intermolAD.hasRole("R_appFSUser"));
+
+        System.err.println("--------------SESSIONS------------------------");
+        intermolAD.login("ws", "");
+        System.err.println("User sessions : " + intermolAD.getUsersSessions().toString());
+
+        System.err.println(" Logout... ");
+        intermolAD.logout();
+        System.err.println(" Sessions : " + intermolAD.getUsersSessions().toString());
+
     }
 }
