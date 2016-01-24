@@ -9,7 +9,6 @@ import org.apache.shiro.session.Session;
  */
 public interface IAccessAuthControl {
 
-    // SecurityManager getSecurityManager();
     boolean login(String username, String password);
 
     void logout();
@@ -31,7 +30,5 @@ public interface IAccessAuthControl {
     void removeUserSession();
 
     Session getSubjectSession();
-
-    Serializable getSubjectSessionID();
 
 }

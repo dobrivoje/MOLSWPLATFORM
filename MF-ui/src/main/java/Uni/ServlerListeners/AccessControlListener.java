@@ -5,7 +5,6 @@
  */
 package Uni.ServlerListeners;
 
-import Main.MyUI;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpSessionEvent;
@@ -33,6 +32,7 @@ public class AccessControlListener implements HttpSessionListener {
         Logger.getLogger("test").log(Level.INFO, "Session  - Destroyed.");
         Logger.getLogger("test").log(Level.INFO, "Shiro Sessions : {0}", shiroAuthObject.getUsersSessions().toString());
 
+        shiroAuthObject.logout();
         shiroAuthObject = null;
     }
 

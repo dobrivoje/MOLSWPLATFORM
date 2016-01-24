@@ -40,8 +40,13 @@ public class MyUI extends UI {
         setLocale(vaadinRequest.getLocale());
         getPage().setTitle("MOL Serbia SW Platform");
 
-        if (!accessControl.authenticated()) {
-            setContent(new LoginScreen(accessControl, this::showMainView));
+        try {
+            if (!accessControl.authenticated()) {
+                setContent(new LoginScreen(accessControl, this::showMainView));
+            } else {
+                showMainView();
+            }
+        } catch (NullPointerException lnpe) {
         }
     }
 

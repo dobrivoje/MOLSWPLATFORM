@@ -41,8 +41,8 @@ public class ShiroAccessControl implements IAccessAuthControl {
             try {
                 subject.login(token);
 
-                subject.getSession().setAttribute(UN_SESSION_KEY = (String) getSubjectSessionID(), getPrincipal());
-                incLoggedUsers();
+                subject.getSession().setAttribute(UN_SESSION_KEY = (String) (subject.getSession().getId()), getPrincipal());
+                usersSessions.add(subject.getSession().getId());
 
                 return true;
 
@@ -58,7 +58,7 @@ public class ShiroAccessControl implements IAccessAuthControl {
     @Override
     public synchronized void logout() {
         try {
-            removeUserSession();
+            usersSessions.remove(subject.getSession().getId());
             subject.logout();
         } catch (Exception e) {
         }
@@ -111,15 +111,6 @@ public class ShiroAccessControl implements IAccessAuthControl {
             return new SimpleSession("");
         }
     }
-
-    @Override
-    public Serializable getSubjectSessionID() {
-        try {
-            return subject.getSession().getId();
-        } catch (Exception e) {
-            return "";
-        }
-    }
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Inf Sys users,...">
@@ -138,12 +129,6 @@ public class ShiroAccessControl implements IAccessAuthControl {
         return usersSessions.size();
     }
 
-    private synchronized void incLoggedUsers() {
-        if (!usersSessions.contains(getSubjectSessionID())) {
-            usersSessions.add(getSubjectSessionID());
-        }
-    }
-
     @Override
     public Set<Serializable> getUsersSessions() {
         return usersSessions;
@@ -151,9 +136,6 @@ public class ShiroAccessControl implements IAccessAuthControl {
 
     @Override
     public synchronized void removeUserSession() {
-        if (usersSessions.contains(getSubjectSessionID())) {
-            usersSessions.remove(getSubjectSessionID());
-        }
     }
     //</editor-fold>
 }
