@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import static Main.MyUI.DS_RETAIL;
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Panel;
 import org.dobrivoje.utils.colors.PastelColorGenerator;
 import org.superb.apps.utilities.vaadin.MyWindows.MyWindow;
 import org.superb.apps.utilities.vaadin.Trees.CustomObjectTree;
@@ -95,13 +97,23 @@ public class Tree_R_FSPerformance extends CustomObjectTree<ReportDetails> {
             }
         }
 
-        return new HighChartGen().generateHighChart(
-                chartType,
-                title,
-                xAxisValues,
-                createYAxisValues2(d),
-                new PastelColorGenerator(0.85f)
-        );
+        try {
+            return new HighChartGen().generateHighChart(
+                    chartType,
+                    title,
+                    xAxisValues,
+                    createYAxisValues2(d),
+                    new PastelColorGenerator(0.85f)
+            );
+        } catch (Exception ex) {
+            Panel pe = new Panel("No results for the selected period !");
+            VerticalLayout vle = new VerticalLayout(pe);
+            vle.setMargin(true);
+            vle.setSpacing(true);
+            vle.setComponentAlignment(pe, Alignment.MIDDLE_CENTER);
+
+            return vle;
+        }
     }
 
     private Map<Object, List> createYAxisValues2(Map<ReportDetails, List> MM) {

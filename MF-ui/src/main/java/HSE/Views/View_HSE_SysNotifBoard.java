@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import static Main.MyUI.DS_RETAIL;
+import com.vaadin.ui.Alignment;
 import org.dobrivoje.utils.colors.AppealingColorGenerator;
 import org.dobrivoje.utils.colors.IColorGenerator;
 import org.superb.apps.utilities.datum.Dates;
@@ -98,12 +99,23 @@ public class View_HSE_SysNotifBoard extends View_Dashboard {
     }
 
     private Component createReport(ChartType chartType, String title, List categories, List xAxisValues) {
-        Component c1 = new HighChartGen().generateHighChart(
-                chartType,
-                title,
-                xAxisValues,
-                createYAxisValues(xAxisValues, categories)
-        );
+        Component c1;
+        try {
+            c1 = new HighChartGen().generateHighChart(
+                    chartType,
+                    title,
+                    xAxisValues,
+                    createYAxisValues(xAxisValues, categories)
+            );
+        } catch (Exception ex) {
+            Panel pe = new Panel("No results for the selected period !");
+            VerticalLayout vle = new VerticalLayout(pe);
+            vle.setMargin(true);
+            vle.setSpacing(true);
+            vle.setComponentAlignment(pe, Alignment.MIDDLE_CENTER);
+
+            return vle;
+        }
 
         subPanels.add(new Panel(title, c1));
 
@@ -146,13 +158,25 @@ public class View_HSE_SysNotifBoard extends View_Dashboard {
         }
         //</editor-fold>
 
-        Component c1 = new HighChartGen().generateHighChart(
-                chartType,
-                title,
-                xAxisValues,
-                createYAxisValues2(data),
-                colorFactory
-        );
+        Component c1;
+
+        try {
+            c1 = new HighChartGen().generateHighChart(
+                    chartType,
+                    title,
+                    xAxisValues,
+                    createYAxisValues2(data),
+                    colorFactory
+            );
+        } catch (Exception ex) {
+            Panel pe = new Panel("No results for the selected period !");
+            VerticalLayout vle = new VerticalLayout(pe);
+            vle.setMargin(true);
+            vle.setSpacing(true);
+            vle.setComponentAlignment(pe, Alignment.MIDDLE_CENTER);
+
+            return vle;
+        }
 
         subPanels.add(
                 new Panel(
