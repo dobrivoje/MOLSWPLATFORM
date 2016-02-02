@@ -43,8 +43,8 @@ public class View_R_CocaCalc extends VerticalLayout implements View {
     // dinamcki panel koji brisemo i kreiramo svaki put kada dodje do promene u ossEvent-u
     private Panel lastPerformacePanel;
 
-    private final DateField DF_from = new DateField();
-    private final DateField DF_to = new DateField();
+    private final DateField viewDateFrom = new DateField();
+    private final DateField viewDateTo = new DateField();
     private final Dates dates = new Dates(-2, true);
 
     private final VerticalLayout propVL = new VerticalLayout();
@@ -52,10 +52,10 @@ public class View_R_CocaCalc extends VerticalLayout implements View {
     public View_R_CocaCalc() {
         ossEvent = new OS_Search(new DateIntervalSearch(dates.getFromStr(), dates.getToStr()), null);
 
-        DF_from.setDateFormat(SYSTEM_DATE_FORMAT);
-        DF_to.setDateFormat(SYSTEM_DATE_FORMAT);
-        DF_from.setValue(dates.getFrom());
-        DF_to.setValue(dates.getTo());
+        viewDateFrom.setDateFormat(SYSTEM_DATE_FORMAT);
+        viewDateTo.setDateFormat(SYSTEM_DATE_FORMAT);
+        viewDateFrom.setValue(dates.getFrom());
+        viewDateTo.setValue(dates.getTo());
 
         //<editor-fold defaultstate="collapsed" desc="UI setup">
         setSizeFull();
@@ -129,14 +129,14 @@ public class View_R_CocaCalc extends VerticalLayout implements View {
             table.setFilter(event.getText());
         });
 
-        DF_from.addValueChangeListener((Property.ValueChangeEvent event) -> {
+        viewDateFrom.addValueChangeListener((Property.ValueChangeEvent event) -> {
             dates.setFrom((Date) event.getProperty().getValue());
             ossEvent.setDateFrom(dates.getFromStr());
 
             refreshFSPerformancePanel(ossEvent);
         });
 
-        DF_to.addValueChangeListener((Property.ValueChangeEvent event) -> {
+        viewDateTo.addValueChangeListener((Property.ValueChangeEvent event) -> {
             dates.setTo((Date) event.getProperty().getValue());
             ossEvent.setDateTo(dates.getToStr());
 
@@ -147,11 +147,11 @@ public class View_R_CocaCalc extends VerticalLayout implements View {
         topLayout.setSpacing(true);
         topLayout.setWidth(100, Unit.PERCENTAGE);
 
-        topLayout.addComponents(filter, DF_from, DF_to);
+        topLayout.addComponents(filter, viewDateFrom, viewDateTo);
 
         topLayout.setComponentAlignment(filter, Alignment.MIDDLE_LEFT);
-        topLayout.setComponentAlignment(DF_from, Alignment.MIDDLE_RIGHT);
-        topLayout.setComponentAlignment(DF_to, Alignment.MIDDLE_RIGHT);
+        topLayout.setComponentAlignment(viewDateFrom, Alignment.MIDDLE_RIGHT);
+        topLayout.setComponentAlignment(viewDateTo, Alignment.MIDDLE_RIGHT);
 
         topLayout.setComponentAlignment(filter, Alignment.MIDDLE_LEFT);
         topLayout.setExpandRatio(filter, 1);
@@ -182,7 +182,7 @@ public class View_R_CocaCalc extends VerticalLayout implements View {
             }
 
             try {
-                vp.addComponents(new Panel("Contracts", new Tree_R_FSUgovor(item)));
+                vp.addComponents(new Panel("Contracts", new Tree_R_FSUgovor(item, false)));
             } catch (CustomTreeNodesEmptyException ex) {
             }
             // vp.addComponents(new Panel("Update Form", form));

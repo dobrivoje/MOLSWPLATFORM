@@ -49,7 +49,7 @@ public class FS implements Serializable {
     @Column(name = "Naziv")
     private String naziv;
     @NotNull
-    @Column(name = "Code")
+    @Column(name = "Code", unique = true)
     private String code;
     @Column(name = "Model")
     private String model;

@@ -10,7 +10,6 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import db.retail.ent.Partner;
-import db.retail.ent.Ugovor;
 import static Main.MyUI.DS_RETAIL;
 import org.superb.apps.utilities.vaadin.Tables.IRefreshVisualContainer;
 import static org.superb.apps.utilities.Enums.CrudOperations.BUTTON_CAPTION_UPDATE;
@@ -24,6 +23,27 @@ public class Form_R_PARTNER extends Form_CRUD2<Partner> {
 
     @PropertyId("kompanija")
     private final TextField kompanija = new TextField("Partner's firm");
+
+    @PropertyId("matBroj")
+    private final TextField matBroj = new TextField("Partner's Matični Broj");
+
+    @PropertyId("type")
+    private final TextField type = new TextField("Partner's Matični Broj");
+
+    @PropertyId("partnerPhoneNo")
+    private final TextField partnerPhoneNo = new TextField("Partner's Phone No.");
+
+    @PropertyId("bsPhoneNo")
+    private final TextField bsPhoneNo = new TextField("BS's Phone No.");
+
+    @PropertyId("mgrEmail")
+    private final TextField mgrEmail = new TextField("Manager's Email");
+
+    @PropertyId("privateEmail")
+    private final TextField privateEmail = new TextField("Private Email");
+
+    @PropertyId("accessDataDelivery")
+    private final TextField accessDataDelivery = new TextField("Access Data Delivery");
     //</editor-fold>
 
     public Form_R_PARTNER() {
@@ -76,6 +96,13 @@ public class Form_R_PARTNER extends Form_CRUD2<Partner> {
     protected final void setBeanFromFields(Partner item) {
         item.setNaziv(naziv.getValue());
         item.setKompanija(kompanija.getValue());
+        item.setMatBroj(matBroj.getValue());
+        item.setType(type.getValue());
+        item.setPartnerPhoneNo(partnerPhoneNo.getValue());
+        item.setBsPhoneNo(bsPhoneNo.getValue());
+        item.setMgrEmail(mgrEmail.getValue());
+        item.setPrivateEmail(privateEmail.getValue());
+        item.setAccessDataDelivery(accessDataDelivery.getValue());
     }
 
     @Override
@@ -98,15 +125,15 @@ public class Form_R_PARTNER extends Form_CRUD2<Partner> {
 
     @Override
     public void setFieldsFromBean(Partner item) {
-        try {
-            item.setNaziv(naziv.getValue());
-        } catch (Exception e) {
-        }
-
-        try {
-            item.setKompanija(kompanija.getValue());
-        } catch (Exception e) {
-        }
+        item.setNaziv(naziv.getValue());
+        item.setKompanija(kompanija.getValue());
+        item.setMatBroj(matBroj.getValue());
+        item.setType(type.getValue());
+        item.setPartnerPhoneNo(partnerPhoneNo.getValue());
+        item.setBsPhoneNo(bsPhoneNo.getValue());
+        item.setMgrEmail(mgrEmail.getValue());
+        item.setPrivateEmail(privateEmail.getValue());
+        item.setAccessDataDelivery(accessDataDelivery.getValue());
     }
     //</editor-fold>
 

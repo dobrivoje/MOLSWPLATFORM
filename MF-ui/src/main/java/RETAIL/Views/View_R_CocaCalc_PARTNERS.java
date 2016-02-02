@@ -109,16 +109,19 @@ public class View_R_CocaCalc_PARTNERS extends VerticalLayout implements View {
 
         if (item != null) {
             HL.setSplitPosition(50, Sizeable.Unit.PERCENTAGE);
-            form.setEnabled(MyUI.get().isPermitted(Roles.PERMISSION_APP_FS_USER_EDIT_OWN_WORKPLANS));
+
+            boolean readOnly = !MyUI.get().isPermitted(Roles.PERMISSION_APP_FS_USER_EDIT_OWN_WORKPLANS);
+
+            form.setEnabled(readOnly);
             form.setBeanItem(new BeanItem(item));
 
             try {
-                vp.addComponent(new Panel("Contracts", new Tree_R_PartnerUgovor(item, true)));
+                vp.addComponent(new Panel("Contracts", new Tree_R_PartnerUgovor(item, true, readOnly)));
             } catch (CustomTreeNodesEmptyException ex) {
             }
 
-            vp.addComponents(new Panel("Update Form", form));
-
+            // vp.addComponents(new Panel("Update Form", form));
+            //
             propVL.addComponent(vp);
 
         } else {

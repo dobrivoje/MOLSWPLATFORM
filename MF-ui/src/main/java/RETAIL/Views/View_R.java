@@ -59,7 +59,7 @@ public class View_R extends View_Dashboard {
                         createPanelComponent(
                                 fs.toString(),
                                 Arrays.asList(
-                                        new Panel(new Tree_R_FSUgovor(Arrays.asList(fs), true))
+                                        new Panel(new Tree_R_FSUgovor(fs, true))
                                 ), true
                         )
                 );
