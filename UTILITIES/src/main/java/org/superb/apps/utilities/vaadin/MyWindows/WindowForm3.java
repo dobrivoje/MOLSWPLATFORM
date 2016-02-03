@@ -109,15 +109,35 @@ public class WindowForm3 extends Window {
         }
     }
 
+    public WindowForm3(String caption, Layout formLayout, int formWidth, int formHeight, Unit unit, String imageLocation, String actionButtonCaption, Button.ClickListener externalButtonClickListener, int imgWidth, int imgHeight, boolean readOnly) {
+        init(caption, formLayout, formWidth, formHeight, unit, imageLocation, actionButtonCaption, externalButtonClickListener, imgWidth, imgHeight, null);
+
+        if (actionButton != null) {
+            actionButton.setVisible(!readOnly);
+        }
+    }
+
+    public WindowForm3(String caption, Layout formLayout, int formWidth, int formheight, String imageLocation, String actionButtonCaption, Button.ClickListener externalButtonClickListener, int imgWidth, int imgHeight, boolean readOnly) {
+        init(caption, formLayout, imageLocation, actionButtonCaption, externalButtonClickListener, imgWidth, imgHeight, null);
+
+        if (actionButton != null) {
+            actionButton.setVisible(!readOnly);
+        }
+    }
+
     private void init(String caption, Layout formLayout, String imageLocation, String actionButtonCaption, Button.ClickListener externalButtonClickListener, int imgWidth, int imgHeight, String buttonStyle, Button... additionalFooterButtons) {
+        init(caption, formLayout, 60, 70, Unit.PERCENTAGE, imageLocation, actionButtonCaption, externalButtonClickListener, imgWidth, imgHeight, buttonStyle, additionalFooterButtons);
+    }
+
+    private void init(String caption, Layout formLayout, int formWidth, int formHeight, Unit unit, String imageLocation, String actionButtonCaption, Button.ClickListener externalButtonClickListener, int imgWidth, int imgHeight, String buttonStyle, Button... additionalFooterButtons) {
         addStyleName("profile-window");
         setId(ID);
         Responsive.makeResponsive(this);
 
         setModal(true);
         addCloseShortcut(ShortcutAction.KeyCode.ESCAPE, null);
-        setHeight(70, Unit.PERCENTAGE);
-        setWidth(60, Unit.PERCENTAGE);
+        setWidth(formWidth, unit);
+        setHeight(formHeight, unit);
 
         if (actionButtonCaption != null && !actionButtonCaption.isEmpty()) {
             actionButton = new Button(actionButtonCaption);
@@ -139,8 +159,8 @@ public class WindowForm3 extends Window {
         detailsWrapper.addComponent(buildFormTab(caption, formLayout, imageLocation, imgWidth, imgHeight));
         content.addComponent(buildFooter(externalButtonClickListener, buttonStyle, additionalFooterButtons));
     }
-    //</editor-fold>
 
+    //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="buildFormTab">
     protected final Component buildFormTab(String caption, Layout formLayout, String imageLocation, int imageWidth, int imageHeight) {
         formLayout.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);

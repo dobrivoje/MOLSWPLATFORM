@@ -24,9 +24,8 @@ import org.superb.apps.utilities.vaadin.Trees.CustomObjectTree;
  */
 public class Tree_R_FSUgovor extends CustomObjectTree<FS> {
 
-    private String imageLocation;
-    private int imgWidth;
-    private int imgHeight;
+    private int formImgWidth;
+    private int formImgHeight;
 
     public Tree_R_FSUgovor(FS fs, boolean expandRootNodes) throws CustomTreeNodesEmptyException {
         super(Arrays.asList(fs), expandRootNodes);
@@ -34,35 +33,45 @@ public class Tree_R_FSUgovor extends CustomObjectTree<FS> {
         //<editor-fold defaultstate="collapsed" desc="addItemClickListener">
         addItemClickListener((ItemClickEvent event) -> {
             if (event.isDoubleClick()) {
-                imgWidth = 250;
+                WindowForm3 wf = null;
 
                 if (event.getItemId() instanceof FS) {
                     crudForm = new Form_R_FS(new BeanItem(event.getItemId()), false, null);
 
-                    winFormCaption = "Fuelstation Data Form";
-                    imageLocation = "img/cbt.png";
+                    formImgWidth = 235;
+                    formImgHeight = 200;
 
-                    imgHeight = 225;
-                } else if (event.getItemId() instanceof Ugovor) {
-                    crudForm = new Form_R_UGOVOR(new BeanItem(event.getItemId()), false, null);
+                    wf = new WindowForm3(
+                            "Fuelstation Data Form",
+                            crudForm,
+                            676, 432, Unit.PIXELS,
+                            "img/partner1.png",
+                            "Save",
+                            crudForm.getClickListener(),
+                            formImgWidth, formImgHeight, false
+                    );
 
-                    winFormCaption = "Contracts Data Form";
-                    imageLocation = "img/contract.png";
-
-                    imgHeight = 250;
                 }
 
-                if (crudForm != null) {
-                    getUI().addWindow(
-                            new WindowForm3(
-                                    winFormCaption,
-                                    crudForm,
-                                    imageLocation,
-                                    "Save",
-                                    crudForm.getClickListener(),
-                                    imgWidth, imgHeight, false
-                            )
+                if (event.getItemId() instanceof Ugovor) {
+                    crudForm = new Form_R_UGOVOR(new BeanItem(event.getItemId()), false, null);
+
+                    formImgWidth = 250;
+                    formImgHeight = 250;
+
+                    wf = new WindowForm3(
+                            "Contracts Data Form",
+                            crudForm,
+                            "img/contract.png",
+                            "Save",
+                            crudForm.getClickListener(),
+                            formImgWidth, formImgHeight, false
                     );
+                }
+
+                try {
+                    getUI().addWindow(wf);
+                } catch (IllegalArgumentException | NullPointerException e) {
                 }
             }
         }

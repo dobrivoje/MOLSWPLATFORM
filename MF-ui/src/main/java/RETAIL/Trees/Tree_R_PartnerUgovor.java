@@ -18,10 +18,6 @@ import org.superb.apps.utilities.vaadin.Trees.CustomObjectTree;
  */
 public class Tree_R_PartnerUgovor extends CustomObjectTree<Partner> {
 
-    private String imageLocation;
-    private int imgWidth;
-    private int imgHeight;
-
     public Tree_R_PartnerUgovor(Partner rootItem) throws CustomTreeNodesEmptyException {
         this(rootItem, false);
     }
@@ -41,18 +37,18 @@ public class Tree_R_PartnerUgovor extends CustomObjectTree<Partner> {
                     crudForm = new Form_R_PARTNER(new BeanItem(event.getItemId()), false, null);
 
                     winFormCaption = "Partner Data Form";
-                    imageLocation = "img/partner3.png";
+                    winFormImagePath = "img/partner3.png";
 
-                    imgWidth = 300;
-                    imgHeight = 310;
+                    winFormImgWidth = 250;
+                    winFormImgHeight = 300;
                 } else if (event.getItemId() instanceof Ugovor) {
                     crudForm = new Form_R_UGOVOR(new BeanItem(event.getItemId()), false, null);
 
                     winFormCaption = "Contract Data Form";
-                    imageLocation = "img/contract.png";
+                    winFormImagePath = "img/contract.png";
 
-                    imgWidth = 250;
-                    imgHeight = 250;
+                    winFormImgWidth = 250;
+                    winFormImgHeight = 250;
                 }
 
                 if (crudForm != null) {
@@ -60,10 +56,10 @@ public class Tree_R_PartnerUgovor extends CustomObjectTree<Partner> {
                             new WindowForm3(
                                     winFormCaption,
                                     crudForm,
-                                    imageLocation,
+                                    winFormImagePath,
                                     "Save",
                                     crudForm.getClickListener(),
-                                    imgWidth, imgHeight, readOnly
+                                    winFormImgWidth, winFormImgHeight, readOnly
                             )
                     );
                 }

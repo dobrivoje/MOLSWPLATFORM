@@ -67,10 +67,7 @@ public class Tree_R_FSPerformance extends CustomObjectTree<ReportDetails> {
                                         rd
                                 )
                         ),
-                        614,
-                        444,
-                        Unit.PIXELS
-                )
+                        614, 444, Unit.PIXELS)
                 );
             }
         }

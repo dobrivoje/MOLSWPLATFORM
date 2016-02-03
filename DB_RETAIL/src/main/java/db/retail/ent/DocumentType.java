@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author root
+ * @author Dobri
  */
 @Entity
 @XmlRootElement

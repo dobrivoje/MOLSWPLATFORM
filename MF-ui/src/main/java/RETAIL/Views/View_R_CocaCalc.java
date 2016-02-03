@@ -120,6 +120,27 @@ public class View_R_CocaCalc extends VerticalLayout implements View {
 
     //<editor-fold defaultstate="collapsed" desc="createTopBar">
     public final HorizontalLayout createTopBar() {
+        //<editor-fold defaultstate="collapsed" desc="Datefiled listeners">
+        viewDateFrom.addValueChangeListener((Property.ValueChangeEvent event) -> {
+            dates.setFrom((Date) event.getProperty().getValue());
+            ossEvent.setDateFrom(dates.getFromStr());
+
+            if (ossEvent.getFsCode() != null) {
+                refreshFSPerformancePanel(ossEvent);
+            }
+        });
+
+        viewDateTo.addValueChangeListener((Property.ValueChangeEvent event) -> {
+            dates.setTo((Date) event.getProperty().getValue());
+            ossEvent.setDateTo(dates.getToStr());
+
+            if (ossEvent.getFsCode() != null) {
+                refreshFSPerformancePanel(ossEvent);
+            }
+        });
+        //</editor-fold>    
+
+        //<editor-fold defaultstate="collapsed" desc="Topbar visual">
         TextField filter = new TextField();
         filter.setStyleName("filter-textfield");
         filter.setInputPrompt("search data...");
@@ -127,20 +148,6 @@ public class View_R_CocaCalc extends VerticalLayout implements View {
         filter.setImmediate(false);
         filter.addTextChangeListener((FieldEvents.TextChangeEvent event) -> {
             table.setFilter(event.getText());
-        });
-
-        viewDateFrom.addValueChangeListener((Property.ValueChangeEvent event) -> {
-            dates.setFrom((Date) event.getProperty().getValue());
-            ossEvent.setDateFrom(dates.getFromStr());
-
-            refreshFSPerformancePanel(ossEvent);
-        });
-
-        viewDateTo.addValueChangeListener((Property.ValueChangeEvent event) -> {
-            dates.setTo((Date) event.getProperty().getValue());
-            ossEvent.setDateTo(dates.getToStr());
-
-            refreshFSPerformancePanel(ossEvent);
         });
 
         HorizontalLayout topLayout = new HorizontalLayout();
@@ -156,6 +163,7 @@ public class View_R_CocaCalc extends VerticalLayout implements View {
         topLayout.setComponentAlignment(filter, Alignment.MIDDLE_LEFT);
         topLayout.setExpandRatio(filter, 1);
         topLayout.setStyleName("top-bar");
+        //</editor-fold>
 
         return topLayout;
     }
