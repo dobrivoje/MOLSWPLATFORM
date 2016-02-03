@@ -66,7 +66,7 @@ public class Form_R_PARTNER extends Form_CRUD2<Partner> {
         btnCaption = BUTTON_CAPTION_UPDATE.toString();
         clickListener = (Button.ClickEvent event) -> {
             Partner itemToUpdate = beanItem.getBean();
-            setBeanFromFields(itemToUpdate);
+            // setBeanFromFields(itemToUpdate);
 
             try {
                 fieldGroup.commit();

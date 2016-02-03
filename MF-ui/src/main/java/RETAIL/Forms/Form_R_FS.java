@@ -52,7 +52,7 @@ public class Form_R_FS extends Form_CRUD2<FS> {
         btnCaption = BUTTON_CAPTION_UPDATE.toString();
         clickListener = (Button.ClickEvent event) -> {
             FS fsToUpdate = beanItem.getBean();
-            setBeanFromFields(fsToUpdate);
+            // setBeanFromFields(fsToUpdate);
 
             try {
                 fieldGroup.commit();
@@ -89,7 +89,7 @@ public class Form_R_FS extends Form_CRUD2<FS> {
     @Override
     protected final void initFields() {
         crudButton.setWidth(250, Unit.PIXELS);
-        
+
         setRequiredFields();
     }
 
@@ -104,7 +104,7 @@ public class Form_R_FS extends Form_CRUD2<FS> {
 
     @Override
     protected void updateDynamicFields() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override

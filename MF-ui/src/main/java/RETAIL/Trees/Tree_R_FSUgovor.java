@@ -25,8 +25,8 @@ import org.superb.apps.utilities.vaadin.Trees.CustomObjectTree;
 public class Tree_R_FSUgovor extends CustomObjectTree<FS> {
 
     private String imageLocation;
-    private int imageX;
-    private int imageY;
+    private int imgWidth;
+    private int imgHeight;
 
     public Tree_R_FSUgovor(FS fs, boolean expandRootNodes) throws CustomTreeNodesEmptyException {
         super(Arrays.asList(fs), expandRootNodes);
@@ -34,7 +34,7 @@ public class Tree_R_FSUgovor extends CustomObjectTree<FS> {
         //<editor-fold defaultstate="collapsed" desc="addItemClickListener">
         addItemClickListener((ItemClickEvent event) -> {
             if (event.isDoubleClick()) {
-                imageX = 250;
+                imgWidth = 250;
 
                 if (event.getItemId() instanceof FS) {
                     crudForm = new Form_R_FS(new BeanItem(event.getItemId()), false, null);
@@ -42,14 +42,14 @@ public class Tree_R_FSUgovor extends CustomObjectTree<FS> {
                     winFormCaption = "Fuelstation Data Form";
                     imageLocation = "img/cbt.png";
 
-                    imageY = 225;
+                    imgHeight = 225;
                 } else if (event.getItemId() instanceof Ugovor) {
                     crudForm = new Form_R_UGOVOR(new BeanItem(event.getItemId()), false, null);
 
                     winFormCaption = "Contracts Data Form";
                     imageLocation = "img/contract.png";
 
-                    imageY = 250;
+                    imgHeight = 250;
                 }
 
                 if (crudForm != null) {
@@ -60,7 +60,7 @@ public class Tree_R_FSUgovor extends CustomObjectTree<FS> {
                                     imageLocation,
                                     "Save",
                                     crudForm.getClickListener(),
-                                    imageX, imageY, false
+                                    imgWidth, imgHeight, false
                             )
                     );
                 }

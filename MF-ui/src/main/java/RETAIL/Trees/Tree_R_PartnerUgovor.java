@@ -19,8 +19,8 @@ import org.superb.apps.utilities.vaadin.Trees.CustomObjectTree;
 public class Tree_R_PartnerUgovor extends CustomObjectTree<Partner> {
 
     private String imageLocation;
-    private int imageX;
-    private int imageY;
+    private int imgWidth;
+    private int imgHeight;
 
     public Tree_R_PartnerUgovor(Partner rootItem) throws CustomTreeNodesEmptyException {
         this(rootItem, false);
@@ -43,16 +43,16 @@ public class Tree_R_PartnerUgovor extends CustomObjectTree<Partner> {
                     winFormCaption = "Partner Data Form";
                     imageLocation = "img/partner3.png";
 
-                    imageX = 300;
-                    imageY = 310;
+                    imgWidth = 300;
+                    imgHeight = 310;
                 } else if (event.getItemId() instanceof Ugovor) {
                     crudForm = new Form_R_UGOVOR(new BeanItem(event.getItemId()), false, null);
 
                     winFormCaption = "Contract Data Form";
                     imageLocation = "img/contract.png";
 
-                    imageX = 250;
-                    imageY = 250;
+                    imgWidth = 250;
+                    imgHeight = 250;
                 }
 
                 if (crudForm != null) {
@@ -63,7 +63,7 @@ public class Tree_R_PartnerUgovor extends CustomObjectTree<Partner> {
                                     imageLocation,
                                     "Save",
                                     crudForm.getClickListener(),
-                                    imageX, imageY, readOnly
+                                    imgWidth, imgHeight, readOnly
                             )
                     );
                 }

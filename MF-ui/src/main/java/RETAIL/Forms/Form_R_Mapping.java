@@ -68,7 +68,7 @@ public class Form_R_Mapping extends Form_CRUD2<Mapping> {
         btnCaption = BUTTON_CAPTION_UPDATE.toString();
         clickListener = (Button.ClickEvent event) -> {
             Mapping m = beanItem.getBean();
-            setBeanFromFields(m);
+            // setBeanFromFields(m);
 
             try {
                 fieldGroup.commit();

@@ -68,7 +68,7 @@ public class Form_R_UGOVOR extends Form_CRUD2<Ugovor> {
         btnCaption = BUTTON_CAPTION_UPDATE.toString();
         clickListener = (Button.ClickEvent event) -> {
             Ugovor itemToUpdate = beanItem.getBean();
-            setBeanFromFields(itemToUpdate);
+            // setBeanFromFields(itemToUpdate);
 
             try {
                 fieldGroup.commit();

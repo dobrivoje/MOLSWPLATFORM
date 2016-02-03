@@ -2,7 +2,6 @@ package RETAIL.Trees;
 
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import db.Exceptions.CustomTreeNodesEmptyException;
 import db.retail.ent.FS;
@@ -45,7 +44,6 @@ public class Tree_R_FSPerformance extends CustomObjectTree<ReportDetails> {
             OS_Search criteria = new OS_Search(new DateIntervalSearch(ossevent.getDateFrom(), ossevent.getDateTo()), ossevent.getFsCode());
             FS f = DS_RETAIL.getASC_FS_C().getByID(new FSSearch("", ossevent.getFsCode()));
 
-            VerticalLayout VL;
             List<ReportDetails> rd = null;
 
             if (event.isDoubleClick()) {
@@ -60,18 +58,20 @@ public class Tree_R_FSPerformance extends CustomObjectTree<ReportDetails> {
             }
 
             if (rd != null) {
-                VL = new VerticalLayout(
-                        createReport_FSDailyPerformance(
-                                ChartType.AREA_SPLINE,
-                                f.getNaziv() + ", " + f.getCode() + ", " + ossevent.getDateFrom() + " - " + ossevent.getDateTo(),
-                                criteria,
-                                rd
-                        )
+                getUI().addWindow(new MyWindow("FS Daily Performace",
+                        new VerticalLayout(
+                                createReport_FSDailyPerformance(
+                                        ChartType.AREA_SPLINE,
+                                        f.getNaziv() + ", " + f.getCode() + ", " + ossevent.getDateFrom() + " - " + ossevent.getDateTo(),
+                                        criteria,
+                                        rd
+                                )
+                        ),
+                        614,
+                        444,
+                        Unit.PIXELS
+                )
                 );
-
-                VL.setSizeFull();
-                VL.setMargin(true);
-                UI.getCurrent().addWindow(new MyWindow("FS Daily Performace", VL, 614, 444, Unit.PIXELS));
             }
         }
         );
