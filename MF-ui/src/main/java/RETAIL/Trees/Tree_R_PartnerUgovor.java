@@ -47,8 +47,8 @@ public class Tree_R_PartnerUgovor extends CustomObjectTree<Partner> {
                     winFormCaption = "Contract Data Form";
                     winFormImagePath = "img/contract.png";
 
-                    winFormImgWidth = 250;
                     winFormImgHeight = 250;
+                    winFormImgWidth = 250;
                 }
 
                 if (crudForm != null) {
@@ -59,7 +59,7 @@ public class Tree_R_PartnerUgovor extends CustomObjectTree<Partner> {
                                     winFormImagePath,
                                     "Save",
                                     crudForm.getClickListener(),
-                                    winFormImgWidth, winFormImgHeight, readOnly
+                                    winFormImgHeight, winFormImgWidth, readOnly
                             )
                     );
                 }

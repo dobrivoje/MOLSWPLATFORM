@@ -58,16 +58,19 @@ public class Tree_R_FSPerformance extends CustomObjectTree<ReportDetails> {
             }
 
             if (rd != null) {
-                getUI().addWindow(new MyWindow("FS Daily Performace",
-                        new VerticalLayout(
-                                createReport_FSDailyPerformance(
-                                        ChartType.AREA_SPLINE,
-                                        f.getNaziv() + ", " + f.getCode() + ", " + ossevent.getDateFrom() + " - " + ossevent.getDateTo(),
-                                        criteria,
-                                        rd
-                                )
-                        ),
-                        614, 444, Unit.PIXELS)
+                getUI().addWindow(
+                        new MyWindow(
+                                "FS Daily Performace",
+                                new VerticalLayout(
+                                        createReport_FSDailyPerformance(
+                                                ChartType.AREA_SPLINE,
+                                                f.getNaziv() + ", " + f.getCode() + ", " + ossevent.getDateFrom() + " - " + ossevent.getDateTo(),
+                                                criteria,
+                                                rd
+                                        )
+                                ),
+                                68, 55, Unit.PERCENTAGE
+                        )
                 );
             }
         }
@@ -94,19 +97,25 @@ public class Tree_R_FSPerformance extends CustomObjectTree<ReportDetails> {
             }
         }
 
+        VerticalLayout vle = new VerticalLayout();
+        vle.setMargin(true);
+
         try {
-            return new HighChartGen().generateHighChart(
+            Component c = new HighChartGen().generateHighChart(
                     chartType,
                     title,
                     xAxisValues,
                     createYAxisValues2(d),
                     new PastelColorGenerator(0.85f)
             );
+
+            vle.addComponent(c);
+            vle.setExpandRatio(c, 1.0f);
+
+            return vle;
         } catch (Exception ex) {
             Panel pe = new Panel("No results for the selected period !");
-            VerticalLayout vle = new VerticalLayout(pe);
-            vle.setMargin(true);
-            vle.setSpacing(true);
+            vle.addComponent(pe);
             vle.setComponentAlignment(pe, Alignment.MIDDLE_CENTER);
 
             return vle;

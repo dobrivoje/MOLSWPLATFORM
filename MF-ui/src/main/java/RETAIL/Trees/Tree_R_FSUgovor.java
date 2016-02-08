@@ -38,8 +38,8 @@ public class Tree_R_FSUgovor extends CustomObjectTree<FS> {
                 if (event.getItemId() instanceof FS) {
                     crudForm = new Form_R_FS(new BeanItem(event.getItemId()), false, null);
 
-                    formImgWidth = 235;
                     formImgHeight = 200;
+                    formImgWidth = 235;
 
                     wf = new WindowForm3(
                             "Fuelstation Data Form",
@@ -48,7 +48,7 @@ public class Tree_R_FSUgovor extends CustomObjectTree<FS> {
                             "img/partner1.png",
                             "Save",
                             crudForm.getClickListener(),
-                            formImgWidth, formImgHeight, false
+                            formImgHeight, formImgWidth, false
                     );
 
                 }
@@ -56,8 +56,8 @@ public class Tree_R_FSUgovor extends CustomObjectTree<FS> {
                 if (event.getItemId() instanceof Ugovor) {
                     crudForm = new Form_R_UGOVOR(new BeanItem(event.getItemId()), false, null);
 
-                    formImgWidth = 250;
                     formImgHeight = 250;
+                    formImgWidth = 250;
 
                     wf = new WindowForm3(
                             "Contracts Data Form",
@@ -65,7 +65,7 @@ public class Tree_R_FSUgovor extends CustomObjectTree<FS> {
                             "img/contract.png",
                             "Save",
                             crudForm.getClickListener(),
-                            formImgWidth, formImgHeight, false
+                            formImgHeight, formImgWidth, false
                     );
                 }
 

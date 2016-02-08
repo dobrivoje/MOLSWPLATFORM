@@ -201,7 +201,11 @@ public class Dates {
      * @return
      */
     public String getFromStr() {
-        return getFromStr(dateFormat.toString());
+        try {
+            return getFromStr(dateFormat.toString());
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**
@@ -210,7 +214,12 @@ public class Dates {
      * @return
      */
     public String getToStr() {
-        return getToStr(dateFormat.toString());
+        try {
+            return getToStr(dateFormat.toString());
+        } catch (Exception e) {
+            return null;
+        }
+
     }
 
     /**
@@ -220,7 +229,11 @@ public class Dates {
      * @return
      */
     public String getFromStr(String format) {
-        return new SimpleDateFormat(format).format(from);
+        try {
+            return new SimpleDateFormat(format).format(from);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**
@@ -230,7 +243,11 @@ public class Dates {
      * @return
      */
     public String getToStr(String format) {
-        return new SimpleDateFormat(format).format(to);
+        try {
+            return new SimpleDateFormat(format).format(to);
+        } catch (Exception e) {
+            return null;
+        }
     }
     //</editor-fold>
 

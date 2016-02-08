@@ -54,6 +54,8 @@ public class HighChartGen extends AbstractHighChart {
                 + generateSeries(series, colorFactory)
                 + generateSeriesEnd();
 
+        hc.setSizeFull();
+        hc.setResponsive(true);
         hc.setHcjs(out);
 
         return hc;
@@ -70,6 +72,8 @@ public class HighChartGen extends AbstractHighChart {
                 + generateSeries(series, colorFactory)
                 + generateSeriesEnd();
 
+        hc.setSizeFull();
+        hc.setResponsive(true);
         hc.setHcjs(out);
 
         return hc;

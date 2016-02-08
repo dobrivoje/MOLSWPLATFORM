@@ -66,16 +66,12 @@ public class MyWindow extends Window {
     }
 
     public MyWindow(String caption, Layout layout, float height, float width, Sizeable.Unit unit) {
-        this(layout);
-        setCaption(caption);
+        super(caption, layout);
 
-        if (height != 0) {
-            setHeight(height, unit);
-        }
+        center();
 
-        if (width != 0) {
-            setHeight(width, unit);
-        }
+        setHeight(height != 0 ? height : 60, height != 0 ? unit : Unit.PERCENTAGE);
+        setWidth(width != 0 ? width : 75, width != 0 ? unit : Unit.PERCENTAGE);
     }
 
     public void setText(String text) {
