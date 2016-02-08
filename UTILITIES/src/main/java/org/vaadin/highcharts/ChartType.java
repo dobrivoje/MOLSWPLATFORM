@@ -244,7 +244,7 @@ public enum ChartType {
     ),
     //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc="PIE_GRADIENT">
+    //<editor-fold defaultstate="collapsed" desc="DONUT_3D">
     DONUT_3D(
             " chart: { "
             + "            type: 'pie', "

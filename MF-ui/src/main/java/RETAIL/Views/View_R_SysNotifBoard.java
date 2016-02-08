@@ -9,7 +9,6 @@ import com.vaadin.ui.VerticalLayout;
 import db.retail.ent.FS;
 import db.retail.ent.ReportDetails;
 import db.retail.ent.criteria.DateIntervalSearch;
-import db.retail.ent.criteria.FSSearch;
 import db.retail.ent.criteria.NameIDLogicSearch;
 import db.retail.ent.criteria.OS_Search;
 import db.retail.ent.reports.Obracun_FS_PerfDetaljno;
@@ -23,8 +22,8 @@ import org.vaadin.highcharts.ChartType;
 import java.util.stream.Collectors;
 import static Main.MyUI.DS_RETAIL;
 import com.vaadin.ui.Alignment;
-import org.dobrivoje.utils.colors.AppealingColorGenerator;
-import org.dobrivoje.utils.colors.RandomRGBColorGenerator;
+import java.util.LinkedHashMap;
+import org.dobrivoje.utils.colors.PastelColorGenerator;
 import org.superb.apps.utilities.datum.Dates;
 import org.superb.apps.utilities.vaadin.Views.View_Dashboard;
 
@@ -37,11 +36,11 @@ public class View_R_SysNotifBoard extends View_Dashboard {
         List<String> fsNames = DS_RETAIL.getASC_FS_C().getAll(false).subList(0, 4)
                 .stream().map(FS::getNaziv).collect(Collectors.toList());
 
-        Dates dates = new Dates(-2, true);
+        Dates dates = new Dates(-3, true);
         OS_Search criteria = new OS_Search(new DateIntervalSearch(dates.getFromStr(), dates.getToStr()), "90431");
 
         buildContentWithComponents(
-                createReport_FSDailyPerformance(ChartType.AREA, "FS Daily Performances", criteria),
+                createReport_FSDailyPerformance(ChartType.AREA_SPLINE, "FS Daily Performances", criteria),
                 createReport(ChartType.STACKED_BAR, "Report", reportNames, fsNames),
                 createReport(ChartType.SPLINE, "Report", reportNames, fsNames),
                 createReport(ChartType.BAR, "Fuel Consumption", reportNames, Arrays.asList("Premium", "EVO")),
@@ -82,102 +81,88 @@ public class View_R_SysNotifBoard extends View_Dashboard {
         return M;
     }
 
-    private Map<Object, List> createYAxisValues2(Map<ReportDetails, List> MM) {
-        Map<Object, List> M = new HashMap<>();
-
-        for (Map.Entry<ReportDetails, List> E : MM.entrySet()) {
-            ReportDetails category = E.getKey();
-            List<Obracun_FS_PerfDetaljno> categoryValues = E.getValue();
-
-            M.put(category, categoryValues.stream().map(Obracun_FS_PerfDetaljno::getOstvarenje).collect(Collectors.toList()));
-        }
-
-        return M;
-    }
-
     private Component createReport(ChartType chartType, String title, List categories, List xAxisValues) {
         Component c1;
+        String panelMessage;
+        Panel p;
+
         try {
+            panelMessage = title;
+
             c1 = new HighChartGen().generateHighChart(
                     chartType,
                     title,
                     xAxisValues,
                     createYAxisValues(xAxisValues, categories),
-                    new AppealingColorGenerator()
+                    new PastelColorGenerator(0.8f)
             );
+
+            p = new Panel(panelMessage, c1);
+
         } catch (Exception ex) {
-            Panel pe = new Panel("No results for the selected period !");
-            VerticalLayout vle = new VerticalLayout(pe);
-            vle.setMargin(true);
-            vle.setSpacing(true);
-            vle.setComponentAlignment(pe, Alignment.MIDDLE_CENTER);
-
-            return vle;
+            panelMessage = "No results for the " + title + ", for selected period !";
+            p = new Panel(panelMessage);
         }
 
-        subPanels.add(new Panel(title, c1));
+        VerticalLayout vle = new VerticalLayout(p);
+        vle.setMargin(true);
+        vle.setSpacing(true);
+        vle.setComponentAlignment(p, Alignment.MIDDLE_CENTER);
 
-        VerticalLayout VL = new VerticalLayout();
-        VL.setSizeUndefined();
-        VL.setMargin(true);
-        VL.setSpacing(true);
-
-        for (Component c : subPanels) {
-            VL.addComponents(c);
-        }
-
-        return VL;
+        return vle;
     }
 
-    private Component createReport_FSDailyPerformance(ChartType chartType, String title, OS_Search criteria) {
-        Map<ReportDetails, List> data = DS_RETAIL.getMD_FSPerformanceDetailed_C(criteria.getDateFrom(), criteria.getDateTo(), criteria.getFsCode()).getTree();
-
-        List categories = data.keySet().stream().collect(Collectors.toList());
-
-        List xAxisValues = ((List<Obracun_FS_PerfDetaljno>) data.get((ReportDetails) categories.get(0)))
-                .stream().map(Obracun_FS_PerfDetaljno::getDan).collect(Collectors.toList());
-
+    private Component createReport(ChartType chartType, String title, List xAxisValues, Map<Object, List> yAxisValues) {
         Component c1;
+        String panelMessage;
+        Panel p;
+
         try {
+            panelMessage = title;
+
             c1 = new HighChartGen().generateHighChart(
                     chartType,
                     title,
                     xAxisValues,
-                    createYAxisValues2(data),
-                    new RandomRGBColorGenerator()
+                    yAxisValues,
+                    new PastelColorGenerator(0.8f)
             );
+
+            p = new Panel(panelMessage, c1);
+
         } catch (Exception ex) {
-            Panel pe = new Panel("No results for the selected period !");
-            VerticalLayout vle = new VerticalLayout(pe);
-            vle.setMargin(true);
-            vle.setSpacing(true);
-            vle.setComponentAlignment(pe, Alignment.MIDDLE_CENTER);
-
-            return vle;
+            panelMessage = "No results for the " + title + ", for selected period !";
+            p = new Panel(panelMessage);
         }
 
-        subPanels.add(
-                new Panel(
-                        DS_RETAIL.getASC_FS_C().getByID(new FSSearch("", criteria.getFsCode())).toString()
-                        .concat(" from : ")
-                        .concat(criteria.getDateFrom())
-                        .concat(" - ")
-                        .concat(criteria.getDateTo()
-                        ),
-                        c1
-                )
-        );
+        VerticalLayout vle = new VerticalLayout(p);
+        vle.setMargin(true);
+        vle.setSpacing(true);
+        vle.setComponentAlignment(p, Alignment.MIDDLE_CENTER);
 
-        VerticalLayout VL = new VerticalLayout();
-        VL.setSizeUndefined();
-        VL.setMargin(true);
-        VL.setSpacing(true);
+        return vle;
+    }
 
-        for (Component c : subPanels) {
-            VL.addComponents(c);
+    private Component createReport_FSDailyPerformance(ChartType chartType, String title, OS_Search criteria) {
+        Map<ReportDetails, List> data = DS_RETAIL.getMD_FSPerformanceDetailed_C(criteria.getDateFrom(), criteria.getDateTo(), criteria.getFsCode()).getTree();
+        Map<Object, List> YAxisValues = new LinkedHashMap<>();
+
+        // Set of ReportDetails -> Set of Object :
+        List keys = data.keySet().stream().collect(Collectors.toList());
+
+        // List of days :
+        List xAxisValues = ((List<Obracun_FS_PerfDetaljno>) data.get((ReportDetails) keys.get(0)))
+                .stream().map(Obracun_FS_PerfDetaljno::getDan).collect(Collectors.toList());
+
+        for (Map.Entry<ReportDetails, List> E : data.entrySet()) {
+            ReportDetails key = E.getKey();
+            List value = E.getValue();
+
+            YAxisValues.put(key, value);
         }
 
-        return VL;
+        return createReport(chartType, title, xAxisValues, YAxisValues);
+
     }
 
 }

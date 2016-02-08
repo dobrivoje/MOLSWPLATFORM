@@ -1,6 +1,7 @@
 package Main;
 
 import RETAIL.Views.View_R;
+import RETAIL.Views.View_R_SysNotifBoard;
 import Uni.Views.LoginScreen;
 import Uni.Views.MainScreen;
 import com.vaadin.annotations.PreserveOnRefresh;
@@ -52,7 +53,7 @@ public class MyUI extends UI {
 
     protected void showMainView() {
         setContent(new MainScreen(MyUI.this));
-        getNavigator().navigateTo(View_R.class.getSimpleName());
+        getNavigator().navigateTo(View_R_SysNotifBoard.class.getSimpleName());
     }
 
     public static MyUI get() {
