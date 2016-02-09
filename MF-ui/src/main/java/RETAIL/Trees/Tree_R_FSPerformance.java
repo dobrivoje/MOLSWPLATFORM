@@ -49,8 +49,7 @@ public class Tree_R_FSPerformance extends CustomObjectTree<ReportDetails> {
             if (event.isDoubleClick()) {
                 if (event.getItemId() instanceof ReportDetails) {
                     if (event.isCtrlKey()) {
-                        rd = DS_RETAIL.getMD_FSPerformanceDetailed_C(criteria.getDateFrom(), criteria.getDateTo(), criteria.getFsCode()).getTree()
-                                .keySet().stream().collect(Collectors.toList());
+                        rd = DS_RETAIL.getASC_ReportDetails_C().getAll(false);
                     } else {
                         rd = Arrays.asList((ReportDetails) event.getItemId());
                     }

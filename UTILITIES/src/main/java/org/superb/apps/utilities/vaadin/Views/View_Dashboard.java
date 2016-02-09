@@ -78,6 +78,10 @@ public abstract class View_Dashboard extends Panel implements View {
 
     //<editor-fold defaultstate="collapsed" desc="DashBoard Header">
     protected final Component buildHeader(String dashBoardTitle) {
+        return buildHeaderWithAdditionalComponents(dashBoardTitle);
+    }
+
+    protected final Component buildHeaderWithAdditionalComponents(String dashBoardTitle, Component... components) {
         HorizontalLayout header = new HorizontalLayout();
         header.addStyleName("viewheader");
         header.setSpacing(true);
@@ -89,9 +93,16 @@ public abstract class View_Dashboard extends Panel implements View {
         titleLabel.addStyleName(ValoTheme.LABEL_NO_MARGIN);
         header.addComponent(titleLabel);
 
+        HorizontalLayout tools = new HorizontalLayout();
+
         notificationsButton = buildNotificationsButton();
-        Component edit = buildEditButton();
-        HorizontalLayout tools = new HorizontalLayout(notificationsButton, edit);
+        Component editButton = buildEditButton();
+
+        if (components != null) {
+            tools.addComponents(components);
+        }
+        tools.addComponents(notificationsButton, editButton);
+
         tools.setSpacing(true);
         tools.addStyleName("toolbar");
         header.addComponent(tools);

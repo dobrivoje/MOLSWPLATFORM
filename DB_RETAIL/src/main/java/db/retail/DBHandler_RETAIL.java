@@ -24,6 +24,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -281,6 +282,30 @@ public class DBHandler_RETAIL extends DBHandler {
         try {
             return (Kategorija) getEm().createNamedQuery("Kategorija.findByIdk")
                     .setParameter("idk", id)
+                    .getSingleResult();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+    //</editor-fold>
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="KOEF">
+    //<editor-fold defaultstate="collapsed" desc="Read Data">
+    public List<Koef> getAll_KOEF() {
+        try {
+            return (List<Koef>) getEm()
+                    .createNamedQuery("Koef.findAll")
+                    .getResultList();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    public Koef getByID_KOEF(int id) {
+        try {
+            return (Koef) getEm().createNamedQuery("Koef.findByIdkfs")
+                    .setParameter("idkfs", id)
                     .getSingleResult();
         } catch (Exception ex) {
             return null;
@@ -809,6 +834,32 @@ public class DBHandler_RETAIL extends DBHandler {
                 M.put(getByID_REPDETAILS(o.getIdrd()), s);
             } else {
                 M.replace(getByID_REPDETAILS(o.getIdrd()), s);
+            }
+        }
+
+        return M;
+
+    }
+
+    /**
+     * FS Performance Total
+     *
+     * Vraća vrednost u obliku mape sa ključem : ReportDetails<br>
+     * i listom za taj ključ sa vrednostima : prodato, plan, i ostvarenje.
+     *
+     * @param DatumOD
+     * @param DatumDO
+     * @param FSCode
+     * @return
+     */
+    public Map<Object, List> get_FS_Performance_Total3(String DatumOD, String DatumDO, String FSCode) {
+
+        Map<Object, List> M = new LinkedHashMap<>();
+
+        for (ObracunFinalTotal o : get_ObracunFinal_Total(DatumOD, DatumDO, FSCode)) {
+
+            if (!M.containsKey(getByID_REPDETAILS(o.getIdrd()))) {
+                M.put(getByID_REPDETAILS(o.getIdrd()), Arrays.asList(o.getProdato(), o.getPlan(), Math.floor(1000 * o.getProdato() / o.getPlan()) / 10));
             }
         }
 

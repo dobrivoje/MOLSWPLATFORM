@@ -38,6 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Koef.findByObracunReport", query = "SELECT k FROM Koef k WHERE k.obracunReport = :obracunReport"),
     @NamedQuery(name = "Koef.findByObavezan", query = "SELECT k FROM Koef k WHERE k.obavezan = :obavezan")})
 public class Koef implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -158,15 +159,12 @@ public class Koef implements Serializable {
             return false;
         }
         Koef other = (Koef) object;
-        if ((this.idkfs == null && other.idkfs != null) || (this.idkfs != null && !this.idkfs.equals(other.idkfs))) {
-            return false;
-        }
-        return true;
+        return !((this.idkfs == null && other.idkfs != null) || (this.idkfs != null && !this.idkfs.equals(other.idkfs)));
     }
 
     @Override
     public String toString() {
-        return "db.retail.Koef[ idkfs=" + idkfs + " ]";
+        return getNaziv();
     }
-    
+
 }

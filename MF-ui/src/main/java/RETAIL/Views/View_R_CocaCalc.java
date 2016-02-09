@@ -120,7 +120,7 @@ public class View_R_CocaCalc extends VerticalLayout implements View {
 
     //<editor-fold defaultstate="collapsed" desc="createTopBar">
     public final HorizontalLayout createTopBar() {
-        //<editor-fold defaultstate="collapsed" desc="Datefiled listeners">
+        //<editor-fold defaultstate="collapsed" desc="DateField listeners">
         viewDateFrom.addValueChangeListener((Property.ValueChangeEvent event) -> {
             dates.setFrom((Date) event.getProperty().getValue());
             ossEvent.setDateFrom(dates.getFromStr());

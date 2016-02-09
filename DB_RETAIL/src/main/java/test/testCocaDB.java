@@ -2,12 +2,14 @@ package test;
 
 import db.retail.DBHandler_RETAIL;
 import db.retail.dataservice.DataService_RETAIL;
+import db.retail.ent.FS;
 import db.retail.ent.ReportDetails;
 import db.retail.ent.criteria.OS_Search;
 import db.retail.interfaces.IMDSearch;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -27,7 +29,6 @@ public class testCocaDB {
         String Od = "2015-11-1";
         String Do = "2015-11-30";
         //String fsCode = "90111";
-        String fsCode = null;
 
         /*
          IMDSearch<String, OS_Search> ic = DS.getMD_FS_Performace_C();
@@ -37,15 +38,21 @@ public class testCocaDB {
          System.err.println(ic.getTree());
          System.err.println(ic.getTree().keySet());
          */
+        for (FS f : DS.getASC_FS_C().getAll(false).stream().filter(p -> p.getCocaModel()).collect(Collectors.toList())) {
+            System.err.println("FS: " + f);
+            System.err.println("");
 
-        IMDSearch<ReportDetails, OS_Search> ic2 = DS.getMD_FS_Performace_C2(Od, Do, fsCode);
+            IMDSearch<Object, OS_Search> ic2 = DS.getMD_FS_Performace_C3(Od, Do, f.getCode());
 
-        for (Map.Entry<ReportDetails, List> E : ic2.getTree().entrySet()) {
-            ReportDetails key = E.getKey();
-            Object value = E.getValue();
+            for (Map.Entry<Object, List> E : ic2.getTree().entrySet()) {
+                ReportDetails key = (ReportDetails) E.getKey();
+                List value = E.getValue();
 
-            System.err.println(key + " - " + value);
+                System.err.println(key + " - " + value);
+            }
+
+            System.err.println("");
+            System.err.println("");
         }
-
     }
 }

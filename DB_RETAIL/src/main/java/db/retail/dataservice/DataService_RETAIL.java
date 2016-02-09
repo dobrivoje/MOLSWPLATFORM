@@ -11,6 +11,7 @@ import db.retail.controllers.AS_CSR_Controller;
 import db.retail.controllers.AS_FS_Controller;
 import db.retail.controllers.AS_GN_Controller;
 import db.retail.controllers.AS_KATEG_Controller;
+import db.retail.controllers.AS_KOEF_Controller;
 import db.retail.controllers.AS_MAPPING_Controller;
 import db.retail.controllers.AS_PARTN_Controller;
 import db.retail.controllers.AS_REPDETAILS_Controller;
@@ -20,6 +21,7 @@ import db.retail.controllers.FinalObracun_Controller;
 import db.retail.controllers.MD_FSPerformanceTotal_Controller;
 import db.retail.controllers.MD_FSPerformanceDetailed_Controller;
 import db.retail.controllers.MD_FSPerformanceTotal_Controller2;
+import db.retail.controllers.MD_FSPerformanceTotal_Controller3;
 import db.retail.controllers.MD_Partner_Controller;
 import db.retail.controllers.MD_Ugovor_Controller;
 import db.retail.controllers.Specifikacija_Controller;
@@ -27,6 +29,7 @@ import db.retail.ent.CompositeSellReport;
 import db.retail.ent.FS;
 import db.retail.ent.GrupniNaziv;
 import db.retail.ent.Kategorija;
+import db.retail.ent.Koef;
 import db.retail.ent.Mapping;
 import db.retail.ent.Partner;
 import db.retail.ent.ReportDetails;
@@ -73,12 +76,14 @@ public class DataService_RETAIL {
     private final IController<Mapping, MappingSearch> mc = new AS_MAPPING_Controller(DBH_RETAIL);
     private final IAdvancedSearchController<GrupniNaziv, String> gnc = new AS_GN_Controller(DBH_RETAIL);
     private final IAdvancedSearchController<Kategorija, Integer> kc = new AS_KATEG_Controller(DBH_RETAIL);
+    private final IAdvancedSearchController<Koef, Integer> koef = new AS_KOEF_Controller(DBH_RETAIL);
     private final IMasterDetail<Partner> mdp = new MD_Partner_Controller(DBH_RETAIL);
     private final IMasterDetail<FS> mduc = new MD_Ugovor_Controller(DBH_RETAIL);
     private final IController<Partner, PUSearch> asp = new AS_PARTN_Controller(DBH_RETAIL);
     private final IController<Ugovor, UgovorSearch> usc = new AS_UGOVOR_Controller(DBH_RETAIL);
     private final IMDSearch<String, OS_Search> mds1 = new MD_FSPerformanceTotal_Controller(DBH_RETAIL);
-    private final IMDSearch<ReportDetails, OS_Search> mds2 = new MD_FSPerformanceTotal_Controller2(DBH_RETAIL);
+    private final MD_FSPerformanceTotal_Controller2 mds2 = new MD_FSPerformanceTotal_Controller2(DBH_RETAIL);
+    private final IMDSearch<Object, OS_Search> mds3 = new MD_FSPerformanceTotal_Controller3(DBH_RETAIL);
     private final IAdvancedSearchController<ReportDetails, NameIDLogicSearch> rd = new AS_REPDETAILS_Controller(DBH_RETAIL);
     private final IMDSearch<ReportDetails, OS_Search> fspdtc = new MD_FSPerformanceDetailed_Controller(DBH_RETAIL);
 
@@ -155,6 +160,15 @@ public class DataService_RETAIL {
     }
 
     /**
+     * Advanced Koeficijent Controller - Search Controller
+     *
+     * @return
+     */
+    public IAdvancedSearchController<Koef, Integer> getASC_KOEF_C() {
+        return koef;
+    }
+
+    /**
      * Master detail Partner Controller
      *
      * @return
@@ -188,6 +202,10 @@ public class DataService_RETAIL {
         return mds2;
     }
 
+    public IMDSearch<Object, OS_Search> getMD_FS_Performace_C3() {
+        return mds3;
+    }
+
     public IMDSearch<String, OS_Search> getMD_FS_Performace_C(String from, String to, String fsCode) {
         mds1.setCriteria(new OS_Search(new DateIntervalSearch(from, to), fsCode));
 
@@ -200,6 +218,12 @@ public class DataService_RETAIL {
         return mds2;
     }
 
+    public IMDSearch<Object, OS_Search> getMD_FS_Performace_C3(String from, String to, String fsCode) {
+        mds3.setCriteria(new OS_Search(new DateIntervalSearch(from, to), fsCode));
+
+        return mds3;
+    }
+
     public IMDSearch<String, OS_Search> getMD_FS_Performace_C(OS_Search criteria) {
         mds1.setCriteria(criteria);
 
@@ -210,6 +234,12 @@ public class DataService_RETAIL {
         mds2.setCriteria(criteria);
 
         return mds2;
+    }
+
+    public IMDSearch<Object, OS_Search> getMD_FS_Performace_C3(OS_Search criteria) {
+        mds3.setCriteria(criteria);
+
+        return mds3;
     }
 
     public IMDSearch<ReportDetails, OS_Search> getMD_FSPerformanceDetailed_C() {
@@ -228,7 +258,7 @@ public class DataService_RETAIL {
         return fspdtc;
     }
 
-    public IAdvancedSearchController<ReportDetails, NameIDLogicSearch> getAS_ReportDetails_C() {
+    public IAdvancedSearchController<ReportDetails, NameIDLogicSearch> getASC_ReportDetails_C() {
         return rd;
     }
 }

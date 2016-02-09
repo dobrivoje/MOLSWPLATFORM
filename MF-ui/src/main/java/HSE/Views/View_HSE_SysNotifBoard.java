@@ -36,7 +36,7 @@ public class View_HSE_SysNotifBoard extends View_Dashboard {
 
         createTopBar();
 
-        List reportNames = DS_RETAIL.getAS_ReportDetails_C().get(new NameIDLogicSearch(null, true, -1));
+        List reportNames = DS_RETAIL.getASC_ReportDetails_C().get(new NameIDLogicSearch(null, true, -1));
         List<String> fsNames = DS_RETAIL.getASC_FS_C().getAll(false).subList(0, 4)
                 .stream().map(FS::getNaziv).collect(Collectors.toList());
 
