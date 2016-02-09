@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import static Main.MyUI.DS_RETAIL;
-import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Layout;
 import com.vaadin.ui.Panel;
 import org.dobrivoje.utils.colors.PastelColorGenerator;
 import org.superb.apps.utilities.vaadin.MyWindows.MyWindow;
@@ -61,13 +61,11 @@ public class Tree_R_FSPerformance extends CustomObjectTree<ReportDetails> {
                 getUI().addWindow(
                         new MyWindow(
                                 "FS Daily Performace",
-                                new VerticalLayout(
-                                        createReport_FSDailyPerformance(
-                                                ChartType.AREA_SPLINE,
-                                                f.getNaziv() + ", " + f.getCode() + ", " + ossevent.getDateFrom() + " - " + ossevent.getDateTo(),
-                                                criteria,
-                                                rd
-                                        )
+                                createReport_FSDailyPerformance(
+                                        ChartType.AREA_SPLINE,
+                                        f.getNaziv() + ", " + f.getCode() + ", " + ossevent.getDateFrom() + " - " + ossevent.getDateTo(),
+                                        criteria,
+                                        rd
                                 ),
                                 68, 55, Unit.PERCENTAGE
                         )
@@ -84,7 +82,7 @@ public class Tree_R_FSPerformance extends CustomObjectTree<ReportDetails> {
     }
 
     //<editor-fold defaultstate="collapsed" desc="report methods">
-    private Component createReport_FSDailyPerformance(ChartType chartType, String title, OS_Search criteria, List<ReportDetails> categories) {
+    private Layout createReport_FSDailyPerformance(ChartType chartType, String title, OS_Search criteria, List<ReportDetails> categories) {
         Map<ReportDetails, List> data = DS_RETAIL.getMD_FSPerformanceDetailed_C(criteria.getDateFrom(), criteria.getDateTo(), criteria.getFsCode()).getTree();
         Map<ReportDetails, List> d = new LinkedHashMap<>();
 
@@ -97,32 +95,31 @@ public class Tree_R_FSPerformance extends CustomObjectTree<ReportDetails> {
             }
         }
 
+        Component c;
         VerticalLayout vle = new VerticalLayout();
+        vle.setSizeFull();
         vle.setMargin(true);
 
         try {
-            Component c = new HighChartGen().generateHighChart(
+            c = new HighChartGen().generateHighChart(
                     chartType,
                     title,
                     xAxisValues,
-                    createYAxisValues2(d),
+                    createYAxis_KategorijaDanOstvarenje(d),
                     new PastelColorGenerator(0.85f)
             );
 
-            vle.addComponent(c);
-            vle.setExpandRatio(c, 1.0f);
-
-            return vle;
         } catch (Exception ex) {
-            Panel pe = new Panel("No results for the selected period !");
-            vle.addComponent(pe);
-            vle.setComponentAlignment(pe, Alignment.MIDDLE_CENTER);
-
-            return vle;
+            c = new Panel("No results for the selected period !");
         }
+
+        vle.addComponent(c);
+        // vle.setExpandRatio(c, 1.0f);
+
+        return vle;
     }
 
-    private Map<Object, List> createYAxisValues2(Map<ReportDetails, List> MM) {
+    private Map<Object, List> createYAxis_KategorijaDanOstvarenje(Map<ReportDetails, List> MM) {
         Map<Object, List> M = new HashMap<>();
 
         for (Map.Entry<ReportDetails, List> E : MM.entrySet()) {

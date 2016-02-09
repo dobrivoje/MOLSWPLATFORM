@@ -54,7 +54,12 @@ public class HighChartGen extends AbstractHighChart {
                 + generateSeries(series, colorFactory)
                 + generateSeriesEnd();
 
-        hc.setSizeFull();
+        // ovo obezbeđuje da pri povećanju prozora koji drži ovu komponentu u full screen-u
+        // ova komponenta se širi u obe ose do 93% !
+        // isto tako, da je hc podešena sa setSizeFull, u legendi, kategorije bi bile na dnu
+        // i ne bi se lepo videle. zato ostavljamo 7% marginu...
+        hc.setHeight(93, Unit.PERCENTAGE);
+        hc.setWidth(93, Unit.PERCENTAGE);
         hc.setResponsive(true);
         hc.setHcjs(out);
 
