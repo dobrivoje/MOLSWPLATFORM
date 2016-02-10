@@ -42,7 +42,8 @@ public class View_R_SysNotifBoard extends View_Dashboard {
 
     public View_R_SysNotifBoard() {
         super("Retail Dashboard");
-
+        tools.addComponents(viewDateFrom, viewDateTo);
+        
         ossEvent = new OS_Search(new DateIntervalSearch(dates.getFromStr(), dates.getToStr()), null);
 
         viewDateFrom.setDateFormat(SYSTEM_DATE_FORMAT);

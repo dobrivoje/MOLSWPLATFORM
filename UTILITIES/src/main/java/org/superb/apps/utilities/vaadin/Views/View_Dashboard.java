@@ -30,6 +30,7 @@ import org.superb.apps.utilities.datum.Dates;
 @SuppressWarnings("serial")
 public abstract class View_Dashboard extends Panel implements View {
 
+    //<editor-fold defaultstate="collapsed" desc="Varijable">
     private static final String EDIT_ID = "dashboard-edit";
     private static final String TITLE_ID = "dashboard-title";
 
@@ -37,6 +38,9 @@ public abstract class View_Dashboard extends Panel implements View {
     private NotificationsButton notificationsButton;
     protected CssLayout dashboardPanels;
     protected final VerticalLayout root = new VerticalLayout();
+
+    protected final HorizontalLayout header = new HorizontalLayout();
+    protected final HorizontalLayout tools = new HorizontalLayout();
 
     protected boolean viewMaximized;
 
@@ -57,7 +61,9 @@ public abstract class View_Dashboard extends Panel implements View {
     private Window notificationsWindow;
 
     private MenuBar.MenuItem max;
+    //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Konstruktori">
     protected View_Dashboard(String dashBoardTitle) {
         addStyleName(ValoTheme.PANEL_BORDERLESS);
         setSizeFull();
@@ -75,14 +81,10 @@ public abstract class View_Dashboard extends Panel implements View {
 
         root.addComponent(buildHeader(dashBoardTitle));
     }
+    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="DashBoard Header">
     protected final Component buildHeader(String dashBoardTitle) {
-        return buildHeaderWithAdditionalComponents(dashBoardTitle);
-    }
-
-    protected final Component buildHeaderWithAdditionalComponents(String dashBoardTitle, Component... components) {
-        HorizontalLayout header = new HorizontalLayout();
         header.addStyleName("viewheader");
         header.setSpacing(true);
 
@@ -93,14 +95,9 @@ public abstract class View_Dashboard extends Panel implements View {
         titleLabel.addStyleName(ValoTheme.LABEL_NO_MARGIN);
         header.addComponent(titleLabel);
 
-        HorizontalLayout tools = new HorizontalLayout();
-
         notificationsButton = buildNotificationsButton();
         Component editButton = buildEditButton();
 
-        if (components != null) {
-            tools.addComponents(components);
-        }
         tools.addComponents(notificationsButton, editButton);
 
         tools.setSpacing(true);

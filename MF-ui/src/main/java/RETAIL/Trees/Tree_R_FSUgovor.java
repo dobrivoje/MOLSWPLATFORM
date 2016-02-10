@@ -24,9 +24,6 @@ import org.superb.apps.utilities.vaadin.Trees.CustomObjectTree;
  */
 public class Tree_R_FSUgovor extends CustomObjectTree<FS> {
 
-    private int formImgWidth;
-    private int formImgHeight;
-
     public Tree_R_FSUgovor(FS fs, boolean expandRootNodes) throws CustomTreeNodesEmptyException {
         super(Arrays.asList(fs), expandRootNodes);
 
@@ -38,17 +35,17 @@ public class Tree_R_FSUgovor extends CustomObjectTree<FS> {
                 if (event.getItemId() instanceof FS) {
                     crudForm = new Form_R_FS(new BeanItem(event.getItemId()), false, null);
 
-                    formImgHeight = 200;
-                    formImgWidth = 235;
+                    winFormImgHeight = 200;
+                    winFormImgWidth = 235;
 
                     wf = new WindowForm3(
                             "Fuelstation Data Form",
                             crudForm,
-                            676, 432, Unit.PIXELS,
+                            432, 676, Unit.PIXELS,
                             "img/partner1.png",
                             "Save",
                             crudForm.getClickListener(),
-                            formImgHeight, formImgWidth, false
+                            winFormImgHeight, winFormImgWidth, false
                     );
 
                 }
@@ -56,8 +53,8 @@ public class Tree_R_FSUgovor extends CustomObjectTree<FS> {
                 if (event.getItemId() instanceof Ugovor) {
                     crudForm = new Form_R_UGOVOR(new BeanItem(event.getItemId()), false, null);
 
-                    formImgHeight = 250;
-                    formImgWidth = 250;
+                    winFormImgHeight = 225;
+                    winFormImgWidth = 225;
 
                     wf = new WindowForm3(
                             "Contracts Data Form",
@@ -65,7 +62,7 @@ public class Tree_R_FSUgovor extends CustomObjectTree<FS> {
                             "img/contract.png",
                             "Save",
                             crudForm.getClickListener(),
-                            formImgHeight, formImgWidth, false
+                            winFormImgHeight, winFormImgWidth, false
                     );
                 }
 

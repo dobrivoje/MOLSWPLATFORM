@@ -1,6 +1,5 @@
 package Main;
 
-import RETAIL.Views.View_R;
 import RETAIL.Views.View_R_SysNotifBoard;
 import Uni.Views.LoginScreen;
 import Uni.Views.MainScreen;
