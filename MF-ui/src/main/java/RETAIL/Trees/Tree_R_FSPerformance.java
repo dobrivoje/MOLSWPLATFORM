@@ -62,7 +62,9 @@ public class Tree_R_FSPerformance extends CustomObjectTree<ReportDetails> {
                                 "FS Daily Performace",
                                 createReport_FSDailyPerformance(
                                         ChartType.AREA_SPLINE,
-                                        f.getNaziv() + ", " + f.getCode() + ", " + ossevent.getDateFrom() + " - " + ossevent.getDateTo(),
+                                        f.getNaziv() + ", " + f.getCode()
+                                        + ", "
+                                        + ossevent.getDateFrom() + " - " + ossevent.getDateTo(),
                                         criteria,
                                         rd
                                 ),

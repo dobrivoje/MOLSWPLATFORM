@@ -5,6 +5,7 @@
  */
 package org.superb.apps.utilities.datum;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -50,6 +51,28 @@ public class Dates {
             Date z = this.from;
             this.from = this.to;
             this.to = z;
+        }
+    }
+
+    public Dates(String from, String to, String format) {
+        try {
+            this.from = new SimpleDateFormat(format).parse(from);
+            this.to = new SimpleDateFormat(format).parse(to);
+        } catch (ParseException ex) {
+        }
+    }
+
+    /**
+     * Default constructor with English date format.
+     *
+     * @param from
+     * @param to
+     */
+    public Dates(String from, String to) {
+        try {
+            this.from = new SimpleDateFormat(DateFormat.DATE_FORMAT_ENG.toString()).parse(from);
+            this.to = new SimpleDateFormat(DateFormat.DATE_FORMAT_ENG.toString()).parse(to);
+        } catch (ParseException ex) {
         }
     }
 
@@ -175,6 +198,13 @@ public class Dates {
         this.from = from;
     }
 
+    public void setFrom(String from, String format) {
+        try {
+            this.from = new SimpleDateFormat(format).parse(from);
+        } catch (ParseException ex) {
+        }
+    }
+
     public void setFrom(int day, int month, int year) {
         this.from = setDMY(month, day, year);
     }
@@ -189,6 +219,13 @@ public class Dates {
 
     public void setTo(Date to) {
         this.to = to;
+    }
+
+    public void setTo(String to, String format) {
+        try {
+            this.to = new SimpleDateFormat(format).parse(to);
+        } catch (ParseException ex) {
+        }
     }
 
     public void setTo(int day, int month, int year) {

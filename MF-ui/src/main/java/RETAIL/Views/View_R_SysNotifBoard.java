@@ -29,27 +29,25 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import org.dobrivoje.utils.colors.PastelColorGenerator;
-import org.superb.apps.utilities.datum.Dates;
 import org.superb.apps.utilities.vaadin.Views.View_Dashboard;
 
 public class View_R_SysNotifBoard extends View_Dashboard {
 
     private final DateField viewDateFrom = new DateField();
     private final DateField viewDateTo = new DateField();
-    private final Dates dates = new Dates(-3, true);
 
     private final OS_Search ossEvent;
 
     public View_R_SysNotifBoard() {
         super("Retail Dashboard");
         tools.addComponents(viewDateFrom, viewDateTo);
-        
-        ossEvent = new OS_Search(new DateIntervalSearch(dates.getFromStr(), dates.getToStr()), null);
+
+        ossEvent = new OS_Search(new DateIntervalSearch(dateInterval.getFromStr(), dateInterval.getToStr()), null);
 
         viewDateFrom.setDateFormat(SYSTEM_DATE_FORMAT);
         viewDateTo.setDateFormat(SYSTEM_DATE_FORMAT);
-        viewDateFrom.setValue(dates.getFrom());
-        viewDateTo.setValue(dates.getTo());
+        viewDateFrom.setValue(dateInterval.getFrom());
+        viewDateTo.setValue(dateInterval.getTo());
 
         //<editor-fold defaultstate="collapsed" desc="test verzija">
         /*
@@ -82,10 +80,13 @@ public class View_R_SysNotifBoard extends View_Dashboard {
         List<Component> c = new ArrayList();
 
         for (FS f : DS_RETAIL.getASC_FS_C().getAll(false).stream().filter(p -> p.getCocaModel()).collect(Collectors.toList())) {
-            OS_Search criteria = new OS_Search(new DateIntervalSearch(dates.getFromStr(), dates.getToStr()), f.getCode());
+            OS_Search criteria = new OS_Search(new DateIntervalSearch(dateInterval.getFromStr(), dateInterval.getToStr()), f.getCode());
             c.add(createReport_FSPeriodTotalPerformance(
                     ChartType.BASIC_COLUMN,
-                    f.toString() + ", " + dates.getFromStr(SYSTEM_DATE_FORMAT) + " - " + dates.getToStr(SYSTEM_DATE_FORMAT),
+                    f.toString()
+                    + ", " + dateInterval.getFromStr(SYSTEM_DATE_FORMAT)
+                    + " - "
+                    + dateInterval.getToStr(SYSTEM_DATE_FORMAT),
                     criteria)
             );
         }
@@ -102,8 +103,8 @@ public class View_R_SysNotifBoard extends View_Dashboard {
 
         //<editor-fold defaultstate="collapsed" desc="DateField listeners">
         viewDateFrom.addValueChangeListener((Property.ValueChangeEvent event) -> {
-            dates.setFrom((Date) event.getProperty().getValue());
-            ossEvent.setDateFrom(dates.getFromStr());
+            dateInterval.setFrom((Date) event.getProperty().getValue());
+            ossEvent.setDateFrom(dateInterval.getFromStr());
 
             if (ossEvent.getFsCode() != null) {
                 // refreshFSPerformancePanel(ossEvent);
@@ -111,8 +112,8 @@ public class View_R_SysNotifBoard extends View_Dashboard {
         });
 
         viewDateTo.addValueChangeListener((Property.ValueChangeEvent event) -> {
-            dates.setTo((Date) event.getProperty().getValue());
-            ossEvent.setDateTo(dates.getToStr());
+            dateInterval.setTo((Date) event.getProperty().getValue());
+            ossEvent.setDateTo(dateInterval.getToStr());
 
             if (ossEvent.getFsCode() != null) {
                 // refreshFSPerformancePanel(ossEvent);

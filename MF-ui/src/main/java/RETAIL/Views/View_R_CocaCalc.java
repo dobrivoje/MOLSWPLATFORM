@@ -45,7 +45,7 @@ public class View_R_CocaCalc extends VerticalLayout implements View {
 
     private final DateField viewDateFrom = new DateField();
     private final DateField viewDateTo = new DateField();
-    private final Dates dates = new Dates(-2, true);
+    private final Dates dates = new Dates(-1, true);
 
     private final VerticalLayout propVL = new VerticalLayout();
 

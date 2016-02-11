@@ -50,7 +50,7 @@ public abstract class View_Dashboard extends Panel implements View {
      */
     protected final List<Panel> subPanels;
 
-    protected final Dates dateInterval = new Dates();
+    protected final Dates dateInterval = new Dates(-1, true);
 
     /**
      * <b>dynamicPanels</b> Lista komponenti (panela) koje se dinamičko

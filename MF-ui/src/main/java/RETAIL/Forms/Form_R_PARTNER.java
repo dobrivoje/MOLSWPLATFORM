@@ -28,7 +28,7 @@ public class Form_R_PARTNER extends Form_CRUD2<Partner> {
     private final TextField matBroj = new TextField("Partner's Matični Broj");
 
     @PropertyId("type")
-    private final TextField type = new TextField("Partner's Matični Broj");
+    private final TextField type = new TextField("Partner's Type");
 
     @PropertyId("partnerPhoneNo")
     private final TextField partnerPhoneNo = new TextField("Partner's Phone No.");
