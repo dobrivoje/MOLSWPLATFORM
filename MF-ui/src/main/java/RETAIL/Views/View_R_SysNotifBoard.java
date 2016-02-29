@@ -21,10 +21,9 @@ import java.util.stream.Collectors;
 import static Main.MyUI.DS_RETAIL;
 import static Main.MyUI.SYSTEM_DATE_FORMAT;
 import com.vaadin.data.Property;
-import com.vaadin.event.FieldEvents;
 import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.DateField;
-import com.vaadin.ui.TextField;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -35,63 +34,36 @@ public class View_R_SysNotifBoard extends View_Dashboard {
 
     private final DateField viewDateFrom = new DateField();
     private final DateField viewDateTo = new DateField();
+    private final Button okButton = new Button("Ok");
 
     private final OS_Search ossEvent;
 
     public View_R_SysNotifBoard() {
         super("Retail Dashboard");
-        tools.addComponents(viewDateFrom, viewDateTo);
+        tools.addComponents(viewDateFrom, viewDateTo, okButton);
 
         ossEvent = new OS_Search(new DateIntervalSearch(dateInterval.getFromStr(), dateInterval.getToStr()), null);
+
+        //<editor-fold defaultstate="collapsed" desc="DateField listeners">
+        viewDateFrom.addValueChangeListener((Property.ValueChangeEvent event) -> {
+            dateInterval.setFrom((Date) event.getProperty().getValue());
+            ossEvent.setDateFrom(dateInterval.getFromStr());
+        });
+
+        viewDateTo.addValueChangeListener((Property.ValueChangeEvent event) -> {
+            dateInterval.setTo((Date) event.getProperty().getValue());
+            ossEvent.setDateTo(dateInterval.getToStr());
+        });
+        //</editor-fold> 
 
         viewDateFrom.setDateFormat(SYSTEM_DATE_FORMAT);
         viewDateTo.setDateFormat(SYSTEM_DATE_FORMAT);
         viewDateFrom.setValue(dateInterval.getFrom());
         viewDateTo.setValue(dateInterval.getTo());
 
-        //<editor-fold defaultstate="collapsed" desc="test verzija">
-        /*
-         List reportNames = DS_RETAIL.getASC_ReportDetails_C().get(new NameIDLogicSearch(null, true, -1));
-         List<String> fsNames = DS_RETAIL.getASC_FS_C().getAll(false).subList(0, 4)
-         .stream().map(FS::getNaziv).collect(Collectors.toList());
-         Dates dates = new Dates(-3, true);
-         OS_Search criteria = new OS_Search(new DateIntervalSearch(dates.getFromStr(), dates.getToStr()), "90431");
-        
-         buildContentWithComponents(
-         createReport_FSDailyPerformance(ChartType.AREA_SPLINE, "FS Daily Performances", criteria),
-         createReport(ChartType.STACKED_BAR, "Report", reportNames, fsNames),
-         createReport(ChartType.SPLINE, "Report", reportNames, fsNames),
-         createReport(ChartType.BAR, "Fuel Consumption", reportNames, Arrays.asList("Premium", "EVO")),
-         createReport(ChartType.AREA_SPLINE, "Report", reportNames, fsNames),
-         createReport(ChartType.BASIC_COLUMN, "Report", reportNames, fsNames)
-         );
-         */
-        /*
-         Dates dates = new Dates(-3, true);
-         List<Component> c = new ArrayList();
-        
-         for (FS f : DS_RETAIL.getASC_FS_C().getAll(false).stream().filter(p -> p.getCocaModel()).collect(Collectors.toList())) {
-         OS_Search criteria = new OS_Search(new DateIntervalSearch(dates.getFromStr(), dates.getToStr()), f.getCode());
-         c.add(createReport_FSDailyPerformance(ChartType.AREA_SPLINE, "FS Daily Performances", criteria));
-         }
-         buildContentWithComponents(c);
-         */
-        //</editor-fold>
-        List<Component> c = new ArrayList();
-
-        for (FS f : DS_RETAIL.getASC_FS_C().getAll(false).stream().filter(p -> p.getCocaModel()).collect(Collectors.toList())) {
-            OS_Search criteria = new OS_Search(new DateIntervalSearch(dateInterval.getFromStr(), dateInterval.getToStr()), f.getCode());
-            c.add(createReport_FSPeriodTotalPerformance(
-                    ChartType.BASIC_COLUMN,
-                    f.toString()
-                    + ", " + dateInterval.getFromStr(SYSTEM_DATE_FORMAT)
-                    + " - "
-                    + dateInterval.getToStr(SYSTEM_DATE_FORMAT),
-                    criteria)
-            );
-        }
-
-        buildContentWithComponents(c);
+        okButton.addClickListener((Button.ClickEvent event) -> {
+            createFSReports();
+        });
     }
 
     @Override
@@ -100,49 +72,17 @@ public class View_R_SysNotifBoard extends View_Dashboard {
 
     //<editor-fold defaultstate="collapsed" desc="createTopBar">
     public final HorizontalLayout createTopBar() {
-
-        //<editor-fold defaultstate="collapsed" desc="DateField listeners">
-        viewDateFrom.addValueChangeListener((Property.ValueChangeEvent event) -> {
-            dateInterval.setFrom((Date) event.getProperty().getValue());
-            ossEvent.setDateFrom(dateInterval.getFromStr());
-
-            if (ossEvent.getFsCode() != null) {
-                // refreshFSPerformancePanel(ossEvent);
-            }
-        });
-
-        viewDateTo.addValueChangeListener((Property.ValueChangeEvent event) -> {
-            dateInterval.setTo((Date) event.getProperty().getValue());
-            ossEvent.setDateTo(dateInterval.getToStr());
-
-            if (ossEvent.getFsCode() != null) {
-                // refreshFSPerformancePanel(ossEvent);
-            }
-        });
-        //</editor-fold>  
-
         //<editor-fold defaultstate="collapsed" desc="Topbar visual">
-        TextField filter = new TextField();
-        filter.setStyleName("filter-textfield");
-        filter.setInputPrompt("search data...");
-        ResetButtonForTextField.extend(filter);
-        filter.setImmediate(false);
-        filter.addTextChangeListener((FieldEvents.TextChangeEvent event) -> {
-            // table.setFilter(event.getText());
-        });
-
         HorizontalLayout topLayout = new HorizontalLayout();
         topLayout.setSpacing(true);
         topLayout.setWidth(100, Unit.PERCENTAGE);
 
-        topLayout.addComponents(filter, viewDateFrom, viewDateTo);
+        topLayout.addComponents(viewDateFrom, viewDateTo, okButton);
 
-        topLayout.setComponentAlignment(filter, Alignment.MIDDLE_LEFT);
         topLayout.setComponentAlignment(viewDateFrom, Alignment.MIDDLE_RIGHT);
         topLayout.setComponentAlignment(viewDateTo, Alignment.MIDDLE_RIGHT);
+        topLayout.setComponentAlignment(okButton, Alignment.MIDDLE_RIGHT);
 
-        topLayout.setComponentAlignment(filter, Alignment.MIDDLE_LEFT);
-        topLayout.setExpandRatio(filter, 1);
         topLayout.setStyleName("top-bar");
         //</editor-fold>
 
@@ -230,6 +170,7 @@ public class View_R_SysNotifBoard extends View_Dashboard {
     //</editor-fold>
     //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="HighChart methods,...">
     private Component createReport(ChartType chartType, String title, List xAxis, Map<Object, List> yAxisByCategoryValues) {
         Component c1;
         String panelMessage;
@@ -282,4 +223,31 @@ public class View_R_SysNotifBoard extends View_Dashboard {
         );
 
     }
+
+    private void createFSReports() {
+        List<Component> c = new ArrayList();
+
+        for (FS f : DS_RETAIL.getASC_FS_C().getAll(false).stream().filter(p -> p.getCocaModel()).collect(Collectors.toList())) {
+            OS_Search criteria = new OS_Search(new DateIntervalSearch(dateInterval.getFromStr(), dateInterval.getToStr()), f.getCode());
+            c.add(createReport_FSPeriodTotalPerformance(
+                    ChartType.BASIC_COLUMN,
+                    f.toString()
+                    + ", " + dateInterval.getFromStr(SYSTEM_DATE_FORMAT)
+                    + " - "
+                    + dateInterval.getToStr(SYSTEM_DATE_FORMAT),
+                    criteria)
+            );
+        }
+
+        try {
+            dashboardPanels.removeAllComponents();
+            root.removeComponent(dashboardPanels);
+        } catch (Exception e) {
+        }
+
+        buildContentWithComponents(c);
+
+    }
+    //</editor-fold>
+
 }
