@@ -18,9 +18,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import static Main.MyUI.DS_RETAIL;
+import static Main.MyUI.SYSTEM_DATE_FORMAT;
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.Panel;
 import org.dobrivoje.utils.colors.PastelColorGenerator;
+import org.dobrivoje.utils.date.formats.DateFormat;
+import org.superb.apps.utilities.datum.Dates;
 import org.superb.apps.utilities.vaadin.MyWindows.MyWindow;
 import org.superb.apps.utilities.vaadin.Trees.CustomObjectTree;
 import org.vaadin.highcharts.ChartType;
@@ -57,6 +60,12 @@ public class Tree_R_FSPerformance extends CustomObjectTree<ReportDetails> {
             }
 
             if (rd != null) {
+                Dates d = new Dates();
+                String format = DateFormat.DATE_FORMAT_ENG.toString();
+
+                d.setFrom(ossevent.getDateFrom(), format);
+                d.setTo(ossevent.getDateTo(), format);
+
                 getUI().addWindow(
                         new MyWindow(
                                 "FS Daily Performace",
@@ -64,7 +73,7 @@ public class Tree_R_FSPerformance extends CustomObjectTree<ReportDetails> {
                                         ChartType.AREA_SPLINE,
                                         f.getNaziv() + ", " + f.getCode()
                                         + ", "
-                                        + ossevent.getDateFrom() + " - " + ossevent.getDateTo(),
+                                        + d.getFromStr(SYSTEM_DATE_FORMAT) + " - " + d.getToStr(SYSTEM_DATE_FORMAT),
                                         criteria,
                                         rd
                                 ),
