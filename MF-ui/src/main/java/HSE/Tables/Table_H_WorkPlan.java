@@ -5,7 +5,6 @@
  */
 package HSE.Tables;
 
-import org.superb.apps.utilities.vaadin.Tables.Table_GEN;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.data.util.filter.Or;
 import com.vaadin.data.util.filter.SimpleStringFilter;
@@ -14,6 +13,8 @@ import com.vaadin.ui.CheckBox;
 import db.HSE.ent.WorkPlan;
 import java.util.List;
 import static Main.MyUI.DS_HSE;
+import com.vaadin.ui.Table.Align;
+import org.superbapps.utils.vaadin.Tables.Table_GEN;
 
 /**
  *

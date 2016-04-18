@@ -31,11 +31,6 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>UTILITIES</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
             <artifactId>AUTH</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -54,8 +49,20 @@
             <artifactId>MF-widgetset</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.dobrivoje</groupId>
+            <artifactId>utils</artifactId>
+            <version>1.5</version>
+        </dependency>
     </dependencies>
 
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+        
     <build>
         <plugins>
             <plugin>

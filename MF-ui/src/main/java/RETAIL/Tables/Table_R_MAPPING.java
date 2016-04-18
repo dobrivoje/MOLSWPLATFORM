@@ -5,7 +5,7 @@ package RETAIL.Tables;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import org.superb.apps.utilities.vaadin.Tables.Table_GEN;
+import org.superbapps.utils.vaadin.Tables.Table_GEN;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.data.util.filter.Or;
 import com.vaadin.data.util.filter.SimpleStringFilter;

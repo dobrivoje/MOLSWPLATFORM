@@ -16,8 +16,8 @@ import dataservice.DataService;
 import db.HSE.dataservice.DataService_HSE;
 import db.retail.dataservice.DataService_RETAIL;
 import org.dobrivoje.auth.IAccessAuthControl;
-import org.dobrivoje.utils.date.formats.DateFormat;
-import org.superb.apps.utilities.Enums.ServletOperations;
+import org.superbapps.utils.common.Enums.ServletOperations;
+import org.superbapps.utils.common.dates.formats.DateFormat;
 
 @Theme("mytheme")
 @Widgetset("mf.MyAppWidgetset")

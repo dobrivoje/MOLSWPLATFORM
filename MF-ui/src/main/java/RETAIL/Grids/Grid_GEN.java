@@ -3,7 +3,7 @@ package RETAIL.Grids;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Grid;
 import java.util.List;
-import org.superb.apps.utilities.vaadin.Tables.IRefreshVisualContainer;
+import org.superbapps.utils.vaadin.Tables.IRefreshVisualContainer;
 
 public class Grid_GEN<T> extends Grid implements IRefreshVisualContainer {
 

@@ -6,14 +6,14 @@
 package HSE.Tables;
 
 import db.HSE.ent.reportbeans.HSE_SysNotif_Bean;
-import org.superb.apps.utilities.vaadin.Tables.Table_GEN;
+import org.superbapps.utils.vaadin.Tables.Table_GEN;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.Align;
 import java.util.List;
-import org.superb.apps.utilities.Enums.WorkingPlansStatuses;
-import org.superb.apps.utilities.vaadin.FancyLabels.WPSLabel;
 import static Main.MyUI.DS_HSE;
+import org.superbapps.utils.common.Enums.WorkingPlansStatuses;
+import org.superbapps.utils.vaadin.FancyLabels.WPSLabel;
 
 /**
  *

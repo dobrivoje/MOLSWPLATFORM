@@ -1,6 +1,6 @@
 package RETAIL.Tables;
 
-import org.superb.apps.utilities.vaadin.Tables.Table_GEN;
+import org.superbapps.utils.vaadin.Tables.Table_GEN;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.data.util.filter.Or;
 import com.vaadin.data.util.filter.SimpleStringFilter;

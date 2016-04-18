@@ -5,10 +5,10 @@
  */
 package HSE.Trees;
 
-import db.Exceptions.CustomTreeNodesEmptyException;
 import db.HSE.ent.WorkPlan;
 import java.util.List;
-import org.superb.apps.utilities.vaadin.Trees.CustomTree;
+import org.superbapps.utils.vaadin.Exceptions.CustomTreeNodesEmptyException;
+import org.superbapps.utils.vaadin.Trees.CustomTree;
 
 /**
  *

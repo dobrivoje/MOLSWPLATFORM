@@ -21,10 +21,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import static Main.MyUI.DS_RETAIL;
 import com.vaadin.ui.Alignment;
-import org.dobrivoje.utils.colors.AppealingColorGenerator;
-import org.dobrivoje.utils.colors.IColorGenerator;
-import org.superb.apps.utilities.datum.Dates;
-import org.superb.apps.utilities.vaadin.Views.View_Dashboard;
+import org.superbapps.utils.common.colors.AppealingColorGenerator;
+import org.superbapps.utils.common.colors.IColorGenerator;
+import org.superbapps.utils.common.dates.Dates;
+import org.superbapps.utils.vaadin.Views.View_Dashboard;
 import org.vaadin.highcharts.HighChartGen;
 import org.vaadin.highcharts.ChartType;
 

@@ -11,7 +11,7 @@
     <properties>
         <vaadin.version>7.6.4</vaadin.version>
         <vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
-        <jetty.plugin.version>9.3.6.v20151106</jetty.plugin.version>
+        <jetty.plugin.version>9.3.8.v20160314</jetty.plugin.version>
         <project.source.version>1.8</project.source.version>
         <project.target.version>1.8</project.target.version>
         <project.encoding>UTF-8</project.encoding>
@@ -126,7 +126,6 @@
         <module>AUTH</module>
         <module>MF-production</module>
         <module>MF-widgetset</module>
-        <module>UTILITIES</module>
         <module>DB_HSE</module>
         <module>DB_RETAIL</module>
         <module>DATASERVICE</module>

@@ -27,8 +27,8 @@ import com.vaadin.ui.DateField;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedHashMap;
-import org.dobrivoje.utils.colors.PastelColorGenerator;
-import org.superb.apps.utilities.vaadin.Views.View_Dashboard;
+import org.superbapps.utils.common.colors.PastelColorGenerator;
+import org.superbapps.utils.vaadin.Views.View_Dashboard;
 
 public class View_R_SysNotifBoard extends View_Dashboard {
 
