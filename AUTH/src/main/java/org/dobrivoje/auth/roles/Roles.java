@@ -13,27 +13,25 @@ import java.io.Serializable;
  */
 public class Roles implements Serializable {
 
-    public static final String ROLE_ROOT_PRIVILEGES = "R_rootPrivileges";
-    public static final String ROLE_APP_OFFICE_MANAGER = "R_appOfficeManager";
-    public static final String ROLE_APP_FS_USER = "R_appFSUser";
+    public static final String R_MF_ROOT_PRIVILEGES = "R_MF_RootPrivileges";
+    public static final String R_MF_OFFICE_MANAGER = "R_MF_OfficeManager";
+    public static final String R_MF_FS_USER = "R_MF_FS_User";
 
-    public static final String PERMISSION_APP_FS_USER_LOGIN = "appFSUser:login";
-    public static final String PERMISSION_APP_FS_USER_SEARCH_ALL_WORKPLANS = "appFSUser:search:AllWorkplans";
-    public static final String PERMISSION_APP_FS_USER_SEARCH_OWN_WORKPLAN = "appFSUser:search:OwnWorkplan";
-    public static final String PERMISSION_APP_FS_USER_EDIT_ALL_WORKPLANS = "appFSUser:edit:AllWorkplans";
-    public static final String PERMISSION_APP_FS_USER_EDIT_OWN_WORKPLANS = "appFSUser:edit:OwnWorkplans";
+    public static final String P_MF_FS_USER_LOGIN = "R_MF_FSUser:login";
+    public static final String P_MF_FS_USER_WORKPLAN_SEARCH_OWN = "R_MF_FSUser:search:OwnWorkplan";
+    public static final String P_MF_FS_USER_WORKPLANS_EDIT_ALL = "R_MF_FSUser:edit:AllWorkplans";
+    public static final String P_MF_FS_USER_WORKPLANS_EDIT_OWN = "R_MF_FSUser:edit:OwnWorkplans";
 
     public static String[] getAllRoles() {
-        return new String[]{ROLE_ROOT_PRIVILEGES, ROLE_APP_OFFICE_MANAGER, ROLE_APP_FS_USER};
+        return new String[]{R_MF_ROOT_PRIVILEGES, R_MF_OFFICE_MANAGER, R_MF_FS_USER};
     }
 
     public static String[] getAllPermissions() {
         return new String[]{
-            PERMISSION_APP_FS_USER_LOGIN,
-            PERMISSION_APP_FS_USER_SEARCH_ALL_WORKPLANS,
-            PERMISSION_APP_FS_USER_SEARCH_OWN_WORKPLAN,
-            PERMISSION_APP_FS_USER_EDIT_ALL_WORKPLANS,
-            PERMISSION_APP_FS_USER_EDIT_OWN_WORKPLANS
+            P_MF_FS_USER_LOGIN,
+            P_MF_FS_USER_WORKPLAN_SEARCH_OWN,
+            P_MF_FS_USER_WORKPLANS_EDIT_ALL,
+            P_MF_FS_USER_WORKPLANS_EDIT_OWN
         };
     }
 }

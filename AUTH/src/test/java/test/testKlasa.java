@@ -28,14 +28,14 @@ public class testKlasa {
         System.err.println("testAutentifikacije, Subjekat " + subject.getPrincipal() + ", autentifikovan !");
     }
 
-    @RequiresPermissions(Roles.ROLE_ROOT_PRIVILEGES)
+    @RequiresPermissions(Roles.R_MF_ROOT_PRIVILEGES)
     private static void testDozovle1(Subject subject) {
-        System.err.println("testDozovle1 Subjekat " + subject.getPrincipal() + ", ima dozovlu za pravo : " + Roles.ROLE_ROOT_PRIVILEGES);
+        System.err.println("testDozovle1 Subjekat " + subject.getPrincipal() + ", ima dozovlu za pravo : " + Roles.R_MF_ROOT_PRIVILEGES);
     }
 
-    @RequiresRoles(value = Roles.ROLE_ROOT_PRIVILEGES)
+    @RequiresRoles(value = Roles.R_MF_ROOT_PRIVILEGES)
     private static void testDozovle2(Subject subject) {
-        System.err.println("testDozovle2 Subjekat " + subject.getPrincipal() + ", ima ROLE : " + Roles.ROLE_ROOT_PRIVILEGES);
+        System.err.println("testDozovle2 Subjekat " + subject.getPrincipal() + ", ima ROLE : " + Roles.R_MF_ROOT_PRIVILEGES);
     }
     //</editor-fold>
 
@@ -43,7 +43,7 @@ public class testKlasa {
         IAccessAuthControl intermolAD = new IntermolADAccessControl();
 
         try {
-            intermolAD.login("intermol\\dprtenjak", "dedaMocika2000");
+            intermolAD.login("intermol\\dprtenjak", "dedaMoca3");
             //intermolAD.login("ws", "");
 
             System.err.println(intermolAD.getPrincipal() + " isAuthenticated ? " + intermolAD.authenticated());
