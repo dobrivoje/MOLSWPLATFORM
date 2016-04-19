@@ -110,7 +110,7 @@ public class View_R_CocaCalc_PARTNERS extends VerticalLayout implements View {
         if (item != null) {
             HL.setSplitPosition(50, Sizeable.Unit.PERCENTAGE);
 
-            boolean readOnly = !MyUI.get().isPermitted(Roles.PERMISSION_APP_FS_USER_EDIT_OWN_WORKPLANS);
+            boolean readOnly = !MyUI.get().isPermitted(Roles.APP_COCACALC_MAINTENENCE);
 
             form.setEnabled(readOnly);
             form.setBeanItem(new BeanItem(item));

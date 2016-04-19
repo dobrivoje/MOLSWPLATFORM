@@ -177,7 +177,7 @@ public class View_R_CocaCalc extends VerticalLayout implements View {
             HL.setSplitPosition(60, Sizeable.Unit.PERCENTAGE);
 
             ossEvent.setFsCode(item.getCode());
-            form.setEnabled(MyUI.get().isPermitted(Roles.PERMISSION_APP_FS_USER_EDIT_OWN_WORKPLANS));
+            form.setEnabled(MyUI.get().isPermitted(Roles.APP_COCACALC_OWNREPORT_READ));
             form.setBeanItem(new BeanItem(item));
 
             //<editor-fold defaultstate="collapsed" desc="Create Panels With Trees">

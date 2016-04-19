@@ -3,43 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package test;
 
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.authz.annotation.RequiresRoles;
-import org.apache.shiro.subject.Subject;
-import org.dobrivoje.auth.IntermolADAccessControl;
 import org.dobrivoje.auth.IAccessAuthControl;
+import org.dobrivoje.auth.IntermolADAccessControl;
 import org.dobrivoje.auth.roles.Roles;
+import org.junit.Test;
 
 /**
  *
- * @author Dobri
+ * @author root
  */
-public class testKlasa {
+public class JUnitTest_Auth {
 
-    //<editor-fold defaultstate="collapsed" desc="decorated">
-    @RequiresAuthentication()
-    private static void testAutentifikacije(Subject subject) {
-        System.err.println("testAutentifikacije, Subjekat " + subject.getPrincipal() + ", autentifikovan !");
-    }
-
-    @RequiresPermissions(Roles.R_MF_ROOTPRIVILEGES)
-    private static void testDozovle1(Subject subject) {
-        System.err.println("testDozovle1 Subjekat " + subject.getPrincipal() + ", ima dozovlu za pravo : " + Roles.R_MF_ROOTPRIVILEGES);
-    }
-
-    @RequiresRoles(value = Roles.R_MF_ROOTPRIVILEGES)
-    private static void testDozovle2(Subject subject) {
-        System.err.println("testDozovle2 Subjekat " + subject.getPrincipal() + ", ima ROLE : " + Roles.R_MF_ROOTPRIVILEGES);
-    }
-    //</editor-fold>
-
-    public static void main(String[] args) {
+    @Test
+    public void test_autentifikacija() {
         IAccessAuthControl intermolAD = new IntermolADAccessControl();
 
         try {
@@ -82,7 +62,7 @@ public class testKlasa {
             System.err.println(intermolAD.getPrincipal() + ", " + s + " -> " + intermolAD.isPermitted(s));
         }
 
-        System.err.println(" *** " + intermolAD.getPrincipal() + " has role " + Roles.R_MF_ROOTPRIVILEGES + " -> " + intermolAD.hasRole(Roles.R_MF_ROOTPRIVILEGES));
+        System.err.println(" *** " + intermolAD.getPrincipal() + " -> " + intermolAD.hasRole(Roles.R_MF_FS_USER));
 
         System.err.println("--------------SESSIONS------------------------");
         intermolAD.login("ws", "");

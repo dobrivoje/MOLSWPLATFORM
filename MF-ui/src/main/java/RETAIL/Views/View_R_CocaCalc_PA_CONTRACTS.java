@@ -110,7 +110,7 @@ public class View_R_CocaCalc_PA_CONTRACTS extends VerticalLayout implements View
     private void openProperties(Ugovor item) {
         if (item != null) {
             HL.setSplitPosition(50, Sizeable.Unit.PERCENTAGE);
-            form.setEnabled(MyUI.get().isPermitted(Roles.PERMISSION_APP_FS_USER_EDIT_OWN_WORKPLANS));
+            form.setEnabled(MyUI.get().isPermitted(Roles.APP_COCACALC_MAINTENENCE));
             form.setBeanItem(new BeanItem(item));
         } else {
             form.setEnabled(false);

@@ -15,8 +15,8 @@ import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.HorizontalSplitPanel;
 import db.HSE.ent.WorkPlan;
-import org.dobrivoje.auth.roles.Roles;
 import Main.MyUI;
+import org.dobrivoje.auth.roles.Roles;
 
 public class View_HSE_WorkPlan extends VerticalLayout implements View {
 
@@ -112,7 +112,7 @@ public class View_HSE_WorkPlan extends VerticalLayout implements View {
     private void openProperties(WorkPlan item) {
         if (item != null) {
             HL.setSplitPosition(40, Unit.PERCENTAGE);
-            form.setEnabled(MyUI.get().isPermitted(Roles.PERMISSION_APP_FS_USER_EDIT_OWN_WORKPLANS));
+            form.setEnabled(MyUI.get().isPermitted(Roles.P_MF_HSE_FS_USER_OWNWP_EDIT));
             form.setBeanItem(new BeanItem(item));
         } else {
             form.setEnabled(false);

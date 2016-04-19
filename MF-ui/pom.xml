@@ -31,11 +31,6 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>AUTH</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
             <artifactId>DATASERVICE</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -53,6 +48,11 @@
             <groupId>com.github.dobrivoje</groupId>
             <artifactId>utils</artifactId>
             <version>1.5</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>auth-mf</artifactId>
+            <version>1.1</version>
         </dependency>
     </dependencies>
 
