@@ -60,10 +60,10 @@ public class Tree_R_FSUgovor extends CustomObjectTree<FS> {
                     wf = new WindowForm3(
                             "Contracts Data Form",
                             crudForm,
-                            "img/contract.png",
-                            "Save",
-                            crudForm.getClickListener(),
-                            winFormImgHeight, winFormImgWidth, false
+                            495, 700, Unit.PIXELS,
+                            "img/contract.png", "Save",
+                            crudForm.getClickListener(), winFormImgHeight, winFormImgWidth,
+                            false
                     );
                 }
 

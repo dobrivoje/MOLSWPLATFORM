@@ -56,10 +56,10 @@ public class Tree_R_PartnerUgovor extends CustomObjectTree<Partner> {
                             new WindowForm3(
                                     winFormCaption,
                                     crudForm,
-                                    winFormImagePath,
-                                    "Save",
-                                    crudForm.getClickListener(),
-                                    winFormImgHeight, winFormImgWidth, readOnly
+                                    495, 700, Unit.PIXELS,
+                                    winFormImagePath, "Save",
+                                    crudForm.getClickListener(), winFormImgHeight, winFormImgWidth,
+                                    readOnly
                             )
                     );
                 }

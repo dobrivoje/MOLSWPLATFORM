@@ -78,7 +78,7 @@ public class Tree_R_FSPerformance extends CustomObjectTree<ReportDetails> {
                                         criteria,
                                         rd
                                 ),
-                                68, 55, Unit.PERCENTAGE
+                                500, 810, Unit.PIXELS
                         )
                 );
             }
