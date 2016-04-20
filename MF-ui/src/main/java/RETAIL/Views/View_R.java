@@ -1,5 +1,6 @@
 package RETAIL.Views;
 
+import Main.MyUI;
 import RETAIL.Trees.Tree_R_FSUgovor;
 import static Uni.MainMenu.MenuDefinitions.RETAIL_COCACALC;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -12,6 +13,7 @@ import java.util.List;
 import static Main.MyUI.DS_RETAIL;
 import com.vaadin.server.Sizeable.Unit;
 import java.util.Arrays;
+import org.dobrivoje.auth.roles.Roles;
 import org.superbapps.utils.vaadin.Exceptions.CustomTreeNodesEmptyException;
 import org.superbapps.utils.vaadin.Views.View_Dashboard;
 
@@ -60,7 +62,7 @@ public class View_R extends View_Dashboard {
                         createPanelComponent(
                                 fs.toString(),
                                 Arrays.asList(
-                                        new Panel(new Tree_R_FSUgovor(fs, true))
+                                        new Panel(new Tree_R_FSUgovor(fs, true, !MyUI.get().isPermitted(Roles.APP_COCACALC_MAINTENENCE)))
                                 ), true
                         )
                 );

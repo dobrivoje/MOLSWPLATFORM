@@ -26,6 +26,10 @@ import org.superbapps.utils.vaadin.Trees.CustomObjectTree;
 public class Tree_R_FSUgovor extends CustomObjectTree<FS> {
 
     public Tree_R_FSUgovor(FS fs, boolean expandRootNodes) throws CustomTreeNodesEmptyException {
+        this(fs, expandRootNodes, true);
+    }
+
+    public Tree_R_FSUgovor(FS fs, boolean expandRootNodes, boolean readOnly) throws CustomTreeNodesEmptyException {
         super(Arrays.asList(fs), expandRootNodes);
 
         //<editor-fold defaultstate="collapsed" desc="addItemClickListener">
@@ -34,7 +38,7 @@ public class Tree_R_FSUgovor extends CustomObjectTree<FS> {
                 WindowForm3 wf = null;
 
                 if (event.getItemId() instanceof FS) {
-                    crudForm = new Form_R_FS(new BeanItem(event.getItemId()), false, null);
+                    crudForm = new Form_R_FS(new BeanItem(event.getItemId()), false, null, readOnly);
 
                     winFormImgHeight = 200;
                     winFormImgWidth = 235;
@@ -46,13 +50,13 @@ public class Tree_R_FSUgovor extends CustomObjectTree<FS> {
                             "img/partner1.png",
                             "Save",
                             crudForm.getClickListener(),
-                            winFormImgHeight, winFormImgWidth, false
+                            winFormImgHeight, winFormImgWidth, readOnly
                     );
 
                 }
 
                 if (event.getItemId() instanceof Ugovor) {
-                    crudForm = new Form_R_UGOVOR(new BeanItem(event.getItemId()), false, null);
+                    crudForm = new Form_R_UGOVOR(new BeanItem(event.getItemId()), false, null, readOnly);
 
                     winFormImgHeight = 225;
                     winFormImgWidth = 225;
@@ -63,7 +67,7 @@ public class Tree_R_FSUgovor extends CustomObjectTree<FS> {
                             495, 700, Unit.PIXELS,
                             "img/contract.png", "Save",
                             crudForm.getClickListener(), winFormImgHeight, winFormImgWidth,
-                            false
+                            readOnly
                     );
                 }
 

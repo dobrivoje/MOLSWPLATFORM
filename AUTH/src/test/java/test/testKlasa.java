@@ -43,8 +43,8 @@ public class testKlasa {
         IAccessAuthControl intermolAD = new IntermolADAccessControl();
 
         try {
-            intermolAD.login("intermol\\dprtenjak", "dedaMoca4");
-            //intermolAD.login("ws", "");
+            //intermolAD.login("intermol\\dprtenjak", "");
+            intermolAD.login("ws", "");
 
             System.err.println(intermolAD.getPrincipal() + " isAuthenticated ? " + intermolAD.authenticated());
 

@@ -15,8 +15,9 @@ import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import static org.superbapps.utils.common.Enums.CrudOperations.BUTTON_CAPTION_UPDATE;
 import org.superbapps.utils.vaadin.Forms.Form_CRUD2;
 import org.superbapps.utils.vaadin.Tables.IRefreshVisualContainer;
+import org.superbapps.utils.vaadin.Trees.ILayoutLockable;
 
-public class Form_R_FS extends Form_CRUD2<FS> {
+public class Form_R_FS extends Form_CRUD2<FS> implements ILayoutLockable {
 
     //<editor-fold defaultstate="collapsed" desc="Form Fields">
     @PropertyId("naziv")
@@ -77,6 +78,14 @@ public class Form_R_FS extends Form_CRUD2<FS> {
         addBeansToForm();
     }
 
+    
+    public Form_R_FS(Item existingItem, boolean defaultCRUDButtonOnForm, final IRefreshVisualContainer visualContainer, boolean readOnly) {
+        this(existingItem, defaultCRUDButtonOnForm, visualContainer);
+        
+        setLayoutFieldsLocked(readOnly);
+    }
+
+    
     //<editor-fold defaultstate="collapsed" desc="overided methods,...">
     @Override
     protected final void setBeanFromFields(FS item) {
@@ -130,5 +139,13 @@ public class Form_R_FS extends Form_CRUD2<FS> {
         }
     }
     //</editor-fold>
+
+    @Override
+    public final void setLayoutFieldsLocked(final boolean readOnly) {
+
+        fieldGroup.getFields().stream().forEach(f -> {
+            f.setEnabled(!readOnly);
+        });
+    }
 
 }

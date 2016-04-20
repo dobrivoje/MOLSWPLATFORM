@@ -19,8 +19,9 @@ import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import static org.superbapps.utils.common.Enums.CrudOperations.BUTTON_CAPTION_UPDATE;
 import org.superbapps.utils.vaadin.Forms.Form_CRUD2;
 import org.superbapps.utils.vaadin.Tables.IRefreshVisualContainer;
+import org.superbapps.utils.vaadin.Trees.ILayoutLockable;
 
-public class Form_R_UGOVOR extends Form_CRUD2<Ugovor> {
+public class Form_R_UGOVOR extends Form_CRUD2<Ugovor> implements ILayoutLockable {
 
     //<editor-fold defaultstate="collapsed" desc="Form Fields">
     @PropertyId("brojUgovora")
@@ -91,6 +92,12 @@ public class Form_R_UGOVOR extends Form_CRUD2<Ugovor> {
         };
 
         addBeansToForm();
+    }
+
+    public Form_R_UGOVOR(Item existingItem, boolean defaultCRUDButtonOnForm, final IRefreshVisualContainer visualContainer, boolean readOnly) {
+        this(existingItem, defaultCRUDButtonOnForm, visualContainer);
+
+        setLayoutFieldsLocked(readOnly);
     }
 
     //<editor-fold defaultstate="collapsed" desc="overided methods,...">
@@ -199,5 +206,13 @@ public class Form_R_UGOVOR extends Form_CRUD2<Ugovor> {
         }
     }
     //</editor-fold>
+
+    @Override
+    public final void setLayoutFieldsLocked(final boolean readOnly) {
+
+        fieldGroup.getFields().stream().forEach(f -> {
+            f.setEnabled(!readOnly);
+        });
+    }
 
 }

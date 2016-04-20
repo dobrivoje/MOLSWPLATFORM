@@ -14,55 +14,56 @@ import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import static org.superbapps.utils.common.Enums.CrudOperations.BUTTON_CAPTION_UPDATE;
 import org.superbapps.utils.vaadin.Forms.Form_CRUD2;
 import org.superbapps.utils.vaadin.Tables.IRefreshVisualContainer;
+import org.superbapps.utils.vaadin.Trees.ILayoutLockable;
 
-public class Form_R_PARTNER extends Form_CRUD2<Partner> {
+public class Form_R_PARTNER extends Form_CRUD2<Partner> implements ILayoutLockable {
 
     //<editor-fold defaultstate="collapsed" desc="Form Fields">
     @PropertyId("naziv")
     private final TextField naziv = new TextField("Partner Rep.");
-
+    
     @PropertyId("kompanija")
     private final TextField kompanija = new TextField("Partner's firm");
-
+    
     @PropertyId("matBroj")
     private final TextField matBroj = new TextField("Partner's Matični Broj");
-
+    
     @PropertyId("type")
     private final TextField type = new TextField("Partner's Type");
-
+    
     @PropertyId("partnerPhoneNo")
     private final TextField partnerPhoneNo = new TextField("Partner's Phone No.");
-
+    
     @PropertyId("bsPhoneNo")
     private final TextField bsPhoneNo = new TextField("BS's Phone No.");
-
+    
     @PropertyId("mgrEmail")
     private final TextField mgrEmail = new TextField("Manager's Email");
-
+    
     @PropertyId("privateEmail")
     private final TextField privateEmail = new TextField("Private Email");
-
+    
     @PropertyId("accessDataDelivery")
     private final TextField accessDataDelivery = new TextField("Access Data Delivery");
     //</editor-fold>
 
     public Form_R_PARTNER() {
         super(new BeanFieldGroup(Partner.class));
-
+        
         fieldGroup.bindMemberFields(this);
         setFormFieldsWidths(250, Unit.PIXELS);
-
+        
         initFields();
     }
-
+    
     public Form_R_PARTNER(Item existingItem, boolean defaultCRUDButtonOnForm, final IRefreshVisualContainer visualContainer) {
         this();
-
+        
         this.defaultCRUDButtonOnForm = defaultCRUDButtonOnForm;
-
+        
         fieldGroup.setItemDataSource(existingItem);
         beanItem = (BeanItem<Partner>) fieldGroup.getItemDataSource();
-
+        
         btnCaption = BUTTON_CAPTION_UPDATE.toString();
         clickListener = (Button.ClickEvent event) -> {
             Partner itemToUpdate = beanItem.getBean();
@@ -70,25 +71,31 @@ public class Form_R_PARTNER extends Form_CRUD2<Partner> {
 
             try {
                 fieldGroup.commit();
-
+                
                 DS_RETAIL.getASC_Partner_C().update(itemToUpdate);
                 if (visualContainer != null) {
                     visualContainer.refreshVisualContainer();
                 }
-
+                
                 Notification n = new Notification("Item Updated.", Notification.Type.TRAY_NOTIFICATION);
-
+                
                 n.setDelayMsec(500);
                 n.show(getUI().getPage());
-
+                
             } catch (FieldGroup.CommitException ex) {
                 Notification.show("Error", "Fields indicated by red stars, must be provided.", Notification.Type.ERROR_MESSAGE);
             } catch (Exception ex) {
                 Notification.show("Error", ex.getMessage(), Notification.Type.ERROR_MESSAGE);
             }
         };
-
+        
         addBeansToForm();
+    }
+    
+    public Form_R_PARTNER(Item existingItem, boolean defaultCRUDButtonOnForm, final IRefreshVisualContainer visualContainer, boolean readOnly) {
+        this(existingItem, defaultCRUDButtonOnForm, visualContainer);
+        
+        setLayoutFieldsLocked(readOnly);
     }
 
     //<editor-fold defaultstate="collapsed" desc="overided methods,...">
@@ -104,25 +111,25 @@ public class Form_R_PARTNER extends Form_CRUD2<Partner> {
         item.setPrivateEmail(privateEmail.getValue());
         item.setAccessDataDelivery(accessDataDelivery.getValue());
     }
-
+    
     @Override
     protected final void initFields() {
         crudButton.setWidth(250, Unit.PIXELS);
-
+        
         setRequiredFields();
     }
-
+    
     @Override
     protected void setRequiredFields() {
         naziv.setRequired(true);
         naziv.setRequiredError("Must be entered !");
     }
-
+    
     @Override
     protected void updateDynamicFields() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
+    
     @Override
     public void setFieldsFromBean(Partner item) {
         item.setNaziv(naziv.getValue());
@@ -137,4 +144,11 @@ public class Form_R_PARTNER extends Form_CRUD2<Partner> {
     }
     //</editor-fold>
 
+    @Override
+    public final void setLayoutFieldsLocked(boolean readOnly) {
+        fieldGroup.getFields().stream().forEach(f -> {
+            f.setEnabled(!readOnly);
+        });
+    }
+    
 }

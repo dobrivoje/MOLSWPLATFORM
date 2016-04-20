@@ -34,7 +34,7 @@ public class Tree_R_PartnerUgovor extends CustomObjectTree<Partner> {
             if (event.isDoubleClick()) {
 
                 if (event.getItemId() instanceof Partner) {
-                    crudForm = new Form_R_PARTNER(new BeanItem(event.getItemId()), false, null);
+                    crudForm = new Form_R_PARTNER(new BeanItem(event.getItemId()), false, null, readOnly);
 
                     winFormCaption = "Partner Data Form";
                     winFormImagePath = "img/partner3.png";
@@ -42,7 +42,7 @@ public class Tree_R_PartnerUgovor extends CustomObjectTree<Partner> {
                     winFormImgWidth = 208;
                     winFormImgHeight = 250;
                 } else if (event.getItemId() instanceof Ugovor) {
-                    crudForm = new Form_R_UGOVOR(new BeanItem(event.getItemId()), false, null);
+                    crudForm = new Form_R_UGOVOR(new BeanItem(event.getItemId()), false, null, readOnly);
 
                     winFormCaption = "Contract Data Form";
                     winFormImagePath = "img/contract.png";
