@@ -58,13 +58,11 @@ public class View_R extends View_Dashboard {
              */
 
             try {
-                C.add(
-                        createPanelComponent(
-                                fs.toString(),
-                                Arrays.asList(
-                                        new Panel(new Tree_R_FSUgovor(fs, true, !MyUI.get().isPermitted(Roles.APP_COCACALC_MAINTENENCE)))
-                                ), true
-                        )
+                C.add(createPanelComponent(
+                        fs.toString(),
+                        Arrays.asList(new Panel(new Tree_R_FSUgovor(fs, true, !MyUI.get().isPermitted(Roles.APP_COCACALC_MAINTENENCE)))
+                        ), true
+                )
                 );
 
             } catch (CustomTreeNodesEmptyException ex) {

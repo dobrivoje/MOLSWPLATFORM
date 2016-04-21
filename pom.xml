@@ -123,7 +123,6 @@
     </repositories>
     <modules>
         <module>MF-ui</module>
-        <module>AUTH</module>
         <module>MF-production</module>
         <module>MF-widgetset</module>
         <module>DB_HSE</module>

@@ -64,7 +64,7 @@ public class MyUI extends UI {
         return accessControl;
     }
 
-    public boolean isPermitted(String permission) {
+    public boolean isPermitted(Enum permission) {
         return accessControl.isPermitted(permission);
     }
     //</editor-fold>

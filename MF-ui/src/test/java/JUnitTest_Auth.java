@@ -23,14 +23,14 @@ public class JUnitTest_Auth {
         IAccessAuthControl intermolAD = new IntermolADAccessControl();
 
         try {
-            intermolAD.login("intermol\\dprtenjak", "dedaMoca4");
-            //intermolAD.login("ws", "");
+            //intermolAD.login("intermol\\dprtenjak", "");
+            intermolAD.login("ws", "");
 
             System.err.println(intermolAD.getPrincipal() + " isAuthenticated ? " + intermolAD.authenticated());
 
-            System.err.println("-----------------Roles--------------------------");
+            System.err.println("-----------------MF Roles--------------------------");
 
-            for (String r : Roles.getAllRoles()) {
+            for (Roles r : Roles.getApp_MF_Roles()) {
                 if (intermolAD.hasRole(r)) {
                     System.err.println(intermolAD.getPrincipal() + " HAS ROLE : " + r);
                 } else {
@@ -38,14 +38,20 @@ public class JUnitTest_Auth {
                 }
             }
 
-            System.err.println("--------------Permissions------------------------");
+            System.err.println("--------------MF Permissions------------------------");
 
-            for (String p : Roles.getAllPermissions()) {
+            for (Roles p : Roles.getApp_MF_Permissions()) {
                 if (intermolAD.isPermitted(p)) {
                     System.err.println(intermolAD.getPrincipal() + " IS permitted : " + p);
                 } else {
                     System.err.println(intermolAD.getPrincipal() + " is NOT permitted : " + p);
                 }
+            }
+
+            System.err.println("--------------WS Permissions------------------------");
+
+            for (Roles s : Roles.getApp_WS_Permissions()) {
+                System.err.println(intermolAD.getPrincipal() + ", " + s + " -> " + intermolAD.isPermitted(s));
             }
 
         } catch (UnknownAccountException e) {
@@ -54,12 +60,6 @@ public class JUnitTest_Auth {
             System.err.println("IncorrectCredentials !");
         } catch (ExcessiveAttemptsException e) {
             System.err.println("ExcessiveAttempts !");
-        }
-
-        System.err.println("--------------Permissions------------------------");
-
-        for (String s : Roles.getAllPermissions()) {
-            System.err.println(intermolAD.getPrincipal() + ", " + s + " -> " + intermolAD.isPermitted(s));
         }
 
         System.err.println(" *** " + intermolAD.getPrincipal() + " -> " + intermolAD.hasRole(Roles.R_MF_FS_USER));
