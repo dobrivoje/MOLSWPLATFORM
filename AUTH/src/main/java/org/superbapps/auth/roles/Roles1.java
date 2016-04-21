@@ -20,11 +20,11 @@ public enum Roles1 {
     // GENERAL MF
     //
     R_MF_ROOTPRIVILEGES("R_MF_RootPrivileges"),
-    R_MF_LOGIN("R_MF_Login"),
-    R_MF_RETAIL_BACKOFFICE_MANAGER("R_MF_Retail_BackOffice_Manager"),
-    R_MF_RETAIL_BACKOFFICE_USER("R_MF_Retail_BackOffice_User"),
-    R_MF_FS_USER("R_MF_FS_User"),
-    R_MF_HSE_USER("R_MF_HSE_FS_User"),
+    R_MF_LOGIN("R_MF_LOGIN"),
+    R_MF_RETAIL_BACKOFFICE_MANAGER("R_MF_RETAIL_BACKOFFICE_MANAGER"),
+    R_MF_RETAIL_BACKOFFICE_USER("R_MF_RETAIL_BACKOFFICE_USER"),
+    R_MF_FS_USER("R_MF_FS_USER"),
+    R_MF_HSE_USER("R_MF_HSE_USER"),
     //
     // COCA CALC APP
     //
@@ -33,14 +33,16 @@ public enum Roles1 {
     //
     // PERMISSIONS RETAIL
     //
-    P_MF_RETAIL_BACKOFFICE_USER_REPORT_READ("R_MF_Retail_BackOffice_User:report:read"),
-    P_MF_RETAIL_BACKOFFICE_USER_REPORT_GENERATE("R_MF_Retail_BackOffice_User:report:generate"),
+    P_MF_RETAIL_BACKOFFICE_USER_REPORT_READ("p_mf:retail:backoffice:user:report:read"),
+    P_MF_RETAIL_BACKOFFICE_USER_REPORT_GENERATE("p_mf:retail:backoffice:user:report:generate"),
+    P_MF_FS_REPORT_SPEC("p_mf:fs:user:reports:specifikacija"),
+    P_MF_FS_REPORT_OBRACUN("p_mf:fs:user:reports:obracun"),
     //
     // PERMISSIONS HSE
     //
-    P_MF_HSE_FS_USER_OWNWP_EDIT("R_MF_HSE_FS_User:wp:own:edit"),
-    P_MF_HSE_FS_USER_OWNWP_SEARCH("R_MF_HSE_FS_User:wp:own:search"),
-    P_MF_HSE_FS_USER_ALLWP_SEARCH("R_MF_HSE_FS_User:wp:all:search"),
+    P_MF_HSE_FS_USER_OWNWP_EDIT("p_mf:hse:user:wp:own:edit"),
+    P_MF_HSE_FS_USER_OWNWP_SEARCH("p_mf:hse:user:wp:own:search"),
+    P_MF_HSE_FS_USER_ALLWP_SEARCH("p_mf:hse:fs:user:wp:all:search"),
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="WS">

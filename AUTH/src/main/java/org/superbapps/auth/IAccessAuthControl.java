@@ -17,7 +17,11 @@ public interface IAccessAuthControl {
 
     boolean hasRole(String role);
 
+    boolean hasRole(Enum role);
+
     boolean isPermitted(String permission);
+
+    boolean isPermitted(Enum permission);
 
     String getPrincipal();
 

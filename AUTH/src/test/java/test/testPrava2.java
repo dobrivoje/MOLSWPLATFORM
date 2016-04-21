@@ -37,20 +37,28 @@ public class testPrava2 {
             System.err.println("-----------------Roles--------------------------");
 
             for (Roles1 r : Roles1.values()) {
-                if (IAC.hasRole(r.toString())) {
+                if (IAC.hasRole(r)) {
                     System.err.println(IAC.getPrincipal() + " HAS ROLE : " + r);
                 }
             }
 
-            System.err.println("--------------Permissions------------------------");
-
+            System.err.println("--------------WS Permissions------------------------");
             System.err.println("P: " + Roles1.getApp_WS_Permissions());
 
-            if (IAC.isPermitted(Roles1.P_WS_CARDS_READ.toString())) {
-                System.err.println("HAS Role : " + Roles1.P_WS_CARDS_READ);
-            } else {
-                System.err.println("Has NOT Role : " + Roles1.P_WS_CARDS_READ.name());
-                System.err.println("Has NOT Role : " + Roles1.P_WS_CARDS_READ.toString());
+            if (IAC.isPermitted(Roles1.P_WS_CARDS_READ)) {
+                System.err.println("HAS permission : " + Roles1.P_WS_CARDS_READ);
+            }
+            if (IAC.isPermitted(Roles1.P_MF_HSE_FS_USER_ALLWP_SEARCH)) {
+                System.err.println("HAS permission : " + Roles1.P_MF_HSE_FS_USER_ALLWP_SEARCH);
+            }
+            if (IAC.isPermitted(Roles1.P_MF_RETAIL_BACKOFFICE_USER_REPORT_GENERATE)) {
+                System.err.println("HAS permission : " + Roles1.P_MF_RETAIL_BACKOFFICE_USER_REPORT_GENERATE);
+            }
+            if (IAC.isPermitted(Roles1.P_MF_FS_REPORT_SPEC)) {
+                System.err.println("HAS permission : " + Roles1.P_MF_FS_REPORT_SPEC);
+            }
+            if (IAC.isPermitted(Roles1.P_MF_FS_REPORT_OBRACUN)) {
+                System.err.println("HAS permission : " + Roles1.P_MF_FS_REPORT_OBRACUN);
             }
 
         } catch (Exception e) {
