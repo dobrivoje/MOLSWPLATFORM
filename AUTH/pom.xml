@@ -36,5 +36,9 @@
     </properties>
     <groupId>mf</groupId>
     <name>Auth</name>
-    <version>1.1</version>
+    <version>1.2-beta</version>
+    <description>v1.2 - beta - 20.4.2016 - Početak razvoja novog Auth modula koji bi bio univerzalan.
+-Izmena paketa iz org.dobrivoje.auth u org.supperbapps.auth
+-kreiranje novog shiro ini i umesto klase sa rolama i dozvolama, enum-a.
+</description>
 </project>

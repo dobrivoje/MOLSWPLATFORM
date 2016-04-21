@@ -1,4 +1,4 @@
-package org.dobrivoje.auth;
+package org.superbapps.auth;
 
 public class IntermolADAccessControl extends ShiroAccessControl {
 

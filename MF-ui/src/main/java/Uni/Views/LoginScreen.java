@@ -1,6 +1,6 @@
 package Uni.Views;
 
-import org.dobrivoje.auth.IAccessAuthControl;
+import org.superbapps.auth.IAccessAuthControl;
 import java.io.Serializable;
 
 import com.vaadin.event.ShortcutAction;

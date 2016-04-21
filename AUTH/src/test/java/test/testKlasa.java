@@ -12,9 +12,9 @@ import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
-import org.dobrivoje.auth.IntermolADAccessControl;
-import org.dobrivoje.auth.IAccessAuthControl;
-import org.dobrivoje.auth.roles.Roles;
+import org.superbapps.auth.IntermolADAccessControl;
+import org.superbapps.auth.IAccessAuthControl;
+import org.superbapps.auth.roles.Roles;
 
 /**
  *

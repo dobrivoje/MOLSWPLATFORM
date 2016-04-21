@@ -7,9 +7,9 @@
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
-import org.dobrivoje.auth.IAccessAuthControl;
-import org.dobrivoje.auth.IntermolADAccessControl;
-import org.dobrivoje.auth.roles.Roles;
+import org.superbapps.auth.IAccessAuthControl;
+import org.superbapps.auth.IntermolADAccessControl;
+import org.superbapps.auth.roles.Roles;
 import org.junit.Test;
 
 /**

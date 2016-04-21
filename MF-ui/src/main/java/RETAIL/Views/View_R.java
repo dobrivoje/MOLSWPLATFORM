@@ -13,7 +13,7 @@ import java.util.List;
 import static Main.MyUI.DS_RETAIL;
 import com.vaadin.server.Sizeable.Unit;
 import java.util.Arrays;
-import org.dobrivoje.auth.roles.Roles;
+import org.superbapps.auth.roles.Roles;
 import org.superbapps.utils.vaadin.Exceptions.CustomTreeNodesEmptyException;
 import org.superbapps.utils.vaadin.Views.View_Dashboard;
 

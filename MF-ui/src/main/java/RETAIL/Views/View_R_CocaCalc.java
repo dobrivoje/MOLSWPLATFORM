@@ -24,7 +24,7 @@ import db.retail.ent.criteria.OS_Search;
 import java.util.Date;
 import Main.MyUI;
 import static Main.MyUI.SYSTEM_DATE_FORMAT;
-import org.dobrivoje.auth.roles.Roles;
+import org.superbapps.auth.roles.Roles;
 import org.superbapps.utils.common.dates.Dates;
 import org.superbapps.utils.vaadin.Exceptions.CustomTreeNodesEmptyException;
 

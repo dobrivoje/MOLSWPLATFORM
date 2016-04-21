@@ -15,7 +15,7 @@ import com.vaadin.ui.UI;
 import dataservice.DataService;
 import db.HSE.dataservice.DataService_HSE;
 import db.retail.dataservice.DataService_RETAIL;
-import org.dobrivoje.auth.IAccessAuthControl;
+import org.superbapps.auth.IAccessAuthControl;
 import org.superbapps.utils.common.Enums.ServletOperations;
 import org.superbapps.utils.common.dates.formats.DateFormat;
 

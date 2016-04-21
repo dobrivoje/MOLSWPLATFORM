@@ -1,4 +1,4 @@
-package org.dobrivoje.auth;
+package org.superbapps.auth;
 
 import java.io.Serializable;
 import java.util.Set;

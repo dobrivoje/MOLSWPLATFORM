@@ -17,7 +17,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import db.retail.ent.Partner;
 import Main.MyUI;
-import org.dobrivoje.auth.roles.Roles;
+import org.superbapps.auth.roles.Roles;
 import org.superbapps.utils.vaadin.Exceptions.CustomTreeNodesEmptyException;
 
 public class View_R_CocaCalc_PARTNERS extends VerticalLayout implements View {
